@@ -1,0 +1,146 @@
+<div id="Display-dialog-{{panelID}}" class="mainCntnr">
+  <div class="custom-modal-header" mat-dialog-title>{{'PANEL_HEADER_DISPLAY' | translate}}</div>
+  <div mat-dialog-content class="displayMenu">
+    <div>
+      <div id="display-planogram-{{panelID}}" *ngIf="displayView === 'panelView'">
+        <div class="row">
+          <div class="col s12 m6 l4" id="zoom-mode-{{panelID}}">
+            <mat-card class="example-card">
+              <mat-card-title>
+                <h6>{{'PANAL_CONTEXT_DISPLAY_MENU_ZOOM' | translate}}</h6>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-radio-group aria-label="Select an option" class="example-radio-group" fxLayout="column"
+                  (change)="changeZoom($event)" [(ngModel)]="display.zoom">
+                  <mat-radio-button [value]="0">
+                    {{'PANAL_CONTEXT_DISPLAY_MENU_LEAVE' | translate}}
+                  </mat-radio-button>
+                  <mat-radio-button [value]="3">
+                    {{'PANEL_CONTEXT_DISPLAY_MENU_HEIGHT' | translate}} <span class="shortcuts-font-size">(R)</span>
+                  </mat-radio-button>
+                  <mat-radio-button [value]="1">
+                    {{'PANAL_CONTEXT_DISPLAY_MENU_FIT' | translate}}<span class="shortcuts-font-size">(Ctrl+R)</span>
+                  </mat-radio-button>
+                  <div class="leftPadding">
+                    <mat-checkbox [(ngModel)]="forSectionLength" (ngModelChange)="sectionlength()">
+                      {{'PANAL_CONTEXT_DISPLAY_MENU_SECTION_LENGTH' | translate}}
+                    </mat-checkbox>
+                  </div>
+                  <mat-radio-button [value]="2">
+                    {{'PANAL_CONTEXT_DISPLAY_MENU_CENTER' | translate}}<span
+                      class="shortcuts-font-size">(Ctrl+Shift+R)</span>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div class="col s12 m6 l3" id="display-mode-{{panelID}}">
+            <mat-card class="example-card">
+              <mat-card-title>
+                <h6>
+                  {{'PANAL_CONTEXT_DISPLAY_MENU_VIEW' | translate}}<span class="shortcuts-font-size">(Ctrl+M)</span>
+                </h6>
+              </mat-card-title>
+              <mat-card-content>
+                <mat-radio-group aria-label="Select an option" class="example-radio-group" [(ngModel)]="display.view"
+                  (change)="changeView($event)">
+                  <mat-radio-button [value]="1">
+                    {{'PANAL_CONTEXT_DISPLAY_MENU_BOX' | translate}}
+                  </mat-radio-button>
+                  <mat-radio-button [value]="2">
+                    {{'SKU' | translate}}
+                  </mat-radio-button>
+                  <mat-radio-button [value]="0">
+                    {{'PANAL_CONTEXT_DISPLAY_MENU_IMAGE' | translate}}
+                  </mat-radio-button>
+
+                </mat-radio-group>
+              </mat-card-content>
+            </mat-card>
+
+          </div>
+          <div class="col s12 m6 l3" id="display-features-{{panelID}}">
+            <mat-card class="example-card">
+              <mat-card-title>
+                <h6>{{'PANAL_CONTEXT_DISPLAY_MENU_SHOW' | translate}}</h6>
+              </mat-card-title>
+              <mat-card-content fxLayout="column">
+                <mat-checkbox (change)='onChange($event)' [(ngModel)]="display.modularView">
+                  {{'PANAL_CONTEXT_DISPLAY_MENU_MODULARS' | translate}}<span class="shortcuts-font-size">
+                    (Ctrl+B)
+                  </span>
+                </mat-checkbox>
+                <mat-checkbox [(ngModel)]="display.grillView" (change)='onGrillChange($event)'>
+                  {{'PANAL_CONTEXT_DISPLAY_MENU_GRILLS' | translate}}<span class="shortcuts-font-size">
+                    (Ctrl+G)
+                  </span>
+                </mat-checkbox>
+                <mat-checkbox [(ngModel)]="display.annotationOn" [disabled]="true"
+                  (change)="annotationViewChange($event)"  [checked]="display.annotationView !== 0">
+                  {{'ANNOTATION' | translate}}<span class="shortcuts-font-size">(Ctrl+D)</span>
+                </mat-checkbox>
+
+                <mat-radio-group aria-label="Select an option" class="example2-radio-group"
+                  [(ngModel)]="display.annotationView">
+                  <mat-radio-button [value]="0">{{'NONE' | translate}}</mat-radio-button>
+                  <mat-radio-button [value]="1">{{'TEXT_AND_IMAGES' | translate}}</mat-radio-button>
+                  <mat-radio-button [value]="2">{{'TEXT' | translate}}</mat-radio-button>
+                  <mat-radio-button [value]="3">{{'IMAGES' | translate}}</mat-radio-button>
+                </mat-radio-group>
+                <mat-checkbox [(ngModel)]="display.itemScanning">{{'ITEM_SCANNING' | translate}}<span class="shortcuts-font-size" style="color:lightgray;">(Ctrl+K)</span></mat-checkbox>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <div id="display-sheet-{{panelID}}" *ngIf="displayView === 'positionWS'">
+        <div class="row">
+          <div class="col s12 m6 l12" id="display-features-{{panelID}}">
+            <mat-card class="example-card">
+              <h6>{{'PANAL_CONTEXT_DISPLAY_MENU_OPTIONS' | translate}}</h6>
+              <mat-checkbox [(ngModel)]="display.shwShelfsItms"> {{'PANAL_CONTEXT_DISPLAY_MENU_SHOW_SHELF_ITEMS' |
+                translate}}</mat-checkbox><br />
+              <mat-checkbox [(ngModel)]="display.shwShpgCartItems">
+                {{'PANAL_CONTEXT_DISPLAY_MENU_SHOW_SHOPPING_CART_ITEMS' | translate}}</mat-checkbox>
+              <br />
+              <br />
+              <h6>{{'PANAL_CONTEXT_DISPLAY_MENU_DISPLAY_TEMPLATES' | translate}}: </h6>
+
+              <mat-select *ngIf="isReady_templateWorksheetSettings" [(ngModel)]="display.customSheetSelection">
+                <mat-option *ngFor="let o of customSheets" [value]="o">
+                  {{o}}
+                </mat-option>
+              </mat-select>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+      <div id="display-sheet-{{panelID}}" *ngIf="displayView === 'itemWS'" style="overflow: hidden">
+        <div class="row">
+          <div class="col s12 m6 l12" id="display-features-{{panelID}}">
+            <h6>{{'PANAL_CONTEXT_DISPLAY_MENU_OPTIONS' | translate }}</h6>
+            <mat-checkbox [(ngModel)]="display.shwShpgCartItems" [checked]="display.shwShpgCartItems">
+              {{'PANAL_CONTEXT_DISPLAY_MENU_SHOW_SHOPPING_CART_ITEMS' | translate}}
+            </mat-checkbox>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end" class="actionsCntnr">
+    <div *ngIf="displayView === 'panelView'">
+      <button mat-raised-button mat-dialog-close>{{'PANEL_HEADER_CANCEL' | translate }}</button>
+      <button mat-raised-button (click)="triggerResetDisplay()">{{'RESET' | translate}}</button>
+      <button mat-raised-button (click)="triggerSaveDisplay($event)">{{'PANEL_HEADER_OK' | translate }}</button>
+    </div>
+    <div *ngIf="displayView === 'positionWS' || displayView === 'itemWS'">
+      <button mat-raised-button mat-dialog-close>{{'PANEL_HEADER_CANCEL' | translate }}</button>
+      <button mat-raised-button mat-dialog-close (click)="triggerSheetSaveDisplay($event)">{{'PANEL_HEADER_OK' |
+        translate }}</button>
+    </div>
+  </div>
+</div>

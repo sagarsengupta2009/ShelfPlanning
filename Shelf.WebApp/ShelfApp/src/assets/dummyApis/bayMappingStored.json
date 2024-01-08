@@ -1,0 +1,1172 @@
+[
+  {
+    "generatedPogId": 1483495,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483496,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483497,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483507,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483511,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483512,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483516,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483522,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483377,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483544,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483547,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483549,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483561,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483562,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483594,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483605,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483611,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483613,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483620,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483633,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483643,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483397,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483404,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483447,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483448,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483454,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483362,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483476,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483370,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  },
+  {
+    "generatedPogId": 1483486,
+    "fixtureConfig": "48x48x48",
+    "depth": 22.0,
+    "width": 144.0,
+    "stores": 1,
+    "bayInfo": [
+      {
+        "bayId": 44,
+        "type": "Bay",
+        "order": 1,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 45,
+        "type": "Bay",
+        "order": 2,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      },
+      {
+        "bayId": 46,
+        "type": "Bay",
+        "order": 3,
+        "height": 72.0,
+        "width": 48.0,
+        "depth": 22.0,
+        "typeCode": "DS"
+      }
+    ],
+    "storeModel": null,
+    "isVerified": false,
+    "isApproved": false
+  }
+]

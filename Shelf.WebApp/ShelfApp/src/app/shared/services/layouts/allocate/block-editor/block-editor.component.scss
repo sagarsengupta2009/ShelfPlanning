@@ -1,0 +1,49 @@
+#blockEditor {
+
+  .create-block {
+    width: 100vh;
+  }
+
+  .edit-block {
+    width: 100%;
+  }
+
+  .column {
+    width: 50%;
+  }
+
+  .row {
+    width: 100%;
+    grid-column: 1;
+  }
+
+  .k-colorpicker {
+    width: 100%;
+
+    .k-selected-color {
+      width: 100%;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  #blockEditor {
+    mat-dialog-content {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .column {
+      width: 80%;
+    }
+
+    .delete-block {
+      margin-left: 15px;
+      float: left;
+    }
+  }
+}

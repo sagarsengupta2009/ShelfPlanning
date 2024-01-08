@@ -1,0 +1,139 @@
+span.right.grey-text{
+    float: right;
+    /* margin-left: 30px; */
+    color: gray;
+  }
+
+
+  ul.right.grey-text{
+    float: right;
+    color: gray;
+  }
+
+  ul.demo {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li.up
+  {
+    margin-top: -10px;
+      margin-left: 80px;
+      color: gray;
+  }
+
+  li.down
+  {
+    margin-top: -27px;
+      margin-left: 80px;
+      color: gray;
+  }
+
+
+  .example-radio-group {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    max-height: calc(100vh - 365px);
+    overflow: auto;
+    padding: 10px;
+    .mat-radio-button {
+      padding: 5px;
+    }
+  }
+
+  .multiSelectButton {
+    margin-right: 10px;
+    font-size: 1.5rem;
+    float: right;
+    border: none;
+    background-color: #d0e9e9;
+  }
+
+  .mat-dialog-content.orientationDialog {
+    height: calc(100% - 35px);
+    overflow: hidden;
+  }
+
+  .orientationList {
+    overflow: auto;
+    height: 300px;
+  }
+
+  .pagination-div {
+    margin-top: 25%;
+    border: 1px solid #d0d0d0;
+    border-radius: 50px;
+    padding: 4px 4px 4px 4px;
+  }
+
+  .pagination-div .left-arrow {
+    font-size: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+  .pagination-div .right-arrow {
+    font-size: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .dialogCloseIcon {
+    font-size: 20px;
+  }
+
+  .box {
+    border: 1px solid #d0d0d0;
+    margin-bottom: 13px;
+    border-bottom: none;
+  }
+
+  .inner-box {
+    border-bottom: 1px solid #d0d0d0;
+    padding: 7px 4px 7px 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .inner-box.default {
+    background-color: #e4e4e2;
+  }
+
+  .inner-box.selected {
+    border: 1px solid #397173;
+  }
+
+  .inner-box.orientation-disabled {
+    opacity: 0.4;
+    pointer-events: none !important;
+  }
+
+  .mat-dialog-content.orientationDialog {
+    height: calc(100% - 35px);
+    overflow: hidden;
+  }
+
+    .btn {
+      overflow: visible;
+      width: auto;
+    }
+
+    .btnlink {
+      font-size: 12px;
+      text-align: left;
+      color: blue;
+      background: none;
+      margin-top: -63px;
+      padding-left: 120px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btnlinkspan {
+      text-decoration: underline;
+    }
+

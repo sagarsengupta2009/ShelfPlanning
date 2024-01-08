@@ -1,0 +1,7 @@
+<mat-dialog-content>
+  <p>{{"SOME_FIXTURES_CHANGED_RESET_BAYMAPPING" | translate }}</p>
+</mat-dialog-content>
+<mat-dialog-actions style="float:right;padding:5px;">
+  <button mat-button (click)="closeDialog(false)">{{'CANCEL'| translate}}</button>
+  <button mat-button (click)="closeDialog(true)" cdkFocusInitial>{{'OK'|translate}}</button>
+</mat-dialog-actions>

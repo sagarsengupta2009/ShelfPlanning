@@ -1,0 +1,84 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start">
+    <h4 mat-dialog-title>{{'GRILLINFO_TITLE' | translate }}
+    </h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close >close</mat-icon>
+    </div>
+</div>
+<div class="grillDialog" mat-dialog-content>
+    <div class="editor-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class='input-cell'>
+                    <div class='input-component-label'>{{ 'GRILLINFO_PLACEMENT' | translate }}</div>
+                    <div class='input-component-body'>
+                        <mat-select id="grill_placement_dropdown" [disabled]="isReadonly"
+                            [(ngModel)]="grill.selectedGrillPlacement" (selectionChange)="grillPlacementSelect()">
+                            <mat-option *ngFor="let option of grillPlacementList" [value]="option.value">
+                                <span>{{option.text}}</span>
+                            </mat-option>
+                        </mat-select>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class='input-cell'>
+                    <div class='input-component-label'>{{'GRILLINFO_THICKNESS' | translate}}</div>
+                    <div class='input-component-body'>
+                        <kendo-numerictextbox class="property-grid-input" [min]="0" [spinners]="false" [(ngModel)]='grill.GrillThickness'
+                            [disabled]="true" (blur)="blurring(grill,'GrillThickness')">
+                        </kendo-numerictextbox>
+                    </div>
+                    <div class='input-component-line'></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class='input-cell'>
+                    <div class='input-component-label'>{{'GRILLINFO_HEIGHT' | translate }}</div>
+                    <div class='input-component-body'>
+                        <kendo-numerictextbox class="property-grid-input" [min]="0" [autoCorrect]="true" [spinners]="false" [(ngModel)]='grill.GrillHeight'
+                            [disabled]="isReadonly" (blur)="blurring(grill,'GrillHeight')">
+                        </kendo-numerictextbox>
+                    </div>
+                    <div class='input-component-line'></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class='input-cell'>
+                    <div class='input-component-label'>{{ 'GRILLINFO_SPACING' | translate }}</div>
+                    <div class='input-component-body'>
+                        <kendo-numerictextbox class="property-grid-input" [min]="0" [autoCorrect]="true" [spinners]="false" [(ngModel)]='grill.GrillSpacing'
+                            [disabled]="isReadonly" (blur)="blurring(grill,'GrillSpacing')">
+                        </kendo-numerictextbox>
+                    </div>
+                    <div class='input-component-line'></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class='input-cell'>
+                    <div class='input-component-label'>{{ 'PART_NUMBER' | translate }}</div>
+                    <div class='input-component-body'>
+                        <input type='text' class="form-control" [disabled]="isReadonly"
+                            [(ngModel)]='grill.grillPartNumber' minlength='0'
+                            (blur)="blurring(grill,'grillPartNumber')">
+                    </div>
+                    <div class='input-component-line'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close > {{'GRILLINFO_CANCEL' | translate}}</button>
+    <button mat-raised-button [disabled]="isReadonly" (click)="applyCustom()">{{'GRILLINFO_APPLY' | translate}}
+    </button>
+</div>

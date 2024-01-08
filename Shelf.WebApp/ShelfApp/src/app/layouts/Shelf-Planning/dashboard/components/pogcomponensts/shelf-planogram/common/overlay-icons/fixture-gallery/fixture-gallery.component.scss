@@ -1,0 +1,75 @@
+// @import '../../../../../../../styles';
+
+
+.spSearch {
+  margin: -5px 5px;
+  border-radius: 23px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+  margin-top: 1px;
+}
+
+.cart-body {
+  height: 100%;
+  overflow: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  position: relative;
+
+  .collection {
+    padding: 0;
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  .collection .collection-item {
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .small-avatar-image {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    height: 100px;
+    //width: 65%;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+
+  li.disabled {
+    cursor: not-allowed;
+    opacity: .7;
+  }
+}
+
+
+.mat-dialog-title {
+  margin: 0 0 5px !important;
+}
+
+.fixture-loading {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-image: url("/Areas/iShelf/images/ajax-loader.gif");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+}
+
+.fixture-red {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-color: red;
+  border-radius: 5px;
+}
+
+.fixture-green {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-color: green;
+  border-radius: 5px;
+}

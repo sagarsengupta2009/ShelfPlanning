@@ -1,0 +1,9 @@
+<div>
+    <button mat-icon-button>
+        <mat-icon [mat-dialog-close]="true">close</mat-icon>
+    </button>
+    <br />
+    <div *ngIf="pegImage">
+        <img [src]="pegImage" [ngClass]="{noImg : !isImageAvailable}">
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<ng-container *ngFor="let item of data$| async; trackBy:trackByFun">
+  <!-- Current component - wrapped within dnd-wrapper -->
+  <app-dnd-wrapper [data]="getDragDropData(item)">
+    <ng-container *ngIf="item.isRenderingAllowed()">
+      <div [ngClass]="[ item.selected ? 'selected-pogobj animating-ant':'', item.ObjectDerivedType]" class="recursiveObj" (contextmenu)="onRightClick($event, item)"
+        (click)="itemclicked(item,$event)" [ngStyle]="styleIt(item)"
+        id="{{ nestedItemKey =='Children-intersection'?item.$id+panelID+'-Children-intersection':item.$id+panelID}}">
+
+        <shelf-shelf-dynamic [panelID]="panelID" [component]="item.ObjectDerivedType + 'Component'"
+          [properties]="{data: item}" [nestedItemKey]="nestedItemKey">
+        </shelf-shelf-dynamic>
+      </div>
+      <ng-container *ngIf="item[nestedItemKey]">
+        <sp-shelf-nested [panelID]="panelID" [id]="item.$id" [items]="item[nestedItemKey]"
+          [nestedItemKey]="nestedItemKey" [offsetX]="getOffsetX(item)" [offsetY]="getOffsetY(item)"
+          [offsetZ]="getOffsetZ(item)">
+        </sp-shelf-nested>
+      </ng-container>
+    </ng-container>
+  </app-dnd-wrapper>
+</ng-container>

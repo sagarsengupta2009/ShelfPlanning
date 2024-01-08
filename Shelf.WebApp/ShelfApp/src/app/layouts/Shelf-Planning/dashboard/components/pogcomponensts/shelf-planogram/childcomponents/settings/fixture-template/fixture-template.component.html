@@ -1,0 +1,111 @@
+<div class="fixtureCntnr">
+  <div fxLayout="row" fxLayoutAlign="space-between start">
+    <ng-container *ngIf="gridConfigData && gridConfigData.id!==''">
+      <label style="position:absolute">{{'LABEL_FILTERS' | translate}}</label>
+      <shelf-ag-grid style="margin-top:20px;width:60%;" #grid [gridConfig]="gridConfigData" (selectedRow)="invokeSelectedRow()">
+      </shelf-ag-grid>
+    </ng-container>
+    <div style="width:38%;margin-left:10px;">
+      <mat-form-field style="width:100%;" appearance="fill">
+        <mat-label>{{'XX_XX18' | translate}}</mat-label>
+        <textarea id="labelExpression" matInput [readonly]="isReadOnly(templateData)"
+                  cdkTextareaAutosize
+                  [(ngModel)]="labelExpression"
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  (change)="getLabelExpArray()"
+                  (mousedown)="$event.stopPropagation();" ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div *ngFor="let child of templateData">
+    <div class="matBodyCntnr" *ngFor="let obj of child.children">
+      <div class="fieldCntnr" [ngStyle]="{'width': obj.fieldObj.KeyName=='USER_DEFAULTS.FIXTLABEL.CROSSBAR_LABEL_DISPLAY'? '40%' : '33%'}" *ngIf="obj.fieldObj.List">
+        <mat-form-field class="inputcntr">
+          <mat-label>{{obj.fieldObj.Name}}</mat-label>
+
+            <mat-select *ngIf="obj.fieldObj.KeyName=='USER_DEFAULTS.FIXTLABEL.FONT_SIZE' || obj.fieldObj.KeyName=='USER_DEFAULTS.POSLABEL.FONT_SIZE'" [(ngModel)]="obj.fieldObj.SelectedValue.value" (selectionChange)="onchange(obj.fieldObj.SelectedValue)">
+              <div class="searchCntnr"  >
+                <input autocomplete="off" [(ngModel)]="filterText"
+                (ngModelChange)="onDataBound(obj.fieldObj.Values,filterText)" [ngModelOptions]="{standalone: true}"
+                placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+              </div>
+              <mat-option  *ngFor="let option of obj.fieldObj.Values | filterPipe:{'col':'text', 'search': filterText}" [value]="option.value">
+                <span>{{option.text}}</span>
+              </mat-option>
+            </mat-select>
+
+          <mat-select  *ngIf="obj.fieldObj.KeyName !=='USER_DEFAULTS.FIXTLABEL.FONT_SIZE' && obj.fieldObj.KeyName!=='USER_DEFAULTS.POSLABEL.FONT_SIZE'"  [(ngModel)]="obj.fieldObj.SelectedValue.value">
+              <mat-option *ngFor="let option of obj.fieldObj.Values" [value]="option.value">
+                <span>{{option.text}}</span>
+              </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="!obj.fieldObj.List" [ngSwitch]="obj.fieldObj.UIType">
+        <div class="fieldCntnr" *ngSwitchCase="'boolean'">
+          <mat-form-field class="explicitLabel_UnderLine inputcntr">
+            <mat-checkbox [(ngModel)]="obj.fieldObj.SelectedValue.value" [disabled]="isCheckDisabled(obj.fieldObj.SelectedValue.KeyName)"></mat-checkbox>
+            <input matInput [placeholder]="obj.fieldObj.SelectedValue.text" value="obj.fieldObj.SelectedValue.value" />
+          </mat-form-field>
+        </div>
+        <div class="fieldCntnr" *ngSwitchCase="'int32'">
+          <mat-form-field class="explicitLabel inputcntr">
+            <input matInput type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value" [placeholder]="obj.fieldObj.SelectedValue.text">
+            <kendo-numerictextbox [disabled]="obj.fieldObj.Readonly" [readonly]="obj.fieldObj.Readonly" class="kNumInput property-grid-input" [format]="'n2'" [(ngModel)]="obj.fieldObj.SelectedValue.value"></kendo-numerictextbox>
+          </mat-form-field>
+        </div>
+        <div class="fieldCntnr" *ngSwitchCase="'double'">
+          <mat-form-field class="explicitLabel inputcntr">
+            <input matInput type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value" [placeholder]="obj.fieldObj.SelectedValue.text">
+            <kendo-numerictextbox [disabled]="obj.fieldObj.Readonly" [readonly]="obj.fieldObj.Readonly" class="kNumInput property-grid-input" [min]="min" [format]="'n2'" [(ngModel)]="obj.fieldObj.SelectedValue.value"></kendo-numerictextbox>
+          </mat-form-field>
+        </div>
+        <div class="fieldCntnr colorPicker_setting" *ngSwitchCase="'Color'">
+          <mat-form-field style="height:65px;" class="explicitLabel inputcntr">
+            <input matInput type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value" [placeholder]="obj.fieldObj.SelectedValue.text">
+            <kendo-colorpicker [format]="'hex'"
+                               [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings"
+                               [(ngModel)]="obj.fieldObj.SelectedValue.value">
+            </kendo-colorpicker>
+          </mat-form-field>
+        </div>
+        <div class="fieldCntnr" *ngSwitchCase="'string'">
+          <mat-form-field *ngIf="obj.fieldObj.Readonly" class="inputcntr">
+            <mat-label>{{obj.fieldObj.SelectedValue.text}}</mat-label>
+            <input matInput autocomplete="off" type="text" [disabled]="'true'" [(ngModel)]="obj.fieldObj.SelectedValue.value" readonly>
+          </mat-form-field>
+          <mat-form-field *ngIf="!obj.fieldObj.Readonly" class="inputcntr">
+            <mat-label>{{obj.fieldObj.SelectedValue.text}}</mat-label>
+            <input matInput autocomplete="off" type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value">
+          </mat-form-field>
+        </div>
+        <div class="fieldCntnr" *ngSwitchCase="'string'">
+          <mat-form-field appearance="fill">
+            <mat-label>{{obj.fieldObj.SelectedValue.text}}</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      [(ngModel)]="obj.fieldObj.SelectedValue.value"
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="fieldCntnr" *ngSwitchDefault>
+          <mat-form-field *ngIf="obj.fieldObj.Readonly && obj.fieldObj.SelectedValue" class="inputcntr">
+            <mat-label>{{obj.fieldObj.SelectedValue.text}}</mat-label>
+            <input matInput autocomplete="off" type="text" [disabled]="'true'" [(ngModel)]="obj.fieldObj.SelectedValue.value" readonly>
+          </mat-form-field>
+          <mat-form-field *ngIf="!obj.fieldObj.Readonly && obj.fieldObj.SelectedValue" class="inputcntr">
+            <mat-label>{{obj.fieldObj.SelectedValue.text}}</mat-label>
+            <input matInput autocomplete="off" type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

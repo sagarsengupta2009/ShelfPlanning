@@ -1,0 +1,100 @@
+.freeflowToolBar{
+  .regularButton {
+    border: transparent;
+    background: transparent;
+    margin-right: 10px;
+    padding: 0px;
+  }
+
+  .selectFrame {
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+  }
+
+  .colorPicker_setting .k-colorpicker .k-select {
+    display: none !important;
+  }
+
+  .colorpicker {
+    font-size: 14px;
+    //height: 21px;
+    border-radius: 0px;
+    margin: 0px 5px;
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+
+    .k-color-preview {
+      border-radius: 0px;
+    }
+
+    .k-input-inner {
+      padding: 2px;
+
+      .k-icon-wrapper-host{
+        display: contents;
+      }
+    }
+
+    button {
+      display: none !important;
+    }
+  }
+
+  .iconClassResize{
+    margin-left: 0px;
+    margin-bottom: -3px;
+  }
+
+  .buttonDisabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+
+  .toolBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  .toolBarSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-right-style: groove;
+    margin: 4px 0px;
+    padding: 4px 0px;
+  }
+
+  .connector {
+    rotate: 225deg;
+    color: #000;
+  }
+
+  // .closeButton {
+  //   font-size: 14px;
+  //   padding: 5px;
+  // }
+
+  .fontSelection {
+    font-size: 14px;
+    border: lightgrey;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 3px;
+    padding: 2px;
+    margin-right: 10px;
+
+    // .mat-select-arrow-wrapper {
+    //   margin-left: 12px;
+    // }
+  }
+
+}

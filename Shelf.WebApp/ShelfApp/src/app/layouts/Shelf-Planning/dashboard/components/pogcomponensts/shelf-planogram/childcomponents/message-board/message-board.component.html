@@ -1,0 +1,227 @@
+<div class="messageCntnr">
+  <!--heading-->
+  <div class="headerCntnr">
+    {{pogData?.idpog}}-{{pogData?.pogName}}
+  </div>
+  <!--store Section-->
+  <div style="padding:0 5px;" fxLayout="row" fxLayoutAlign="space-between center">
+    <!--store dropdown-->
+    <div style="width:85%">
+      <mat-form-field style="width:100%">
+        <mat-label>Tag</mat-label>
+        <mat-select [(ngModel)]="selectedStores" #selectAll (selectionChange)="optionClick()" multiple>
+          <mat-select-trigger>
+            <span>
+              {{selectTrigger}}
+            </span>
+          </mat-select-trigger>
+          <div style="margin: 5px 15px;">
+            <input style="border-bottom: 1px solid #aaa;line-height: 40px;" autocomplete="off" [(ngModel)]="storeFilterTxt"
+            (ngModelChange)="onDataBound(storeFilterTxt)" [ngModelOptions]="{standalone: true}" matInput type="text" />
+          </div>
+          <div class="select-all">
+            <mat-checkbox *ngIf="Stores.length && !storeFilterTxt.length" [(ngModel)]="allChecked" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">{{'ALL' | translate}}</mat-checkbox>
+          </div>
+          <mat-option style="display: none;" disabled="true"></mat-option>
+          <mat-option  *ngFor="let option of Stores| filterPipe:{'col':'StoreName', 'search': storeFilterTxt}" [value]="option.StoreName">
+            {{option.StoreName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button (click)="refreshData(true)" mat-icon-button>
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- main comment Section-->
+  <div *ngIf="showMainCommentingField">
+    <label for="xlf" mat-icon-button>
+      <span style="cursor:pointer;margin-bottom:5px;" matTooltip="{{'FILE'| translate}}" class="material-icons">
+        attach_file
+      </span>
+    </label>
+    <input type="file" name="xlfile" id="xlf" style="display:none" [(ngModel)]="selfile" (change)="onFileChange($event.target.files)" />
+    <span style="margin-left:10px;">{{newAttachmentName}}</span>
+  </div>
+  <div style="padding:0 5px;" fxLayout="row" fxLayoutAlign="space-between center">
+    <div style="width:85%" (click)="showMainCommentingField=true;textAreaRows=3">
+      <mat-form-field style="width:100%" class="example-full-width" appearance="fill">
+        <textarea [rows]="textAreaRows"
+         matInput placeholder="{{'ADD_A_COMMENT' | translate}}"
+         (keyup)="onAddComment($event)"
+         [(ngModel)]="userComment"></textarea>
+      </mat-form-field>
+    </div>
+    <div>
+      <button (click)="hideMainCommentingField()" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!--post comment-->
+  <div *ngIf="showMainCommentingField" style="padding:0 5px;" fxLayout="row" fxLayoutAlign="end center">
+    <div>
+      <button (click)="postComment()" [disabled]="!userComment && !selfile" mat-raised-button>
+        {{'SEND' | translate}}
+      </button>
+    </div>
+  </div>
+  <!--commentHeader-->
+  <div class="commentHeader" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span class="commentHeaderCntnr" [ngClass]="{sortKeyCntnr: sortKey==='newest'}" (click)="sortArrange('newest')">{{'NEWEST' | translate}}</span>
+      <span class="commentHeaderCntnr" [ngClass]="{sortKeyCntnr: sortKey==='oldest'}" (click)="sortArrange('oldest')">{{'OLDEST' | translate}}</span>
+      <span class="commentHeaderCntnr" [ngClass]="{sortKeyCntnr: sortKey==='popular'}" (click)="sortArrange('popular')">{{'POPULAR' | translate}}</span>
+    </div>
+    <div>
+      <span class="commentHeaderCntnr" [ngClass]="{sortKeyCntnr: sortKey==='attachments'}" (click)="sortArrange('attachments')">{{'ATTACHMENTS' | translate}}</span>
+    </div>
+  </div>
+  <!--comment Display-->
+  <div *ngIf="sortKey!='attachments'" style="overflow-y:auto;">
+    <mat-list class="commentSection">
+      <mat-list-item *ngFor="let option of commentsArray">
+        <div style="width:100%;">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="name">
+              <span>{{option.fullname}}</span> <span *ngIf="option.storeIdentifier" class="storeIdentifier">[{{option.storeIdentifier}}]</span>
+            </div>
+            <div>
+              {{getFormatedDate(option.created)}}
+            </div>
+          </div>
+          <div>
+            {{option.content}}
+          </div>
+          <div style="margin:10px 0;" *ngIf="option.file_url">
+            <div *ngIf="option.file_mime_type.includes('image')">
+              <img class="imageCntnr" (click)="openAttachment(option.file_url,'image')" [src]="option.file_url" alt="Girl in a jacket" width="500" height="600" />
+            </div>
+            <div *ngIf="option.file_mime_type.includes('video')">
+              <video class="imageCntnr" controls (click)="openAttachment(option.file_url,'video')">
+                <source [src]="option.file_url">
+              </video>
+            </div>
+            <div *ngIf="!option.file_mime_type.includes('image') && !option.file_mime_type.includes('video')">
+              <span> <mat-icon>insert_drive_file</mat-icon></span> <span class="attachment" (click)="openAttachment(option.file_url,'file')">{{getFileName(option.file_url)}}</span>
+            </div>
+          </div>
+          <div style="margin:10px 0;" fxLayout="row" fxLayoutAlign="start center">
+            <div (click)="option.reply=!option.reply" class="replay">{{'REPLY' | translate}}</div>
+            <div>.</div>
+            <div style="margin:0 5px;" [ngStyle]="option.upvote_count>0?{'color': '#2793e6'}:{'color': '#08090A'}">{{option.upvote_count}}</div>
+            <div><mat-icon style="margin-top:-5px;cursor:pointer;" (click)="upvoteComment(option)">thumb_up</mat-icon></div>
+          </div>
+          <div style="margin-left:20px;" *ngIf="option.reply">
+            <div style="width:85%">
+              <mat-form-field style="width:100%" class="example-full-width" appearance="fill">
+                <textarea rows="3"
+                matInput placeholder="{{'ADD_A_COMMENT' | translate}}"
+                (keyup)="onAddComment($event)"
+                [(ngModel)]="option.userComment"></textarea>
+              </mat-form-field>
+            </div>
+            <div>
+              <button (click)="option.reply=!option.reply;postComment(option)" [disabled]="!option.userComment && !selfile" mat-raised-button>
+                {{'SEND' | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="text" *ngIf="option?.Children.length>2">
+            <div *ngIf="option.ChildrenDisplayLength==2" (click)="option.ChildrenDisplayLength=option?.Children.length">
+              <span>View all </span><span>{{option?.Children.length}}</span><span> replies</span>
+            </div>
+            <div *ngIf="option.ChildrenDisplayLength==option?.Children.length" (click)="option.ChildrenDisplayLength=2">
+              <span>Hide Replies</span>
+            </div>
+          </div>
+          <mat-list class="commentSection">
+            <mat-list-item style="border-bottom:none;" *ngFor="let childoption of option?.Children;index as i">
+              <div *ngIf="i < option.ChildrenDisplayLength" style="width:100%;">
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <div class="name">
+                    <span>{{childoption.fullname}}</span> <span *ngIf="childoption.storeIdentifier" class="storeIdentifier">[{{childoption.storeIdentifier}}]</span>
+                    <span class="material-icons replayofreplay" *ngIf="option.id!=childoption.parent">
+                      reply
+                    </span>
+                    <span class="replayofreplay" *ngIf="option.id!=childoption.parent">
+                      {{childoption.fullname}}
+                    </span>
+                  </div>
+                  <div>
+                    {{getFormatedDate(option.created)}}
+                  
+                  </div>
+                </div>
+                <div>
+                  {{childoption.content}}
+                </div>
+                <div style="margin:10px 0;" *ngIf="childoption.file_url">
+                  <div *ngIf="childoption.file_mime_type.includes('image')">
+                    <img class="imageCntnr" (click)="openAttachment(childoption.file_url,'image')" [src]="childoption.file_url" alt="Girl in a jacket" width="500" height="600" />
+                  </div>
+                  <div *ngIf="childoption.file_mime_type.includes('video')">
+                    <video class="imageCntnr" controls (click)="openAttachment(childoption.file_url,'video')">
+                      <source [src]="childoption.file_url">
+                    </video>
+                  </div>
+                  <div *ngIf="!childoption.file_mime_type.includes('image') && !childoption.file_mime_type.includes('video')">
+                    <span> <mat-icon>insert_drive_file</mat-icon></span> <span class="attachment" (click)="openAttachment(childoption.file_url,'file')">{{getFileName(childoption.file_url)}}</span>
+                  </div>
+                </div>
+                <div style="margin:10px 0;" fxLayout="row" fxLayoutAlign="start center">
+                  <div (click)="childoption.reply=!childoption.reply" class="replay">{{'REPLY' | translate}}</div>
+                  <div>.</div>
+                  <div style="margin:0 5px;" [ngStyle]="childoption.upvote_count>0?{'color': '#2793e6'}:{'color': '#08090A'}">{{childoption.upvote_count}}</div>
+                  <div><mat-icon style="margin-top:-5px;cursor:pointer;" (click)="upvoteComment(childoption)">thumb_up</mat-icon></div>
+                </div>
+                <div style="margin-left:20px;" *ngIf="childoption.reply">
+                  <div style="width:85%">
+                    <mat-form-field style="width:100%" class="example-full-width" appearance="fill">
+                      <textarea rows="3" matInput placeholder="{{'ADD_A_COMMENT' | translate}}" [(ngModel)]="childoption.userComment"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div>
+                    <button (click)="childoption.reply=!childoption.reply;postComment(childoption)" [disabled]="!childoption.userComment && !selfile" mat-raised-button>
+                      {{'SEND' | translate}}
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div *ngIf="sortKey=='attachments'" style="height:58vh;overflow-y:auto;">
+    <mat-selection-list class="commentSection" [multiple]="false">
+      <mat-list-option *ngFor="let option of attachmentArray" [value]="option">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="name">
+            <span>{{option.fullname}}</span> <span *ngIf="option.storeIdentifier" class="storeIdentifier">[{{option.storeIdentifier}}]</span>
+          </div>
+          <div>
+            {{getFormatedDate(option.created)}}
+          </div>
+        </div>
+        <div style="margin:10px 0;" *ngIf="option.file_url">
+          <div *ngIf="option.file_mime_type.includes('image')">
+            <img class="imageCntnr" (click)="openAttachment(option.file_url,'image')" [src]="option.file_url" alt="Girl in a jacket" width="500" height="600" />
+          </div>
+          <div *ngIf="option.file_mime_type.includes('video')">
+            <video class="imageCntnr" controls (click)="openAttachment(option.file_url,'video')">
+              <source [src]="option.file_url">
+            </video>
+          </div>
+          <div *ngIf="!option.file_mime_type.includes('image') && !option.file_mime_type.includes('video')">
+            <span> <mat-icon>insert_drive_file</mat-icon></span> <span class="attachment" (click)="openAttachment(option.file_url,'file')">{{getFileName(option.file_url)}}</span>
+          </div>
+        </div>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</div>

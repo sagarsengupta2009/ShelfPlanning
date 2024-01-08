@@ -1,0 +1,38 @@
+<ng-container [ngSwitch]="activeScreen">
+  <div *ngSwitchCase="'SC'" class="sidebar-div">
+    <sp-shopping-cart [isPin]="PogSideNavStateService.shoppingCartView.isPinned" [searchData]="filterText"
+      [state]="true" (onPinUnpintoggle)="onPin($event,'SC')" (getWidth)="sidenavWidthChange($event)"
+      (viewComponentInSideNav)="onsideNav()">
+    </sp-shopping-cart>
+  </div>
+  <div *ngSwitchCase="'PG'" class="sidebar-div">
+    <shelf-property-grid [state]="true" [isPin]="PogSideNavStateService.propertiesView.isPinned"
+      (onPinUnpintoggle)="onPin($event,'PG')" (getWidth)="sidenavWidthChange($event)"
+      (viewComponentInSideNav)="onsideNav()">
+    </shelf-property-grid>
+  </div>
+  <div *ngSwitchCase="'HL'" class="sidebar-div">
+    <sp-highlight [tabChange]="tabChange" [pogData]="pogInfo?.pogInfo"
+      [isPin]="PogSideNavStateService.highlightView.isPinned" (onPinUnpintoggle)="onPin($event,'HL')"
+      (getWidth)="sidenavWidthChange($event)" (viewComponentInSideNav)="onsideNav()">
+    </sp-highlight>
+  </div>
+  <div *ngSwitchCase="'PL'" class="sidebar-div">
+    <sp-product-library [searchData]="filterText" [isPin]="PogSideNavStateService.getActive().isPinned" [state]="true"
+      (onPinUnpintoggle)="onPin($event,'PL')" (getWidth)="sidenavWidthChange($event)"
+      (viewComponentInSideNav)="onsideNav()">
+    </sp-product-library>
+  </div>
+  <div *ngSwitchCase="'AC'" class="sidebar-div">
+    <sp-analysis [state]="true" [pogData]="pogInfo?.pogInfo" [isPin]="PogSideNavStateService.chartsView.isPinned"
+      (onPinUnpintoggle)="onPin($event,'AC')" (getWidth)="sidenavWidthChange($event)"
+      (viewComponentInSideNav)="onsideNav()">
+    </sp-analysis>
+  </div>
+  <div *ngSwitchCase="'PI'" class="sidebar-div">
+    <app-pog-info [selectedPogObj]="pogInfo?.pogInfo"></app-pog-info>
+  </div>
+  <div *ngSwitchCase="'PM'" class="sidebar-div">
+    <shelf-message-board [pogData]="pogData"></shelf-message-board>
+  </div>
+</ng-container>

@@ -1,0 +1,27 @@
+<div style="height: 100%; overflow: hidden">
+    <ng-container *ngIf="aggridConfig?.id !== '' && aggridConfig?.columnDefs?.length">
+        <shelf-ag-grid #agGrid [gridConfig]="aggridConfig"></shelf-ag-grid>
+    </ng-container>
+</div>
+
+<div id="performance-ws-footer" [ngClass]="{ calculate: !splitterview, cal: splitterview }">
+    <span style="width: 5%">
+        <mat-form-field style="margin-right: 4%" class="performanceMenu" floatlLabel="never">
+            <mat-select
+                #teamDropdown
+                class="assessment-dropdown"
+                [(ngModel)]="selectedPeriod"
+                (selectionChange)="getPerformanceData()"
+                style="position: relative">
+                <mat-option *ngFor="let assessment of performancePeriodList" [value]="assessment.value">
+                    {{ assessment.text }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </span>
+    <span class="button">
+        <button mat-raised-button class="button" (click)="processPogCal()">
+            {{ caliculateText }}
+        </button>
+    </span>
+</div>

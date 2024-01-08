@@ -1,0 +1,6 @@
+<ng-container *ngIf="!isDisabled">
+    <mat-checkbox type="checkbox" (click)="checkedHandler($event)" [checked]="isChecked"></mat-checkbox>
+</ng-container>
+<ng-container *ngIf="isDisabled">
+    <mat-checkbox type="checkbox" [checked]="isChecked" disabled></mat-checkbox>
+</ng-container>

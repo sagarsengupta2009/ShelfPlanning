@@ -1,0 +1,99 @@
+#panelResize {
+  ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: transparent;
+  }
+}
+
+/* allocate and assort NICI have very little space to work with,
+  Adding this additional margin will reduce workspace further.
+ */
+.allocate , .iAssortNICI {
+  .toggle {
+    margin-right:0px;
+    margin-left:0px;
+  }
+}
+
+.toggle {
+  margin-right:5px;
+  margin-left:10px;
+  font-size: 0.9em;
+  bottom: 0;
+  display: inline-block;
+  /* font-weight: 300; */
+  /*height: 20px;*/
+  padding: 0;
+  text-align: left;
+  transform: rotate(90deg);
+  transform-origin: center;
+  white-space: nowrap;
+  width: 20px;
+  /*margin: 5px 0px 80px 0px;*/
+  cursor: pointer;
+  /*color: black;
+    font-weight: 500;*/
+  .toggleName {
+    color: #fff;
+    font-weight: 500;
+    font-family: Roboto,'Helvetica Neue',sans-serif;
+    // margin-right: 1vh;
+    text-decoration: none !important;
+  }
+
+  .selected {
+    // border-top: 3px solid #075f56;
+    color: #ffffffcc !important;
+    background-color: #075f56 !important;
+    font-weight: 600;
+    border-right-color: #ffffffcc;
+  }
+
+  .btn {
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: transparent;
+    border-right: 0.15em solid white !important;
+    padding: 0rem 0.65rem 0.075rem 0.45rem !important;
+    font-size: 0.9rem;
+    border-radius: 0rem !important;
+  }
+
+  .btn-secondary {
+    color: #fff;
+    font-weight: normal;
+    text-decoration: none !important;
+    background-color: transparent;
+    border-right-color: black;
+    border-left-color: transparent !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+  }
+
+  .last-pane {
+    border: transparent !important;
+  }
+}
+
+/*.doc-toolbar {
+  position: absolute;
+  top: 57px;
+  width: 96%;
+}*/
+
+.showLegents {
+  top: 87px !important;
+}
+.showFloatingShelves{
+  top: 200px !important;
+}
+.webviewMode {
+  width: 99.5% !important;
+}
+
+.sp-mat-sidenav {
+  min-width: 155px;
+}

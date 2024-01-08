@@ -1,0 +1,94 @@
+<mat-toolbar class="navbar-default docktool-header" *ngIf="canRender" (mouseout)="mouseout($event, false)" (mouseover)="showHeaderFooter(true)">
+  <mat-toolbar-row>
+    <a *ngIf="!isWebView" class="navbar-brand" (click)="openNav()">
+      <mat-icon class="menuicon" aria-hidden="false" aria-label="Menus">menu</mat-icon>
+    </a>
+    <button mat-button>
+      <span *ngIf="!isAssort" class="title" [routerLink]="['/sp']" translate>
+        SHELF
+      </span>
+      <span *ngIf="isAssort" class="title" [routerLink]="['/platform/assortment']" translate>
+        ASSORTMENT
+      </span>
+    </button>
+    <!-- TODO revist change structure -->
+    <span class="example-spacer"></span>
+    <div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div class="nav-block nav-block-search">
+            <sp-search [display]="'Header'"></sp-search>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <lib-ngx-i2e-accounts-package *ngIf="!isWebView" [translation]="accountPackageStrings">
+    </lib-ngx-i2e-accounts-package>
+    <lib-ngx-i2e-notification *ngIf="!isWebView" [translation]="notificationStrings">
+    </lib-ngx-i2e-notification>
+    <button *ngIf="isShelfLoaded" mat-icon-button [matMenuTriggerFor]="menu" [hidden]="isAssort">
+      <mat-icon class="material-icons" matTooltip="{{'HEADER_PANEL_VIEW'|translate}}" aria-hidden="false"
+        aria-label="panel">
+        view_quilt
+      </mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="setview(0)" id="splitter0" [ngClass]="{'header_view': view == 0}">
+        <mat-icon>border_outer</mat-icon>
+        <span class="view">{{'HEADER_FULL'| translate}}</span>
+      </button>
+      <button mat-menu-item (click)="setview(2)" id="splitter2" [ngClass]="{'header_view': view == 2}">
+        <mat-icon>border_horizontal</mat-icon>
+        <span class="view">{{'HEADER_OVER_UNDER'| translate}}</span>
+      </button>
+      <button mat-menu-item (click)="setview(1)" id="splitter3" [ngClass]="{'header_view': view == 1}">
+        <mat-icon>border_inner</mat-icon>
+        <span class="view">{{'HEADER_SIDE_BY_SIDE'| translate}}</span>
+      </button>
+      <button mat-menu-item *ngIf="isShelfLoaded" (click)="syncShelf()" style="text-align:right;">
+        <mat-icon *ngIf="isSyncMode" class="material-icons-menu">check</mat-icon>
+        <span>{{'HEADER_SYNCHRONIZE'| translate}}</span>
+      </button>
+      <span *ngIf="!isSyncMode" mat-menu-item class="switch">
+        <span>{{'MOVE' | translate}} </span>
+        <mat-slide-toggle [(ngModel)]="moveOrCopy" (click)="updateMoveOrCopy()">
+        </mat-slide-toggle>
+        <span>{{'COPY' | translate}} </span>
+      </span>
+    </mat-menu>
+    <button *ngIf="isWebView" mat-icon-button (click)="refreshIframe()">
+      <mat-icon>
+        refresh
+      </mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="more">
+      <mat-icon class="material-icons" matTooltip="{{'LPD_MOREOPTION' |translate}}" aria-hidden="false"
+        aria-label="more">
+        more_vert
+      </mat-icon>
+    </button>
+    <mat-menu #more="matMenu">
+      <div [hidden]="!isShelfLoaded">
+        <button mat-menu-item (click)="openPlanogramSettings()">
+          <mat-icon class="material-icons-menu">settings</mat-icon>
+          <span class="header_more" translate>HEADER_USER_SETTINGS</span>
+        </button>
+      </div>
+      <div>
+        <lib-ngx-about-us-package (click)="showHeaderFooter(false)" *ngIf="!isWebView" [text]="aboutUsPackageStrings">
+        </lib-ngx-about-us-package>
+      </div>
+      <div>
+        <button mat-menu-item (click)="openInfoDialog()">
+          <mat-icon class="material-icons-menu">info</mat-icon>
+          <span class="header_more" translate>{{'SHORTCUT_KEYS_INFO' | translate }}</span>
+        </button>
+      </div>
+    </mat-menu>
+    <button *ngIf="isWebView" mat-icon-button (click)="closeIframe()">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,38 @@
+.settingCntnr {
+    height: 99%;
+    overflow: hidden;
+
+    .mat-tab-label {
+        min-width: 170px;
+    }
+}
+
+.mat-dialog-content.settingCntnr {
+    height: calc(100vh - 30px);
+}
+
+.labelSettingCntnr {
+  height: 99%;
+  overflow: hidden;
+  margin-top: -10px !important;
+
+  .mat-tab-label {
+    min-width: 170px;
+  }
+}
+
+.mat-dialog-content.labelSettingCntnr {
+  height: calc(100vh - 30px);
+  max-height: 83vh;
+}
+.heightflex {
+    height: 100%;
+}
+
+#user-setting ,#status-setting ,#fixture-setting ,#position-setting {
+    height: 100%;
+}
+
+
+
+

@@ -1,0 +1,123 @@
+<div class="custom-modal-header">
+  <h4 mat-dialog-title>{{'FB_SEND_FEEDBACK' | translate}} - {{pogName}} ({{pogid}})</h4>
+  <div class="dialogCloseIcon">
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+  </div>
+</div>
+<div *ngIf="isStoreAvailable" mat-dialog-content style="overflow:hidden;height:81%;">
+  <div *ngIf="feedbackData && !trafficFlowSettings && !ShowHistory">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div style="width:45%">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'FB_STORE' | translate}}" [disabled]="checkvmode"
+            [(ngModel)]="feedbackSelectedStore" (selectionChange)="changeStore()">
+            <mat-option *ngFor="let option of feedbackData?.Store" [value]="option.IdStore">
+              {{option.StoreName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style="width:45%">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'TRAFFIC_FLOW' | translate}}" [disabled]="true" [(ngModel)]="selectedTrafficFlow">
+            <mat-option value="1">{{'LEFT_RIGHT' | translate}}</mat-option>
+            <mat-option value="2">{{'RIGHT_LEFT' | translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-icon-button [disabled]="disableTraficFlowDropDown=='disabled'" (click)="showTrafficFlowEditor()">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div>
+      <p>{{'EFFECTIVE_FROM'|translate}} : {{ storeEffectiveDate }}</p>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div style="width:70%">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'FB_EXECUTION_STATUS' | translate}}"
+            [disabled]="disableExecDropDown || disableFeedbackPermission || changeExecStatusPermission"
+            [(ngModel)]="executionStatus" (selectionChange)="changeExecution()">
+            <mat-option *ngFor="let option of feedbackData?.ExecStatus" [value]="option.idExec">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div *ngIf="ShowReset && permissionToReset">
+        <button mat-icon-button (click)="resetStoreFeedback()">
+          <mat-icon>restore</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="rejectReasonBlock" fxLayout="row" fxLayoutAlign="space-between center">
+      <div style="width:70%">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'FB_REJECT_REASON' | translate}}"
+            [disabled]="disableRejectDropdown || disableFeedbackPermission" [(ngModel)]="rejectionStatus"
+            (selectionChange)="changeRejectReason()">
+            <mat-option *ngFor="let option of feedbackData.RejectStatus" [value]="option.value">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div style="width:70%">
+        <mat-form-field style="width:100%" class="example-full-width" appearance="fill">
+          <mat-label>{{'FB_FEEDBACK' | translate}}</mat-label>
+          <textarea matInput placeholder="{{'ENTER_YOUR_FEEDBACK_HERE' | translate}}"
+            [disabled]="disablecomment || disableFeedbackPermission" [(ngModel)]="ExecNote"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-icon-button (click)="showHistoryFeedback()">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!--for dropdown-->
+
+  <div *ngIf="trafficFlowSettings && !ShowHistory">
+    <div style="width:75%">
+      <mat-form-field style="width:100%">
+        <mat-select placeholder="{{'TRAFFIC_FLOW' | translate}}" [(ngModel)]="selectedTrafficFlow">
+          <mat-option value="1">{{'LEFT_RIGHT' | translate}}</mat-option>
+          <mat-option value="2">{{'RIGHT_LEFT' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--for grid-->
+
+  <div *ngIf="!trafficFlowSettings && ShowHistory">
+    <ng-container *ngIf="reportGridConfig?.id !== '' && reportGridConfig?.columnDefs?.length">
+      <shelf-ag-grid #reportGrid [gridConfig]="reportGridConfig" >
+      </shelf-ag-grid>
+    </ng-container>
+  </div>
+
+</div>
+<div mat-dialog-actions align="end" *ngIf="!trafficFlowSettings && !ShowHistory && isStoreAvailable">
+  <button mat-raised-button (click)="closeDialog()">{{'REPORT_BATCH_DIALOG_CANCEL' | translate}}</button>
+  <button mat-raised-button [disabled]="disableFeedbackPermission" (click)="postFeedback()">{{'FB_SUBMIT' |
+    translate}}</button>
+</div>
+<div mat-dialog-actions align="end" *ngIf="trafficFlowSettings && !ShowHistory && isStoreAvailable">
+  <button mat-raised-button (click)="closeTrafficFlowEditor()">{{'REPORT_BATCH_DIALOG_CANCEL' | translate}}</button>
+  <button mat-raised-button (click)="changeTrafficFlow()">{{'SH_APPLY' | translate}}</button>
+</div>
+<div mat-dialog-actions align="end" *ngIf="!trafficFlowSettings && ShowHistory && isStoreAvailable">
+  <button mat-raised-button (click)="closeTrafficFlowEditor()">{{'CLOSE' | translate}}</button>
+</div>
+<div class="alert-center" *ngIf="!isStoreAvailable">
+  <div class="alert">
+    <span class="msg">{{'STORE_NOT_LINKED'| translate}}</span>
+  </div>
+</div>

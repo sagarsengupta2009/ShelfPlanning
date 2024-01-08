@@ -1,0 +1,65 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+    <div cdkDragHandle class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="60">
+            <span mat-dialog-title class="header" style="height: 10px">{{ 'PEG_LIBRARY' | translate }}</span>
+        </div>
+        <div fxFlex="40" style="text-align: right;">
+            <ng-container>
+                <button mat-icon-button (click)="createPegItem()" *ngIf="createDisabled">
+                    <mat-icon matTooltip="{{ 'PEG_CREATE' | translate }}">add_circle</mat-icon>
+                </button>
+                  <button mat-icon-button (click)="exportToExcel()">
+                    <mat-icon matTooltip="{{'EXPORT_EXCEL'| translate}}">file_download</mat-icon>
+                </button>
+                <button mat-icon-button (click)="onSave()" *ngIf="saveEnabled">
+                    <mat-icon matTooltip="{{ 'SAVE' | translate }}">save</mat-icon>
+                </button>
+                <button matTooltip="{{ 'TOGGLE_ACTIVE' | translate }}" mat-icon-button *ngIf="!isToggleOn && !toggleDisabled"  (click)="onToggleState()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 24">
+                        <g id="Group_22824" data-name="Group 22824" transform="translate(-157)">
+                            <g id="Rectangle_3232" data-name="Rectangle 3232" transform="translate(157)" fill="#fff" stroke="#707070"
+                                stroke-width="1">
+                                <rect width="50" height="24" rx="12" stroke="none" />
+                                <rect x="0.5" y="0.5" width="49" height="23" rx="11.5" fill="none" />
+                            </g>
+                            <circle id="Ellipse_134" data-name="Ellipse 134" cx="10" cy="10" r="10" transform="translate(182 2)"
+                                fill="#2A7879" />
+                        </g>
+                    </svg>
+                </button>
+                <button matTooltip="{{ 'TOGGLE_DEFAULT' | translate }}" mat-icon-button *ngIf="toggleDisabled" [disabled]="toggleDisabled" (click)="onToggleState()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 24">
+                        <g id="Group_22824" data-name="Group 22824" transform="translate(-157)">
+                            <g id="Rectangle_3232" data-name="Rectangle 3232" transform="translate(157)" fill="#fff" stroke="#707070"
+                                stroke-width="1">
+                                <rect width="50" height="24" rx="12" stroke="none" />
+                                <rect x="0.5" y="0.5" width="49" height="23" rx="11.5" fill="none" />
+                            </g>
+                            <circle id="Ellipse_134" data-name="Ellipse 134" cx="-10" cy="10" r="10" transform="translate(182 2)"
+                                fill="#BEBEBE" />
+                        </g>
+                    </svg>
+                </button>
+                <button matTooltip="{{ 'TOGGLE_INACTIVE' | translate }}" mat-icon-button *ngIf="isToggleOn && !toggleDisabled"  (click)="onToggleState()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 24">
+                        <g id="Group_22824" data-name="Group 22824" transform="translate(-157)">
+                            <g id="Rectangle_3232" data-name="Rectangle 3232" transform="translate(157)" fill="#fff" stroke="#707070"
+                                stroke-width="1">
+                                <rect width="50" height="24" rx="12" stroke="none" />
+                                <rect x="0.5" y="0.5" width="49" height="23" rx="11.5" fill="none" />
+                            </g>
+                            <circle id="Ellipse_134" data-name="Ellipse 134" cx="-10" cy="10" r="10" transform="translate(182 2)"
+                                fill="#CB4761" />
+                        </g>
+                    </svg>
+                </button>
+
+            </ng-container>
+        </div>
+    </div>
+</div>
+<ng-container *ngIf="pegGridConfig?.id !== '' && pegGridConfig?.columnDefs?.length">
+    <shelf-ag-grid #agGrid [gridConfig]="pegGridConfig" (cellClickHandler)="cellClickHandler($event)"
+      (selectedRow)="onRowSelected($event)" (rowValueUpdated)="updateValue($event)" (onContextSelect)="onMenuSelect($event)"
+      (fillUpDownEvent)="changeFillUpDownDataEvent($event)"></shelf-ag-grid>
+</ng-container>

@@ -1,0 +1,21 @@
+<div fxLayout="row" fxLayoutAlign="space-between start">
+  <h4 mat-dialog-title>Planogram Hierarchy</h4>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <mat-icon mat-dialog-close>close</mat-icon>
+  </div>
+</div>
+<mat-dialog-content class="mat-typography hierarchy-Height">
+  <div class="content-tree">
+    <kendo-treeview [nodes]="parsedData" textField="name" kendoTreeViewExpandable kendoTreeViewSelectable
+      [expandBy]="'id'" kendoTreeViewHierarchyBinding [hasChildren]="hasChildren" [children]="fetchChildren"
+      (selectionChange)="onNodeSelect($event)" (expand)="handleExpand($event)" (collapse)="handleCollapse($event)"
+      [(expandedKeys)]="expandedKeys">
+    </kendo-treeview>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close> {{'Cancel' | translate}}</button>
+  <button mat-raised-button (click)="action()">{{'Accept' | translate}}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,38 @@
+.hierarchyMainCntnr {
+  height: 100%;
+  font-size: 0.94em;
+
+  .treeviewcntnr {
+    height: 100%;
+    overflow: hidden;
+
+    .treeCntnr {
+      overflow-y: auto;
+      height: calc(100% - 65px);
+      padding-top: 5px;
+
+      ::ng-deep .k-display-none, ::ng-deep .k-hidden {
+        display: block !important;
+      }
+    }
+  }
+
+  .listCntnr {
+    height: 100%;
+    padding: 0px;
+
+    ::ng-deep.k-grid-content {
+      background-color: #ffffff;
+      height: 100%;
+    }
+
+    /*::ng-deep.k-grid td {
+      font-size: 0.93em;
+      text-align: left !important;
+    }*/
+
+    ::ng-deep.k-filterable > .k-cell-inner .k-link {
+      font-size: 0.93em;
+    }
+  }
+}

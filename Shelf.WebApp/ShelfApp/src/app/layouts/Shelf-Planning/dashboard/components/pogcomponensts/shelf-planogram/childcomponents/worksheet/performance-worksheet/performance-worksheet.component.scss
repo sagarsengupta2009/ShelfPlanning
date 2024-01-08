@@ -1,0 +1,38 @@
+.calculate {
+    padding-left: 72%;
+}
+
+.cal {
+    padding-left: 42%;
+}
+
+.assessment-dropdown {
+    position: absolute;
+    padding: 4px 8px;
+}
+
+
+.performanceMenu {
+    ::ng-deep .mat-select {
+        display: inline-block;
+        outline: none;
+    }
+}
+
+::ng-deep mat-form-field span.mat-form-field-label-wrapper label {
+    color: black !important;
+}
+
+::ng-deep mat-form-field.mat-focused span.mat-form-field-label-wrapper label {
+    color: black !important;
+}
+
+.icon {
+    font-size: 36px;
+}
+
+.button {
+    height: auto;
+    width: auto;
+}
+

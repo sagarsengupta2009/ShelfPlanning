@@ -1,0 +1,25 @@
+<div>
+    <mat-form-field class="inputcntr">
+        <mat-select
+            [(ngModel)]="selectedStore"
+            placeholder="{{ 'REPORT_STORES' | translate }}"
+            [disabled]="isStoreView"
+            (selectionChange)="onStoreFieldChange()"
+            typeaheadDebounceInterval="1000"
+        >
+            <mat-option *ngFor="let option of storeList;trackBy:trackByInfo" title="{{option.Name}}" [value]="option.IDStore">
+                {{ option.Name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div *ngIf="storeCard?.ParameterGroupName != 'Store'">
+    <mat-form-field class="inputcntr">
+        <mat-select [(ngModel)]="selectedPlanogram3" placeholder="{{ 'REPORT_COMPARE_WITH' | translate }}">
+            <mat-option *ngFor="let option of storeReportsCompareArray" title="{{option.Name}}" [value]="option.IDPOG">
+                <span>{{ option.Name }}</span
+                ><span>-</span><span>{{ option.IDPOG }}</span>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

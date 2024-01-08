@@ -1,0 +1,130 @@
+{
+  "rowKey": "1483274",
+  "height": 84.0,
+  "width": 360.0,
+  "totalWidth": 360,
+  "bays": [
+    {
+      "id": "B_1",
+      "width": 72.0,
+      "shelves": [
+        {
+          "id": "0_4.75",
+          "height": 12.75,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 4.75,
+          "width": 72.0,
+          "FixtureType": 3
+        },
+        {
+          "id": "0_17.5",
+          "height": 10.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 17.5,
+          "width": 72.0
+        },
+        {
+          "id": "0_27.5",
+          "height": 10.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 27.5,
+          "width": 72.0,
+          "FixtureType": 3
+        },
+        {
+          "id": "0_37.5",
+          "height": 10.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 37.5,
+          "width": 72.0,
+          "FixtureType": 3
+        },
+        {
+          "id": "0_47.5",
+          "height": 11.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 47.5,
+          "width": 72.0
+        },
+        {
+          "id": "0_58.5",
+          "height": 12.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 58.5,
+          "width": 72.0,
+          "FixtureType": 3
+        },
+        {
+          "id": "0_70.5",
+          "height": 13.5,
+          "depth": 20.0,
+          "offsetXCoordinate": 0.0,
+          "yCoordinate": 70.5,
+          "width": 72.0
+        }
+      ]
+    },
+    {
+      "id": "B_2",
+      "width": 288.0,
+      "shelves": [
+        {
+          "id": "288_4.75",
+          "height": 13.75,
+          "depth": 20.0,
+          "offsetXCoordinate": 72.0,
+          "yCoordinate": 4.75,
+          "width": 216.0
+        },
+        {
+          "id": "288_18.5",
+          "height": 14.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 72.0,
+          "yCoordinate": 18.5,
+          "width": 216.0
+        },
+        {
+          "id": "288_32.5",
+          "height": 13.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 72.0,
+          "yCoordinate": 32.5,
+          "width": 216.0,
+          "FixtureType": 3
+        },
+        {
+          "id": "288_45.5",
+          "height": 13.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 72.0,
+          "yCoordinate": 45.5,
+          "width": 216.0,
+          "FixtureType": 3
+        },
+        {
+          "id": "288_58.5",
+          "height": 12.0,
+          "depth": 20.0,
+          "offsetXCoordinate": 72.0,
+          "yCoordinate": 58.5,
+          "width": 216.0
+        },
+        {
+          "id": "288_70.5",
+          "height": 13.5,
+          "depth": 20.0,
+          "offsetXCoordinate": 72.0,
+          "yCoordinate": 70.5,
+          "width": 216.0
+        }
+      ]
+    }
+  ]
+}

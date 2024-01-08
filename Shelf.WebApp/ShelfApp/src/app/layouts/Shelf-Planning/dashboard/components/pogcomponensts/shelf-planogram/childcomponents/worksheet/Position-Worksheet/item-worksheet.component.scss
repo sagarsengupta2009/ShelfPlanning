@@ -1,0 +1,25 @@
+.content-table {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .gridHeader {
+    background-color: #ececec !important;
+    height: 36px;
+    position: relative;
+
+    .stores {
+      position: relative;
+      top: 10px;
+      left: 6px;
+      float: left;
+    }
+
+    .topicons {
+      float: right;
+      right: 7px
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div [ngSwitch]="params.headerType" class="ag-cell-label-container" role="presentation">
+    <ng-container *ngSwitchCase="'icon'">
+        <div ref="eLabel" class="ag-header-cell-label" role="presentation">
+            <span style="padding-left: 10px;" *ngIf="params.displayName.length">
+                <mat-icon [ngStyle]="{'color':iconColor}">{{iconName}}</mat-icon>
+            </span>
+        </div>
+    </ng-container>
+</div>

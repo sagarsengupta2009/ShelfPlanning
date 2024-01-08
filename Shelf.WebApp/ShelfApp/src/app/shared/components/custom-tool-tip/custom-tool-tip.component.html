@@ -1,0 +1,16 @@
+<div *ngIf="!detailContent">
+  <div class="tooltip-conatiner">
+    <ng-template #simpleText>
+      {{text}}
+    </ng-template>
+    <ng-container *ngTemplateOutlet="contentTemplate || simpleText">
+    </ng-container>
+  </div>
+</div>
+<div *ngIf="detailContent">
+  <kendo-popup [anchor]="anchor" class="removecss" [popupClass]="'tooltipContent'" [animate]="animate">
+    <span class="head"> {{ detailContent.title }}</span>
+    <hr />
+    <span class="content">{{ detailContent.info }}</span>
+  </kendo-popup>
+</div>

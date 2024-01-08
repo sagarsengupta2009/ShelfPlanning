@@ -1,0 +1,30 @@
+.mat-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    outline: none;
+
+    mat-dialog-content {
+        margin: 0 0;
+
+
+
+    }
+
+    .mat-typography {
+        display: block;
+        margin: 0;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    
+
+}
+shelf-peg-library{
+    .ag-popup-editor {
+        &.ag-popup-child {
+            width: 9%;
+        }
+    }
+}

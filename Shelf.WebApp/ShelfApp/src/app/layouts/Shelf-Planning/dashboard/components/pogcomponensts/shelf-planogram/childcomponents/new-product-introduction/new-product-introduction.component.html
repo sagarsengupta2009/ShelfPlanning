@@ -1,0 +1,95 @@
+<h1 mat-dialog-title>{{'NEW_PRODUCT_INTRODUCTION'|translate}}</h1>
+<div class="dialogCloseIcon">
+  <button mat-button class="dialog-box-buttons" color="primary" cdkFocusInitial
+    (click)="onOpenProductsSearchListClick()">
+    {{'CLONE_EXISTING_PRODUCT' | translate}}
+  </button>
+  <!--<mat-icon class="dialogCloseIcon" (click)="closeDialog()">close</mat-icon>-->
+</div>
+<div class="matBodyCntnr" mat-dialog-content style="height: calc(100% - 100px)">
+  <form [formGroup]="npiEditForm">
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="40" class="form-element">
+        <input matInput placeholder="{{'UPC' | translate}}" (keypress)="onUpcKeyPress($event)" formControlName="UPC">
+      </mat-form-field>
+      <mat-form-field fxFlex="59" class="form-element">
+        <input matInput placeholder="{{'NAME' | translate}}" formControlName="Name">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="27">
+        <input matInput type="number" autocomplete="off" placeholder="{{'CASE_PACK' | translate}}"
+          formControlName="CasePack">
+      </mat-form-field>
+      <mat-form-field fxFlex="27">
+        <input matInput type="number" autocomplete="off" placeholder="{{'SIZE' | translate}}" formControlName="Size">
+      </mat-form-field>
+      <mat-form-field fxFlex="27" class="form-element">
+        <input matInput placeholder="{{'UOM' | translate}}" formControlName="UOM">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="40" class="form-element">
+        <input matInput placeholder="{{'BRAND' | translate}}" formControlName="Brand">
+      </mat-form-field>
+      <mat-form-field fxFlex="59" class="form-element">
+        <input matInput placeholder="{{'MANUFACTURER' | translate}}" formControlName="Manufacturer">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="27">
+        <input matInput type="number" min="0" (keypress)="onKeypressEvent($event)" autocomplete="off" placeholder="{{'PRODUCT_HEIGHT' | translate}}"
+          formControlName="Height">
+      </mat-form-field>
+      <mat-form-field fxFlex="27">
+        <input matInput type="number" min="0" (keypress)="onKeypressEvent($event)" autocomplete="off" placeholder="{{'PRODUCT_WIDTH' | translate}}"
+          formControlName="Width">
+      </mat-form-field>
+      <mat-form-field fxFlex="27" class="form-element">
+        <input matInput type="number" min="0" (keypress)="onKeypressEvent($event)" autocomplete="off" placeholder="{{'PRODUCT_DEPTH' | translate}}"
+          formControlName="Depth">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="27">
+        <input matInput type="text" placeholder="{{getCustomFieldName(3684)}}" formControlName="L1">
+      </mat-form-field>
+      <mat-form-field fxFlex="27">
+        <input matInput type="text" placeholder="{{getCustomFieldName(3685)}}" formControlName="L2">
+      </mat-form-field>
+      <mat-form-field fxFlex="27" class="form-element">
+        <input matInput type="text" placeholder="{{getCustomFieldName(3686)}}" formControlName="L3">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="27">
+        <input matInput type="text" placeholder="{{getCustomFieldName(3687)}}" formControlName="L4">
+      </mat-form-field>
+      <mat-form-field fxFlex="27">
+        <input matInput type="text" placeholder="{{getCustomFieldName(3688)}}" formControlName="L5">
+      </mat-form-field>
+      <mat-form-field fxFlex="27" class="form-element">
+        <input matInput type="text" placeholder="{{getCustomFieldName(3689)}}" formControlName="L6">
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <div>
+    <mat-checkbox [(ngModel)]="shownpi" (ngModelChange)="toggleShowNPI()">
+      {{'SHOW_NPI_DIALOG_IF_SCANNED_ITEM_NOT_FOUND' | translate}}
+    </mat-checkbox>
+  </div>
+
+  <div>
+    <button mat-raised-button (click)="onCloseDialogClick()">{{'PANEL_HEADER_CANCEL' | translate}}</button>
+    <button mat-raised-button (click)="onAddItemIntoNPIClick()">{{'CREATE_BLOCK' | translate}}</button>
+  </div>
+</div>

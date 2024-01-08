@@ -1,0 +1,112 @@
+<div class="templateCntnr row">
+  <div class="matBodyCntnr col-md-6" *ngFor="let obj of fieldData">
+    <div *ngIf="obj.fieldObj.List && key == 'POGSettingstab'" class="fieldPosition">
+      <mat-form-field class="inputcntr input-form-fields">
+        <mat-select [(ngModel)]="obj.fieldObj.SelectedValue.value" placeholder="{{ obj.fieldObj.Name }}">
+          <mat-option *ngFor="let option of obj.fieldObj.Values" [value]="option.value">
+            <span>{{ option.text }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!obj.fieldObj.List && key == 'POGSettingstab'" [ngSwitch]="obj.fieldObj.Type" class="fieldPosition">
+      <div *ngSwitchCase="'boolean'">
+        <mat-form-field class="explicitLabel_UnderLine inputcntr input-form-fields">
+          <mat-checkbox [(ngModel)]="obj.fieldObj.SelectedValue.value" [disabled]="isCheckDisabled(obj)"></mat-checkbox>
+          <input matInput [placeholder]="obj.fieldObj.SelectedValue.text" value="obj.fieldObj.SelectedValue.value" />
+          <button *ngIf="displayButton(obj.fieldObj.KeyName)" (click)="showSettings(obj.fieldObj.KeyName, obj.fieldObj)"
+            matSuffix mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div  *ngSwitchCase="'int32'">
+        <mat-form-field class="explicitLabel inputcntr input-form-fields">
+          <input matInput type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value"
+            [placeholder]="obj.fieldObj.SelectedValue.text" />
+          <kendo-numerictextbox [disabled]="obj.fieldObj.Readonly" [readonly]="obj.fieldObj.Readonly" class="kNumInput property-grid-input"
+            [format]="'n2'" [(ngModel)]="obj.fieldObj.SelectedValue.value" [decimals]="0"></kendo-numerictextbox>
+        </mat-form-field>
+      </div>
+      <div  *ngSwitchCase="'double'">
+        <mat-form-field class="explicitLabel inputcntr input-form-fields">
+          <input matInput type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value"
+            [placeholder]="obj.fieldObj.SelectedValue.text" />
+          <kendo-numerictextbox [disabled]="obj.fieldObj.Readonly" [readonly]="obj.fieldObj.Readonly" class="kNumInput property-grid-input"
+            [min]="min" [format]="'n2'" [(ngModel)]="obj.fieldObj.SelectedValue.value"></kendo-numerictextbox>
+        </mat-form-field>
+      </div>
+      <div  *ngSwitchCase="'string'">
+        <mat-form-field *ngIf="obj.fieldObj.KeyName == 'STATUSBAR_SETTINGS'" class="inputcntr input-form-fields">
+          <mat-label>{{ obj.fieldObj.SelectedValue.text }}</mat-label>
+          <input matInput autocomplete="off" type="text" [(ngModel)]="statusbar_settings" readonly />
+          <button *ngIf="displayButton(obj.fieldObj.KeyName)" (click)="showSettings(obj.fieldObj.KeyName, obj.fieldObj)"
+            matSuffix mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field *ngIf="obj.fieldObj.KeyName != 'STATUSBAR_SETTINGS' && obj.fieldObj.Readonly" class="inputcntr input-form-fields">
+          <mat-label>{{ obj.fieldObj.SelectedValue.text }}</mat-label>
+          <input matInput autocomplete="off" type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value"
+            [disabled]="'true'" readonly />
+          <button *ngIf="displayButton(obj.fieldObj.KeyName)" (click)="showSettings(obj.fieldObj.KeyName, obj.fieldObj)"
+            matSuffix mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field *ngIf="obj.fieldObj.KeyName != 'STATUSBAR_SETTINGS' && !obj.fieldObj.Readonly"
+          class="inputcntr input-form-fields">
+          <mat-label>{{ obj.fieldObj.SelectedValue.text }}</mat-label>
+          <input matInput autocomplete="off" type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value" />
+          <button *ngIf="displayButton(obj.fieldObj.KeyName)" (click)="showSettings(obj.fieldObj.KeyName, obj.fieldObj)"
+            matSuffix mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div  *ngSwitchDefault>
+        <mat-form-field *ngIf="obj.fieldObj.Readonly" class="inputcntr input-form-fields">
+          <mat-label>{{ obj.fieldObj.SelectedValue.text }}</mat-label>
+          <input matInput autocomplete="off" type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value"
+            [disabled]="'true'" readonly />
+          <button *ngIf="displayButton(obj.fieldObj.KeyName)" (click)="showSettings(obj.fieldObj.KeyName, obj.fieldObj)"
+            matSuffix mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field *ngIf="!obj.fieldObj.Readonly" class="inputcntr input-form-fields">
+          <mat-label>{{ obj.fieldObj.SelectedValue.text }}</mat-label>
+          <input matInput autocomplete="off" type="text" [(ngModel)]="obj.fieldObj.SelectedValue.value" />
+          <button *ngIf="displayButton(obj.fieldObj.KeyName)" (click)="showSettings(obj.fieldObj.KeyName, obj.fieldObj)"
+            matSuffix mat-icon-button>
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="templateCntnr">
+  <div class="matBodyCntnr" *ngIf="key == 'StatusSettingstab'">
+    <mat-form-field class="inputcntr">
+      <mat-select [(ngModel)]="statusTabDropDownData.SelectedValue"
+        (selectionChange)="pogObjectChanged(statusTabDropDownData.SelectedValue)">
+        <mat-option *ngFor="let option of statusTabDropDownData.Values" [value]="option.value">
+          <span>{{ option.text }}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="grid-status">
+      <div style="width: 60%;"
+        *ngIf="key == 'StatusSettingstab' && statusbarFilters && statusbarFilters.id !== ''">
+        <label class="labelSize">{{ 'LABEL_FILTERS' | translate }}</label>
+        <shelf-ag-grid  #grid style="margin-top:20px;width:60%;" [gridConfig]="statusbarFilters" (selectedRow)="invokeSelectedRow($event)">
+        </shelf-ag-grid>
+      </div>
+      <mat-form-field appearance="fill" class="selected-option">
+        <mat-label>{{ tab }}</mat-label>
+        <textarea matInput readonly [(ngModel)]="statusTabDropDownData.SelectedDataDisplay" rows="8"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

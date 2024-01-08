@@ -1,0 +1,11 @@
+﻿
+*.lock
+*.vs/
+*.targets~origin_Dev
+*.json~origin_Dev
+*.cache
+*.props~origin_Dev
+*/**/bin
+*/**/obj
+*/**/packages
+*/**/.vscode/

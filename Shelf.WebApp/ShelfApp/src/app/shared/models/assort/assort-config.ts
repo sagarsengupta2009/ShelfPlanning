@@ -1,0 +1,33 @@
+export interface AssortConfig {
+    '3D-worksheet-edit': boolean;
+    'Fixture-delete': boolean;
+    'Fixture-worksheet-edit': boolean;
+    NPI: boolean;
+    'Position-delete': boolean
+    'assign-store': boolean;
+    'clone-pog-lib': boolean;
+    'create-new-pog': boolean;
+    'drag-Y-direction': boolean;
+    footer: boolean;
+    header: boolean;
+    'header-3D-fixture': boolean;
+    'header-panel-view': boolean;
+    'header-permission': boolean;
+    'header-pog-sync': boolean;
+    'header-report-template': boolean;
+    'header-tools': boolean;
+    'item-worksheet-edit': boolean;
+    'new-fixture-add': boolean;
+    'new-position-add': boolean;
+    'create-new-pog-append': boolean;
+    'panel-header': boolean;
+    'performance-permission': boolean;
+    'pin-unpin': boolean;
+    'pog-auto-load': boolean;
+    'propertygrid-edit': boolean;
+    'report-show': boolean;
+    'save-planogram-template': boolean;
+    signalR: boolean;
+    'store-premission': boolean;
+    tools: boolean;
+}

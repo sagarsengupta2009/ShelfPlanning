@@ -1,0 +1,321 @@
+{
+    "data": [
+        {
+            "screenName": "home",
+            "controlName": [
+                {
+                    "name": "bottomSidenav",
+                    "maxItemsToDisplay": 0,
+                    "menus": [
+                        {
+                            "order": 1,
+                            "key": "",
+                            "icon": "view_quilt",
+                            "text": "Planograms",
+                            "description": "Test description",
+                            "template": "sp/pogs",
+                            "projectType": [
+                                "reset",
+                                "nici"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3,
+                                4,
+                                5,
+                                8
+                            ],
+                            "authorization": [
+                                0,
+                                2
+                            ],
+                            "childMenus": []
+                        },
+                        {
+                            "order": 2,
+                            "key": "",
+                            "text": "Utilities",
+                            "description": "Test description",
+                            "icon": "settings",
+                            "template": "",
+                            "selected": true,
+                            "projectType": [
+                                "reset",
+                                "nici"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3,
+                                4,
+                                5,
+                                8
+                            ],
+                            "authorization": [
+                                0,
+                                1,
+                                2
+                            ],
+                            "childMenus": [
+                                {
+                                    "order": 1,
+                                    "key": "",
+                                    "text": "Sync Pog Items",
+                                    "description": "Test description",
+                                    "icon": "sync",
+                                    "template": "syncpogs",
+                                    "selected": true,
+                                    "projectType": [
+                                        "reset",
+                                        "nici"
+                                    ],
+                                    "canHide": false,
+                                    "status": [
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        8
+                                    ],
+                                    "authorization": [
+                                        0,
+                                        1,
+                                        2
+                                    ],
+                                    "childMenus":[]
+                                },
+                                {
+                                    "order": 2,
+                                    "key": "",
+                                    "text": "Append Section",
+                                    "description": "Test description",
+                                    "icon": "view_column",
+                                    "template": "",
+                                    "selected": true,
+                                    "projectType": [
+                                        "reset",
+                                        "nici"
+                                    ],
+                                    "canHide": false,
+                                    "status": [
+                                        2,
+                                        3,
+                                        4,
+                                        5,
+                                        8
+                                    ],
+                                    "authorization": [
+                                        0,
+                                        1,
+                                        2
+                                    ],
+                                    "childMenus":[]
+                                }
+                            ]
+                        },
+                        {
+                            "order": 3,
+                            "key": "",
+                            "icon": "assessment",
+                            "text": "Analysis",
+                            "description": "Test description",
+                            "template": "",
+                            "projectType": [
+                                "reset"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3,
+                                4,
+                                5,
+                                8
+                            ],
+                            "authorization": [
+                                0,
+                                2
+                            ],
+                            "childMenus": []
+                        },
+                        {
+                            "order": 4,
+                            "key": "",
+                            "icon": "assignment",
+                            "text": "Report Templates",
+                            "description": "Test description",
+                            "template": "sp/rp",
+                            "projectType": [
+                                "reset",
+                                "nici"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3
+                            ],
+                            "authorization": [
+                                0,
+                                2
+                            ],
+                            "childMenus": []
+                        },
+                        {
+                            "order": 5,
+                            "key": "",
+                            "icon": "library_add",
+                            "text": "Planogram Template",
+                            "description": "Planogram Template",
+                            "template": "pogTemplate",
+                            "projectType": [
+                                "reset",
+                                "nici"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3,
+                                4,
+                                5,
+                                8
+                            ],
+                            "authorization": [
+                                0,
+                                1,
+                                2
+                            ],
+                            "childMenus": []
+                        }
+                    ]
+                },
+                {
+                    "name": "upSidenav",
+                    "maxItemsToDisplay": -1,
+                    "menus": [
+                        {
+                            "order": 1,
+                            "key": "",
+                            "icon": "home",
+                            "text": "PLATFORM",
+                            "description": "Test description",
+                            "template": "",
+                            "projectType": [
+                                "reset",
+                                "nici"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3,
+                                4,
+                                5,
+                                8
+                            ],
+                            "authorization": [
+                                0,
+                                2
+                            ],
+                            "childMenus": []
+                        },
+                        {
+                            "order": 2,
+                            "key": "",
+                            "text": "SCENARIOS",
+                            "description": "Test description",
+                            "icon": "book",
+                            "template": "sp",
+                            "selected": true,
+                            "projectType": [
+                                "reset",
+                                "nici"
+                            ],
+                            "canHide": false,
+                            "status": [
+                                2,
+                                3,
+                                4,
+                                5,
+                                8
+                            ],
+                            "authorization": [
+                                0,
+                                1,
+                                2
+                            ],
+                            "childMenus": []
+                        }
+                    ]
+                },
+                {
+                    "name": "scenario-grid",
+                    "maxItemsToDisplay": 2,
+                    "menus": [
+                        {
+                            "order": 1,
+                            "key": "",
+                            "text": "EXPORT",
+                            "description": "Export To Excel",
+                            "icon": "file_download",
+                            "template": "",
+                            "selected": true,
+                            "projectType": [],
+                            "canHide": false,
+                            "status": [],
+                            "authorization": [],
+                            "childMenus": []
+                        },
+                        {
+                            "order": 2,
+                            "key": "",
+                            "icon": "refresh",
+                            "text": "REFRESH",
+                            "description": "Refresh Scenario List",
+                            "template": "",
+                            "projectType": [],
+                            "canHide": false,
+                            "status": [],
+                            "authorization": [],
+                            "childMenus": []
+                        }
+                      
+                    ]
+                }
+            ]
+        },
+        {
+            "screenName": "run",
+            "controlName": [
+                {
+                    "name": "runGridHeader",
+                    "maxItemsToDisplay": 2,
+                    "menus": [
+                        {
+                            "order": 1,
+                            "key": "runHeader_Refresh",
+                            "icon": "refresh",
+                            "text": "REFRESH",
+                            "canHide": false,
+                            "description": "Refresh description"
+                        },
+                        {
+                            "order": 2,
+                            "key": "runHeader_ClearAll",
+                            "icon": "clear_all",
+                            "text": "CLEAR_SELECTIONS",
+                            "canHide": true,
+                            "description": "Clear description"
+                        },
+                        {
+                            "order": 3,
+                            "key": "runHeader_DeletePog",
+                            "icon": "restore_from_trash",
+                            "text": "DELETE_GENERATED_POGS",
+                            "canHide": false,
+                            "description": "Delete Generated pog"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

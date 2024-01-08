@@ -1,0 +1,122 @@
+.iconsCntnr {
+    padding: 0 5px;
+
+    .pin {
+        transform: rotate(90deg);
+    }
+
+    mat-icon {
+        color: #656565;
+    }
+}
+
+.fieldMargin {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.template-list-container-allocate-view {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 50px);
+
+    .search-list-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-left: 5%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        height: 10%;
+
+        .fav-toggle-container {
+            padding: 5% 0 0 15%;
+        }
+    }
+
+    .template-list {
+        max-width: 100%;
+        border: solid 1px #ccc;
+        min-height: 60px;
+        display: block;
+        background: white;
+        border-radius: 4px;
+        overflow: auto;
+
+        .template-box {
+            padding: 10px 10px;
+            border-bottom: solid 1px #ccc;
+            color: rgba(0, 0, 0, 0.87);
+            flex-direction: row;
+            align-items: center;
+            box-sizing: border-box;
+            background: white;
+            font-size: 14px;
+
+            .favorite-margin {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.template-list-container-shelf-view {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 150px);
+
+    .search-list-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-left: 5%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        height: 10%;
+
+        .fav-toggle-container {
+            padding: 5% 0 0 15%;
+        }
+    }
+
+    .template-list {
+        max-width: 100%;
+        border: solid 1px #ccc;
+        min-height: 60px;
+        display: block;
+        background: white;
+        border-radius: 4px;
+        overflow: auto;
+
+        .template-box {
+            padding: 10px 10px;
+            border-bottom: solid 1px #ccc;
+            color: rgba(0, 0, 0, 0.87);
+            flex-direction: row;
+            align-items: center;
+            box-sizing: border-box;
+            background: white;
+            font-size: 14px;
+
+            .favorite-margin {
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+.flex-row {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.defaultHighLight{
+    margin-left: auto!important; 
+    visibility: visible; 
+    cursor: pointer!important; 
+    color: #4E9698;
+}
+
+.non-defaultHighLight{
+    visibility: hidden;
+}

@@ -1,0 +1,49 @@
+<ng-container *ngIf="dock && dock !== ''">
+    <div [ngSwitch]="dock">
+        <div *ngSwitchCase="'LEFT'">
+            <kendo-splitter orientation="horizontal" style="height: 100%;">
+                <kendo-splitter-pane>
+                    <kendo-splitter>
+                        <kendo-splitter-pane [collapsible]="true">
+                            <div class="pane-content">
+                                <ng-container *ngTemplateOutlet="LEFT"></ng-container>
+                            </div>
+                        </kendo-splitter-pane>
+                    </kendo-splitter>
+                </kendo-splitter-pane>
+
+                <kendo-splitter-pane size="70%">
+                    <div class="pane-content">
+                        <ng-container *ngTemplateOutlet="RIGHT"></ng-container>
+                    </div>
+                </kendo-splitter-pane>
+            </kendo-splitter>
+        </div>
+        <div *ngSwitchCase="'RIGHT'">
+            <kendo-splitter orientation="horizontal" style="height: 100%;">
+                <kendo-splitter-pane>
+                    <kendo-splitter>
+                        <kendo-splitter-pane [collapsible]="true">
+                            <div class="pane-content">
+                                <ng-container *ngTemplateOutlet="LEFT"></ng-container>
+                            </div>
+                        </kendo-splitter-pane>
+
+                    </kendo-splitter>
+                </kendo-splitter-pane>
+
+                <kendo-splitter-pane size="30%">
+                    <div class="pane-content">
+                        <ng-container *ngTemplateOutlet="RIGHT"></ng-container>
+                    </div>
+                </kendo-splitter-pane>
+            </kendo-splitter>
+        </div>
+    </div>
+</ng-container>
+<ng-template #LEFT>
+    <ng-content select="[left]"></ng-content>
+</ng-template>
+<ng-template #RIGHT>
+    <ng-content select="[right]"></ng-content>
+</ng-template>

@@ -1,0 +1,78 @@
+.example-radio-group {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  max-height: calc(100vh - 350px);
+  overflow: inherit;
+  padding: 10px;
+
+  .mat-radio-button {
+    padding: 5px;
+  }
+}
+
+.dialogCloseIcon {
+  font-size: 20px;
+}
+
+.oriBox {
+  margin-top: -13px;
+  margin-right: -12px;
+  margin-bottom: 10px;
+}
+
+.oriHeader {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.box {
+  border: 1px solid #d0d0d0;
+  margin-bottom: 13px;
+  border-bottom: none;
+}
+
+.inner-box {
+  border-bottom: 1px solid #d0d0d0;
+  padding: 7px 4px 7px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.inner-box.default {
+  background-color: #e4e4e2;
+}
+
+.inner-box.selected {
+  border: 1px solid #397173;
+}
+
+.inner-box.orientation-disabled {
+  opacity: 0.4;
+  pointer-events: none !important;
+}
+
+.orientationList {
+  overflow: auto;
+  height: 300px;
+}
+
+.pagination-div {
+  margin-top: 25%;
+  border: 1px solid #d0d0d0;
+  border-radius: 50px;
+  padding: 4px 4px 4px 4px;
+}
+
+.pagination-div .left-arrow {
+  font-size: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.pagination-div .right-arrow {
+  font-size: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}

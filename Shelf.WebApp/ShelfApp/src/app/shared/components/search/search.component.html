@@ -1,0 +1,45 @@
+<form class="form-inline" *ngIf="showSearch">
+  <div class="form-group">
+    <div class="input-group">
+      <div *ngIf="display=='Header' && sharedService.isShelfLoaded && sharedService.isItemScanning"
+        class="input-group-addon"><i class="material-icons" style="color:var(--icons);cursor:pointer;"
+          (click)="closeSearchBox()">arrow_back</i></div>
+      <div *ngIf="display=='Header'&& sharedService.isShelfLoaded && sharedService.isItemScanning"
+        class="input-group-addon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 16v-8h2v8h-2zm12 0v-8h2v8h-2zm-9 0v-8h1v8h-1zm2 0v-8h2v8h-2zm3 0v-8h1v8h-1zm2 0v-8h1v8h-1zm5 0v-8h1v8h-1zm-1-10h4v4h2v-6h-6v2zm-16 4v-4h4v-2h-6v6h2zm4 8h-4v-4h-2v6h6v-2zm16-4v4h-4v2h6v-6h-2z"/></svg></div>
+      <div
+        *ngIf="display=='Header'&& sharedService.isShelfLoaded && sharedService.isItemScanning && localSearch.itemscanerror"
+        class="input-group-addon"><i class="material-icons" style="color:red">warning</i></div>
+      <div class="input-group-addon"><i class="material-icons" style="color:var(--icons)">search</i></div>
+      <div
+        *ngIf="searchService.searchReadOnly && sharedService.isShelfLoaded && display=='Header' && !sharedService.isItemScanning"
+        class="input-group-addon"><i class="material-icons" style="color:var(--icons)">settings</i></div>
+      <input type="text"  #search class="form-control search" [style.width]="width ? width : '300px'"
+        style="cursor: pointer;text-overflow:ellipsis;" id="search" name="search" [(ngModel)]="searchText"
+        [readOnly]="isReadOnly" (keyup)="OnSearchKeyup(searchText)" placeholder="{{searchPlaceHolder}}"
+        (click)="searchExp()" [matTooltip]="getToolTip()" autocomplete="off">
+      <div class="input-group-addon clearbtn">
+        <i *ngIf="searchText !='' || display == 'Header'" class="material-icons" (click)="clearsText()" style="color:var(--icons)">clear</i>
+      </div>
+      <div class="input-group-addon right">
+        <button mat-icon-button aria-haspopup="true" aria-expanded="true" id="searchoptions-btn" (click)="setFindSelectAdv()"
+          *ngIf="sharedService.isShelfLoaded && display=='Header' && sharedService.isWorkSpaceActive">
+          <mat-icon class="material-icons" [matMenuTriggerFor]="searchOptions">
+            arrow_drop_down
+          </mat-icon>
+        </button>
+        <mat-menu #searchOptions="matMenu">
+          <button mat-menu-item (click)="shelfSearchOption('FieldSearch')"><span translate>FIELD_SEARCH</span></button>
+
+          <button mat-menu-item (click)="setActions($event,localSearch?.searchFieldsFrmDb?.Actions[0]?.ACTIONID);"><span
+              translate> {{localSearch?.searchFieldsFrmDb?.Actions[0]?.Name | translate}}</span></button>
+          <button mat-menu-item *ngIf="findSelectAdv" (click)="shelfSearchOption('Expression')"><span
+              translate>LOCAL_SEARCH_EXPRESSION</span></button>
+          <button mat-menu-item (click)="shelfSearchOption('ItemScanning')" *ngIf="!isNici">
+            <span translate>ITEM_SCANNING</span>
+            <span class="ctrlLabel">(Ctrl+k)</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</form>

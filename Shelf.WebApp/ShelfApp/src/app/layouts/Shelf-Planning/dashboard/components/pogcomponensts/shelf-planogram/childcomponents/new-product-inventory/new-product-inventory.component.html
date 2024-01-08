@@ -1,0 +1,40 @@
+<div>
+  <div class="headerCntnr" fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- <sp-search [width]="'125px'" class="spSearch"></sp-search> -->
+    <div>
+      {{'NEW-PRODUCT-INTRODUCTION'| translate}}
+    </div>
+    <div>
+      <button mat-icon-button matTooltip="{{'POG_LIB_ITEM_CLONE ' | translate}}" (click)="onDialog()">
+        <mat-icon>
+          add_circle_outline
+        </mat-icon>
+      </button>
+      <button mat-icon-button (click)="closeNPI()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+
+  </div>
+
+  <div *ngIf="npigridSource.length>0 && gridConfigNewProductGrid && gridConfigNewProductGrid.id !== ''">
+      <shelf-ag-grid #NPIGrid [gridConfig]="gridConfigNewProductGrid"  (actionEventEmit)="editSelectedRow($event)"></shelf-ag-grid>
+  </div>
+  <div class="alert-center gridCntnr" *ngIf="npigridSource.length==0">
+    <div class="alert">
+      <div class="msg">
+        <span>
+          <mat-icon>info</mat-icon>
+        </span>
+        <span>
+          {{'NO_PRODUCTS_PRESENT'| translate}}
+        </span>
+        <span> </span>
+        <span>
+          {{'ICON_ASSIGN_PRODUCTS'| translate}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,215 @@
+<h4 mat-dialog-title *ngIf="!isEditNewProduct">{{'PRODUCTS_CLONE' |translate}}</h4>
+<h4 mat-dialog-title *ngIf="isEditNewProduct">{{dialogTitle}}</h4>
+<div class="dialogCloseIcon">
+  <div fxLayout="row" fxLayoutAlign="end">
+    <sp-search [isChildSearch]="true" (emitChildSearchText)="onChildSearch($event)" *ngIf="!isEditNewProduct"
+      [width]="'125px'" class="spSearch"></sp-search>
+    <mat-icon (click)="onCloseDialogClick()">close</mat-icon>
+  </div>
+</div>
+
+<div mat-dialog-content style="height:82%;">
+  <ng-container style="height:100%;" *ngIf="!isEditNewProduct && agGridConfig?.id">
+    <shelf-ag-grid #productGrid [gridConfig]="agGridConfig"  (selectedRow)="onProductSelected($event)"></shelf-ag-grid>
+  </ng-container>
+  <div *ngIf="isEditNewProduct">
+
+    <form [formGroup]="npiEditForm">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput placeholder="UPC" formControlName="UPC">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput placeholder="Name" formControlName="Name">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput class="text-overflow" placeholder="Reference UPC"
+            matTooltip="{{npiEditForm.value.ReferenceUPC}}" formControlName="ReferenceUPC" readonly>
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput type="number" min="1" placeholder="AdjustmentFactor" allowDecimalNumbers
+            formControlName="AdjustmentFactor" (blur)="onInputChanged($event,'AdjustmentFactor')">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element disabled-readonly-field">
+          <input matInput type="number" min="0" placeholder="CPI" formControlName="CPI" readonly
+            (blur)="onInputChanged($event,'CPI')">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element disabled-readonly-field">
+          <input matInput  type="number" formControlName="Movt" [placeholder]="'NPI_MOVT' | translate" readonly>
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+       
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput type="number" min="0" placeholder="Height" formControlName="Height" allowDecimalNumbers
+            (blur)="onInputChanged($event,'Height')">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput type="number" min="0" placeholder="Width" formControlName="Width" allowDecimalNumbers
+            (blur)="onInputChanged($event,'Width')">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput type="number" min="0" placeholder="Depth" formControlName="Depth" allowDecimalNumbers
+            (blur)="onInputChanged($event,'Depth')">
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center editCntnr">
+
+        <mat-form-field fxFlex="27" class="form-element disabled-readonly-field">
+          <input matInput [placeholder]="'SALES' | translate" formControlName="Sales" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput placeholder="CasePack" min="0" formControlName="CasePack" allowDecimalNumbers
+            (blur)="onInputChanged($event,'CasePack')">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <input matInput [placeholder]="'NPI_DESC_SIZE' | translate" min="0" formControlName="DescSize">
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <mat-form-field fxFlex="27">
+          <mat-label>{{'NPI_BRAND' | translate}}</mat-label>
+          <mat-select formControlName="Brand" (closed)="onFieldDropdownKeyup(searchText = '', 'brand' )">
+            <div class="searchCntnr">
+              <input placeholder="{{'SEARCH' | translate}}" autocomplete="off" [(ngModel)]="searchText" 
+                (keyup)="onFieldDropdownKeyup(searchText, 'brand' )" [ngModelOptions]="{standalone: true}"
+                matInput type="text" />
+            </div>
+            <mat-option *ngFor="let brand of filteredProductOptions.brand" [value]="brand.Brand">
+              {{brand.Brand}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <mat-label>{{'PRODSRCH_MANUFACTURER' | translate}}</mat-label>
+          <mat-select formControlName="Manufacturer" (closed)="onFieldDropdownKeyup(searchText = '', 'manufacturer' )">
+            <div class="searchCntnr">
+              <input autocomplete="off" [(ngModel)]="searchText" (keyup)="onFieldDropdownKeyup(searchText, 'manufacturer' )"
+                [ngModelOptions]="{standalone: true}" placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+            </div>
+            <mat-option *ngFor="let manuf of filteredProductOptions.manufacturer" [value]="manuf.Manufacturer">
+              {{manuf.Manufacturer}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <mat-label>{{'STOCKING_SECTION' | translate}}</mat-label>
+          <mat-select formControlName="L1" (closed)="onFieldDropdownKeyup(searchText = '', 'L1' )">
+            <div class="searchCntnr">
+              <input autocomplete="off" [(ngModel)]="searchText" (keyup)="onFieldDropdownKeyup(searchText, 'L1' )"
+                [ngModelOptions]="{standalone: true}" placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+            </div>
+            <mat-option *ngFor="let l1 of filteredProductOptions.L1" [value]="l1.L1">
+              {{l1.L1}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <mat-label>{{'GROUP' | translate}}</mat-label>
+          <mat-select formControlName="L2" (closed)="onFieldDropdownKeyup(searchText = '', 'L2' )">
+            <div class="searchCntnr">
+              <input autocomplete="off" [(ngModel)]="searchText" (keyup)="onFieldDropdownKeyup(searchText, 'L2' )"
+                [ngModelOptions]="{standalone: true}" placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+            </div>
+            <mat-option *ngFor="let l2 of filteredProductOptions.L2" [value]="l2.L2">
+              {{l2.L2}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <mat-label>{{'CATEGORY' | translate}}</mat-label>
+          <mat-select formControlName="L3" (closed)="onFieldDropdownKeyup(searchText = '', 'L3' )">
+            <div class="searchCntnr">
+              <input autocomplete="off" [(ngModel)]="searchText" (keyup)="onFieldDropdownKeyup(searchText, 'L3' )"
+                [ngModelOptions]="{standalone: true}"placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+            </div>
+            <mat-option *ngFor="let l3 of filteredProductOptions.L3" [value]="l3.L3">
+              {{l3.L3}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element">
+          <mat-label>{{'CLASS' | translate}}</mat-label>
+          <mat-select formControlName="L4" (closed)="onFieldDropdownKeyup(searchText = '', 'L4' )">
+            <div class="searchCntnr">
+              <input autocomplete="off" [(ngModel)]="searchText" (keyup)="onFieldDropdownKeyup(searchText, 'L4' )"
+                [ngModelOptions]="{standalone: true}" placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+            </div>
+            <mat-option *ngFor="let l4 of filteredProductOptions.L4" [value]="l4.L4">
+              {{l4.L4}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="27" class="form-element disabled-readonly-field">
+          <input matInput placeholder="{{'PANEL_HEADER_FIXTURE' | translate}}" formControlName="Fixture" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element disabled-readonly-field">
+          <input matInput placeholder="CSC" formControlName="CSC" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="27" class="form-element disabled-readonly-field">
+          <input matInput placeholder="CIC" formControlName="CIC" readonly>
+        </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-checkbox fxFlex="27" id="MustStock" formControlName="MustStock">{{'NPI_MUST_STOCK' | translate}}</mat-checkbox>
+      </div>
+
+    </form>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button *ngIf="!isEditNewProduct && agGridConfig && agGridConfig.id !== ''"
+    [disabled]="!selectedItem" (click)="onAddSelectedItemIntoNPIClick();">
+    {{'SYNC_NEXT' | translate}}
+  </button>
+  <button *ngIf="isEditNewProduct && !editNPIGridSource" mat-raised-button (click)="onGoBackClick()">
+    {{'SYNC_BACK' | translate}}
+  </button>
+  <button *ngIf="isEditNewProduct && editNPIGridSource" mat-raised-button mat-dialog-close (click)="dialog.close()">
+    {{'PANEL_HEADER_CANCEL' | translate}}</button>
+  <button *ngIf="isEditNewProduct" mat-raised-button (click)="onSaveProductClick()">
+    {{'SAVE' | translate}}
+  </button>
+</div>
+
+<ng-template #ModalDialog>
+  <div mat-dialog-content>
+    <h6>{{'NPI_MODAL_MESSAGE' | translate }}</h6>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-raised-button (click)="dialogRef.close()">{{'Ok'| translate}}</button>
+  </div>
+</ng-template>

@@ -1,0 +1,90 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Shelf.WebApp</AssemblyName>
+    <StartupObject />
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ShelfApp\dist\**" />
+    <Compile Remove="ShelfApp\src\app\shared\pipe\valueAtIndex\**" />
+    <Compile Remove="dist\**" />
+    <Content Remove="ShelfApp\dist\**" />
+    <Content Remove="ShelfApp\src\app\shared\pipe\valueAtIndex\**" />
+    <Content Remove="dist\**" />
+    <EmbeddedResource Remove="ShelfApp\dist\**" />
+    <EmbeddedResource Remove="ShelfApp\src\app\shared\pipe\valueAtIndex\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <None Remove="ShelfApp\dist\**" />
+    <None Remove="ShelfApp\src\app\shared\pipe\valueAtIndex\**" />
+    <None Remove="dist\**" />
+    <TypeScriptCompile Remove="ShelfApp\dist\**" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\pipe\valueAtIndex\**" />
+    <TypeScriptCompile Remove="dist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ShelfApp\src\app\layouts\Shelf-Planning\dashboard\components\planogram\splitter-container\splitter-container.component.ts" />
+    <None Remove="ShelfApp\src\app\layouts\space-automation\dashboard\components\clipboard\sapp-clipBoard.component.ts" />
+    <None Remove="ShelfApp\src\app\layouts\space-automation\dashboard\components\clipboard\showSvg.component.ts" />
+    <None Remove="ShelfApp\src\app\layouts\space-automation\dashboard\components\planogram-Library\sapp.planogramLibrary.component.ts" />
+    <None Remove="ShelfApp\src\app\shared\interceptor\cacheRoute.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\pegTypesAPIResponse.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\planogram\annotation.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\promoteDemote\index.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\promoteDemote\pogCheckinCheckout.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\promoteDemote\promoteDemoteData.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\labelFields.ts" />
+    <None Remove="ShelfApp\src\app\shared\models\ToolTipData.ts" />
+    <None Remove="ShelfApp\src\app\shared\pipe\remove-annotation.pipe.ts" />
+    <None Remove="ShelfApp\src\app\shared\services\common\file.ts" />
+    <None Remove="ShelfApp\src\app\shared\services\layouts\space-automation\dashboard\consoleLog\console-log-model.ts" />
+    <None Remove="ShelfApp\src\app\shared\services\layouts\space-automation\dashboard\shelf-planogram\splitter-container\panel\panel-header\panel-header.service.ts" />
+    <None Remove="ShelfApp\src\app\shared\services\shelfCommonService\sapp-clipBoard.service.ts" />
+    <None Remove="ShelfApp\src\assets\plugins\three-orbit-control.ts" />
+    <None Remove="src\app\shared\pipe\html-safe-filter.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="ShelfApp\src\app\layouts\Shelf-Planning\dashboard\components\pogcomponensts\shelf-planogram\childcomponents\highlight\numeric-range\limitToTwoDecimalDigit.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\layouts\space-automation\dashboard\components\sapp-panel\sapp.panel.component.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\layouts\space-automation\dashboard\models\shelf-planogram.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\api-endpoints.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\app-initialization.service.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\AppIndicatorService.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\cui-app-settings-svc.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\global-ajax-request.service.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\panelMapper.service.ts" />
+    <TypeScriptCompile Remove="ShelfApp\src\app\shared\services\shelfCommonService\url-string-query-holder.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ShelfApp\src\app\layouts\Shelf-Planning\dashboard\components\planogram\splitter-container\panel\panel-body\panel-body\rubber banding\" />
+    <Folder Include="ShelfApp\src\app\layouts\space-automation\dashboard\components\sappUserSettings\" />
+    <Folder Include="ShelfApp\src\app\shared\services\common\allocatesetting\" />
+    <Folder Include="ShelfApp\src\app\shared\services\common\models\" />
+    <Folder Include="ShelfApp\src\app\shared\services\common\shelfCommonService\" />
+    <Folder Include="ShelfApp\src\app\shared\services\layouts\space-automation\dashboard\assignment\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties ShelfApp_4e2e_4tsconfig_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

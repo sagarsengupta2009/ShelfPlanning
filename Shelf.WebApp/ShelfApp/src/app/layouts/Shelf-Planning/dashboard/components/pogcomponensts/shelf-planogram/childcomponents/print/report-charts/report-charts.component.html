@@ -1,0 +1,126 @@
+<div [style.height]="splitterOrientation===2?'calc(100vh - 34em)':'calc(100vh - 11em)'">
+  <div style="height:100%;overflow:hidden;" fxLayout="row" fxLayoutAlign="space-between start">
+    <div class="leftCntnr" fxLayout="column" fxLayoutAlign="start start">
+      <div style="width:100%">
+        <mat-form-field style="width:70%">
+          <mat-label>{{'REPORT_CURR' | translate}}</mat-label>
+          <input matInput autocomplete="off" type="text" [disabled]="'true'" [(ngModel)]="pogName" readonly>
+        </mat-form-field>
+      </div>
+      <div style="width:100%;margin-bottom:5px;">
+        <ng-select bindLabel="Name"
+                   placeholder="{{'REPORT_REPORTS' | translate}}"
+                   [searchable]="true"
+                   groupBy="Group"
+                   [clearable]="false"
+                   [closeOnSelect]="true"
+                   [(ngModel)]="selectedReportType"
+                   (change)="selectionChange($event)">
+          <ng-option [value]="item" [title]="item.displayLabel" [disabled]="item.disabled" *ngFor="let item of reportTypeList">
+            <div title="{{item.Name}}">
+              {{item.Name}}
+            </div>
+          </ng-option>
+        </ng-select>
+      </div>
+
+      <div class="row" *ngIf="selectedReportType && selectedReportType.ReportCode == 'PARAM_REPORT'">
+        <sp-report-template #ReportTemplateComponent [selectedReportType]="selectedReportType"></sp-report-template>
+      </div>
+
+      <div [style.display]="paramMPCard ? 'block' : 'none'" style="margin-top:5px;width:100%;">
+        <sp-param-mpcard #paramMPCardComponent></sp-param-mpcard>
+      </div>
+
+      <div [style.display]="storeCard ? 'block' : 'none'" style="margin-top:5px;width:100%;">
+        <shelf-store-card #StoreCardComponent [storeCard]="selectedReportType"></shelf-store-card>
+      </div>
+
+      <div [style.display]="merchReportDetails ? 'block' : 'none'" style="margin-top:10px;width:100%;">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="byBay">
+          <mat-radio-button style="margin-right:10px;" *ngFor="let option of radioButtonGroup" [value]="option.Value">{{option.Name}}</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field style="width:100%" *ngIf="byBay==1">
+          <mat-select [(ngModel)]="selectedBays">
+            <mat-option *ngFor="let option of NoOfBays" title="{{option.text}}" [value]="option.value">
+              {{option.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width:100%" *ngIf="byBay==2">
+          <input matInput autocomplete="off" type="text" [(ngModel)]="printByWidthtext">
+        </mat-form-field>
+      </div>
+
+      <div class="row" *ngIf="selectedReportType && (selectedReportType.ReportCode == 'PARAM_REPORT' || selectedReportType.IsPogImage)">
+        <mat-form-field style="width:100%">
+          <mat-select [(ngModel)]="selectedHighLight" (selectionChange)="highLightChange()" placeholder="{{'HIGHLIGHT_TEMPLATE' | translate}}">
+            <mat-option *ngFor="let highLight of highlightList" title="{{highLight.name}}" [value]="highLight.GUID">
+              <span>{{highLight.name}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div [style.display]="orientationDetails ? 'block' : 'none'" style="margin-top:5px;width:100%;">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'PRINT_REPORT_ORIENTATION' | translate}}" [(ngModel)]="selectedprintOrientation">
+            <mat-option *ngFor="let option of printOrientation" title="{{option.text}}" [value]="option.value">
+              {{option.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'PRINT_REPORT_MODE' | translate}}" [(ngModel)]="selectedPrintMode">
+            <mat-option *ngFor="let option of PrintMode" [value]="option.value">
+              {{option.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div [style.display]="labelDetails ? 'block' : 'none'" style="margin-top:5px;width:100%;">
+        <mat-form-field class="explicitLabel">
+          <mat-checkbox [(ngModel)]="labelFlag"></mat-checkbox>
+          <input matInput [placeholder]="labelFlagplaceHolder" value="durationtest" />
+        </mat-form-field>
+        <mat-form-field class="explicitLabel">
+          <mat-checkbox [(ngModel)]="shelfLabelFlag"></mat-checkbox>
+          <input matInput [placeholder]="shelfLabelFlagPlaceHolder" value="durationtest" />
+        </mat-form-field>
+        <mat-form-field class="explicitLabel">
+          <mat-checkbox [(ngModel)]="annotationFlag"></mat-checkbox>
+          <input matInput placeholder="Annotation" value="durationtest" />
+        </mat-form-field>
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'PRINT_REPORT_ACCURACY' | translate}}" [(ngModel)]="labelCalcType">
+            <mat-option *ngFor="let option of labelCalcTypeList" [value]="option.value">
+              {{option.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div [style.display]="printByWidth ? 'block' : 'none'" style="margin-top:5px;width:100%;">
+        <mat-form-field style="width:100%">
+          <mat-select placeholder="{{'PRINT_REPORT_ORDER' | translate}}" [(ngModel)]="selectedPrintOrder">
+            <mat-option *ngFor="let option of printOrder" [value]="option.value">
+              {{option.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center" *ngIf="checkPrintPogPermission" style="margin:10px 0px;width:100%;">
+        <button mat-raised-button [disabled]="hasAbilityToSubmitRequest" (click)="submitReportRequest()">{{'REPORT_SUBMIT' |translate}}</button>
+      </div>
+
+    </div>
+    <div class="rightCntnr">
+      <ng-container *ngIf="reportGridConfig?.id !== '' && reportGridConfig?.columnDefs?.length">
+        <shelf-ag-grid #agReportGrid [gridConfig]="reportGridConfig" (onContextSelect)="onMenuSelect($event)" (actionEventEmit)="SelectedItem($event)">
+        </shelf-ag-grid>
+      </ng-container>
+    </div>
+  </div>
+</div>

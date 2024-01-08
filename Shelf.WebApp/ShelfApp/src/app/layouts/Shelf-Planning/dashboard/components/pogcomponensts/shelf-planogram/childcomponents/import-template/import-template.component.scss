@@ -1,0 +1,22 @@
+.importADCntnr {
+  height: calc(100% - 110px);
+}
+
+.dialogCloseIcon {
+  float: right;
+  /*cursor: pointer;*/
+  margin-top: -40px;
+  color:white;
+  ::ng-deep mat-icon {
+    margin: 0 5px;
+    cursor: pointer;
+    margin-top: -10px;
+    color:white;
+    
+  }
+}
+
+.fileUploadIcon{
+  cursor:pointer;
+  margin-top:2%
+}

@@ -1,0 +1,35 @@
+<div id="pogInfoTemplate" class="positionA card" class="pinnedTool">
+  <div class="headerCntnr">{{'PLANOGRAM_DETAILS' | translate}}</div>
+  <div class="templateInfo">
+    <div class="section">
+      <h4>#</h4>
+      <p>{{selectedPogObj?.IDPOG}}</p>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <h4>{{ 'PPD1-NAME' | translate }}</h4>
+      <p>{{selectedPogObj?.Name}}</p>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <h4>{{ 'POGMODIFIEDBY' | translate }}</h4>
+      <p>{{selectedPogObj?.POGLastModifiedBy}}</p>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <h4>{{ 'POGMODIFIEDON' | translate }}</h4>
+      <p>{{selectedPogObj?.POGLastModifiedDate | date: skeletonDateTimeFormat}}</p>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <h4>{{ 'PPD3-VERSION' | translate }}</h4>
+      <p>{{selectedPogObj?.Version}}</p>
+    </div>
+    <div class="divider"></div>
+    <div class="section">
+      <h4>{{ 'PPD2-DIMENSIONS' | translate }}</h4>
+      <p>{{selectedPogObj?.Dimension}}</p>
+    </div>
+    <div class="divider"></div>
+  </div>
+</div>

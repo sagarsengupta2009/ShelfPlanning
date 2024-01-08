@@ -1,0 +1,69 @@
+
+#sappIntersectionmsgDialog .modal-header {
+  position: absolute;
+  padding: 0 10px;
+  height: 44px;
+  top: 0;
+  width: 100%;
+  background-color: #e6e6e6;
+  color: white;
+  font-weight: 500;
+  line-height: 44px;
+}
+
+#sappIntersectionmsgDialog .modal-content {
+  height: calc(100% - 44px);
+  margin-top: 44px;
+  overflow: auto;
+}
+
+#sappIntersectionmsgDialog .modal-footer {
+  position: absolute;
+}
+.intersect-chooser-pop {
+  position: absolute;
+  z-index: 1000000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.intersect-chooser-pop .intersect-window {
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 100000001;
+  border-radius: 2px;
+  opacity: 0.9;
+  height: 250px;
+  width: 400px;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  border: 1px solid #5d5d5d;
+}
+
+.intersect-chooser-pop .intersect-window .header-holder {
+  position: absolute;
+  top: 0;
+  left: 21%;
+  opacity: 0.5;
+}
+
+.intersect-chooser-pop .intersect-window .position-holder {
+  position: relative;
+  border: 1px dotted #eeeeee;
+  height: 100%;
+  width: 100%;
+}
+
+.intersect-chooser-pop .intersect-overlay {
+  position: absolute;
+  left: -1000%;
+  right: -1000%;
+  background-color: black;
+  top: -1000%;
+  bottom: -1000%;
+  opacity: 0.6;
+  z-index: 1000000;
+}

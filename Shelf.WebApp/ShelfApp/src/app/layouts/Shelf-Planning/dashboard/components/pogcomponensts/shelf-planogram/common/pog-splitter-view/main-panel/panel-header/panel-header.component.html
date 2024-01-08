@@ -1,0 +1,105 @@
+<div #myDiv class="panel-{{panelID}}" [ngClass]="{'pog-loaded' : isPogLoaded}">
+  <div class="sapp-panel-header"
+    [ngClass]="{'z-depth-1 multiSelectionMode':IsMultiSelectMode,'hqViewOn': scenarioID == '-1' ? true : false}" style="display:'flex'"
+    [ngStyle]="giveBackgroundColor()">
+    <div class="row nowarp headerContentAlign" *ngIf="planogramList && planogramList.length > 0" (dblclick)="objectPropertyGrid($event);">
+      <div *ngIf="IsMultiSelectMode" class="leftMenu col-lg-9 col-sm-9" [ngStyle]="IsVisibleMode">
+        <div *ngIf="IsMultiSelectMode">
+          <button mat-icon-button
+            style="float: left;border: none;background-color:#d0e9e9;margin-left: 5px;margin-top: 5px;">
+            <mat-icon class="material-icons iconSpace" (click)="IsMultiSelectMode = false;closeMultiselectMode()">
+              close
+            </mat-icon>
+          </button>
+          <h3 class="noStyle" style="margin-left: 5px;">
+            {{itemSelectedCount}}
+          </h3>
+        </div>
+        <div *ngIf="!IsMultiSelectMode" style="margin: 15px;">
+          <h3><u>{{ displayTemplate}}</u> </h3>
+        </div>
+      </div>
+      <mat-tab-group
+      [ngClass]="(sharedService.vmode) ? 'pogs-header-svg-vmode':(panelService.panelPointer[panelID].view == 'svgView' || panelService.panelPointer[this.panelID].view != 'panelView' || !planoviewer) ? 'pogs-header-svg' : 'pogs-header-pog'"
+        class="panel-header-pogs" *ngIf="!IsMultiSelectMode && showTabs" animationDuration="0ms" id="plib"
+        [selectedIndex]="selectedIndex"  (selectedTabChange)="verifyTabChange($event)" (focusChange)="setTabChange($event)" (wheel)="scrollTabs($event)" #tabGroup>
+        <mat-tab *ngFor="let item of planogramList;let i = index" label="{{item.Name}}" class="plibTabs"
+          [disabled]="item.IsLocked">
+          <ng-template mat-tab-label>
+            <div class="mat-tab-label-content" id="{{item.IDPOG}}{{panelID}}">
+              <span [ngStyle]="{'font-weight' : (item.isLoaded) ? '500' : 'normal'}" class="circle"
+                *ngIf="!item.requestStatus" [matTooltip]="item.Version"
+                [ngClass]="{'green': ((item.IDPogStatus==1 || item.IDPogStatus==2 || item.IDPogStatus==3 || item.IDPogStatus==4 || item.IDPogStatus == 5) && !item.IsReadOnly),
+                             'amber': ((item.IDPogStatus==1 || item.IDPogStatus==2 || item.IDPogStatus==3 || item.IDPogStatus==4) && item.IsReadOnly),
+                             'retired':item.IDPogStatus == 6, 'live': (item.IDPogStatus == 5 && item.IsReadOnly), 'markAsDelete':item.IsMarkedAsDelete, 'markAsInvalid':item.IsActive}">
+                {{item.PogStatusSymbol}}
+              </span>
+              <span *ngIf="item.requestStatus" class="circle"
+                [ngClass]="{'sync': item.requestStatus == 3 || item.requestStatus == 4, 'green':item.requestStatus == 5, 'failed':item.requestStatus == 6}">
+                <mat-icon *ngIf="item.requestStatus == 3">access_time</mat-icon>
+                <mat-icon *ngIf="item.requestStatus == 4">sync</mat-icon>
+                <mat-icon *ngIf="item.requestStatus == 5">done</mat-icon>
+                <mat-icon *ngIf="item.requestStatus == 6">close</mat-icon>
+              </span>
+              <div style="margin-left: 5px;margin-right:5px;">
+                <p class="pogID" [ngStyle]="{'font-weight' : (item.isLoaded) ? '500' : 'normal'}">
+                  {{item.IDPOG}}
+                  <span *ngIf="item.isnew" class="new">{{'PLANOGRAM_LIBRARY_NEW'|translate}}</span>
+                  <span class="material-icons font-small" *ngIf="item.IsLocked">
+                    lock
+                  </span>
+                  <sup class="is-dirty" *ngIf="checkDirty(item)">*</sup>
+                  <i class="material-icons status approved" *ngIf="item.IsApproved"
+                    matTooltip="{{'PLANOGRAM_IS_APPROVED'|translate}}">
+                    done
+                  </i>
+                  <i class="material-icons status rejected" *ngIf="item.IsApproved === false"
+                    matTooltip="{{'PLANOGRAM_IS_REJECTED'|translate}}">
+                    close
+                  </i>
+                  <span *ngIf="paMixedPogModeEnabled" [ngSwitch]="item.PogClassificationType" class="pa-pog-type">
+                    <span matTooltip="{{'MODEL_POG'|translate}}" *ngSwitchCase="'MODEL'">M</span>
+                                      <span matTooltip="{{'SS_POG'|translate}}" *ngSwitchCase="'SSPOG'">S</span>
+                                      <span matTooltip="{{'NON_OPTIMISED_POG'|translate}}" *ngSwitchCase="'MANUAL'">N</span>
+                                      <span matTooltip="{{'LIVE_POG'|translate}}" *ngSwitchCase="'LIVE'">L</span>
+                  </span>
+                </p>
+                <p class="pogName ellipsis" [ngStyle]="{'font-weight' : (item.isLoaded) ? '500' : 'normal'}"
+                  [matTooltip]="checkedOutBySystem(item,i,planogramList.length)">
+                  {{item.Name}}
+                </p>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template matTabContent>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+      <div
+        [ngClass]="(sharedService.vmode) ? 'menu-svg-vmode' : (panelService.panelPointer[panelID].view == 'svgView' || panelService.panelPointer[this.panelID].view != 'panelView' || !planoviewer) ? 'menu-svg' : 'menu-non-pog'"
+        class="rightMenu panel-header-menu">
+        <srp-custom-menus *ngIf="!IsMultiSelectMode" [screenName]="'planogramlib'" class="pull-right"
+          [controlName]="'pogLibHeaderMenu_1'" [type]="'gridMenu'" [panelID]='panelID'
+          (menuButtonClick)=menuButtonClick($event) [myselectionlist]="pogLibHeaderMenuShowHide"
+          [selectedManuKey]="panelService.panelPointer[panelID].selectedViewKey">
+        </srp-custom-menus>
+        <div style="float:right;margin-right:5%;" *ngIf="planoviewer && isPaRulesScreen && !pog.IsReadOnly && !IsMultiSelectMode">
+          <button mat-button [matMenuTriggerFor]="autoBlock" class='top-row-icons' style="color: var(--icons);" matTooltip="{{'CREATE_AUTO_BLOCKS'|translate}}">
+            <mat-icon>subtitles</mat-icon>
+          </button>
+          <mat-menu #autoBlock>
+            <span *ngFor="let item of autoBlocks">
+              <button mat-menu-item (click)="createAutoBlocks(item)">{{item.Name}}</button>
+            </span>
+            <hr>
+            <button mat-menu-item (click)="clearBlocks()">{{"CLEAR_BLOCKS" | translate}}</button>
+          </mat-menu>
+        </div>
+        <div *ngIf="IsMultiSelectMode">
+          <app-panel-context-menu [pog]='pog' [panelID]='panelID' [displayView]="panelService.panelPointer[panelID].view" [data]="sectionObject">
+          </app-panel-context-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

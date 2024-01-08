@@ -1,0 +1,43 @@
+.templateCntnr {
+  overflow: auto;
+
+  .labelSize {
+    color: grey;
+    max-width: 100%;
+    font-weight: 400;
+    font-size: 0.7em;
+  }
+
+  .matBodyCntnr {
+    margin-top: 2px;
+
+    .fieldCntnr {
+      width: 50%;
+      float: left;
+      padding: 5px;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.selected-option {
+  width: 260px;
+  margin-left: 5px;
+  margin-top: 22px;
+}
+
+.grid-status {
+  display: flex;
+  overflow: hidden;
+}
+
+.input-form-fields {
+  width:100%;
+}
+
+.fieldPosition {
+  padding:1px;
+}

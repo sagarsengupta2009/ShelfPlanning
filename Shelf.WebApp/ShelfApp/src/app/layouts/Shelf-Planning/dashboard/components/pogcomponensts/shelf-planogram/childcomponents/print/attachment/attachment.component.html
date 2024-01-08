@@ -1,0 +1,39 @@
+<div [style.height]="splitterOrientation===2?'calc(100% - 61em)':'calc(100% - 48em)'" class="attachmentCntnr">
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <div *ngIf="isUploadSectionOpen" class="rightMargin">
+      <label for="xlf" mat-icon-button>
+        <span style="cursor:pointer;margin-bottom:5px;" matTooltip="{{'FILE'| translate}}" class="material-icons">
+          attach_file
+        </span>
+      </label>
+      <input type="file" name="xlfile" id="xlf" style="display:none" [(ngModel)]="selfile" (change)="onFileChange($event.target.files)" />
+      <span style="margin-left:10px;">{{newAttachmentName}}</span>
+    </div>
+    <div *ngIf="isUploadSectionOpen" class="rightMargin">
+      <button mat-button [disabled]="!newAttachmentFile" (click)="uploadAttachment()">
+        {{'UPLOAD_ATTACHMENT'|translate}}
+      </button>
+    </div>
+    <div *ngIf="isUploadSectionOpen" class="rightMargin">
+      <button mat-button (click)="isUploadSectionOpen=false;">
+        {{'ATTACHMENT_CANCEL'|translate}}
+      </button>
+    </div>
+    <div class="rightMargin">
+      <button mat-button matTooltip="{{'ATTACHMENT_UPLOAD_TITLE'|translate}}" (click)="isUploadSectionOpen=true;">
+        <mat-icon>file_upload</mat-icon>
+      </button>
+    </div>
+    <div class="rightMargin">
+      <button mat-button matTooltip="{{'ATTACHMENT_RELOAD_TITLE'|translate}}" (click)="fetchDataAndRefresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div style="height:91%;">
+    <ng-container *ngIf="attachmentGridConfig?.id !== '' && attachmentGridConfig?.columnDefs?.length">
+      <shelf-ag-grid #agAttachmentGrid [gridConfig]="attachmentGridConfig" (actionEventEmit)="SelectedItem($event)">
+      </shelf-ag-grid>
+    </ng-container>
+  </div>
+</div>

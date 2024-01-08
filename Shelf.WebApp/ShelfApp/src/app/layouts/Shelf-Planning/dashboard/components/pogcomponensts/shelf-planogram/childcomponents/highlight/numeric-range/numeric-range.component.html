@@ -1,0 +1,144 @@
+<div class="numericMatchCntnr">
+  <div style="font-weight:600;" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span>{{modelHL.type | translate}}</span>
+      <span>-</span>
+      <span>{{getStringNameFromField}}</span>
+    </div>
+    <div>
+      {{getTemplateName}}
+    </div>
+    <div>
+      <button style="cursor:pointer" mat-icon-button [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="display">{{'DISPLAY' | translate}}</button>
+        <!--<button mat-menu-item [matMenuTriggerFor]="sort">{{'SORT' | translate}}</button>-->
+        <button *ngIf="savedSearchOptions.length>1" mat-menu-item [matMenuTriggerFor]="limit">{{'LIMIT' |
+          translate}}</button>
+        <button mat-menu-item (click)="showSave()">{{'SAVE_AS'
+          | translate}}</button>
+        <button mat-menu-item *ngIf="showSystemTemplate" (click)="emit('SYSTEM_TEMPLATE')">{{'SYSTEM_TEMPLATE' |
+          translate}}</button>
+        <button mat-menu-item *ngIf="showUpdate" (click)="emit('UPDATE')">{{'UPDATE' | translate}}</button>
+        <button mat-menu-item *ngIf="showRemove" (click)="emit('REMOVE')">{{'REMOVE' | translate}}</button>
+        <button mat-menu-item *ngIf="toggleTemplate" (click)="emit('TOGGLE_TEMPLATE')">{{'Toggle' | translate}}</button>
+      </mat-menu>
+      <mat-menu #display="matMenu">
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="hidePercentageLinear" (click)="hidePercentageLinear=!hidePercentageLinear">
+            {{'LINEAR_PERCENT' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="hideLinear" (click)="hideLinear=!hideLinear">{{'LINEAR' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="hideSpm" (click)="hideSpm=!hideSpm">{{'SPM' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="hidePercentageCapacity" (click)="hidePercentageCapacity=!hidePercentageCapacity">
+            {{'CAPACITY_PERCENT' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="hideCapacity" (click)="hideCapacity=!hideCapacity">
+            {{'CAPACITY' | translate}}</mat-checkbox>
+        </div>
+      </mat-menu>
+      <mat-menu #limit="matMenu">
+        <mat-radio-group style="display: flex;flex-direction: column;" [(ngModel)]="advFind">
+          <mat-radio-button style="padding:5px;" class="example-radio-button"
+            *ngFor="let findTemplate of savedSearchOptions;index as i" (click)="DoAdvFind(i)" [value]="i">
+            {{findTemplate.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-menu>
+    </div>
+  </div>
+  <div>
+    <i *ngIf="savedSearchOptions[advFind]?.search" style="font-size:12px;">{{savedSearchOptions[advFind].name}}</i>
+  </div>
+  <div style="margin-top:8px" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span style="margin-right:10px">
+        {{'MIN' | translate}}: {{getMinValue(modelHL.field)}}
+      </span>
+      <span>
+        {{'MAX' | translate}}: {{getMaxValue(modelHL.field)}}
+      </span>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>{{'SPLIT_INTO' | translate}}</mat-label>
+        <input matInput autocomplete="off" type="number" [(ngModel)]="model_fieldCount" (keyup)="validateKeyup($event)"
+        [min]="inputMinValue" [max]="inputMaxValue">
+      </mat-form-field>
+    </div>
+  </div>
+  <div id="cartListID" [ngClass]="sharedService.link !== 'allocate' ? 'cart-list-shelf-view' : 'cart-list-allocate-view'">
+    <ul *ngIf="inputRangeModel" class="list-view" id="create-planogram-ID">
+      <li *ngFor="let item of inputRangeModel.rangeModel;index as i; trackBy: trackByFn" [style.display]="i!=0 ? 'block' : 'none'"
+        class="card-prod">
+        <div *ngIf="hidePercentageLinear && i>0" class="matprogressbarCntnr">
+          <mat-progress-bar mode="determinate"
+            value="{{getPercentageLinear(inputRangeModel.rangeModel[i-1].num,item.num,i)}}"></mat-progress-bar>
+        </div>
+        <div *ngIf="i>0" class="card-img colorPicker">
+          <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+            [paletteSettings]="paletteSettings" [value]="inputRangeModel.rangeModel[i-1].color"
+            (valueChange)="colorChange($event,i-1)">
+          </kendo-colorpicker>
+        </div>
+        <div *ngIf="i>0" class="card-data" fxLayout="row" fxLayoutAlign="space-between center">
+          <div style="width: 30%;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [(ngModel)]="inputRangeModel.rangeModel[i-1].label"
+                (blur)="isNumeric(inputRangeModel.rangeModel[i-1].label, i-1)" (keyup)="onInputField($event)">
+            </mat-form-field>
+          </div>
+
+          <div style="width: 10%;">
+            <span [style.display]="i==1 ? 'block' : 'none'">{{inputRangeModel.rangeModel[i-1].num}}</span>
+            <span
+              [style.display]="i>1 ? 'block' : 'none'">{{updateDecimalRangeByone(inputRangeModel.rangeModel[i-1].num)}}</span>
+          </div>
+
+          <div *ngIf="i>0" style="width: 25%;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [(ngModel)]="item.num"
+                (blur)="updateRange(i,inputRangeModel.rangeModel[i-1].num, item.num)"
+                (keyup)="onInputField($event)" limitToTwoDecimalDigit>
+            </mat-form-field>
+          </div>
+        </div>
+        <div style="margin-top:10px;" *ngIf="i>0">
+          <span class="additionalFields" *ngIf="hidePercentageLinear">
+            <span>{{'LINEAR_PERCENT' | translate}} : </span>
+            <span>{{getPercentageLinear(inputRangeModel.rangeModel[i-1].num,item.num)}}</span>
+          </span>
+
+          <span class="additionalFields" *ngIf="hideLinear" style="margin-left: 10px;">
+            <span>{{'LINEAR' | translate}} : </span>
+            <span>{{getLinear(inputRangeModel.rangeModel[i-1],inputRangeModel.rangeModel[i-1].num,item.num)}}</span>
+          </span>
+
+          <span class="additionalFields" *ngIf="hideSpm" style="margin-left: 10px;">
+            <span>SPM : </span><span>{{isNaN(SPM[item.num], item.num)}}</span>
+          </span>
+
+          <span class="additionalFields" *ngIf="hidePercentageCapacity" style="margin-left: 10px;">
+            <span>{{'CAPACITY_PERCENT' | translate}} : </span>
+            <span>{{getPercentageCapacity(i, inputRangeModel.rangeModel[i-1],inputRangeModel.rangeModel[i-1].num,item.num)}}</span>
+          </span>
+
+          <span class="additionalFields" *ngIf="hideCapacity" style="margin-left: 10px;">
+            <span>{{'CAPACITY' | translate}} : </span>
+            <span>{{getCapacity(i, inputRangeModel.rangeModel[i-1],inputRangeModel.rangeModel[i-1].num,item.num)}}</span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

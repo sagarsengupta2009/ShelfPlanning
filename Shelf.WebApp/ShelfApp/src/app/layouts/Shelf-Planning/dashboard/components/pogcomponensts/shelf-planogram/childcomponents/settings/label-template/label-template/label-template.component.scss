@@ -1,0 +1,627 @@
+.labelCntnr {
+  padding-top: 13px;
+
+  .editBody {
+    max-height: 69vh;
+    overflow: scroll;
+  }
+
+  .editButtons {
+    button {
+      margin-right: 10px;
+    }
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  label {
+    color: black !important;
+    font-weight: 400;
+    background-color: transparent;
+    font-size: 12px;
+  }
+
+  .template-select {
+    font-size: 12px;
+    width: 100% !important;
+  }
+
+  .labelItem {
+    border-bottom: 1px solid #DFDFDF;
+    height: 24px;
+    width: 100%;
+    background-color: whitesmoke;
+
+    label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: inherit;
+      margin-left: 5px;
+    }
+  }
+
+  .gridTabs {
+    border: 1px solid lightgray;
+
+    .mat-tab-label {
+      display: inline-flex;
+      justify-content: flex-start;
+    }
+  }
+
+  mat-form-field.explicitLabel input.mat-input-element {
+    display: inline;
+    width: 70px;
+    text-decoration: underline;
+    margin-bottom: 5px;
+  }
+
+  .colorPicker_setting .k-colorpicker .k-select {
+    display: none !important;
+  }
+
+  mat-label {
+    font-size: 10px;
+    color: black;
+  }
+
+  mat-radio-button {
+    padding: 0px;
+    font-size: 12px;
+    margin-right: 16px;
+
+    label {
+      color: black !important;
+      font-weight: normal;
+    }
+  }
+
+  mat-checkbox {
+    font-size: 12px;
+
+    label {
+      color: black !important;
+      font-weight: normal;
+    }
+  }
+
+  .mat-checkbox .mat-checkbox-frame {
+    border-color: rgba(0, 0, 0, .54);
+    background-color: #dddddd
+  }
+
+  .mat-checkbox .mat-checkbox-inner-container {
+    height: 12px;
+    width: 12px;
+  }
+
+  .inputcntr {
+    width: fit-content;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    margin-bottom: 16px;
+    font-size: 12px;
+    margin-right: 16px;
+
+    .mat-slider.mat-accent {
+      .mat-slider-thumb {
+        background-color: #008080 !important;
+      }
+
+      .mat-slider-thumb-label {
+        background-color: #008080 !important;
+      }
+
+      .mat-slider-track-fill {
+        background-color: #008080 !important;
+      }
+
+    }
+
+    mat-select {
+      border-bottom: 1px solid black;
+      width: fit-content;
+    }
+
+    mat-radio-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      mat-radio-button {
+        width: fit-content;
+      }
+
+    }
+
+    mat-icon {
+      margin-right: 5px;
+      height: 20px;
+      width: 20px;
+      font-size: 18px;
+    }
+  }
+
+  .ag-cell-value {
+    &.ag-cell {
+      padding: 0px 5px !important;
+    }
+  }
+
+  shelf-ag-grid {
+    .ag-row {
+      font-size: 12px;
+      //height: 20px !important;
+    }
+
+    .ag-checkbox-input-wrapper {
+      font-size: 12px;
+      line-height: 12px;
+    }
+  }
+
+  // ag-grid-angular {
+  //   font-size: 12px;
+  // }
+
+  .ag-column-drop-wrapper {
+    display: none;
+  }
+
+  .form-chip {
+    width: 99%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top: 2vh;
+    max-height: 24vh;
+    height: 100%;
+    padding-left: 4px;
+    padding-right: 1px;
+    label {
+      color: black !important;
+    }
+
+    .mat-form-field-infix {
+      border-top: 0px;
+    }
+  }
+
+
+  .search-chip {
+    border-bottom: ridge;
+    font-size: 12px;
+  }
+
+  .full-chip {
+    background-color: transparent;
+    padding: 7px 0px !important;
+    margin: 0px !important;
+    border-radius: 0px;
+
+    input :focus {
+      outline: none !important;
+    }
+
+
+  }
+
+  .full-chip-lb {
+    background-color: transparent;
+    padding: 7px 0px !important;
+    margin: 0px 1000px 0px 0px !important;
+    border-radius: 0px;
+
+    input :focus {
+      outline: none !important;
+    }
+
+    mat-icon.lb {
+      transform: scaleX(0.65) rotate(90deg);
+      display: flex !important;
+    }
+  }
+
+  mat-chip:hover {
+    background-color: transparent;
+    border-radius: 0px;
+  }
+
+  .mat-chip.mat-standard-chip::after {
+    background: #0000;
+  }
+
+  .lb {
+    transform: scaleX(0.65) rotate(90deg);
+  }
+
+  .title-chip {
+    background-color: transparent;
+    border-color: transparent;
+    width: auto;
+    min-width: 20px;
+    font-size: 12px;
+  }
+
+  .title-input {
+    display: flex;
+    flex-direction: row;
+    ;
+  }
+
+  .lb-input {
+    width: 12px;
+    background-color: transparent;
+    border: none;
+  }
+
+  .lb-input:focus {
+    width: 12px;
+    background-color: transparent;
+    border: none;
+    outline-color: transparent;
+  }
+
+  .title-chip:focus {
+    outline-color: transparent;
+  }
+
+
+  .label-chip {
+    background-color: transparent;
+    border: 1.5px solid darkgrey;
+    border-radius: 12px;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+  }
+
+  .label-chip:focus {
+    background-color: #82c8c8;
+  }
+
+  .label-chip:focus-visible {
+    outline: none;
+  }
+
+  .label-hr {
+    width: 98%;
+    text-align: left;
+    margin: 0px
+  }
+
+  .textbox-input {
+    width: 50px;
+    border-bottom: 1px solid black;
+    margin-right: 10px;
+  }
+
+  .colorpicker {
+    font-size: 8px;
+    height: 18px;
+    border-radius: 0px;
+
+    .k-color-preview {
+      border-radius: 0px;
+    }
+
+    .k-input-inner {
+      padding: 2px;
+    }
+
+    button {
+      display: none;
+    }
+  }
+
+  .slider {
+    mat-slider {
+      height: 20px;
+      min-width: 100px;
+      top: -15px !important;
+      left: -7px !important;
+    }
+  }
+
+  .sliderSelect {
+    line-height: 12px;
+    border: 1px solid #DFDFDF !important;
+    border-radius: 4px;
+    padding: 3px;
+    margin-left: -5px;
+  }
+
+  .dialogCloseIcon {
+    float: right;
+    margin-top: -35px;
+
+    mat-icon {
+      margin: 0 5px;
+      cursor: pointer;
+      color: white;
+    }
+  }
+
+  .appendDialog {
+    overflow: hidden;
+  }
+
+  .appendNameDialog {
+    overflow: hidden;
+  }
+
+  .label-icons {
+    padding-top: 8px;
+  }
+
+  .buttonIcons {
+    border: none;
+    background-color: white;
+    padding: 1px 4px;
+
+    .deleteIconEnabled {
+      color: #4E9698;
+      cursor: pointer;
+    }
+
+    .deleteIconDisabled {
+      color: #6F6F6F !important;
+      cursor: not-allowed;
+    }
+
+    .cloneIcon {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+      color: #4E9698;
+    }
+  }
+
+  .block {
+    border: 1px solid #DFDFDF;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .marginLeft {
+    margin-left: 10px;
+  }
+
+  .fixtureSelectionContainer {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    height: 80%;
+  }
+
+  .marginBottom {
+    margin-bottom: 8px;
+  }
+
+  .paddingBottom {
+    padding-bottom: 4px;
+  }
+
+  .justifyContentPosition {
+    justify-content: flex-start;
+  }
+
+  .justifyContentFixture {
+    justify-content: flex-start;
+  }
+
+  .content {
+    font-size: 12px;
+    width: 95%;
+    max-width: 95%;
+    height: 20vh;
+    overflow-y: scroll;
+    border: 1px solid black;
+    margin-left: 10px;
+  }
+  .displayBlock{
+    display: block !important;
+  }
+  .content br {
+    display: none;
+  }
+
+  .chip {
+    background-color: orange;
+    width: 50px;
+    height: 50px
+  }
+
+  .smallRadio {
+    .mat-radio-container {
+      height: 12px;
+      width: 12px;
+    }
+
+    .mat-radio-outer-circle {
+      height: 12px;
+      width: 12px;
+    }
+
+    .mat-radio-inner-circle {
+      height: 12px;
+      width: 12px;
+    }
+
+    .mat-radio-button .mat-radio-ripple {
+      height: 20px;
+      width: 20px;
+      left: calc(50% - 10px);
+      top: calc(50% - 10px);
+    }
+
+    .mat-radio-label-content {
+      padding-left: 4px;
+    }
+  }
+
+  .disabledField {
+    color: rgba(0, 0, 0, .38);
+  }
+
+  .resizer {
+    content: attr(data-value) ' ';
+    //background-color: orange;
+    display: inline-grid;
+    width: auto;
+    margin-right: -2px;
+
+    &::after,
+    input {
+      //background-color: greenyellow;
+      width: auto;
+      grid-area: 1 / 2;
+      border: none;
+      padding: 0.1px !important;
+    }
+
+    input:focus {
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    input:focus-visible {
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    input:focus-within {
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+    }
+
+    &::after {
+      content: attr(data-value) ' ';
+      visibility: hidden;
+      white-space: pre-wrap;
+    }
+
+
+  }
+
+  .resizer:focus {
+    background: none !important;
+  }
+
+  //---------For ScrollBar -------------------
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background: none !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    background: #808483;
+    -webkit-box-shadow: inset 0 0 6px #ccc;
+    box-shadow: inset 0 0 6px #ccc;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: #808483;
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: #808483;
+  }
+
+  .alignmentError {
+    font-size: 12px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-style: italic;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 7px;
+  }
+
+  .alignmentErrorVisible {
+   .inputcntr {
+      margin-bottom: 8px;
+    }
+  }
+
+  .asterisk:after,
+  .asteriskBefore:before {
+    content: "*";
+    color: red;
+    font-size: 16px;
+  }
+
+  .decimals {
+    display: flex;
+    margin: 4px 0;
+  }
+
+  .decimals-label {
+    color: black !important;
+    font-weight: 400;
+    background-color: transparent;
+    font-size: 12px;
+    align-self: center;
+  }
+
+  .decimals-list {
+    list-style: none;
+    display: flex;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  .decimals-option {
+
+    align-items: center;
+    display: flex;
+
+    flex-direction: row;
+    flex-direction: row;
+
+    .mat-radio-button {
+      width: 100%;
+
+      .mat-radio-label {
+        width: 100%;
+      }
+
+      .mat-radio-container {
+        width: 0;
+      }
+    }
+
+    .mat-radio-container {
+
+      .mat-radio-outer-circle,
+      .mat-radio-inner-circle {
+        border: none;
+        width: 0;
+      }
+    }
+
+    &.active {
+      p {
+        color: #008080;
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+  }
+}

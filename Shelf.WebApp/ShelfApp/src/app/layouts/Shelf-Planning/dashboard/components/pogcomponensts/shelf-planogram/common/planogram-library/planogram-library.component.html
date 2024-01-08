@@ -1,0 +1,165 @@
+<div id="plibID">
+  <div class="plib-main z-depth-5" *ngIf="canShow">
+    <div class="plib-default-bar z-depth-1 inactive-search" *ngIf="!showHierarchy"
+      [ngClass]="{'active-search': pogLibHeaderMenu2ShowHide.isSearchFocus, 'inactive-search': !pogLibHeaderMenu2ShowHide.isSearchFocus}">
+      <div class="back-to-main" *ngIf="pogLibHeaderMenu2ShowHide.isSearchFocus">
+        <a class="arrowHolder">
+          <mat-icon style="font-size:27px" (click)="requestToBack('toDefault');"
+            [ngClass]="{'active-search': pogLibHeaderMenu2ShowHide.isSearchFocus, 'inactive-search': !pogLibHeaderMenu2ShowHide.isSearchFocus}">
+            arrow_back
+          </mat-icon>
+        </a>
+      </div>
+      <div class="col-md-2" style="line-height:50px;" *ngIf="!pogLibHeaderMenu2ShowHide.isSearchFocus">
+        <mat-icon aria-hidden="false" aria-label="widgets">view_quilt</mat-icon>
+        <h4 class="header" translate>HEADER_PLANOGRAMS</h4>
+      </div>
+
+      <div class="plib-searchbar"
+        [ngClass]="{'active-search': pogLibHeaderMenu2ShowHide.isSearchFocus, 'inactive-search': !pogLibHeaderMenu2ShowHide.isSearchFocus}">
+        <div class="input-field">
+
+          <div class="ngautocomplete  input-search" *ngIf="pogLibHeaderMenu2ShowHide.isSearchFocus">
+            <ng-autocomplete [data]="data" [(ngModel)]="searchText" [searchKeyword]="'Name'"
+              (selected)='onSelect($event)' [customFilter]="customFilter" (inputChanged)='getServerResponse($event)'
+              (keyup.enter)="triggerAzureSearch(searchText)" [itemTemplate]="itemTemplate"
+              (inputCleared)="searchCleared()" [notFoundTemplate]="notFoundTemplate" [debounceTime]="1000"
+              [minQueryLength]="3" placeholder="{{planogram.selectedField}}">
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate let-item>
+              <a href="javascript:void(0)">
+                <div class="row">
+
+                  <div class="col-10">
+                    <span [innerHTML]="item.Name"></span>-<span [innerHTML]="item.IDPOG"></span>
+
+                  </div>
+                </div>
+              </a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              {{errorMsg}}
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="context-menu">
+        <srp-custom-menus [screenName]="'planogramlib'" class="pull-right" [controlName]="'pogLibHeaderMenu_2'"
+          [type]="'gridMenu'" [matTooltipDisabled]="showDetailedTooltip"
+          (menuButtonClick)="menuButtonClickPogLibMenu2($event)" [myselectionlist]="pogLibHeaderMenu2ShowHide">
+        </srp-custom-menus>
+
+      </div>
+    </div>
+
+    <div *ngIf="selectedSearchplanogram?.length>0" class="plib-multiselect-bar">
+      <div class="default-head">
+        <a class="arrowHolder">
+          <mat-icon style="font-size:27px;cursor:pointer;" (click)="onDisplayHeaderClick()">arrow_back</mat-icon>
+        </a>
+      </div>
+      <div class="num-selected-item">
+        <span>{{selectedSearchplanogram?.length}}</span><span> </span><span>
+          {{'PLANOGRAM_LIBRARY_OF' |translate}}
+        </span> <span>{{displayedPlanogramsOnSearch.length}} </span><span> </span><span>
+          {{'PLANOGRAM_LIBRARY_SELECTED' |translate}}
+        </span>
+
+      </div>
+      <div style="float:right;">
+        <button mat-icon-button matTooltip="{{'PLANOGRAM_LIBRARY_ADD'| translate}}" (click)="onAddMultiplePlanograms()">
+          <mat-icon style="color:#6F6F6F;">add</mat-icon>
+        </button>
+
+      </div>
+    </div>
+    <div *ngIf="showHierarchy" class="plib-multiselect-bar">
+      <div class="default-head">
+        <a class="arrowHolder">
+          <mat-icon style="font-size:27px;cursor:pointer;" (click)="showHierarchy=false;requestToBack('toDefault')">
+            arrow_back</mat-icon>
+        </a>
+      </div>
+      <div style="float:right;" class="context-menu">
+
+
+        <srp-custom-menus [screenName]="'planogramlib'" class="pull-right" [controlName]="'pogshowHierarchy'"
+          [myselectionlist]="pogLibHeaderMenu2ShowHide" [type]="'gridMenu'" [matTooltipDisabled]="showDetailedTooltip"
+          (menuButtonClick)=menuButtonClickPogLibMenu3($event)>
+        </srp-custom-menus>
+
+
+      </div>
+    </div>
+    <div class="plib-multiselect-bar" [hidden]="(selectedPlanograms?.length==0)">
+      <div class="default-head col-md-2" style="line-height:50px; color:#6F6F6F;">
+        <mat-icon aria-hidden="false" aria-label="widgets">view_quilt</mat-icon>
+        <h4 class="header">{{'HEADER_PLANOGRAMS' | translate}}</h4>
+      </div>
+      <div class="num-selected-item">
+        <span>{{selectedPlanograms?.length}}</span><span> </span><span>
+          {{'PLANOGRAM_LIBRARY_OF' |translate}}
+        </span>
+        <span>{{pogList.length}} </span><span> </span><span>{{'PLANOGRAM_LIBRARY_SELECTED' |translate}}</span>
+      </div>
+      <div class="context-menu" *ngIf="!isSearchFocus">
+        <srp-custom-menus [screenName]="'planogramlib'" class="pull-right" [controlName]="'pogLibHeaderMenu_3'"
+          [type]="'gridMenu'" [matTooltipDisabled]="showDetailedTooltip"
+          (menuButtonClick)=menuButtonClickPogLibMenu3($event) [myselectionlist]="pogLibHeaderMenu2ShowHide">
+        </srp-custom-menus>
+
+      </div>
+    </div>
+
+
+    <div class="default-result">
+      <div class="plib-dual-list">
+        <div class="planogramGridCls"
+          [style.display]="!showHierarchy&&!pogLibHeaderMenu2ShowHide.isSearchFocus ? 'block' : 'none'">
+          <ng-container *ngIf="gridConfig && gridConfig.id !== ''">
+            <shelf-ag-grid #planogramLibgrid [gridConfig]="gridConfig" (onContextSelect)="onContextMenuSelect($event)"
+            (selectedRow)="onRowSelected($event)" (rowValueUpdated)="editedValue($event)" (actionEventEmit)="onSelectedItem($event)"
+            (clearFilterEvent)="clearFilter($event)" (filterEvent)="onFilterChange($event)" >
+            </shelf-ag-grid>
+          </ng-container>
+
+        </div>
+        <div class="planogramGridCls" *ngIf="pogLibHeaderMenu2ShowHide.isSearchFocus ">
+          <ng-container *ngIf="searchPlanogramGridConfig && searchPlanogramGridConfig.id !== ''">
+            <shelf-ag-grid #searchPlanogramGrid [gridConfig]="searchPlanogramGridConfig"
+            (actionEventEmit)="onSelectedSearchItem($event)" (onContextSelect)="onMenuSelect($event)"
+            (selectedRow)="onSaveSelectedRow($event)"></shelf-ag-grid>
+          </ng-container>
+        </div>
+        <div class="planogramGridCls" *ngIf="showHierarchy">
+          <app-hierarchy #hieraryGrid [planogramList]="pogList"
+            (AddpogFromHierarchy)="addPogToScenarioFromHierarchy($event)"
+            (selectedHierarchyRows)="getSelectedRows($event)">
+          </app-hierarchy>
+        </div>
+      </div>
+
+      <!-- search setting -->
+      <div class="mat-container " *ngIf="searchSettingVisibility">
+        <div class="dialog-title row">
+          <div mat-dialog-title class="col-sm-3 col-md-3 heading">Product Library</div>
+          <span class="close">
+            <span mat-dialog-close class="material-icons close-icon">close</span>
+          </span>
+        </div>
+
+        <mat-dialog-content class="mat-typography">
+
+          <div>
+            <sp-search-setting [customSearchType]="planogram" [type]="planogram.searchType" [id]="planogram.id">
+            </sp-search-setting>
+          </div>
+        </mat-dialog-content>
+
+      </div>
+    </div>
+  </div>
+
+</div>

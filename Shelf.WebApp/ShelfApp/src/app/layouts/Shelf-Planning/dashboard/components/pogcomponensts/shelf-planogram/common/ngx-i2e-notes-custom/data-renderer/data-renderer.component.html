@@ -1,0 +1,5 @@
+<a>
+    <span [innerHtml]="cellValue"></span>
+    <span *ngIf="isAlert" style="float: right;"><mat-icon>notifications</mat-icon></span>
+    <span *ngIf="!isAlert" style="float: right;font-size: 21px;"><mat-icon>info</mat-icon></span>
+  </a>

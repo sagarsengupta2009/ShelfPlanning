@@ -1,0 +1,36 @@
+<h4 class="custom-modal-header" mat-dialog-title  cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle>{{'LOADED_PLANOGRAMS_LIST' | translate }}</h4>
+<div class="dialogCloseIcon">
+  <button mat-icon-button  [disabled]="!(someComplete() || allComplete)" (click)="unloadSelectedPogs()" [ngStyle]="!(someComplete() || allComplete)?{'color': 'rgba(0,0,0,.38)'}:{'color': 'grey'}">
+    <mat-icon matTooltip="{{'PANEL_HEADER_UNLOAD'| translate}}">cloud_upload</mat-icon>
+  </button>
+  <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+
+<div mat-dialog-content class="maxCountDialog mat-container" style="height: 100%;margin-left: -11px;padding: 2px;overflow-y: auto;">
+  <span class="example-list-section" style="font-size:12px;">
+    <mat-checkbox class="example-margin"
+                  [checked]="allComplete"
+                  
+                  [indeterminate]="someComplete()"
+                  (change)="setAll($event.checked)">
+      {{task.name}}
+    </mat-checkbox>
+  </span>
+  <div class="example-list-section" style="font-size:12px;overflow: scroll;max-height: 93%;">
+    <ul>
+      <li *ngFor="let pogList of loadedPlanogram" >
+        <mat-checkbox [(ngModel)]="pogList.completed" [disabled]="!pogList.isLoaded"  (change)="changeofSelection($event.checked,pogList)"
+                      
+                      (ngModelChange)="updateAllComplete()">
+          <span [disabled]="!pogList.isLoaded"> {{pogList.IDPOG}}<span *ngIf="pogList?.isSaveDirtyFlag && pogList?.isLoaded" style="color:red">*</span></span> - <span [disabled]="!pogList.isLoaded">{{pogList.Name}}</span>
+        </mat-checkbox>
+      </li>
+    </ul>
+  </div>
+  <span class="example-list-section" style="font-size:12px;">
+    <mat-checkbox class="example-margin last-cb"  [checked]="false" [disabled]="checkForDirtyPogs?.length==0 && checkIsselectedDirtyPog?.length == 0  "
+                  (change)="selectSaveandunload($event.checked)">
+                  {{'SELECT_TO_SAVE_UNLOAD_POGS' | translate }}          
+    </mat-checkbox>
+  </span>
+</div>

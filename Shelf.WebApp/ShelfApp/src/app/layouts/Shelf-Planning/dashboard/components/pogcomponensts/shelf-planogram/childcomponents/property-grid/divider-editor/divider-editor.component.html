@@ -1,0 +1,112 @@
+<div class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start" cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle>
+    <h4 mat-dialog-title>{{'PROP_GRP_DIVIDER' | translate }}
+    </h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close >close</mat-icon>
+    </div>
+</div>
+<div mat-dialog-content class="mat-typography">
+    <div class="editor-body">
+        <div class="row" *ngIf="!isCoffinCase();">
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{ 'TYPE' | translate }}</div>
+                        <div class='input-component-body'>
+                            <mat-select id="divider_placement_dropdown" [disabled]="isReadonly"
+                                [(ngModel)]="dividers.selectedDividerPlacement"
+                                (selectionChange)="dividerPlacementSelect()">
+                                <mat-option *ngFor="let option of dividerPlacementList" [value]="option.value">
+                                    <span>{{option.text}}</span>
+                                </mat-option>
+                            </mat-select>
+                            <div class='input-component-line'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{'FOOTER_HEIGHT' | translate}} </div>
+                        <div class='input-component-body'>
+                            <kendo-numerictextbox class="property-grid-input" [min]="0" autoCorrect="true" [spinners]="false" [(ngModel)]='dividers.dividerHeight'
+                                [disabled]="allowData || isReadonly"   (blur)="blurring(dividers,'dividerHeight')">
+                            </kendo-numerictextbox>
+                        </div>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{'PRODSRCH_WIDTH' | translate }}</div>
+                        <div class='input-component-body'>
+                            <kendo-numerictextbox class="property-grid-input" [min]="0" autoCorrect="true" [spinners]="false" [(ngModel)]='dividers.dividerWidth'
+                                [disabled]="allowData || isReadonly"  (blur)="blurring(dividers,'dividerWidth')">
+                            </kendo-numerictextbox>
+                        </div>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{ 'FOOTER_DEPTH' | translate }}</div>
+                        <div class='input-component-body'>
+                            <kendo-numerictextbox class="property-grid-input" [min]="0" autoCorrect="true" [spinners]="false" [(ngModel)]='dividers.dividerDepth'
+                                [disabled]="allowData || isReadonly"  (blur)="blurring(dividers,'dividerDepth')">
+                            </kendo-numerictextbox>
+                        </div>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{ 'SLOT_START' | translate}}</div>
+                        <div class='input-component-body'>
+                          <kendo-numerictextbox class="property-grid-input" [min]="0" autoCorrect="true" [spinners]="false" [(ngModel)]='dividers.dividerSlotStart'
+                                [disabled]="allowData || isReadonly" (blur)="blurring(dividers,'dividerSlotStart')">
+                            </kendo-numerictextbox>
+                        </div>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{ 'SLOT_SPACING' | translate}}</div>
+                        <div class='input-component-body'>
+                            <kendo-numerictextbox class="property-grid-input" [min]="0" autoCorrect="true" [spinners]="false" [(ngModel)]='dividers.dividerSlotSpacing'
+                                [disabled]="allowData || isReadonly" (blur)="blurring(dividers,'dividerSlotSpacing')">
+                            </kendo-numerictextbox>
+                     </div>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class='input-cell'>
+                        <div class='input-component-label'>{{ 'PART_NUMBER' | translate}}</div>
+                        <div class='input-component-body'><input type='text' class="form-control"
+                                [disabled]="allowData || isReadonly" [(ngModel)]='dividers.partNumber' autoCorrect="true" [minlength]='0'
+                                (blur)="blurring(dividers,'partNumber')"></div>
+                        <div class='input-component-line'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-separator-editor #separatorEditor *ngIf="isCoffinCase();" [itemData]="data"></app-separator-editor>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button (click)="cancel();"> {{'GRILLINFO_CANCEL' | translate}}</button>
+    <button mat-raised-button [disabled]="isReadonly" (click)="dividersApply()">{{'GRILLINFO_APPLY' | translate}}
+    </button>
+</div>

@@ -1,0 +1,10 @@
+<div class="accordionCntnr">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let group of groupData; let isFirst = first" [expanded]="isFirst">
+      <mat-expansion-panel-header style="font-size:0.8em">
+        {{group.title}}
+      </mat-expansion-panel-header>
+      <sp-setting-template [key]="'POGSettingstab'" [fieldData]="group.children" [tab]="group.tab"></sp-setting-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

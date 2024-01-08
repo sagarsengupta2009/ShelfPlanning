@@ -1,0 +1,44 @@
+<div class="footer" (mouseover)="mouseoverDockToolbar(true)" (mouseout)="mouseoverDockToolbar(false)" [style.display]="canShow ? 'block' : 'none'">
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <div id="footer-msg" style="position: fixed;" matTooltip="{{footerMsg}}"
+      [ngStyle]="{'width': isSaveAllInProgress ? '35%':'50%', 'margin-right': isSaveAllInProgress ? '61%':'46%'}"
+      *ngIf="isShelfLoaded && actionStatusMsg()=='' && !hideStatusBarMsg">
+      {{footerMsg}}
+    </div>
+    <div id="footer-msg" style="position: fixed;" matTooltip="{{actionStatusMsg()}}"
+      [ngStyle]="{'width': isSaveAllInProgress ? '35%':'50%', 'margin-right': isSaveAllInProgress ? '61%':'46%'}"
+      *ngIf="isShelfLoaded && actionStatusMsg()!=''">
+      {{actionStatusMsg()}}
+    </div>
+    <div *ngIf="isShelfLoaded" id="footer-msg" style="float:right;position:fixed;"
+      [ngStyle]="{'width': isSaveAllInProgress ? '10%':'25%', 'margin-right': isSaveAllInProgress ? '40%':'19%'}" matTooltip="{{activeSectionLongDesc()}}">
+      {{activeSectionLongDesc()}}
+      <span *ngIf="checkDirty()">*</span>
+    </div>
+    <div>
+      <a class="error_icon cursor" matTooltip="{{'INFORMATIONCONSOLELABLE'|translate}}" style="float: left;">
+        <mat-icon [matBadgeHidden]="infoLogCount == 0" class="errorIndicator" matBadge="{{infoLogCount}}"
+          (click)="OpenInformationConsole()" matBadgeColor="accent"
+          style="color:var(--foreground-quaternary);z-index:11;">{{console.icon}}</mat-icon>
+      </a>
+    </div>
+    <div *ngIf="isAutoSaveEnabled && isShelfLoaded" class="hover-on-el footer-auto-save">
+
+      <span *ngIf="!checkIfSaveInProgress() && !asynSaveStatus" [title]="autoSaveTitle"
+        [ngClass]="{'autosave-on':autoSaveEnableFlag, 'autosave-off': !autoSaveEnableFlag}"
+        (click)="toggleAutoSaveEnable()"></span>
+
+      <div style="padding-top: 6px;" *ngIf="asynSaveStatus">
+        {{'POG_SAVED'|translate}}
+      </div>
+      <div *ngIf="checkIfSaveInProgress()" title="{{pogSavingMessageTooltip}}" style="float:left">
+        <div style="margin-right: 9px;float: left;margin-top: 3px;">{{pogSavingMessage}} ...
+          <mat-progress-spinner [mode]="'indeterminate'" [diameter]="15"></mat-progress-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="footerLogo">
+    </div>
+    <srp-information-console #infoConsole (countInfoLogs)="UpdateInfoLogsBadge($event)"></srp-information-console>
+  </div>
+</div>

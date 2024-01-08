@@ -1,0 +1,40 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start">
+    <h4 mat-dialog-title>{{'IMAGE_LIBRARY' | translate }} </h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <sp-search [isChildSearch]="true" class="spSearch" (emitChildSearchText)="ChildSearchItems($event)"
+            [width]="'125px'"></sp-search>
+        <mat-icon class="material-icons iconSpace" [matMenuTriggerFor]="menu" matTooltip="{{ 'MORE' | translate }}">more_vert</mat-icon>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="sortByName()">{{'SORT_BY_NAME' | translate}}</button>
+            <button mat-menu-item (click)="sortByDate()">{{'SORT_BY_DATE' | translate}}</button>
+        </mat-menu>
+        <mat-icon mat-dialog-close matTooltip="{{ 'CLOSE' | translate }}">close</mat-icon>
+    </div>
+</div>
+
+<div class="imageryDialog" mat-dialog-content>
+    <div class="ImageryImageList"  *ngIf="imageList.length == 0">
+        <i>{{'PREPARING_IMAGE_LIST' | translate }}</i>
+    </div>
+    <div class="ImageryImageList" *ngIf="imageList.length > 0">
+    <ul class="collection">
+        <li *ngFor="let itemData of imageList | filterPipe:{'search': filterText}"
+            [ngClass]="{'highlightBorder': HighLightId === itemData.Id }" class="collection-item" id="{{itemData.Id}}">
+            <div class="row">
+                <div class="col-sm-12">
+                    <span title="Name" class="namefield">{{itemData.Name}}</span>
+                    <span title="Created Date" class="dateField">{{itemData.CreatedTs | date: skeletonDateTimeFormat}}</span>
+                    <span class="small-avatar-image z-depth-1" (click)="selectedImage(itemData)" class="img">
+                        <img style="height: 100px;max-width: 100%;" src="{{itemData.Image}}">
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close > {{'CANCEL'|translate}}</button>
+    <button mat-raised-button (click)="attachImage()">{{'Ok' | translate}}</button>
+</div>

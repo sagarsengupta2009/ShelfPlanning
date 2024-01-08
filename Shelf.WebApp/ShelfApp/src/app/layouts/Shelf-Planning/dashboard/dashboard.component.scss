@@ -1,0 +1,9 @@
+.main-body {
+    height: calc(100% - 97px);
+}
+#main-body-panel {
+    &.noSidePanel {
+        padding-left: 5px;
+    }
+    padding-left: 55px;
+}

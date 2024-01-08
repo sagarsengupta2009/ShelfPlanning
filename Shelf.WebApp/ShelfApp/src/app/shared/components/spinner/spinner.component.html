@@ -1,0 +1,6 @@
+<ng-container *ngIf="spinner.isShown">
+  <ngx-spinner class="spinnerImg" bdColor="rgba(0,0,0,0.2)" color="rgba(0,0,0,0)">
+    <img *ngIf="spinnerImagePath" [src]="spinnerImagePath" style="top: 50%">
+    <p *ngIf="spinnerMessage" class="spinnerMsg">{{spinnerMessage | translate}}</p>
+  </ngx-spinner>
+</ng-container>

@@ -1,0 +1,90 @@
+<div class="freeflowToolBar">
+  <div class="toolBar">
+    <div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+      <mat-icon style="cursor: move;">drag_indicator</mat-icon>
+    </div>
+    <div class="toolBarSection">
+      <div>
+        <button class="regularButton selectFrame" (click)="buttonClick('save', 4)"
+          [ngClass]="originalAnnotation.status!='new'?'buttonDisabled regularButton':'regularButton'">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <rect x="19" y="3" width="2" height="2" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <rect x="3" y="3" width="2" height="2" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <rect x="19" y="19" width="2" height="2" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <rect x="3" y="19" width="2" height="2" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <line x1="4" y1="6" x2="4" y2="19" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <line x1="6" y1="20" x2="19" y2="20" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <line x1="20" y1="19" x2="20" y2="6" fill="none" stroke="#000" stroke-miterlimit="10" />
+            <line x1="19" y1="4" x2="6" y2="4" fill="none" stroke="#000" stroke-miterlimit="10" />
+          </svg>
+        </button>
+      </div>
+      <div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <kendo-colorpicker matTooltip="{{'SHAPE_BORDER_COLOR' | translate}}" iconClass="fa fa-pencil-square-o fa-lg" class="colorpicker iconClassResize" [format]="'hex'"
+          [gradientSettings]="gradientSettings" [disabled]="originalAnnotation.status!='new' && freeFlowType!=4"
+          [paletteSettings]="paletteSettings" (valueChange)="buttonClick('lncolor', 4, $event)"
+          [(value)]="annotationDialogObj[4].Attribute.style.lncolor"></kendo-colorpicker>
+      </div>
+    </div>
+    <div class="toolBarSection">
+      <div>
+        <button
+          [ngClass]="originalAnnotation.status!='new'?'buttonDisabled regularButton':'regularButton'"
+          (click)="buttonClick('save', 5)">
+          <mat-icon>title</mat-icon>
+        </button>
+      </div>
+      <div>
+        <mat-select class="fontSelection"  (openedChange)="customFont=null" #fontSelect
+          [disabled]="originalAnnotation.status!='new' && freeFlowType!=5" panelClass="labelTemplateInputPanel"
+          [(ngModel)]="annotationDialogObj[5].Attribute.style.fontsize" (selectionChange)="buttonClick('fontsize',5)">
+            <kendo-numerictextbox [spinners]="false"
+            [(ngModel)]="customFont" [changeValueOnScroll]="false" max="80" min="4" (keyup)="newFontSizePush(customFont, $event)"
+             [format]="0.00" [decimals]="2"  [step]="0" placeholder="{{'SEARCH' | translate}}">
+          </kendo-numerictextbox>
+          <mat-option *ngFor="let option of fontSizes  | filterPipe:{ 'search': customFont}" [value]="option">
+            <span>{{option}}</span>
+          </mat-option>
+        </mat-select>
+      </div>
+      <div>
+
+        <kendo-colorpicker matTooltip="{{'TEXT_BACKGROUND_COLOR' | translate}}" class="colorpicker" [format]="'hex'" icon="pencil"
+          [gradientSettings]="gradientSettings" [disabled]="originalAnnotation.status!='new' && freeFlowType!=5"
+          [paletteSettings]="paletteSettings" (valueChange)="buttonClick('bgcolor', 5)"
+          [(ngModel)]="annotationDialogObj[5].Attribute.style.bgcolor">
+        </kendo-colorpicker>
+
+      </div>
+
+    </div>
+    <div class="toolBarSection">
+      <div>
+        <button
+          [ngClass]="originalAnnotation.status!='new'?'buttonDisabled regularButton':'regularButton'"
+          (click)="buttonClick('save', 6)">
+          <mat-icon class="connector">keyboard_backspace</mat-icon>
+        </button>
+      </div>
+      <div>
+        <kendo-colorpicker matTooltip="{{'CONNECTOR_COLOR' | translate}}" class="colorpicker" [format]="'hex'" [gradientSettings]="gradientSettings"
+          [paletteSettings]="paletteSettings" [disabled]="originalAnnotation.status!='new' && freeFlowType!=6"
+          [(ngModel)]="annotationDialogObj[6].Attribute.style.lncolor" (valueChange)="buttonClick('lncolor',6)">
+        </kendo-colorpicker>
+      </div>
+    </div>
+    <div>
+      <button matTooltip="{{'DELETE' | translate}}" (click)="buttonClick('delete', null)" [disabled]="originalAnnotation.status == 'new'"
+        [ngClass]="originalAnnotation.status=='new'?'buttonDisabled regularButton':'regularButton'">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div>
+      <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon class="closeButton" mat-dialog-close>close</mat-icon>
+      </div>
+    </div>
+  </div>
+
+</div>

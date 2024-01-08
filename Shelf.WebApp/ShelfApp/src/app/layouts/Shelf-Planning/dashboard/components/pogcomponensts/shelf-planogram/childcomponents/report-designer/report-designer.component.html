@@ -1,0 +1,72 @@
+<h4 class="custom-modal-header" mat-dialog-title>{{'HEADER_REPORT_TEMPLATE' | translate}}</h4>
+<div class="dialogCloseIcon">
+  <button *ngIf="showDesigner" mat-icon-button (click)="closeReport()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button mat-icon-button (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content style="height:100%;" (mouseover)="mouseout()">
+  <div class="row Report-Drop-Down formfield" *ngIf="!(showDesigner)">
+    <div style="width:49%;margin-bottom:5px;">
+      <ng-select bindLabel="Name"
+                 placeholder="{{'RT_SELECT_ADDNEW' | translate}}"
+                 [searchable]="true"
+                 groupBy="Group"
+                 [clearable]="false"
+                 [closeOnSelect]="true"
+                 [(ngModel)]="selectedReportTemplate"
+                 (change)="openReport()">
+        <ng-option [value]="item" [title]="item.displayLabel"
+                   [disabled]="" *ngFor="let item of reportTypeList">
+          {{item.Name}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="row ReportDataSource-Drop-Down formfield" *ngIf="addNewReport">
+
+    <div style="width:49%;margin-bottom:5px;">
+      <ng-select bindLabel="Name"
+                 placeholder="{{'CHOOSE' | translate}}"
+                 [searchable]="true"
+                 groupBy="Group"
+                 [clearable]="false"
+                 [closeOnSelect]="true"
+                 [(ngModel)]="selectedNewReport"
+                 (change)="openNewReport()">
+        <ng-option [value]="item" [title]="item.displayLabel"
+                   [disabled]="" *ngFor="let item of reportDataSource">
+          {{item.Name}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="row BusinessRule-Drop-Down formfield" *ngIf="showBusinnessRule">
+
+    <div style="width:49%;margin-bottom:5px;">
+      <ng-select bindLabel="Name"
+                 placeholder="{{'BUSINESS_RULE_CODE' | translate}}"
+                 [searchable]="true"
+                 groupBy="Group"
+                 [clearable]="false"
+                 [closeOnSelect]="true"
+                 [(ngModel)]="selectedBusinessRule"
+                 (change)="openBusinessRule()">
+        <ng-option [value]="item" [title]="item.displayLabel"
+                   [disabled]="" *ngFor="let item of businessrule">
+          {{item.Name}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <button mat-raised-button (click)="create()" [disabled]="templateselected" class="create" *ngIf="!showDesigner">
+    {{ buttonName | translate}}
+  </button>
+
+  <div class="iFrame-Designer-Holder holds-the-iframe" *ngIf="showDesigner" id="report_designer">
+    <iframe [src]="safeUrl" style="height:100%;width:100%;" (CustomizeMenuActions)="CustomizeMenuActions($event)">></iframe>
+  </div>
+</div>

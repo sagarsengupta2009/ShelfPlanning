@@ -1,0 +1,37 @@
+.tooltip-conatiner {
+  border: 1px solid gray;
+  border-radius: 2px;
+  padding: 1px 5px 4px 5px;
+  background: linear-gradient(#ffffff 0px, #e4e5f0 100%);
+  right: 0px;
+}
+
+.tooltipContent {
+  max-width: 250px;
+  padding: 10px 10px 10px 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.66);
+  border-radius: 3%;
+  font-size: 0.8em;
+  z-index: 99;
+  
+}
+
+.tooltipContent .head {
+  font-size: 1.1em;
+}
+
+// .tooltipContent .content {
+// }
+
+.tooltipContent hr {
+  padding: 5px 0px 7px 0px;
+  margin: 0px;
+  color: whitesmoke;
+}
+
+.removecss {
+  left: unset !important;
+  top: unset !important;
+  right: 0px;           // set becouse kendo pop-up goes rightside of screen 
+}

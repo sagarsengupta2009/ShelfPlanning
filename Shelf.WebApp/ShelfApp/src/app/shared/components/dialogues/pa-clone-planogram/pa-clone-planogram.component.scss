@@ -1,0 +1,19 @@
+cloneActions {
+    float: right;
+}
+
+::ng-deep .custom-dialog-container .mat-dialog-container {
+    overflow: hidden;
+}
+
+.mat-dialog-actions {
+    padding: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 52px;
+    align-items: center;
+    box-sizing: content-box;
+    margin-bottom: -24px;
+    float: right;
+}
+

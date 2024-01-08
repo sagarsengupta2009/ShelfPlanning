@@ -1,0 +1,192 @@
+.annotationEditor {
+  border-style: solid;
+  border-color: lightgrey;
+  border-radius: 10px;
+  border-width: thin;
+  padding: 10px;
+
+  .editor {
+    border-style: solid;
+    border-color: lightgrey;
+    border-radius: 20px;
+    border-width: thin;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .columnDisplay {
+    flex-direction: column;
+  }
+
+  .textAreaBox {
+    max-height: 60vh;
+    font-family: 'Roboto';
+    //min-height: 30px;
+    width: inherit;
+    border: none;
+    line-height: normal;
+    box-sizing: content-box;
+    resize: none;
+  }
+
+  textarea:focus{
+    border: none;
+  }
+
+  textarea:focus-visible{
+    border: none;
+    outline: none;
+  }
+
+  .toolBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .regularButton {
+    border: transparent;
+    background: transparent;
+    margin-right: 10px;
+    padding: 0px;
+  }
+
+  .colorPicker_setting .k-colorpicker .k-select {
+    display: none !important;
+  }
+
+  .colorpicker {
+    font-size: 14px;
+    //height: 21px;
+    border-radius: 0px;
+    margin: 0px 5px;
+
+    .k-color-preview {
+      border-radius: 0px;
+    }
+
+    .k-input-inner {
+      padding: 2px;
+
+      .k-icon-wrapper-host{
+        display: contents;
+      }
+    }
+
+    button {
+      display: none !important;
+    }
+  }
+
+  .buttonDisabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .actionSelected {
+    border-radius: 5px;
+    border-color: grey;
+    border-style: solid;
+    border-width: thin;
+    margin-right: 10px;
+    padding: 0px;
+  }
+
+  .file-box {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    opacity: 1;
+    cursor: pointer;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .file-type {
+    margin: 1vh 0;
+    text-align: center;
+    font-size: 10px;
+    color: #C4C3C5;
+  }
+
+  .file-header {
+    margin: 1vh 0;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .selected-file-name {
+    margin-top: 1vh;
+    text-align: center;
+    font-size: 12px;
+    color: grey;
+    opacity: 1;
+    word-wrap: break-word;
+  }
+
+  .selected-image {
+    max-height: 99%;
+    max-width: 99%;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .uploaded-image {
+    height: 100%;
+    width: 100%;
+    margin-left: 1%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .considerHeight {
+      height: 100%;
+    }
+
+    .considerWidth {
+      width: 100%;
+    }
+  }
+
+  .fontSelection {
+    font-size: 14px;
+    border: lightgrey;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 3px;
+    padding: 2px;
+    margin-right: 10px;
+
+    // .mat-select-arrow-wrapper {
+    //   margin-left: 12px;
+    // }
+  }
+
+  .labelTitle {
+    font-size: 12px;
+  }
+
+  .actionBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+}
+
+.annotationDialogHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}

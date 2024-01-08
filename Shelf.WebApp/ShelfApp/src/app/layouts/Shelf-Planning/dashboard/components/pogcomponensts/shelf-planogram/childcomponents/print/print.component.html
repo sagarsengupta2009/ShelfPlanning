@@ -1,0 +1,26 @@
+<div class="printCntnr">
+  <mat-tab-group animationDuration="0ms" [(selectedIndex)]="reportchartsService.selectedIndex" mat-align-tabs="start" (selectedTabChange)="onTabChanged($event);">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="matLabelCntnr">subject</mat-icon>
+        <span class="matLabelCntnr">{{'REPORT_TAB'| translate}}</span>
+      </ng-template>
+      <sp-report-charts #reportsCntnr *ngIf="config.reportsandcharts" [pogData]="pogObj" [panelid]="panelId"></sp-report-charts>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label class="matLabelCntnr">
+        <mat-icon style="margin-right:5px">attach_file</mat-icon>
+        {{'PRINT_ATTACHMENT' | translate}}
+      </ng-template>
+      <app-attachment *ngIf="config.attachment" [pogData]="pogObj" [panelid]="panelId"></app-attachment>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="btnCntnr">
+  <button mat-icon-button *ngIf="reportsView" (click)="refreshReportGrid()">
+    <mat-icon matTooltip="{{'REPORT_RELOAD_TITLE'| translate}}">refresh</mat-icon>
+  </button>
+  <button mat-icon-button (click)="closePrint()">
+    <mat-icon>closet-</mat-icon>
+  </button>
+</div>

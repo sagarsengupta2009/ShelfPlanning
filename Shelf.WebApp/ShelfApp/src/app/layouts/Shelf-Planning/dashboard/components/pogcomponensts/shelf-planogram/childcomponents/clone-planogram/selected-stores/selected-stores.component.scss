@@ -1,0 +1,31 @@
+.storeCntnr {
+  .datecomponent {
+    kendo-datepicker {
+      width: 28px;
+      height: 28px;
+      margin: 6px;
+    }
+
+    ::ng-deep.k-datepicker .k-widget.k-dateinput {
+      display: none;
+    }
+  }
+
+  .headerCntnr {
+    background-color: #EEEEEE;
+
+    .headerName {
+      margin-left: 5px;
+      color: black;
+      font-size: 1em;
+    }
+  }
+
+  .gridCntnr {
+    position: absolute;
+    top: 36px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

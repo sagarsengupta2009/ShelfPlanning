@@ -1,0 +1,596 @@
+[
+  {
+    "CorpId": 4,
+    "ProductKey": "310578",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 2,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "812947",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 6,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310573",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 7,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310577",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 16,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310576",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 2,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "495818",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 14,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310755",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 14,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310580",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 18,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "325161",
+    "RowKey": "1508900",
+    "PogName": "03' BEVERAGE ENERGY HAWAII",
+    "Facings": 14,
+    "Stores": 2.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310578",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 3,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310578",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 2,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "523222",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 5,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "812947",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 4,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "879855",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 4,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310361",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 6,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "618224",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 15,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310577",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 15,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "657294",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 15,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310575",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 4,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310576",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 2,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "533854",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 2,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310579",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 15,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "495818",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 15,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "447267",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 14,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "964758",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 14,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310212",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 3,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310572",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 14,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310580",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 15,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "556997",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 8,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "556999",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 8,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "657932",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 8,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "962670",
+    "RowKey": "1508901",
+    "PogName": "06' BEVERAGE ENERGY HAWAII",
+    "Facings": 7,
+    "Stores": 10.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310578",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 3,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "451420",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 3,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "451422",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 2,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310758",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 4,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "523222",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 5,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "812947",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 5,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "879855",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 5,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310361",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 4,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310573",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 5,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310574",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 5,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "618224",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 16,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310577",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 15,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310756",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 14,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "657294",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 15,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310575",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 6,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310576",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 2,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "533854",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 2,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "812942",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 2,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310579",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 15,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "495818",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 15,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "558749",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 14,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "565132",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 14,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "964758",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 14,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "975490",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 7,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "975514",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 7,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310212",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 3,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310572",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 14,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "310580",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 15,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "971745",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 14,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "325161",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 12,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "556997",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 9,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "556999",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 8,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "657932",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 9,
+    "Stores": 4.0,
+    "prd": null
+  },
+  {
+    "CorpId": 4,
+    "ProductKey": "944767",
+    "RowKey": "1508902",
+    "PogName": "09' BEVERAGE ENERGY",
+    "Facings": 8,
+    "Stores": 4.0,
+    "prd": null
+  }
+]

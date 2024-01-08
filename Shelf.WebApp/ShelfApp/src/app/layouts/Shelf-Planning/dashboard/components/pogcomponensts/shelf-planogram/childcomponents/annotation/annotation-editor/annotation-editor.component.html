@@ -1,0 +1,185 @@
+<div>
+  <div mat-dialog-content >
+    <div cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle class="annotationDialogHeader">
+      <div class="sapp-property-grid" [ngClass]="[referenceItem.ObjectDerivedType + '_propertygrid']">
+        <div class="property-grid-header" cdkDragHandle>
+          <div class="row" *ngIf="referenceItem.ObjectType == 'Position'">
+            <span>
+              <span *ngIf="selectedPogItem?.Fixture?.FixtureNumber">
+                {{ 'BAY' | translate }} :
+                {{ selectedPogItem?.Fixture?.ModularNumber }}
+                {{ 'FIXTURE' | translate }} : {{ selectedPogItem?.Fixture?.FixtureNumber }} {{ 'Position' }}
+                {{ selectedPogItem?.Position?.PositionNo }} |
+              </span>
+              {{ selectedPogItem.Position.Product.UPC }} |
+              {{ selectedPogItem?.Position?.Product?.Name }}
+            </span>
+
+
+
+          </div>
+
+          <div class="row" *ngIf="referenceItem.ObjectType == 'Fixture' && referenceItem.ObjectDerivedType != 'Modular'">
+            <span>
+              {{ 'BAY' | translate }}:{{
+              isMultiFixMode ? MULTIPLE_VALUES : selectedPogItem?.Fixture?.ModularNumber
+              }}
+              {{ 'FIXTURE' | translate }}:{{
+              isMultiFixMode ? MULTIPLE_VALUES : selectedPogItem?.Fixture?.FixtureNumber
+              }} |
+              {{ isMultiFixMode ? MULTIPLE_VALUES : selectedPogItem.Fixture.FixtureType }}
+            </span>
+          </div>
+          <div class="row" *ngIf="referenceItem.ObjectType == 'Fixture' && referenceItem.ObjectDerivedType == 'Modular'">
+            <span>
+              {{ 'BAY' | translate }}:{{
+              isMultiFixMode ? MULTIPLE_VALUES : selectedPogItem?.Fixture?.ModularNumber
+              }}
+            </span>
+          </div>
+
+          <div class="row" *ngIf="referenceItem.ObjectType == 'POG'">
+            <span>
+              {{ selectedPogItem.IDPOG }} |
+              {{ selectedPogItem.Name }}
+            </span>
+
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end" >
+        <mat-icon mat-dialog-close>close</mat-icon>
+      </div>
+    </div>
+
+    <div class="annotationEditor">
+      <div class="editor" [ngClass]="annotation.LkExtensionType==3?'columnDisplay':''">
+
+        <div *ngIf="annotation.LkExtensionType==1" style="width:100%;display: flex;">
+          <textarea cdkDragDisabled="true"  [(ngModel)]="annotation.Content" class="textAreaBox"
+          [ngStyle]="{'height': textAreaHeight(annotation.Content)}" spellcheck="false" #annotationText
+             matInput placeholder="{{('TYPE_HERE' | translate)+'...'}}"
+            (ngModelChange)="buttonClick('Content')"></textarea>
+        </div>
+        <div style="display:flex">
+          <div *ngIf="annotation.LkExtensionType==3">
+            <label style="font-size: 10px">
+              <span width="50px"> {{ 'STRETCH' | translate }}&nbsp;</span>
+              <mat-slide-toggle [ngModel]="annotation.Attribute.imgDispType=='tile'?true:false" (ngModelChange)="buttonClick('imgDispType')" >
+              </mat-slide-toggle>
+              <span class="lever"></span>
+              {{ 'TILE' | translate }}
+            </label>
+          </div>
+          <div>
+            <button [disabled]="!isDirty" class="regularButton" [ngClass]="!isDirty?'buttonDisabled':''"
+              (click)="buttonClick('save')">
+              <mat-icon>save</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="annotation.LkExtensionType==3" style="width:100%">
+          <div class="row">
+            <mat-label class="selected-file-name">{{selectedFileName}}</mat-label>
+          </div>
+          <label for="file-upload" class="file-box" [ngStyle]="{'width': annotation.Attribute.imgDispType=='tile'?'40vh':''}" [title]="uploadImageText | translate">
+            <div *ngIf="!annotation.Attribute.imgUrl" class="selected-image" (click)="selectImage()">
+              <svg xmlns="http://www.w3.org/2000/svg" style="margin: 0% 35%; fill: var(--background-tertiary);"
+                viewBox="0 0 576 512">
+                <path
+                  d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z" />
+              </svg>
+              <div class="row">
+                <mat-label class="selected-file-name">{{uploadImageText | translate}}</mat-label>
+              </div>
+            </div>
+            <div *ngIf="annotation.Attribute.imgUrl" class="selected-image">
+              <div class="uploaded-image">
+                <img (click)="selectImage()" #annImage [ngClass]="imageClass"
+                  [src]="annotation.Attribute.imgUrl | safeiframeurl" />
+              </div>
+            </div>
+
+          </label>
+        </div>
+      </div>
+
+      <div class="toolBar" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+        <div style="display:flex">
+          <div *ngIf="annotation.LkExtensionType==1">
+            <button
+              [ngClass]="annotation.LkExtensionType==3?'buttonDisabled regularButton':(annotation.Attribute.Font.weight?'actionSelected':'regularButton')"
+              (click)="buttonClick('weight')">
+              <mat-icon>format_bold</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="annotation.LkExtensionType==1">
+            <button
+              [ngClass]="annotation.LkExtensionType==3?'buttonDisabled regularButton':(annotation.Attribute.Font.italic?'actionSelected':'regularButton')"
+              (click)="buttonClick('italic')">
+              <mat-icon>format_italic</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="annotation.LkExtensionType==1">
+            <button
+              [ngClass]="annotation.LkExtensionType==3?'buttonDisabled regularButton':(annotation.Attribute.Font.underline?'actionSelected':'regularButton')"
+              (click)="buttonClick('underline')">
+              <mat-icon>format_underlined</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="annotation.LkExtensionType==1">
+
+            <mat-select class="fontSelection"  (openedChange)="customFont=null" #fontSelect
+            [disabled]="annotation.LkExtensionType==3" panelClass="labelTemplateInputPanel"
+          [(ngModel)]="annotation.Attribute.style.fontsize" (selectionChange)="buttonClick('fontsize')">
+            <kendo-numerictextbox [spinners]="false"
+            [(ngModel)]="customFont" [changeValueOnScroll]="false" max="80" min="4" (keyup)="newFontSizePush(customFont, $event)"
+             [format]="0.00" [decimals]="2"  [step]="0" placeholder="{{'SEARCH' | translate}}">
+          </kendo-numerictextbox>
+          <mat-option *ngFor="let option of fontSizes  | filterPipe:{ 'search': customFont}" [value]="option">
+            <span>{{option}}</span>
+          </mat-option>
+        </mat-select>
+          </div>
+          <div *ngIf="annotation.LkExtensionType==1">
+            <kendo-colorpicker class="colorpicker" [format]="'hex'" icon="foreground-color"
+              [gradientSettings]="gradientSettings" [disabled]="annotation.LkExtensionType==3"
+              [paletteSettings]="paletteSettings" (valueChange)="buttonClick('color')"
+              [(ngModel)]="annotation.Attribute.style.color">
+            </kendo-colorpicker>
+          </div>
+          <div>
+            <kendo-colorpicker matTooltip="{{'TEXT_BACKGROUND_COLOR' | translate}}" class="colorpicker" [format]="'hex'" icon="pencil"
+              [gradientSettings]="gradientSettings"
+              [paletteSettings]="paletteSettings" (valueChange)="buttonClick('bgcolor')"
+              [(ngModel)]="annotation.Attribute.style.bgcolor">
+            </kendo-colorpicker>
+          </div>
+          <div *ngIf="annotation.LkExtensionType==1">
+            <kendo-colorpicker class="colorpicker" style="font-size: 10px" [format]="'hex'"
+              [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings"
+              [(ngModel)]="annotation.Attribute.style.lncolor" (valueChange)="buttonClick('lncolor')">
+            </kendo-colorpicker>
+            <mat-label class="labelTitle">{{'CONNECTOR_COLOR' | translate}}</mat-label>
+          </div>
+        </div>
+        <div class="actionBar">
+          <div *ngIf="annotation.LkExtensionType==1">
+            <button matTooltip="{{'IMAGE_ANNOTATE' | translate}}" class="regularButton" (click)="buttonClick('add_photo')">
+              <mat-icon>add_photo_alternate</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="annotation.LkExtensionType==3">
+            <button matTooltip="{{'TEXT_ANNOTATE' | translate}}" class="regularButton" (click)="buttonClick('add_text')">+Aa
+            </button>
+          </div>
+          <div>
+            <button [disabled]="isPogReadonly || annotation.status == 'new'" class="regularButton" [ngClass]="isPogReadonly || annotation.status == 'new'?'buttonDisabled':''" (click)="buttonClick('delete')">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

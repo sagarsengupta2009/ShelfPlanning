@@ -1,0 +1,85 @@
+<div class="modal-container">
+    <!-- <div class="modal-header-custom" cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle>
+        <h1 mat-dialog-title>{{'PANEL_HEADER_TOOLTIP_SHOPPINGCART' | translate}}</h1>
+    </div> -->
+    <div class="dialogCloseIcon">
+        <div class="modal-icons">
+            <sp-search *ngIf="!isallocate" [isChildSearch]="true" (emitChildSearchText)="bindSearchEvent($event)" [filterText]="filterText"
+                [width]="'90px'" class="spSearch"></sp-search>
+            <button mat-button>
+                <mat-icon matTooltip="{{'CLOSE'|translate}}" (click)="closeDialog()">close</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<div mat-dialog-content>
+    <ul *ngIf="!isallocate" sapp-tooltip id="cartThumbnailID">
+        <li *ngIf="(!(cartItems | shoppingCartFilter: filterText).length)" 
+            style="margin-left:45px">
+            <i>{{'CART_NO_PRODUCTS_AVAILABLE' | translate}}</i>
+        </li>
+        <ng-container *ngIf="(cartItems | toArray : false | shoppingCartFilter: filterText : 'unLoadedCart')  as filteredItems;">
+            <ng-container *ngFor="let itemData of filteredItems; index as i; first as first; last as last;">
+                <li class="cart-item-compact" id="{{itemData.IDPOGObject}}" style="display:inline-block;">
+                    <div kendoTooltip filter=".tooltipHolder" position="left" class="tooltipHolder"
+                        [tooltipTemplate]="compactViewTemplate"
+                        [showAfter]="sharedService.tooltipDelayTime">
+                        <div [ngStyle]="stylePositionDiv(itemData)" *ngIf="checkIfPositionHasImage(itemData.Image)">
+                            <img [ngStyle]="stylePositionObject(itemData)" style="bottom:0px;left:0px;"
+                                class="positionElement" src="{{itemData.Image}}" loading="lazy" positionImgFallback />
+                        </div>
+                        <div [ngStyle]="stylePositionDiv(itemData,true)" *ngIf="!checkIfPositionHasImage(itemData.Image)"
+                            style="bottom:0px;left:0px;" class="positionElement">
+                        </div>
+                        <div [ngClass]="getAssortmentClass(itemData.RecADRI)"
+                            style="filter: none; opacity: 1;"
+                            class="assortIndicator adri-underLine">
+                        </div>
+                        <ng-template #compactViewTemplate>
+                            <div style="float:left;padding:15px;margin-top: 0px;">
+                                <img src="{{checkShoppingCart(itemData.IDPOGObject)}}"
+                                    style="max-height:90px;vertical-align:middle" positionImgFallback />
+                            </div>
+                            <div
+                                style="float:right;font-size: 11px;line-height: 20px;margin: 5px;word-break: break-word;">
+                                <table>
+                                    <tr *ngFor="let tooltip of ToolTipData">
+                                        <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+                                        <td class="tooltip-text-colon">:</td>
+                                        <td>{{tooltip.value}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </ng-template>
+                    </div>
+                </li>
+            </ng-container>
+        </ng-container>
+    </ul>
+    <!--  PA SHOPPING CART, the data for tooltip is different than shelf hence the filters applied in shelf cannot be applied in PA -->
+    <ul *ngIf="isallocate" sapp-tooltip id="cartThumbnailID">
+      <ng-container *ngFor="let itemData of cartItems; index as i; first as first; last as last;">
+        <li class="cart-item-compact" id="{{itemData.IDPOGObject}}" style="display:inline-block;">
+          <div kendoTooltip filter=".tooltipHolder" position="left" class="tooltipHolder"
+            [tooltipTemplate]="sharedService.turnOn_ShoppingCartToolTip ? compactViewTemplate : ''"
+            [showAfter]="sharedService.tooltipDelayTime">
+            <div >
+              <img style="bottom:0px;left:0px;" class="positionElement shopping-cart-item-image-pa"
+                src="{{itemData.Image}}" loading="lazy" positionImgFallback />
+            </div>
+            <ng-template #compactViewTemplate>
+              <div style="float:left;padding:15px;margin-top: 0px;">
+                <img src="{{itemData.Image}}" style="max-height:90px;vertical-align:middle"
+                  positionImgFallback />
+              </div>
+              <div style="float:right;">
+                <div *ngFor="let tooltip of getToolTipData(itemData)">
+                  <span style="text-transform:capitalize">{{tooltip.keyName}}</span>&nbsp;:&nbsp; {{tooltip.value}}
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+</div>

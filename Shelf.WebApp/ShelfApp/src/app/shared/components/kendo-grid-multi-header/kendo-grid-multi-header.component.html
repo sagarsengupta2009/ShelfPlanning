@@ -1,0 +1,20 @@
+<kendo-grid [data]="gridData"
+            [ngStyle]="gridHeight"
+            [class]="gridCustomCss"
+            scrollable="scrollable">
+    <kendo-grid-column *ngFor="let col of columns"
+                       [field]="col.field"
+                       [title]="col.title"
+                       [width]="col.width"
+                       [locked]="col.locked">
+    </kendo-grid-column>
+    <kendo-grid-column-group *ngFor="let gcol of groupedColumns"
+                             [title]="gcol.title"
+                             [width]="gcol.width">
+        <kendo-grid-column *ngFor="let ngcol of gcol.columns"
+                           [field]="ngcol.field"
+                           [title]="ngcol.title"
+                           [width]="ngcol.width">
+        </kendo-grid-column>
+    </kendo-grid-column-group>
+</kendo-grid>

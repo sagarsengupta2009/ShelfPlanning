@@ -1,0 +1,4 @@
+<ng-container *ngIf="aggridConfig?.id !== '' && aggridConfig?.columnDefs?.length">
+  <shelf-ag-grid #agGrid [gridConfig]="aggridConfig" (rowValueUpdated)="editedValue($event)"  (selectedRow)="invokeSelectedItemRow($event)"
+  (fillUpDownEvent)="fillDownUPHandler($event)" (undoRedoEvent)="worksheetKeyEvents($event)" (deleteEvent)="deleteObject()"></shelf-ag-grid>
+</ng-container>

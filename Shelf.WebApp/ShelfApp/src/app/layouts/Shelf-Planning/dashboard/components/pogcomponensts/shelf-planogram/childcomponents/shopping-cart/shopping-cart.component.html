@@ -1,0 +1,323 @@
+<div class="modal-container" [ngClass]="(!state && PogSideNavStateService.shoppingCartView.pos  != 'top') ? 'show-menu custom-modal-header' :''">
+  <div class="modal-header-custom">
+    <h4 *ngIf="state" mat-dialog-title class="disable-select"></h4>
+    <h4 *ngIf="!state && PogSideNavStateService.shoppingCartView.pos  != 'top'" mat-dialog-title class="disable-select" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+      [cdkDragDisabled]="state" cdkDragHandle>
+      {{'PANEL_HEADER_TOOLTIP_SHOPPINGCART' | translate}}
+    </h4>
+  </div>
+  <div class="dialogCloseIcon disable-select">
+    <div class="modal-icons">
+      <span *ngIf="selectedItemCount()" class="selected-text" matTooltip="{{selectedItemCount()}} {{'SHOPPING_CART_ITEMS_SELECTED'|translate}}"  >
+        {{selectedItemCount()}} {{'SHOPPING_CART_ITEMS_SELECTED' | translate }}
+      </span>
+      <sp-search [hidden]="selectedItemCount()" [isChildSearch]="true" (emitChildSearchText)="bindSearchEvent($event)"
+      [filterText]="filterText" [width]="'90px'" class="spSearch"></sp-search>
+      <div class="pull-right">
+        <button *ngIf="!state" mat-button (click)="openInTop()">
+          <mat-icon class="material-icons iconSpace" style="transform: rotate(180deg)"  matTooltip="{{'DOCK_SHOPPING_CART'|translate}}">dock</mat-icon>
+       </button>
+       <button *ngIf="isDownloadActive" mat-button (click)="excelDownload()">
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'download'|translate}}">download
+          </mat-icon>
+        </button>
+       <button mat-button (click)="zoomIn()">
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'ZOOM_IN'|translate}}">zoom_in
+          </mat-icon>
+        </button>
+        <button mat-button (click)="zoomOut()">
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'ZOOM_OUT'|translate}}">zoom_out
+          </mat-icon>
+        </button>
+        <button mat-button *ngIf="state">
+          <mat-icon  class="material-icons iconSpace" style="transform: rotate(90deg)" matTooltip="{{'EXPAND_COLLAPSE'|translate}}" [matMenuTriggerFor]="Zmenu">expand</mat-icon>
+        </button>
+        <mat-menu #Zmenu="matMenu">
+          <div class="zoom-mat-menu">
+            <button mat-icon-button [disabled]="sideNavWidth === 15" (click)="changeSideNavWidth('minimize',$event)">
+              <mat-icon class="minimize">minimize</mat-icon>
+            </button>
+            <button mat-icon-button [disabled]="sideNavWidth === 50" (click)="changeSideNavWidth('maximize',$event)">
+              <mat-icon>add</mat-icon>
+            </button>
+
+            <button mat-raised-button class="resetBtn" (click)="changeSideNavWidth('reset',$event)">
+              {{'RESET' |translate}}
+            </button>
+          </div>
+        </mat-menu>
+
+        <button mat-button *ngIf="selectedItemCount()">
+          <mat-icon class="material-icons iconSpace" *ngIf="selectedItemCount()" matTooltip="{{'POG_LIB_UNSELECTEDITEM'|translate}}"
+            (click)="requestToBack()">remove_done</mat-icon>
+        </button>
+        <button mat-button *ngIf="isItemSelectedAndCheckAssort(true)">
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'DELETE_ITEM'|translate}}"
+            (click)="deleteSelected()">
+            delete
+          </mat-icon>
+        </button>
+        <button mat-button *ngIf="isItemSelectedAndCheckAssort(false)">
+          <mat-icon class="material-icons iconSpace" [hidden]="isFloatingShelveEnabled" matTooltip="{{'POG_LIB_RETAINITEMS'|translate}}"
+            (click)="retainSelected()">
+            restore
+          </mat-icon>
+        </button>
+        <button mat-button *ngIf="!selectedItemCount()">
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'SORT'|translate}}" [matMenuTriggerFor]="sortMenu" (menuClosed)="sortMenuClosed()">sort</mat-icon>
+        </button>
+        <mat-menu #sortMenu="matMenu">
+          <div class="sort-flex-container" (click)="$event.stopPropagation();$event.preventDefault();">
+            <div class="sort-menu-title sort-field-label sort-label-column">{{'SORT_LIST' | translate}}</div>
+            <div class="sort-menu-title sort-field-label sort-order-column">{{'PRIMARY' | translate}}</div>
+            <div class="sort-menu-title sort-field-label sort-order-column">{{'SECONDARY' | translate}}</div>
+          </div>
+          <ng-container *ngFor="let sortfield of defaultSortFieldsToShow">
+            <mat-divider></mat-divider>
+            <div class="sort-flex-container" (click)="$event.stopPropagation();$event.preventDefault();">
+              <div class="sort-field-label sort-label-column">{{sortfield.value | translate}}</div>
+              <button mat-button class="sort-check-circle sort-order-column" (click)="sortOrderChanged(sortfield.field, sortfield.value, 1)" [class.sort-check-circle-selected]="isSortBySelected(sortfield.field, 1)" >
+                <mat-icon class="material-icons" >{{isSortBySelected(sortfield.field, 1) ? 'check_circle' : 'check_circle_outline'}}
+                </mat-icon>
+              </button>
+              <button mat-button class="sort-check-circle sort-order-column" (click)="sortOrderChanged(sortfield.field, sortfield.value, 2)" [class.sort-check-circle-selected]="isSortBySelected(sortfield.field, 2)" >
+                <mat-icon class="material-icons" >{{isSortBySelected(sortfield.field, 2) ? 'check_circle' : 'check_circle_outline'}}
+                </mat-icon>
+              </button>
+            </div>
+          </ng-container>
+          <ng-container *ngFor="let j of additionalFieldsToShow">
+            <mat-divider></mat-divider>
+            <div class="sort-flex-container" (click)="$event.stopPropagation();$event.preventDefault();">
+              <div class="sort-field-label sort-label-column">{{j.value | translate}}</div>
+              <button mat-button class="sort-check-circle sort-order-column" (click)="sortOrderChanged(j.field, j.value, 1)" [class.sort-check-circle-selected]="isSortBySelected(j.field, 1)" >
+                <mat-icon class="material-icons" >{{isSortBySelected(j.field, 1) ? 'check_circle' : 'check_circle_outline'}}
+                </mat-icon>
+              </button>
+              <button mat-button class="sort-check-circle sort-order-column" (click)="sortOrderChanged(j.field, j.value, 2)" [class.sort-check-circle-selected]="isSortBySelected(j.field, 2)" >
+                <mat-icon class="material-icons">{{isSortBySelected(j.field, 2) ? 'check_circle' : 'check_circle_outline'}}
+                </mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </mat-menu>
+        <button mat-button>
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'MORE'|translate}}" [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="selectAllItems()">
+            {{'SELECT_ALL' |translate}}
+          </button>
+          <button mat-menu-item *ngIf="displayMode === 1" [matMenuTriggerFor]="menu2">
+            {{'DISPLAY' | translate}}
+          </button>
+          <button mat-menu-item *ngIf="displayMode === 1" (click)="toggleDisplayMode()">
+            {{'COMPACT_VIEW' |translate}}
+          </button>
+          <button mat-menu-item *ngIf="displayMode === 2" (click)="toggleDisplayMode()">
+            {{'LIST_VIEW' |translate}}
+          </button>
+          <button *ngIf="displayMode === 1" style="display:none" (click)="toggleFitToContent()">
+            Fit To Content
+            <i class="mdi-navigation-check left" style="height: 30px;line-height: 30px;" [hidden]="!fitToContent"></i>
+          </button>
+          <button mat-menu-item *ngIf="hasFloatingShelves" [class.invert]="shoppingCartService.floatingShelvesConfig?.enabled" (click)="toggleFloatingShelfMode()">
+            {{'FLOATING_SHELVES' |translate}}
+          </button>
+        </mat-menu>
+        <mat-menu #menu2="matMenu" xPosition="before">
+          <ng-container *ngFor="let options of shoppingCartFieldOptions">
+            <button mat-menu-item>
+              <mat-checkbox class="card-checkbox" id="addField{{options.IDDictionary}}" [value]="options.IDDictionary"
+                [checked]="isAddFieldSelected(options.IDDictionary)" style="margin: 4px 6px 0 !important"
+                (click)="toggleAdditionalField(options, $event)">{{options.value}} </mat-checkbox>
+            </button>
+          </ng-container>
+
+        </mat-menu>
+        <button mat-button [hidden]="!(selectedItemCount() === 1)">
+          <mat-icon class="material-icons iconSpace" matTooltip="{{'HEADER_MORE_INFO_VIEW'|translate}}" (click)="onInfo($event)">info</mat-icon>
+        </button>
+        <button mat-button>
+          <mat-icon class="material-icons iconSpace" *ngIf="state" matTooltip="{{'PLANOGRAM_LIBRARY_MAXIMIZE'|translate}}" (click)="openShoppingCartDialogue()">
+            aspect_ratio
+          </mat-icon>
+          <mat-icon class="material-icons iconSpace" *ngIf="PogSideNavStateService.shoppingCartView.pos  != 'top' && !state" (click)="openInSideNav()" matTooltip="{{'PLANOGRAM_LIBRARY_PIN' | translate}}">push_pin</mat-icon>
+        </button>
+        <button mat-button *ngIf="state">
+          <mat-icon *ngIf="isPin" class="material-icons iconSpace pin" matTooltip="{{'PLANOGRAM_LIBRARY_UNPIN'|translate}}" (click)="OnpinUnpin()">
+            push_pin
+          </mat-icon>
+          <mat-icon *ngIf="!isPin" class="material-icons iconSpace" matTooltip="{{'PLANOGRAM_LIBRARY_PIN'|translate}}" (click)="OnpinUnpin()">
+            push_pin
+          </mat-icon>
+        </button>
+        <button mat-button>
+         <mat-icon matTooltip="{{'CLOSE'|translate}}" (click)="Onclose()">close</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div #shoppingCartDiv tabindex="1" class="disable-select" mat-dialog-content [ngClass]="{'shoppingCartDialog' : state }">
+  <mat-divider style="clear:both;"></mat-divider>  
+  <div class="sort-flex-container" style="clear:both;" *ngIf="shoppingCartService.sortFieldOrder.length">
+    <div class="primary-sort-order" (click)="toggleSortDirection(1)">
+      <div class="sort-order-subtitle">{{'PRIMARY' | translate}}</div>
+      <div class="sort-flex-container">
+        <div class="sort-order-field-title">{{shoppingCartService.sortFieldOrder[0].name | translate}}</div>
+        <div class="sort-direction-icon"><mat-icon class="mat-icon notranslate menuicon material-icons mat-icon-no-color">{{shoppingCartService.sortFieldOrder[0].dir==='asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></div>
+      </div>       
+    </div>
+    <div class="secondary-sort-order" *ngIf="shoppingCartService.sortFieldOrder.length === 2" (click)="toggleSortDirection(2)">
+      <div class="sort-order-subtitle">{{'SECONDARY' | translate}}</div>
+      <div class="sort-flex-container">
+        <div class="sort-order-field-title">{{shoppingCartService.sortFieldOrder[1].name | translate}}</div>
+        <div class="sort-direction-icon"><mat-icon class="mat-icon notranslate menuicon material-icons mat-icon-no-color">{{shoppingCartService.sortFieldOrder[1].dir==='asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></div>  
+      </div>
+    </div>
+  </div>
+  <div [id]="'cartListID'" [style.height]="state?'calc(100vh - 12em)':''" *ngIf="cartItems.length" appRubberbandSupport [cartView] ="cartViewType" [isCartView]="isCartView">
+    <!-- *** List view -->
+    <ul class="list-view" id="create-planogram-ID" *ngIf="displayMode === 1">
+      <li *ngIf="(!(cartItems | shoppingCartFilter: filterText).length) && (filterText !== '')" class="minHeightItems"
+          style="margin-left:45px"><i>No results found</i></li>
+        <li
+          *ngFor="let itemData of cartItems | toArray : false | shoppingCartFilter: filterText | sortPipe:{'col':orderBy.predicate,'sortReverse':orderBy.reverse,'orders':orderBy.orders};index as i"
+          [ngStyle]="{'background-color': itemData.selected ? '#e0e0e0' : 'transparent'}" class="card-prod"
+          id="{{itemData.$id}}" (dblclick)="desktopSelection(itemData,$event,i); openPropertyGrid(itemData, $event);">
+          <app-dnd-wrapper [data]="getDragDropData(itemData)">
+            <div kendoTooltip filter=".card-img" position="left" class="tooltipHolder"
+              [tooltipTemplate]="sharedService.turnOn_ShoppingCartToolTip ? listtemplate : ''"
+              [showAfter]="sharedService.tooltipDelayTime">
+              <div class="card-block" fxLayout="row" fxLayoutAlign="space-between start">
+                <div [ngClass]="getAssortmentClass(itemData)" class="columnAssortAdd"
+                  [ngStyle]="{'background-color': itemData.floatingShelveStyle.backgroundColor }"></div>
+                <div [ngClass]="getAssortmentClass(itemData)" class="column-one"
+                  [ngStyle]="{'background-color': itemData.floatingShelveStyle.backgroundColor }"></div>
+                <div class="card-img"
+                  [ngStyle]="{'opacity' : !itemData?.Position?.canDragFlag && disableDeletedScItem ?  0.4  : 1}">
+                  <input type="checkbox" mat-checkbox class="card-checkbox" id="card-checkbox"
+                    [value]="itemData.Position.ProductPackage.IDProduct" [checked]="itemData.selected"
+                    [disabled]="!itemData?.Position?.canDragFlag && disableDeletedScItem"
+                    (click)="clickedItemSelection(itemData,$event,i)">
+                  <span class="small-avatar-image z-depth-1" style="display:block;text-align:center;">
+                    <img style="height: 100%" [src]="getImage(itemData)" loading="lazy" positionImgFallback />
+                  </span>
+      
+                </div>
+                <div class="column-three"
+                  [ngStyle]="{'opacity' : !itemData?.Position?.canDragFlag && disableDeletedScItem ?  0.4  : 1}">
+                </div>
+                <div class="card-data"
+                  [ngStyle]="{'opacity' : !itemData?.Position?.canDragFlag && disableDeletedScItem ?  0.4  : 1}">
+                  <span *ngFor="let i of cartDisplaySetting.column1" class="col s12 adjust-width">
+                    <div *ngIf="i.enable">
+                      {{getCartColumnValue(itemData, i.fieldName)}}
+                    </div>
+                  </span>
+                  <span *ngFor="let j of additionalFieldsToShow" class="additionalFields">
+                    <i>{{j.value}} : </i> {{j.DataType == 4 ? getCartColumnValue(itemData, j.field)?.toFixed(2) :
+                    getCartColumnValue(itemData, j.field)}}
+                  </span>
+                </div>
+                <div class="column-five"
+                  [ngStyle]="{'opacity' : !itemData?.Position?.canDragFlag && disableDeletedScItem ?  0.4  : 1}">
+                  {{itemData.Position.Product.DescSize}}
+                </div>
+                <div class="dot-click">
+                  <mat-icon class="material-icons ng-scope" *ngIf="ifRetainedItem(itemData)" aria-label=""
+                    md-labeled-by-tooltip="md-tooltip-42" role="img" matTooltip="{{'DELETE_ITEM'|translate}}"
+                    (click)="deleteSelected(itemData)">
+                    delete
+                  </mat-icon>
+                  <mat-icon class="material-icons ng-scope" *ngIf="!ifRetainedItem(itemData)"
+                    [hidden]="isFloatingShelveEnabled" aria-label="" md-labeled-by-tooltip="md-tooltip-42" role="img"
+                    matTooltip="{{'POG_LIB_RETAINITEMS'|translate}}" (click)="retainSelected(itemData)">
+                    restore
+                  </mat-icon>
+                </div>
+              </div>
+              <ng-template #listtemplate>
+                <div style="float:left;padding:15px;margin-top: 35px;">
+                  <img src="{{checkShoppingCart(itemData)}}" style="max-height:90px;vertical-align:middle"
+                    positionImgFallback />
+                </div>
+                <div style="float:right;font-size: 11px;line-height: 20px;margin: 5px;word-break: break-word;">
+                  <table>
+                    <tr *ngFor="let tooltip of ToolTipData">
+                      <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+                      <td class="tooltip-text-colon">:</td>
+                      <td>{{tooltip.value}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </div>
+          </app-dnd-wrapper>
+        </li>
+    </ul>
+    <!-- *** Compact view -->
+    <ul *ngIf="displayMode === 2" sapp-tooltip class="thumbnail-view {{getDisplayMode()}}" data-type="shoppingCart"
+      id="cartThumbnailID">
+      <li *ngIf="(!(cartItems | shoppingCartFilter: filterText).length) && (filterText !== '')" class="minHeightItems"
+        style="margin-left:45px"><i>No results found</i></li>
+        <ng-container
+          *ngIf="(cartItems | toArray : false |
+          shoppingCartFilter: filterText | sortPipe:{'col':orderBy.predicate,'sortReverse':orderBy.reverse,'orders':orderBy.orders}) as filteredItems;">
+          <ng-container *ngFor="let itemData of filteredItems; index as i; first as first; last as last;">
+            <ng-container *ngIf="ifLineBreak(itemData, filteredItems, i, first, last)">
+              <li style="height: 0px; width: 0px;"></li>
+              <li *ngIf="ifLabel(itemData, filteredItems, i, first, last)" class="cart-item-compact"
+                [ngStyle]="itemData.floatingShelveStyle">{{getLabel(itemData, i, first, last)}}</li>
+            </ng-container>
+            <li (click)="desktopSelection(itemData, $event,i);" (dblclick)="openPropertyGrid(itemData, $event);"
+              class="cart-item-compact" [ngClass]="{'selected-item': itemData.selected}" id="{{itemData.$id}}"
+              [ngStyle]="stylePositionContainer(itemData)">
+              <app-dnd-wrapper [data]="getDragDropData(itemData)">
+                <div kendoTooltip filter=".tooltipHolder" position="left" class="tooltipHolder"
+                  [tooltipTemplate]="sharedService.turnOn_ShoppingCartToolTip ? compactViewTemplate : ''"
+                  [showAfter]="sharedService.tooltipDelayTime">
+                  <div [ngStyle]="stylePositionDiv(itemData)"
+                    *ngIf="checkIfPositionHasImage(itemData) && !planogramSettingMode">
+                    <img [ngStyle]="stylePositionObject(itemData)" style="bottom:0px;left:0px;" class="positionElement"
+                      src="{{itemData.Position.imageUrl}}" loading="lazy" positionImgFallback />
+                    <sp-shopping-cart-label *ngIf="labelsOn(false)" [data]="itemData"></sp-shopping-cart-label>
+                  </div>
+                  <div [ngStyle]="stylePositionDiv(itemData,true)"
+                    *ngIf="!checkIfPositionHasImage(itemData) || planogramSettingMode" style="bottom:0px;left:0px;"
+                    class="positionElement">
+                    <sp-shopping-cart-label *ngIf="labelsOn(true)" [data]="itemData"></sp-shopping-cart-label>
+                  </div>
+                  <div [ngClass]="getAssortmentClass(itemData)"
+                    [ngStyle]="{'background-color': itemData.floatingShelveStyle.backgroundColor }"
+                    style="filter: none; opacity: 1;" class="assortIndicator adri-underLine">
+                  </div>
+                  <ng-template #compactViewTemplate>
+                    <div style="float:left;padding:15px;margin-top: 35px;">
+                      <img src="{{checkShoppingCart(itemData)}}" style="max-height:90px;vertical-align:middle"
+                        positionImgFallback />
+                    </div>
+                    <div style="float:right;font-size: 11px;line-height: 20px;margin: 5px;word-break: break-word;">
+                      <table>
+                        <tr *ngFor="let tooltip of ToolTipData">
+                          <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+                          <td class="tooltip-text-colon">:</td>
+                          <td>{{tooltip.value}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+                </div>
+              </app-dnd-wrapper>
+            </li>
+          </ng-container>
+        </ng-container>
+    </ul>
+  </div>
+</div>
+<div *ngIf="PogSideNavStateService.shoppingCartView.pos  == 'top'"
+style="bottom: 0px; height: 5px;cursor: n-resize; width: 100%; border: '1px solid gray';"
+(mousedown)="mouseDownResize($event)"></div>
+
+

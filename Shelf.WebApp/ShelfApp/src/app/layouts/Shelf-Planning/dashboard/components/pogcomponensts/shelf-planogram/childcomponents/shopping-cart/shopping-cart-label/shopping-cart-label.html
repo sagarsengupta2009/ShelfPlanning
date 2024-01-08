@@ -1,0 +1,8 @@
+<div *ngIf="planogramService.labelFeild2isEnabled && planogramService.labelField2.length" style="bottom: 0px; left: 0px; height: 100%; width: 100%; position: absolute;" id="label-{{data.$id}}">
+  <svg class="svgPosition" version="1.1" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink = "http://www.w3.org/1999/xlink" [attr.viewBox]="viewBox2"><g class="customizedLabelGroup" [attr.transform]="transform2" [innerHTML]="labelText2 | safe"></g></svg>
+</div>
+
+
+<div *ngIf="planogramService.labelFeild1isEnabled && planogramService.labelField1.length" style="bottom: 0px; left: 0px; height: 100%; width: 100%; position: absolute;" id="label-{{data.$id}}">
+  <svg class="svgPosition" version="1.1" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink = "http://www.w3.org/1999/xlink" [attr.viewBox]="viewBox1"><g class="customizedLabelGroup" [attr.transform]="transform1" [innerHTML]="labelText1 | safe"></g></svg>
+</div>

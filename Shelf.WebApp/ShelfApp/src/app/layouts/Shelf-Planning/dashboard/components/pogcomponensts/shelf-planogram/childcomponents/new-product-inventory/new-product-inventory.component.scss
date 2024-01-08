@@ -1,0 +1,21 @@
+.addIcon {
+  margin-left: 98%;
+}
+
+.editCntnr {
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  max-width: 27%;
+}
+
+.gridCntnr {
+  position: absolute;
+}
+
+.headerCntnr {
+  padding: 0 5px;
+  border-bottom: 1px solid;
+  .material-icons {
+    color: black !important;
+  }
+}

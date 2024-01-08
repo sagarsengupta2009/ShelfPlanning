@@ -1,0 +1,56 @@
+<div class="custom-modal-header cpboard" fxLayout="row" fxLayoutAlign="space-between start" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+  <h4 mat-dialog-title (click)="showhideClipboard()">{{'CLIPBOARD' | translate }}</h4>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <button mat-button *ngIf="showClipboard" (click)="removeClipboardItem($event)" [disabled]="!sappClipBoardService.isItemSelected">
+      <mat-icon [ngClass]="sappClipBoardService.isItemSelected ? 'iconEnabled' : 'iconDisabled'" matTooltip="{{'DELETE'|translate}}">delete</mat-icon>
+    </button>
+    <button mat-button *ngIf="showClipboard" (click)="addToShoppingcart()" [disabled]="!sappClipBoardService.isItemSelected">
+      <mat-icon [ngClass]="sappClipBoardService.isItemSelected ? 'iconEnabled' : 'iconDisabled'" matTooltip="{{'PRODUCT_SEARCH_ADDTO_SHOPPINGCART'|translate}}">add_shopping_cart</mat-icon>
+    </button>
+    <button mat-button (click)="showhideClipboard()">
+      <mat-icon *ngIf="showClipboard" matTooltip="{{'EXPAND_COLLAPSE'|translate}}">keyboard_arrow_down</mat-icon>
+      <mat-icon *ngIf="!showClipboard" matTooltip="{{'EXPAND_COLLAPSE'|translate}}">keyboard_arrow_up</mat-icon>
+    </button>
+  </div>
+</div>
+<div *ngIf="showClipboard" class="dialog-content">
+  <div class="cart-body planoDrawMode0 imageModeLabel-on shelfLabel-off" id="cart-body-id">
+    <div style="display: -webkit-inline-box;" >
+            <mat-checkbox class="example-margin" id="selectAll" [(ngModel)] = "sappClipBoardService.isSelectAllClipItems" [disabled]="clipboard.length < 2" (ngModelChange)= "sappClipBoardService.selectAllClipItems($event)"></mat-checkbox>
+            <div *ngIf="sappClipBoardService.isItemSelected" style="width: 130%;">
+              <span style="padding-left: 3%;">{{'TOTAL_PRODUCTS' | translate }} : {{sappClipBoardService.productCount}}</span>
+              <span style="padding-left: 3%;">{{'TOTAL_FIXTURES' | translate }} : {{sappClipBoardService.fixtureCount}}</span>
+              <span *ngIf="sappClipBoardService.totalDimension ===''" style="padding-left: 3%;">{{'TOTAL_DIMENSION'  | translate }} : {{sappClipBoardService.totalHeight | number:'1.2-2'}} X {{sappClipBoardService.totalWidth | number:'1.2-2'}} X {{sappClipBoardService.totalDepth | number:'1.2-2'}}</span>
+              <span *ngIf="sappClipBoardService.totalDimension !== ''" style="padding-left: 3%;">{{'TOTAL_DIMENSION'  | translate }} : {{sappClipBoardService.totalDimension}}</span>
+            </div> 
+    </div>
+    <ul class="list-view" id="create-planogram-ID" *ngIf="clipboard.length">
+      <li *ngFor="let clipItem of clipboard ; index as i" [attr.data-index]="i"
+        [ngStyle]="{'z-index': dynamicZIndex - i}"
+        [ngClass]="{'selected-item': clipItem.selected,'card-prod':clipItem.ObjectDerivedType != 'Annotation'}"
+        id="{{clipItem.IDPackage}}" (click) = "itemclicked(clipItem, $event)">
+        <app-dnd-wrapper [data]="getDragDropData(clipItem)">
+          <div class="card-block">
+            <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="clipItem.ObjectDerivedType == 'Position' && clipItem.ObjectDerivedType != 'Annotation'"
+              id="clip-{{clipItem.clipId}}">
+              <div class="column-one"></div>
+              <div class="card-img col s6" [ngClass] = "{'card-border' : clipItem.isSelected}">
+                <span class="small-avatar-image z-depth-1" [innerHTML]="clipItem.SVGBlock">
+                </span>
+
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center"
+              *ngIf="clipItem.ObjectDerivedType != 'Position' && clipItem.ObjectDerivedType != 'Annotation'"
+              id="clip-{{clipItem.clipId}}">
+              <div class="card-img" [ngClass] = "{'card-border' : clipItem.isSelected}">
+                <span class="small-avatar-image z-depth-1" [matTooltipDisabled]="clipItem.ObjectDerivedType != 'Modular'" matTooltip="{{clipItem.fixture.tooltipMsg}}" [innerHTML]="clipItem.SVGBlock">
+                </span>
+              </div>
+            </div>
+          </div>
+        </app-dnd-wrapper>
+      </li>
+    </ul>
+  </div>
+</div>

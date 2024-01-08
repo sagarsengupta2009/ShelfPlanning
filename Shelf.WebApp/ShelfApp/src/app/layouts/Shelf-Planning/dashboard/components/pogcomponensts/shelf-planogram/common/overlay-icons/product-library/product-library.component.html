@@ -1,0 +1,160 @@
+<div class="modal-container" [ngClass]="!state ? 'show-menu custom-modal-header' :''">
+  <div class="modal-header-custom">
+    <h4 mat-dialog-title *ngIf="state" class="disable-select"></h4>
+    <h4 mat-dialog-title class="header disable-select" *ngIf="!state" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+      [cdkDragDisabled]="state" cdkDragHandle>{{'PRODUCT_LIBRARY' | translate}}</h4>
+  </div>
+  <div class="dialogCloseIcon disable-select">
+    <div class="buttons-container">
+      <span class="d-inline-block mt-2 item-selected" *ngIf="isProductItemSelected()">
+        {{isProductItemSelected()}} {{'SHOPPING_CART_ITEMS_SELECTED' | translate}}
+      </span>
+      <ng-autocomplete [data]="data" [searchKeyword]="'Name'" [customFilter]="customFilter"
+        placeholder="{{product.selectedField}}" [(ngModel)]="searchText" (selected)='selectEvent($event)'
+        (inputChanged)='getServerResponse($event)' [itemTemplate]="itemTemplate" (inputCleared)="clearProductSearch()"
+        [notFoundTemplate]="notFoundTemplate" [isLoading]="isLoadingResult" [minQueryLength]="3" [debounceTime]="600"
+        (keyup.enter)="getProductsList()" [hidden]="isProductItemSelected() || pogProdLibHeaderMenuShowHide.showProductHierarchy || searchSettingVisibility"
+        [ngStyle]="{'width': state ? 'calc(100% - 230px)' : '350px'}" class="ng-autocomplete search-autocomplete">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplate let-item>
+        <a>
+          <div class="row">
+            <div class="col-10">
+              <div class="collection-item" style="position:relative;line-height:12px;">
+                <div class="row">
+                  <div *ngIf="item.ComboGTIN_NAME_PKGNAME" class="col s12 text-detail"
+                    style="line-height: 15px;font-size: 12px;" [innerHTML]="item.ComboGTIN_NAME_PKGNAME">
+                  </div>
+                </div>
+                <div class="row" *ngIf="item.SKU">
+                  <div class="col s12" style="font-size:10px;opacity:0.8;" [innerHTML]="item.SKU">
+                  </div>
+                </div>
+                <div class="row" *ngIf="item.Brand">
+                  <div class="col s12" style="font-size:10px;opacity:0.8;" [innerHTML]="item.Brand">
+                  </div>
+                </div>
+                <div class="row" *ngIf="item.Size">
+                  <div class="col s12" style="font-size:10px;opacity:0.8;" [innerHTML]="item.Size">
+                  </div>
+                </div>
+                <div class="row" *ngIf="item.ComboL123">
+                  <div class="col s12" style="font-size:10px;opacity:0.8;" [innerHTML]="item.ComboL123">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+      </ng-template>
+      <div class="menu-icons pull-right">
+        <mat-icon *ngIf="state" class="material-icons iconSpace mt-7" matTooltip="{{'EXPAND_COLLAPSE'|translate}}"
+          [matMenuTriggerFor]="Zmenu"  style="transform: rotate(90deg)">expand</mat-icon>
+        <mat-menu #Zmenu="matMenu">
+          <div class="zoom-mat-menu">
+            <button mat-icon-button [disabled]="width === 30" (click)="changeSideNavWidth('minimize',$event)">
+              <mat-icon class="minimize">minimize</mat-icon>
+            </button>
+            <button mat-icon-button [disabled]="width === 50" (click)="changeSideNavWidth('maximize',$event)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-raised-button class="resetBtn" (click)="changeSideNavWidth('reset',$event)">
+              {{'RESET' |translate}}
+            </button>
+          </div>
+        </mat-menu>
+        <srp-custom-menus [screenName]="'planogramlib'" class="pull-left srp-menu" [controlName]="'pogProductLibView'"
+          [type]="'gridMenu'" [myselectionlist]="pogProdLibHeaderMenuShowHide"
+          (menuButtonClick)="menuButtonClick_PogLib($event)" [selectedManuKey]="selectedManuKey">
+        </srp-custom-menus>
+        <div class="pull-right close-button">
+          <mat-icon class="pull-right" (click)="onClose()">close</mat-icon>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="mat-container" #productLibrary tabindex="-1" (keyup)="onKeyUp($event)">
+  <mat-dialog-content [ngClass]="{sidenav:state===true , dialogHeight:state!==true}" class="mat-typography">
+    <div style="height:100%;" *ngIf="productListVisibility"  (click)="onDialogClick($event)">
+      <div *ngIf="!pogProdLibHeaderMenuShowHide.showProductHierarchy && displayMode === 1" class="data-section">
+        <div [style.height]="state?'calc(100vh - 13em)':'calc(100vh - 23em)'" class="product-card">
+          <div id="PosResultStatusBar" [hidden]="isPosDataAvailable()">
+            <i>{{'NO_RESULT_FOUND' | translate}}</i>
+          </div>
+          <cdk-virtual-scroll-viewport itemSize="50" class="virtual-viewport" style="height:100%;">
+            <div id="{{itemData.IDPackage}}"
+              *cdkVirtualFor="let itemData of productItems | sortPipe:{'col':orderBy.predicate,'sortReverse':orderBy.reverse};index as i">
+              <app-dnd-wrapper [data]="getDragDropData(itemData)">
+                <mat-card class="col-sm-12 card-prod"
+                  [ngStyle]="{'background-color': itemData.selected ? '#e0e0e0' : 'transparent'}">
+                  <div>
+                    <div [ngStyle]="getStyleforAvailable(itemData)"></div>
+                    <div class="card-img">
+                      <input type="checkbox" mat-checkbox class="card-checkbox" id="card-checkbox"
+                        [value]="itemData.ProductPackage.IDProduct" [checked]="itemData.selected"
+                        (click)="clickedItemSelection(itemData,$event)">
+                      <span class="small-avatar-image z-depth-1" style="display:block;text-align:center;">
+                        <img style="height: 100%" (click)="clickedItemSelection(itemData,$event)"
+                          [src]="getImage(itemData)" positionImgFallback/>
+                      </span>
+
+                    </div>
+                    <div class="card-data">
+                      <span>UPC :{{itemData.UPC}} </span>
+                      <div>{{itemData.Dimensions}} </div>
+                      <div>{{itemData.Product.Name}}</div>
+                      <ng-container *ngFor="let cardInfo of configuredCardInfo">
+                        <div [innerHTML]="sharedService.evaluateExpression(cardInfo, itemData)"></div>
+                      </ng-container>
+                    </div>
+                    <div class="card-unit">
+                      {{itemData.ProductPackage.Name}}
+                    </div>
+                    <div class="col-five">
+                      {{itemData.Product.UOM}}
+                    </div>
+
+                    <div class="dot-click">
+                      <mat-icon [ngClass]="{ 'disabled':!pogProdLibHeaderMenuShowHide.isPlanogramLoaded }" [matMenuTriggerFor]="menu2"
+                        #matMenuTrigger="matMenuTrigger">more_vert
+                      </mat-icon>
+                      <mat-menu #menu2="matMenu">
+                        <button mat-menu-item (click)="addToShoppingCart(itemData)">
+                          {{ 'PRODUCT_SEARCH_ADDTO_SHOPPINGCART' | translate}}
+                        </button>
+                      </mat-menu>
+                    </div>
+                  </div>
+                </mat-card>
+              </app-dnd-wrapper>
+            </div>
+          </cdk-virtual-scroll-viewport>
+        </div>
+      </div>
+      <div *ngIf="displayMode === 3" class="product-grid">
+        <ng-container *ngIf="aggridConfig?.id !== '' && aggridConfig?.columnDefs?.length">
+          <app-dnd-wrapper [data]="getDragDropDataGrid()">
+              <shelf-ag-grid #agGrid [gridConfig]="aggridConfig" (selectedRow)="invokeSelectedRow($event)" ></shelf-ag-grid>
+          </app-dnd-wrapper>
+        </ng-container>
+      </div>
+      <div class="tree-view" *ngIf="pogProdLibHeaderMenuShowHide.showProductHierarchy">
+        <sp-product-hierarchy #productHierarchy  [state]="state"
+          [isFilterExisting]="pogProdLibHeaderMenuShowHide.isFilterExisting" [isPlanogramLoaded]="pogProdLibHeaderMenuShowHide.isPlanogramLoaded"
+          (productsFromHierarachy)="productItemsFromHierarachy($event)">
+        </sp-product-hierarchy>
+      </div>
+    </div>
+    <div *ngIf="searchSettingVisibility">
+      <sp-search-setting [customSearchType]="product" [type]="product.searchType" [id]="product.id"
+        (close)="cancelSearchSetting($event)">
+      </sp-search-setting>
+    </div>
+  </mat-dialog-content>
+</div>

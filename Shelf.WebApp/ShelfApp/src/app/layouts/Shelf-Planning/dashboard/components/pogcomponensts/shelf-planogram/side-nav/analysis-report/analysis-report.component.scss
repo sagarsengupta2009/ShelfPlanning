@@ -1,0 +1,133 @@
+    .dialogCloseIcon {
+        float: right;
+        margin-top: -35px;
+
+        mat-icon {
+            cursor: pointer;
+            color: white;
+        }
+    }
+
+    .report-section {
+        height: calc(100% - 15px);
+        overflow: hidden;
+
+        .headerCntnr {
+            height: 35px;
+            border-bottom: 1px solid grey;
+
+            .nameCntnr {
+                cursor: pointer;
+                margin-right: 20px;
+            }
+
+            .selectedKeyCntnr {
+                font-weight: 600;
+            }
+        }
+
+        .cardListCntnr {
+            width: 100%;
+            flex-flow: row wrap;
+            display: flex;
+            overflow: auto;
+
+            .dashboardCard {
+                height: 100px;
+                padding: 0px !important;
+                margin: 5px;
+                background-color: #546e7a;
+                width: 24%;
+
+                .headerCntnr {
+                    height: calc(100% - 30px);
+                    padding: 20px;
+                }
+
+                .optionsCntnr {
+                    height: 30px;
+                    border-top: 1px solid #ccc;
+
+                    button {
+                        mat-icon {
+                            color: #fff;
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .gridCntnr {
+            height: 100%;
+
+            .configuratorCntnr {
+                width: 30%;
+                overflow: auto;
+            }
+
+            .pivodgridCntnr {
+                width: 70%;
+                overflow: auto;
+            }
+        }
+
+        .show-reports-button {
+            margin-left: -12px;
+        }
+
+        .clickable {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 320px;
+            text-align: justify;
+            padding-left: 4px !important;
+            background-color: #EDF4F4;
+            color: #4E9698;
+            margin-top: 5px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .selected {
+            border: 1px #4E9698 solid;
+            background-color: #dbe8e8;
+        }
+
+        .label-color {
+            color: #4E9698;
+        }
+
+        .mat-sidenav-custom {
+            height: 90% !important;
+            width: 331px;
+        }
+
+        .drag-icon {
+            color: #4e96989c;
+            cursor: move;
+        }
+
+        .w-280 {
+            width: 280px;
+        }
+
+        .font-14 {
+            font-size: 14px;
+        }
+
+        .gray-color{
+            color: #6f6f6f;
+        }
+
+        .refresh-button {
+            width: 32px;
+            height: 35px;
+            line-height: 34px;
+        }
+
+        .mr-10{
+            margin-right: 10px;;
+        }
+    }

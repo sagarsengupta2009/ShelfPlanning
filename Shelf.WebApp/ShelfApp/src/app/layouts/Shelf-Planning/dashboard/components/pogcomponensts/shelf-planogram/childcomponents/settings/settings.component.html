@@ -1,0 +1,60 @@
+<div disableRightClick  cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle>
+  <div [style.display]="showUserSetting ? 'block' : 'none'" mat-dialog-content class="settingCntnr">
+    <mat-tab-group animationDuration="0ms" mat-align-tabs="start" id="user-setting" style="margin-top:-10px;">
+      <mat-tab *ngFor="let d of POGSettingstabData">
+        <ng-template mat-tab-label>
+          {{d.tab | uppercase | translate}}
+        </ng-template>
+        <app-group-template class="heightflex" *ngIf="d.group && d.group.length>0" [groupData]="d.group"></app-group-template>
+        <sp-setting-template class="heightflex" #settingTemplate *ngIf="d.children && d.children.length>0" [key]="'POGSettingstab'"
+          [fieldData]="d.children" [tab]="d.tab" (emitSelection)="selectionChange($event)"></sp-setting-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div *ngIf="showStatusbarSettingsVisibility" mat-dialog-content class="settingCntnr">
+    <mat-tab-group animationDuration="0ms" mat-align-tabs="start" id="status-setting">
+      <mat-tab *ngFor="let d of StatusSettingstabData">
+        <ng-template mat-tab-label>
+          {{'USER_SETTINGS_TAB_Statusbar_Settings' | uppercase | translate}}
+        </ng-template>
+        <sp-setting-template class="heightflex" [statusbarSelectedVal]="statusbarSelectedVal" [key]="'StatusSettingstab'"
+          [fieldData]="d.children" [tab]="d.tab" (gridChanges)="statusBarChanges($event)"
+          (emitSelection)="selectionChange($event)"></sp-setting-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div *ngIf="showFixtureSettings" mat-dialog-content class="labelSettingCntnr">
+    <mat-tab-group animationDuration="0ms" mat-align-tabs="start" id="fixture-setting" style="margin-top:-10px">
+      <mat-tab *ngFor="let d of FixtureSettingstabData" >
+        <ng-template mat-tab-label>
+          {{'EDIT_LABEL_PROPERTIES' | translate}}
+        </ng-template>
+          <sp-label-template #labelTemplate class="heightflex" (emitSelection)="labelChange($event)" [templates]="FixtureTemplates"
+           [templateMetaData]="d.group" [labelFilters]="labelFiltersFixture"  [gridId] = "'FIXTURE_LABEL'" (cancel)="showGeneralSettings()"></sp-label-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div *ngIf="showPositionSettings" mat-dialog-content class="labelSettingCntnr">
+    <mat-tab-group animationDuration="0ms" mat-align-tabs="start" id="position-setting" style="margin-top:-10px">
+      <mat-tab *ngFor="let d of PositionSettingstabData" >
+        <ng-template mat-tab-label>
+          {{'EDIT_LABEL_PROPERTIES' | translate}}
+        </ng-template>
+          <sp-label-template #labelTemplate class="heightflex" (emitSelection)="labelChange($event)" [templates]="PositionTemplates"
+           [templateMetaData]="d.group" [labelFilters]="labelFiltersPosition"  [gridId] = "'POSITION_LABEL'" (cancel)="showGeneralSettings()"></sp-label-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+
+  <div mat-dialog-actions align="end" >
+    <button *ngIf="showUserSetting" mat-raised-button (click)="closeDialog()">{{'PANEL_HEADER_CANCEL' |
+      translate}}</button>
+    <button *ngIf="showUserSetting" mat-raised-button (click)="applyPogSettings()">{{'PANEL_HEADER_APPLY' |
+      translate}}</button>
+    <button *ngIf="showStatusbarSettingsVisibility" mat-raised-button
+      (click)="showGeneralSettings()">{{'PANEL_HEADER_CANCEL' | translate}}</button>
+    <button *ngIf="showStatusbarSettingsVisibility" mat-raised-button
+      (click)="applyStatusBarSettings()">{{'PANEL_HEADER_APPLY' | translate}}</button>
+  </div>
+</div>

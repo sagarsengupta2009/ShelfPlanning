@@ -1,0 +1,401 @@
+{
+  "status": "Success",
+  "storeGroups": [
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 49656,
+      "name": "Nor Cal/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 49177,
+      "name": "Hawaii/Value",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 50224,
+      "name": "Nor Cal/Premium",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 50708,
+      "name": "Nor Cal/Value",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 50974,
+      "name": "Vons/Value",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 48889,
+      "name": "Hawaii/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 492850,
+      "name": "Nor Cal/Store Specific",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "JAM / JELLY",
+      "idStoreGroup": 492956,
+      "name": "Nor Cal/Ultra Premium",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 43520,
+      "name": "25 / CA / ALAMEDA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 43656,
+      "name": "25 / CA / AMADOR",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45773,
+      "name": "25 / CA / SACRAMENTO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45902,
+      "name": "25 / CA / SAN BENITO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46026,
+      "name": "25 / CA / SAN FRANCISCO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 49697,
+      "name": "Nor Cal/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46167,
+      "name": "25 / CA / SAN JOAQUIN",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46306,
+      "name": "25 / CA / SAN MATEO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46447,
+      "name": "25 / CA / SANTA CLARA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46584,
+      "name": "25 / CA / SANTA CRUZ",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 50433,
+      "name": "Nor Cal/Store Specific",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46720,
+      "name": "25 / CA / SHASTA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46856,
+      "name": "25 / CA / SOLANO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 46995,
+      "name": "25 / CA / SONOMA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47122,
+      "name": "25 / CA / STANISLAUS",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47239,
+      "name": "25 / CA / TEHAMA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 43771,
+      "name": "25 / CA / BUTTE",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47350,
+      "name": "25 / CA / TUOLUMNE",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47467,
+      "name": "25 / CA / YOLO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 43910,
+      "name": "25 / CA / CONTRA COSTA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47588,
+      "name": "25 / NV / CHURCHILL",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44039,
+      "name": "25 / CA / DEL NORTE",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47699,
+      "name": "25 / NV / DOUGLAS",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44151,
+      "name": "25 / CA / EL DORADO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44270,
+      "name": "25 / CA / FRESNO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44378,
+      "name": "25 / CA / HUMBOLDT",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47808,
+      "name": "25 / NV / MINERAL",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 47909,
+      "name": "25 / NV / PERSHING",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 48009,
+      "name": "25 / NV / WASHOE",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 48133,
+      "name": "26 / HI / HAWAII",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44505,
+      "name": "25 / CA / LAKE",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44620,
+      "name": "25 / CA / LASSEN",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 48267,
+      "name": "26 / HI / HONOLULU",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44738,
+      "name": "25 / CA / MADERA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 48395,
+      "name": "26 / HI / KAUAI",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44862,
+      "name": "25 / CA / MARIN",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 48513,
+      "name": "26 / HI / MAUI",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 44993,
+      "name": "25 / CA / MENDOCINO",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45129,
+      "name": "25 / CA / MONTEREY",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45263,
+      "name": "25 / CA / NAPA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45389,
+      "name": "25 / CA / NEVADA",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45519,
+      "name": "25 / CA / PLACER",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 45648,
+      "name": "25 / CA / PLUMAS",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 408863,
+      "name": "Hawaii/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 492756,
+      "name": "Nor Cal/Premium",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 492958,
+      "name": "Nor Cal/Ultra Premium",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 695654,
+      "name": "0490:HAWAII:Division                    ",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 695656,
+      "name": "0490:NORCAL:Division                    ",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 915971,
+      "name": "Nor Cal/Expanded Noshe",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 926079,
+      "name": "Nor Cal/Gourmet",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PEANUT BTR / JAM / HONEY",
+      "idStoreGroup": 1036380,
+      "name": "0490:NORCAL:Expanded Noshe              ",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 49888,
+      "name": "Nor Cal/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 50530,
+      "name": "Nor Cal/Store Specific",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 493048,
+      "name": "Nor Cal/Version 1",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 520037,
+      "name": "Vons/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 817323,
+      "name": "Seattle/Mainstream",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 916023,
+      "name": "Nor Cal/Expanded Noshe",
+      "idCorp": 4
+    },
+    {
+      "stockingSection": "PAPER FACIAL TISSUE",
+      "idStoreGroup": 991034,
+      "name": "Nor Cal/Gourmet",
+      "idCorp": 4
+    }
+  ]
+}

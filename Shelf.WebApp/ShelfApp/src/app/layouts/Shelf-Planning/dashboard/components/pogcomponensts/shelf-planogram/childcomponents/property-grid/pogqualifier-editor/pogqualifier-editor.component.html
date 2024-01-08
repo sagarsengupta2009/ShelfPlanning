@@ -1,0 +1,63 @@
+<div id="pogqualifier-editor-body">
+    <ng-container *ngFor="let fObj of settingsArray">
+        <div class="row">
+            <div class="col s12">
+                <div class="input-cell">
+                    <div class="input-component-label">{{fObj.title}}:
+                        <span
+                            [ngStyle]="{display : fObj.IsUDP && !sharedService.pog_profile_signature_header_settings.IsUDP ? 'inline' : 'none' }">*</span>
+                    </div>
+                    <div class="input-component-body">
+                        <container-element  [ngSwitch]="fObj.type">
+                            <!-- the same view can be shown in more than one case -->
+                            <some-element *ngSwitchCase="'float'">
+                                <input  type="number" class="form-control" [(ngModel)]="fObj[fObj.field]"
+                                    [id]="fObj.IDDictionary + '-qulifier'" [name]="fObj.field" minlength='0'
+                                    [max]="fObj.MaxValue" [disabled]="(!fObj.IsUDP || sharedService.pog_profile_signature_header_settings.IsUDP)" (change)="fieldObjOnChange(fObj)">
+                            </some-element>
+                            <some-element *ngSwitchCase="'text'"> <input
+                                 type="text" [(ngModel)]="fObj[fObj.field]" [disabled]="(!fObj.IsUDP || sharedService.pog_profile_signature_header_settings.IsUDP)"
+                                    class="form-control" [id]="fObj.IDDictionary" [name]="fObj.field"
+                                    [maxlength]="fObj.MaxLength" (keyup)="fieldObjOnChange(fObj)"></some-element>
+
+                            <!--default case when there are no matches -->
+                            <some-element *ngSwitchDefault>
+                                <input  type="number" class="form-control" [(ngModel)]="fObj[fObj.field]" [disabled]="(!fObj.IsUDP || sharedService.pog_profile_signature_header_settings.IsUDP)"
+                                    [id]="fObj.IDDictionary + '-qulifier'" [name]="fObj.field" [min]='0'
+                                    [max]="fObj.MaxValue" (change)="fieldObjOnChange(fObj)">
+                            </some-element>
+                        </container-element>
+                    </div>
+                    <div class="input-component-line"></div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div class="row">
+        <div class="col s12">
+            <div class='input-cell'>
+                <div class='input-component-label'>Name:*</div>
+                <div class='input-component-body'>
+                    <input class="form-control" type='text' id="PogProfileName" [(ngModel)]="data.PogProfile.Name"
+                        [disabled]="isReadonly" [value]='data.PogProfile.Name' [maxlength]="qualifierMaxLength"
+                        [minlength]='0'>
+                </div>
+                <div class='input-component-line'></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class='input-cell'>
+                <div class='input-component-label'>{{'POG_QUALIFIER' | translate}}:<span
+                        *ngIf="!isPOGQualifierUDP()">*</span></div>
+                <div class='input-component-body'>
+                    <input class="form-control" id="POGQualifier" [(ngModel)]="data.POGQualifier"
+                  [disabled]="isReadonly && !sharedService.pog_profile_signature_header_settings.IsUDP" type='text' [maxlength]="qualifierMaxLength"
+                        [value]='data.POGQualifier' [minlength]='0'>
+                </div>
+                <div class='input-component-line'></div>
+            </div>
+        </div>
+    </div>
+</div>

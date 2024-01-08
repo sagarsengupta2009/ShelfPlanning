@@ -1,0 +1,6 @@
+<div class="row">
+    <span class="group-header-title">{{headerName}}: </span>
+    <span class="group-header-content cell_{{param.rowIndex}}_{{param?.column?.getInstanceId()}}"
+        [innerHtml]="cellValue | formatAgColumn: param | safe">
+    </span>&nbsp;
+</div>

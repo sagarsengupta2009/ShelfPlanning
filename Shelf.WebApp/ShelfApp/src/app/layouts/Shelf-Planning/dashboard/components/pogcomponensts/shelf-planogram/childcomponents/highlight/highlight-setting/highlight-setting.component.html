@@ -1,0 +1,42 @@
+<div class="custom-modal-header">
+  <div mat-dialog-title>{{'HIGHLIGHT_SETTINGS' | translate}}</div>
+  <mat-icon class="dialogCloseIcon" (click)="closeDialog()">close</mat-icon>
+</div>
+<div mat-dialog-content class="dialogCntnr">
+  <div fxLayout="column" fxLayoutAlign="space-around center">
+    <mat-form-field style="width:100%">
+      <mat-select [(ngModel)]="selectedtemplate" (selectionChange)="templateChange()"
+        placeholder="{{'CHOOSEHIGHLIGHT' | translate}}">
+        <mat-option *ngFor="let option of templateDropdown" [value]="option.value">
+          {{option.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="width:100%">
+      <mat-select [disabled]="selectedtemplate!='?'" [(ngModel)]="selectedtype"
+        (selectionChange)="populateLookupField(true)" placeholder="--{{'CHOOSEHLTYPE' | translate}}--">
+        <mat-option *ngFor="let option of type" [value]="option.value">
+          {{option.name | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="width:100%">
+      <mat-select [(ngModel)]="selectedfield" [disabled]="selectedtemplate!='?'"
+        (selectionChange)="setObjectForFieldChosen($event)" placeholder="--{{'CHOOSEFILED' | translate}}--">
+        <mat-option *ngFor="let option of field" [value]="option.value">
+          {{option.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="selectedtype==QUADRANT_ANALYSIS" style="width:100%">
+      <mat-select [(ngModel)]="selectedcopyOfField" [disabled]="selectedtemplate!='?'"
+        (selectionChange)="setObjectForFieldChosenQ()" placeholder="--{{'CHOOSEFILED' | translate}}--">
+        <mat-option *ngFor="let option of copyOfField" [value]="option.value">
+          {{option.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

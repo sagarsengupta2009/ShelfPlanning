@@ -1,0 +1,61 @@
+<h4 class="custom-modal-header" mat-dialog-title>{{'CREATE_SCENARIO' | translate}}</h4>
+<div class="dialogCloseIcon">
+  <mat-icon class="dialogCloseIcon" mat-dialog-close>close</mat-icon>
+</div>
+<div mat-dialog-content class="createScenarioDiv" >
+  <form class="dataCntnr" [formGroup]="scenarioForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="firstColumn">
+        <mat-form-field class="form-field">
+          <input matInput placeholder="{{'POGSRCH_SCENARIONAME'|translate}}" name="Name" formControlName="Name"
+            ngDefaultControl required>
+        </mat-form-field>
+        <div *ngIf="Name.invalid && (Name.dirty || Name.touched)">
+          <div *ngIf="Name.errors.required" style="color: red;font-size: 13px;margin-top: -4%;">
+          {{'THIS_IS_REQUIRED' |translate}}
+          </div>
+        </div>
+      </div>
+      <div class="secondColumn">
+        <mat-form-field class="form-field">
+          <mat-label>{{'SYNC_BANNER'|translate}}</mat-label>
+          <mat-select class="example-full-width" formControlName="IDCorp">
+            <mat-option *ngFor="let corp of corpList" [value]="corp.IDCorp">
+              {{corp.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top:40px;">
+      <div class="date-picker firstColumn">
+
+        <mat-label class="dateC">{{'START_DATE' |translate}}</mat-label>
+        <kendo-datepicker [disabledDates]="disabledStartDate" [readOnlyInput]="true" style="width: 17.4em;"
+          (valueChange)="checkDates()" formControlName="startDate"></kendo-datepicker>
+
+
+      </div>
+      <div class="date-picker secondColumn">
+        <mat-label class="dateC">{{'END_DATE' |translate}}</mat-label>
+        <kendo-datepicker [disabledDates]="disabledEndDate" [readOnlyInput]="true" style="width: 17.4em;"
+          (valueChange)="checkDates()" formControlName="endDate"></kendo-datepicker>
+
+
+      </div>
+    </div>
+    <div *ngIf="implemenationDateDisable!='false'" fxLayout="row" fxLayoutAlign="space-between center" style="margin-top:40px;">
+      <div class="date-picker firstColumn">
+        <mat-label class="dateC">{{'POG_IMPLEMENTATION_DATE' |translate}}</mat-label>
+        <kendo-datepicker [disabledDates]="disabledStartDate" [readOnlyInput]="true" style="width: 17.4em;"
+          (valueChange)="checkDates()" formControlName="implementationDate"></kendo-datepicker>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="dialog-footer">
+  <mat-dialog-actions align="end" class="mat-dialog-actions">
+    <button mat-raised-button class="submit-btn" [disabled]="!scenarioForm.valid"
+      (click)="onSubmit()">{{'SUBMIT_PLANOGRAM'|translate}}</button>
+  </mat-dialog-actions>
+</div>

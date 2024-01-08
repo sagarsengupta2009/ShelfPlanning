@@ -1,0 +1,38 @@
+<div #panalBodySection tabindex="-1">
+    <div spPanZoom [panelID]="panelID" *ngIf="sectionObject"
+        [id]="'innerWebPOG_'+sectionObject.IDPOG" [ngStyle]="getSectionStyle(sectionObject)"
+        style="transform-origin: 0px 0px;transition: all 0.6s ease-out 0s;"
+        (click)="onSectionClick($event, sectionObject.$id)">
+        <div class="annotationstyle" *ngIf="sectionObject.annotations.length > 0">
+            <sp-annotation [section]="sectionObject" [data]="obj" *ngFor="let obj of sectionObject.annotations"
+                class="removeWrapperAnnotation_{{obj.$belongsToID}} removeWrapperAnnotation_{{panelID}}"  id="removeWrapperAnnotationPog_{{sectionObject.IDPOG}}"
+                [panelID]="panelID"  style="pointer-events: auto;"></sp-annotation>
+            <svg #linesvg class="endtoend">
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto"
+                        markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#f00" />
+                    </marker>
+                </defs>
+                <sp-annotation-connector class="removeWrapper removeWrapperPog_{{panelID}}" id="removeWrapperPog_{{sectionObject.IDPOG}}" [refSvg]="linesvg" [data]="obj" [section]="sectionObject" [panelID]="panelID"
+                    *ngFor="let obj of sectionObject.annotations"></sp-annotation-connector>
+            </svg>
+        </div>
+        <div class="pog-workspace {{getDisplayMode()}} {{displayBlockMode}}" [ngClass]="highlightClass" [ngStyle]="getStyleS1(sectionObject)">
+          <div id="pog-drawspace"></div>
+          <div [id]="'sectionContainer_'+ sectionObject.$id">
+            <ng-container *ngIf="nestedChild">
+              <div [id]="'sectionContainer_'+ sectionObject.$id">
+                <sp-shelf-nested #shelfNested [panelID]="panelID" [items]="nestedChild" [nestedItemKey]="'Children'">
+                </sp-shelf-nested>
+              </div>
+            </ng-container>
+          </div>
+          <sp-section *ngIf="sectionObject" [data]="sectionObject"></sp-section>
+          <sp-upright-draw *ngIf="sectionObject" [data]="sectionObject"></sp-upright-draw>
+          <sp-modular-farfront *ngIf="sectionObject" [itemData]="sectionObject"></sp-modular-farfront>
+          <sp-intersection-chooser-pop [datasource]="sectionObject" bycoordinate="false">
+          </sp-intersection-chooser-pop>
+        </div>
+    </div>
+</div>

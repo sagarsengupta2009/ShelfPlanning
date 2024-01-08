@@ -1,0 +1,11 @@
+<h1 mat-dialog-title  class="custom-modal-header" > {{'RENAME_SCENARIO' | translate}}</h1>
+<div mat-dialog-content>
+  <mat-form-field style="width: 100%;">
+    <label>{{'POGSRCH_SCENARIONAME' | translate}}</label>
+    <input matInput [(ngModel)]="data.ScenarioName" style="margin-top: 5px;">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onNoClick()" translate="CANCLE"></button>
+  <button mat-raised-button [mat-dialog-close]="data.ScenarioName" translate="SAVE"></button>
+</div>

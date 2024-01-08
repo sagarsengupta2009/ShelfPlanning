@@ -1,0 +1,71 @@
+
+.search-setting-body {
+    padding-top:20px;
+    .section {
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+    }
+    .divider {
+        height: 1px;
+        overflow: hidden;
+        background-color: #e0e0e0;
+    }
+    .project-hierarchy-container {
+        border: 1px solid lightgray;
+        position: absolute;
+        width: 100%;
+        background: white;
+    }
+    .input-cell {
+        height: 50px;
+        margin: 5px 28px;
+    .input-component-body {
+        height: 25px;
+        width: 100%;
+    }
+    .input-component-line {
+        border-top: 1px solid gray;
+        width: 50% !important;
+    }
+}
+
+
+
+
+/* style the dropdown  box  (closed)  background border etc */
+
+.radio-group {
+ margin-right: 50px;
+    margin-bottom:5px;
+    color:#009688 !important;
+    font-size:small;
+  }
+
+}
+
+::ng-deep .input-component-body{
+    .k-dropdown .k-dropdown-wrap, .k-dropdowntree .k-dropdown-wrap {
+        background: transparent !important;
+        border: none  !important;
+        box-shadow: none  !important;
+       // width : 50%; 
+     }
+     .k-dropdown, .k-dropdowntree {
+        width : 50% !important;
+        margin-bottom: 1px;
+      }
+    }
+    .btn{
+        text-decoration: none;
+        color: #fff;
+        background-color: #26a69a;
+        text-align: center;
+        letter-spacing: .5px;
+        border: none;
+        border-radius: 2px;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        outline: 0;
+        padding: 0 2rem;
+    }

@@ -1,0 +1,39 @@
+.material-icons {
+  color: var(--icons);
+  vertical-align: middle;
+}
+
+.topicons{
+  margin-left: 15px;
+  padding-left: 5px;
+}
+.icon-container {
+  // position: absolute;
+  right: 5px;
+  top: 0px;
+}
+
+.padding-right {
+  padding-top: 0px;
+}
+
+#noScneariosContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#noScneariosContent {
+  flex: 0 0 120px;
+  font-size: 18px;
+}
+.fab-btn {
+  position: absolute;
+  left: 96%;
+  bottom: 6%;
+  z-index: 110;
+  .material-icons{
+  color: white !important;
+  }
+}

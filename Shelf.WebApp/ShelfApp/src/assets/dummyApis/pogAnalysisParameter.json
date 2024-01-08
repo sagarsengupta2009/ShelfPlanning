@@ -1,0 +1,32 @@
+[
+  {
+    "Parameter": "Item Drop Rate Greater than",
+    "Value": "50.00",
+    "Type": "%"
+  },
+  {
+    "Parameter": "Item Drop Rate from a Block Greater than",
+    "Value": "20.00",
+    "Type": "%"
+  },
+  {
+    "Parameter": "DOS by Store Greater than (Number)",
+    "Value": "0.20",
+    "Type": "Number"
+  },
+  {
+    "Parameter": "Case Lesser than or Equal to",
+    "Value": "0.20",
+    "Type": "Number"
+  },
+  {
+    "Parameter": "Drop due to Unauthorised Greater than",
+    "Value": "5.00",
+    "Type": "%"
+  },
+  {
+    "Parameter": "Limited Store Auth>=",
+    "Value": "0",
+    "Type": "Number"
+  }
+]

@@ -1,0 +1,26 @@
+<kendo-splitter #splitterplain orientation="vertical">
+
+  <kendo-splitter-pane style="height:31vh" (sizeChange)="onSizeBottomChange($event)" id="toppanesplitter">
+    <kendo-splitter>
+      <kendo-splitter-pane [collapsible]="true">
+        <ng-content select="[leftPane]"></ng-content>
+      </kendo-splitter-pane>
+      <kendo-splitter-pane [collapsible]="true">
+        <ng-content select="[rightPane]"></ng-content>
+      </kendo-splitter-pane>
+    </kendo-splitter>
+  </kendo-splitter-pane>
+
+  <kendo-splitter-pane>
+    <ng-content select="[bottomPane]"></ng-content>
+  </kendo-splitter-pane>
+</kendo-splitter>
+
+<!-- <kendo-splitter #splitterplain orientation="horizontal" style="height:35vh">
+    <kendo-splitter-pane [collapsible]="true">
+        <ng-content select="[leftPane]"></ng-content>
+    </kendo-splitter-pane>
+  <kendo-splitter-pane [collapsible]="true">
+    <ng-content select="[rightPane]"></ng-content>
+  </kendo-splitter-pane>
+</kendo-splitter> -->

@@ -1,0 +1,47 @@
+<input type="text"
+       ngxDaterangepickerMd
+       [showCustomRangeLabel]="true"
+       [(ngModel)]="selected"
+       startKey="start"
+       endKey="end"
+       [ranges]="ranges"
+       (datesUpdated)="filterRange(start, end)"
+       [alwaysShowCalendars]="true"
+       [linkedCalendars]="true"
+       [showClearButton]="false"
+       opens="left"
+       placeholder="{{'SELECT_DATE_RANGE'| translate}}" />
+<br />
+
+<!-- <kendo-daterange>
+  <span>Start Date</span>
+  <kendo-dateinput
+    class="range-filter"
+    kendoDateRangeStartInput
+    [value]="start"
+    format="MM/dd/yyyy"
+    [popupSettings]="{ appendTo: 'component' }"
+    [formatPlaceholder]="{ year: 'yyyy', month: 'MM', day: 'dd' }"
+    (valueChange)="filterRange($event, end)">
+  </kendo-dateinput>
+  -
+  <span>End Date</span>
+  <kendo-dateinput
+    class="range-filter"
+    kendoDateRangeEndInput
+    [popupSettings]="{ appendTo: 'component' }"
+    [value]="end"
+    format="MM/dd/yyyy"
+    [formatPlaceholder]="{ year: 'yyyy', month: 'MM', day: 'dd' }"
+    (valueChange)="filterRange(start, $event)">
+  </kendo-dateinput>
+</kendo-daterange> -->
+<!-- <kendo-daterange-popup [appendTo]="'component'"></kendo-daterange-popup> -->
+<!-- <button
+  *ngIf="hasFilter"
+  class="k-button k-button-icon"
+  title="Clear"
+  (click)="clearFilter()"
+>
+  <span class="k-icon k-i-filter-clear"></span>
+</button> -->

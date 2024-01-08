@@ -1,0 +1,147 @@
+[
+  {
+    "Text": "Placement Controls",
+    "value": [
+      "Subset",
+      "Include",
+      "Exclude",
+      "Arrange",
+      "Prioritize",
+      "Restrict",
+      "Bays"
+    ]
+  },
+  {
+    "Text": "Optional",
+    "value": [
+      "/*  comment  */",
+      ",",
+      "By",
+      "Within"
+    ]
+  },
+  {
+    "Text": "Comparisons",
+    "value": [
+      "=",
+      "!=",
+      ">",
+      ">=",
+      "<",
+      "<="
+    ]
+  },
+  {
+    "Text": "Direction",
+    "value": [
+      "Horz",
+      "Vert",
+      "Up",
+      "Down",
+      "Left",
+      "Right",
+      "Before",
+      "After",
+      "Traffic"
+    ]
+  },
+  {
+    "Text": "SKU Fields",
+    "value": [
+      "ActiveFrom",
+      "ActiveTo",
+      "Brand",
+      "CaseDepth",
+      "CaseHeight",
+      "CasePack",
+      "CaseWidth",
+      "Category",
+      "Compression%",
+      "Country",
+      "CPI",
+      "Cube",
+      "Depth",
+      "DisplayType",
+      "FcstSales",
+      "FcstUnits",
+      "HangType",
+      "Height",
+      "HoleCount",
+      "HoleHorz",
+      "HoleSpacing",
+      "HoleVert",
+      "Manufacturer",
+      "MaxFronts",
+      "MaxLayovers",
+      "MustCarry",
+      "Name",
+      "NewItem",
+      "Packaging",
+      "Packout",
+      "ProjCost",
+      "ProjProfit",
+      "ProjROII",
+      "ProjSales",
+      "ProjUnits",
+      "RequiredCube",
+      "Score",
+      "Shape",
+      "SizeUoM",
+      "SkuSequence",
+      "SurfaceArea",
+      "TrayCount",
+      "TrayDepth",
+      "TrayHeight",
+      "TrayWidth",
+      "UnitCost",
+      "UnitPrice",
+      "UnitProfit",
+      "Weight",
+      "Width"
+    ]
+  },
+  {
+    "Text": "Aggregations",
+    "value": [
+      "ProjSales",
+      "ProjProfit",
+      "ProjUnits",
+      "ProjPackout",
+      "ProjRoii"
+    ]
+  },
+  {
+    "Text": "SKU OVERRIDES ('Set')",
+    "value": [
+      "MinDOS",
+      "MaxDOS",
+      "MinFacings",
+      "MaxFacings",
+      "MinCases",
+      "MaxCases",
+      "MinVertClearance",
+      "MinHorzClearance",
+      "MaxFronts",
+      "MaxLayovers"
+    ]
+  },
+  {
+    "Text": "Shelving Options",
+    "value": [
+      "Continuous",
+      "Discrete",
+      "Fixed",
+      "Auto",
+      "Joinable"
+    ]
+  },
+  {
+    "Text": "Merchandising Controls",
+    "value": [
+      "MaxVertOverflow",
+      "MaxMerchHeight",
+      "Reserve",
+      "PrivateLabel"
+    ]
+  }
+]

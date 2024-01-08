@@ -1,0 +1,31 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Shelf Planning</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="manifest" href="~/Areas/Automation/ClientApp/manifest.webmanifest">
+    <meta name="theme-color" content="#1976d2">
+    <script type="text/javascript">(function () { var walkme = document.createElement('script'); walkme.type = 'text/javascript'; walkme.async = true; walkme.src = 'https://cdn.walkme.com/users/9e6ebf69106946bfb802729a5e532a53/test/walkme_9e6ebf69106946bfb802729a5e532a53_https.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(walkme, s); window._walkmeConfig = { smartLoad: true }; })();</script>
+
+    @*<link rel="stylesheet" href="~/Areas/Automation/ClientApp/styles.css">*@
+</head>
+<body class="automation">
+    @*<app-root></app-root>
+        <noscript>Please enable JavaScript to continue using this application.</noscript>
+        <script src="~/Areas/Automation/ClientApp/runtime-es2015.js" type="module"></script>
+        <script src="~/Areas/Automation/ClientApp/runtime-es5.js" nomodule defer></script>
+        <script src="~/Areas/Automation/ClientApp/polyfills-es5.js" nomodule defer></script>
+        <script src="~/Areas/Automation/ClientApp/polyfills-es2015.js" type="module"></script>
+        <script src="~/Areas/Automation/ClientApp/scripts.js" defer></script>
+        <script src="~/Areas/Automation/ClientApp/main-es2015.js" type="module"></script>
+        <script src="~/Areas/Automation/ClientApp/main-es5.js" nomodule defer></script>
+        @RenderBody()*@
+    
+    @RenderBody()
+    @System.Web.Optimization.Scripts.Render("~/Content/ClientApp/bundles")
+</body>
+</html>

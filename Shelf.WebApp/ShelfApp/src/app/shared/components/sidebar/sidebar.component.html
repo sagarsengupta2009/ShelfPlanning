@@ -1,0 +1,27 @@
+<div id="mySidepanel" *ngIf="canShowSidePanel" class="sidepanel" 
+  [class.expanded]="isExpanded" (mouseout)="mouseoverDockToolbar(false)" 
+  (mouseover)="mouseoverDockToolbar(true)">
+  <div (click)="$event.stopPropagation()">
+    <div class="sidebar-logo" *ngIf="isExpanded">
+      <img [src]='thumbnail'>
+    </div>
+    <srp-custom-menus [screenName]="'home'" [controlName]="'upSidenav'" [type]="'sideMenus'"
+      (toggleSideNav)="toggleNav($event)" [isOnCompatMode]="isOnCompatMode" (menuButtonClick)="sideMenuClick($event)">
+    </srp-custom-menus>
+    <br>
+
+    <div [hidden]="navHide" [ngClass]="!isExpanded ? '' :'sidebar-list scroller'">
+      <div class="title" [ngStyle]="{'background-color':isExpanded?'white':'' }">
+        <div class="dot" [ngClass]="{'icon-thumb-sidebar': isOnCompatMode}" [matTooltip]="nameOfScenario" [matTooltipPosition]="'right'">
+          {{ isExpanded ? nameOfScenario : abbrScenarioName }}
+        </div>
+      </div>
+      <br>
+      <div>
+        <srp-custom-menus [screenName]="'home'" [controlName]="'bottomSidenav'" [type]="'sideMenus'"
+          (toggleSideNav)="toggleNav($event)" [isOnCompatMode]="isOnCompatMode"
+          (menuButtonClick)="sideMenuClick($event)"></srp-custom-menus>
+      </div>
+    </div>
+  </div>
+</div>

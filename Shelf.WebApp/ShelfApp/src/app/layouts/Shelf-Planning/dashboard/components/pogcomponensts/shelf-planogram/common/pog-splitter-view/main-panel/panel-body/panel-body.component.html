@@ -1,0 +1,76 @@
+<div class="sapp-panel-body" id="bodyPanel">
+  <div class="planogram-holder">
+    <ng-container [ngSwitch]="displayView">
+      <ng-container *ngSwitchCase="'positionWS'">
+        <div [id]="'position_'+panelID" *ngIf="sectionObject">
+          <!-- <shelf-item-sheet [sectionObject]="sectionObject" [panalID]="panelID" [selectedPogObject]="selectedPogObject"
+          [displayView]="displayView"></shelf-item-sheet> -->
+          <sp-item-worksheet [sectionObject]="sectionObject" [panalID]="panelID" [selectedPogObject]="selectedPogObject"
+            [displayView]="displayView">
+          </sp-item-worksheet>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'itemWS'">
+        <div [id]="'item_'+panelID" *ngIf="sectionObject">
+          <sp-inventory-model-ws [sectionObject]="sectionObject" [panalID]="panelID"
+            [selectedPogObject]="selectedPogObject" [displayView]="displayView"></sp-inventory-model-ws>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'fixtureWS'">
+        <div [id]="'fixture_'+panelID" *ngIf="sectionObject">
+          <sp-fixture-worksheet [sectionObject]="sectionObject" [panalID]="panelID"
+            [selectedPogObject]="selectedPogObject" [displayView]="displayView"></sp-fixture-worksheet>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'inventoryWS'">
+        <div [id]="'inventory_'+panelID" *ngIf="sectionObject">
+          <sp-inventory-worksheet [sectionObject]="sectionObject" [panalID]="panelID"
+            [selectedPogObject]="selectedPogObject" [displayView]="displayView"></sp-inventory-worksheet>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'performanceWS'">
+        <div [id]="'performance_'+panelID" *ngIf="sectionObject">
+          <sp-performance-worksheet [secObject]="sectionObject" [panalID]="panelID"
+            [selectedPogObject]="selectedPogObject" [displayView]="displayView"></sp-performance-worksheet>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'threeDPlanoViewer'">
+        <div [id]="'3d'+panelID" *ngIf="sectionObject">
+          <sp-3d-planogram [dataSource]="sectionObject" [panalID]="panelID"></sp-3d-planogram>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'store'">
+        <div [id]="'store_'+panelID">
+          <shelf-selected-stores (closeStoreView)="closeStoreView($event)" [panalID]="panelID"
+            [pogData]="selectedPogObject"  [displayView]="displayView">
+          </shelf-selected-stores>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <shelf-annotation-dropper [sectionID]="sectionObject.$sectionID" *ngIf="sectionObject">
+          <div [id]="'planogram-holder_'+panelID" class="box-content" (contextmenu)="onRightClick($event,sectionObject)"
+          (click)="outSideClick($event);" (dblclick)="objectPropertyGrid($event);" [panelID]="panelID"  appRubberbandSupport>
+            <div class="svgPatterns"></div>
+            <!--Added for label-->
+            <shelf-panel-section [sectionObject]="sectionObject" [panelID]="panelID"
+            [selectSection]="sectionSelected">
+            </shelf-panel-section>
+          </div>
+        </shelf-annotation-dropper>
+      </ng-container>
+    </ng-container>
+  </div>
+
+</div>
+<div style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="sectionContextMenu">
+</div>
+<mat-menu [hasBackdrop]="false" #sectionContextMenu="matMenu" xPosition="after">
+	<ng-template matMenuContent>
+		<sp-section-context-menu *ngIf="panelID === panelService.activePanelID && contextMenuOpened && contextMenuData?.ObjectType === 'POG'" [data]="contextMenuData" (closeMenu)="selectPogObject($event)"></sp-section-context-menu>
+    <sp-fixture-context-menu *ngIf="panelID === panelService.activePanelID && contextMenuOpened && contextMenuData?.ObjectType === 'Fixture'" [data]="contextMenuData"></sp-fixture-context-menu>
+    <sp-position-context-menu *ngIf="panelID === panelService.activePanelID && contextMenuOpened && contextMenuData?.ObjectType === 'Position'" [data]="contextMenuData"></sp-position-context-menu>
+	</ng-template>
+</mat-menu>

@@ -1,0 +1,82 @@
+<div class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start">
+    <h4 mat-dialog-title>{{'SYNC_ITEM' | translate }}</h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <sp-search [isChildSearch]="true"
+            *ngIf="(syncPogGridConfig && tabIndex == 0  )  || (gridConfigAnchorGrid && tabIndex == 0 )  || (gridConfigStatusGrid && tabIndex == 1  )"
+            class="spSearch" (emitChildSearchText)="ChildSearchItems($event)" [width]="'125px'"></sp-search>
+        <mat-icon
+            *ngIf="(syncPogGridConfig && tabIndex == 0  )  || (gridConfigAnchorGrid && tabIndex == 0 )  || (gridConfigStatusGrid && tabIndex == 1  )"
+            matTooltip="{{'EXPORT_EXCEL'| translate}}" (click)="excelExport()">get_app</mat-icon>
+        <mat-icon *ngIf="tabIndex == 1" matTooltip="{{'REFRESH'| translate}}" (click)="initiateSyncPogStatusGrid()">
+            refresh
+        </mat-icon>
+        <mat-icon (click)="dialog.close()">close</mat-icon>
+    </div>
+</div>
+<div mat-dialog-content class="syncPogDialog">
+    <mat-tab-group animationDuration="0ms" id="sync-mat-tab" [selectedIndex]="tabIndex"
+        (selectedTabChange)="tabClick($event)">
+        <mat-tab [label]="'REQUEST' | translate">
+            <div class="SyncPogContainer">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <div class="anchordropdown">
+                        <mat-form-field class="matDropDownField">
+                            <mat-label>{{'ANCHOR_POG' | translate}}</mat-label>
+                            <mat-select #anchoredPlanogram [(ngModel)]="anchorPogIDPOG" (selectionChange)="onchange(anchorPogIDPOG)"
+                                (closed)="onCloseMethod()" [disabled]="showSyncGrid" [matTooltip]="anchoredPlanogram.triggerValue">
+                                <div class="searchCntnr">
+                                    <input autocomplete="off" [(ngModel)]="filterText"
+                                        (keyup)="handleFilter($event.target.value)" placeholder="{{'SEARCH' | translate}}" matInput />
+                                </div>
+                                <mat-option *ngFor="let pogs of preparedPogsData" [value]="pogs.IDPOG" matTooltip="{{pogs.pogDescription}}">
+                                    {{pogs.pogDescription}}</mat-option>
+                                <div *ngIf="preparedPogsData.length == 0" style="text-align: center;
+                                margin: 20px 0 20px 0;">
+                                    No data found</div>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="!showSyncGrid" class="includeCartItem">
+                        <mat-checkbox id="includeShoppingCartItem" [(ngModel)]="CheckBoxModel.includeShoppingCart">
+                            {{'INCLUDE_SC_ITEM' | translate}}</mat-checkbox>
+                    </div>
+                    <div class="includeCartItem" *ngIf="showSyncGrid">
+                        <mat-checkbox id="InsertToShoppingCart" [(ngModel)]="CheckBoxModel.InsertIntoShoppingCart">
+                            {{'ADD_CART' | translate }}</mat-checkbox>
+                    </div>
+
+                </div>
+                <p class="help-text" *ngIf="!showSyncGrid">{{'SELECT_POGS_TO_SYNC' | translate }}
+                </p>
+                <ng-container
+                    *ngIf="!showSyncGrid && syncPogGridConfig?.id !== '' && syncPogGridConfig?.columnDefs?.length">
+                    <shelf-ag-grid #agSyncPogGrid [gridConfig]="syncPogGridConfig"
+                        (selectedRow)="invokeSelectedPog($event)"></shelf-ag-grid>
+                </ng-container>
+                <ng-container *ngIf="showSyncGrid && gridConfigAnchorGrid && gridConfigAnchorGrid.id !== ''">
+                    <shelf-ag-grid #syncPogAnchorGrid [gridConfig]="gridConfigAnchorGrid"
+                        (actionEventEmit)="selectedAnchorPogItem($event)"
+                        (selectedRow)="invokeSelectedAnchorPog($event)"></shelf-ag-grid>
+                </ng-container>
+            </div>
+        </mat-tab>
+        <mat-tab [label]="'MONITOR' | translate">
+            <ng-container *ngIf="gridConfigStatusGrid && gridConfigStatusGrid.id !== ''">
+                <shelf-ag-grid #syncPogStatusGrid [gridConfig]="gridConfigStatusGrid"
+                (actionEventEmit)="SelectedStatusGridItem($event)"></shelf-ag-grid>
+            </ng-container>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<div mat-dialog-actions align="end" *ngIf="tabIndex == 0">
+    <button *ngIf="!showSyncGrid && anchorPogIDPOG != ''" mat-raised-button (click)="getSyncConfig();"
+        [disabled]="selectedDataItem?.length == 0">
+        {{'SYNC_NEXT' | translate }}
+    </button>
+    <button *ngIf="showSyncGrid" mat-raised-button (click)="goBack()">
+        {{'SYNC_BACK' | translate }}
+    </button>
+    <button *ngIf="showSyncGrid" mat-raised-button [disabled]="!syncWithAnchorData.length" (click)="SaveSyncData()">
+        {{'SYNCPOG_SYNC' | translate }}
+    </button>
+</div>

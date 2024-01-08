@@ -1,0 +1,16 @@
+.printCntnr {
+  height: calc(100vh - 100px) !important;
+  /*width: calc(100% - 10px);*/
+}
+
+.matLabelCntnr {
+  color: #000;
+  margin-right: 5px;
+  font-weight:normal;
+}
+.btnCntnr {
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  /*cursor: pointer;*/
+}

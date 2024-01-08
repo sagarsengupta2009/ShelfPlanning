@@ -1,0 +1,13 @@
+<div class="dialogCloseIcon" *ngIf="data.showCloseIcon">
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<div [ngClass]="{'mt-4' : data.showCloseIcon}">
+    <div mat-dialog-content translate [innerHtml]="data.message" class="text-align-center mb-2 mt-3">
+    </div>
+    <div mat-dialog-actions id="confirmation-actions">
+        <ng-container *ngFor="let button of data.buttons">
+            <button mat-button class="dialog-box-buttons" color="{{button.color}}" [ngClass]="button.customClass"
+                [mat-dialog-close]="button.callBackValue">{{button.text | translate}}</button>
+        </ng-container>
+    </div>
+</div>

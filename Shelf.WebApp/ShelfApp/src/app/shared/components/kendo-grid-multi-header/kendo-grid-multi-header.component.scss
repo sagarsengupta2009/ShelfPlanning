@@ -1,0 +1,195 @@
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 170px;
+}
+
+.menu li {
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding: 0px 12px;
+  transition: background .2s, color .2s;
+}
+
+.menu li:last-child {
+  border-bottom: 0;
+}
+
+.menu li:hover {
+  background: #e8e8e8;
+}
+
+.menu li:active {
+  //background: #ff6358;
+  background: #3F51B5;
+  color: #fff;
+}
+
+.topicons {
+  font-weight: 400;
+}
+
+.menuicon {
+  margin-right: 16px;
+}
+
+.icon {
+  position: absolute;
+  z-index: 1000;
+  color: white !important;
+  cursor: pointer;
+  background-color: var(--foreground-primary);
+}
+
+.icondiv {
+  text-align: right;
+  padding-right: 25px;
+}
+
+.grid {
+  //padding-top: 10px;
+  font-family: Roboto,Helvetica Neue, sans-serif;
+  line-height: 1.6em;
+  z-index: 0;
+}
+
+.k-grid th {
+  font-size: 16px;
+  background-color: var(--background-quaternary);
+}
+
+.k-grid-header .k-header {
+  background-color: var(--background-quaternary);
+}
+
+.k-grid tr {
+  background-color: #f5f5f5;
+  border-spacing: 0;
+  border-radius: 10px;
+  border-color: #f9f9f9;
+}
+
+.k-grid td {
+  padding: 10.4px 18.2px;
+  border-color: #e6e6e6;
+  font-size: 13px;
+}
+
+.k-grid-header .k-header > .k-link {
+  display: -webkit-box
+}
+
+.k-grid-header .k-grid-filter:hover {
+  background-color: var(--hover-background-color);
+  border-radius: 50%;
+}
+
+.k-grid-content-locked {
+  border-color: var(--background-quaternary) !important;
+}
+
+.k-grouping-row td {
+  font-weight: normal !important;
+  font-size: .8em !important;
+}
+
+.k-grid-header .k-grid-filter.k-state-active {
+  color: #e8e8e8;
+  background-color: rgb(0, 188, 212);
+  border-radius: 50%;
+}
+
+.automation .k-grid tr.k-state-selected > td {
+  background-color: var(--selected-item-background-color) !important;
+  border-color: var(--selected-row-border-color);
+  color: var(--selected-row-data-color);
+}
+
+/*.k-grid tr.k-state-selected > td {
+    color: var(--selected-row-data-color);
+    }*/
+
+.automation .k-grid tr:hover {
+  background-color: var(--hover-background-color) !important;
+}
+
+.tooltipContent {
+  max-width: 250px;
+  padding: 10px 10px 10px 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.66);
+  border-radius: 3%;
+  font-size: 0.8em;
+  z-index: 99
+}
+
+.tooltipContent .head {
+  font-size: 1.1em;
+}
+
+.tooltipContent .content {
+}
+
+.tooltipContent hr {
+  padding: 5px 0px 7px 0px;
+  margin: 0px;
+  color: whitesmoke;
+}
+
+.grid-editable {
+}
+
+.grid-not-editable {
+  pointer-events: none;
+}
+
+.k-grid .k-grouping-row p {
+  white-space: nowrap;
+}
+
+.k-grid td a {
+  //color: #337ab7;
+  cursor: pointer;
+}
+
+.isactivecell {
+  border-color: var(--isactivecell) !important;
+  border-width: thin !important;
+}
+
+.filling-cell {
+  border-color: blue !important;
+  border-left: solid blue 1px !important;
+  border-right: solid blue 1px !important;
+  border-bottom: solid thin #0000ff4d !important;
+}
+
+.dynamincdiv {
+  position: fixed;
+
+  &:after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: orangered;
+    cursor: crosshair;
+    z-index: 1;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    border-left: 5px solid transparent;
+    border-top: 5px solid transparent;
+  }
+}
+
+.dynamiccurser {
+  cursor: crosshair;
+  background-color: red !important;
+}
+
+.customevent {
+  font-size: 13px;
+  padding: 0px 0px;
+}

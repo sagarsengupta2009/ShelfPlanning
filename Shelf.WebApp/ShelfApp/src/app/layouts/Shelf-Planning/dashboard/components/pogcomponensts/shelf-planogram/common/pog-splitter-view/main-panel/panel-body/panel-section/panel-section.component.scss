@@ -1,0 +1,248 @@
+.sapp-panel .sapp-panel-container .sapp-panel-body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.ui-selected {
+  background-color: orange !important;
+}
+
+.ui-selectable {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.ui-selectable-helper {
+  position: absolute;
+  z-index: 99999;
+  border: 1px dotted black;
+}
+
+.ui-selectmenu-menu {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.ui-selectmenu-menu .ui-menu {
+  overflow: auto;
+  overflow-x: hidden;
+  padding-bottom: 1px;
+}
+
+.ui-selectmenu-menu .ui-menu .ui-selectmenu-optgroup {
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1.5;
+  padding: 2px 0.4em;
+  margin: 0.5em 0 0 0;
+  height: auto;
+  border: 0;
+}
+
+.ui-selectmenu-open {
+  display: block;
+}
+
+.ui-selectmenu-text {
+  display: block;
+  margin-right: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-selectmenu-button.ui-button {
+  text-align: left;
+  white-space: nowrap;
+  width: 14em;
+}
+
+.ui-selectmenu-icon.ui-icon {
+  float: right;
+  margin-top: 0;
+}
+
+// For positon image
+rect.posBox, circle.posBox {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 0.1;
+    // display: none !important;
+  }
+
+  image.posImage, rect.posImage, circle.posImage {
+    stroke: Black;
+    stroke-width: 0.1;
+  }
+
+  rect.posSKU {
+    stroke: Black;
+    stroke-width: inherit;
+    // display: none !important;
+  }
+
+
+  .customizedLabelOff .customizedLabelG {
+    display: none;
+  }
+
+  .positionNumLabelOff .positionNumLabelG {
+    display: none;
+  }
+
+  .positionLabel-off g.positionLabelGroup {
+    display: none;
+  }
+
+  .positionLabel-on g.positionLabelGroup {
+    display: block;
+  }
+
+  .customizedLabel-on g.customizedLabel {
+    display: block !important;
+  }
+
+  .customizedLabel-on g.customizedLabelGroup {
+    display: block !important;
+  }
+
+  .customizedLabelGroup {
+    display: block !important;
+  }
+
+  .customizedLabel-off g.customizedLabelGroup {
+    display: none;
+  }
+
+  .imageModeLabel-off g.customizedLabel {
+    display: none;
+  }
+
+  .imageModeLabel-on g.customizedLabel {
+    display: block !important;
+  }
+
+  .planoDrawMode0 g.customizedLabel-auth-code-pattern {
+    display: block !important;
+  }
+
+  .planoDrawMode0 g.customizedLabelGroup-auth-code-pattern {
+    display: block !important;
+  }
+
+  .shelfLabel-off g.shelfLabelGroup {
+    display: none;
+  }
+
+  .shelfLabel-on g.shelfLabelGroup {
+    display: block;
+  }
+
+
+
+  .recursiveObj, .recursiveChild {
+    position: absolute;
+    top: auto;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1;
+  }
+
+  .annotationcontainer {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border: 1px solid #f00;
+  }
+
+  .contentHolder {
+    height: 100%;
+    width: 100%;
+  }
+
+  .annotationcontainer .anTxtStyle > div span {
+    text-align: center;
+  }
+
+
+  .annotationcontainer .nooverflow {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+
+  .endtoend {
+    width: 100%;
+    height: 100%;
+  }
+
+  #sappAnnotationDialog .modal-content .input-cell span.k-widget.k-colorpicker.k-header {
+    width: 100%;
+  }
+
+  #sappAnnotationDialog .modal-content .input-cell span.k-widget.k-colorpicker.k-header > span.k-header {
+    display: none;
+  }
+
+  #sappAnnotationDialog .annotationDialogHeader .Position_propertygrid .row .col:last-child {
+    display: none;
+  }
+
+
+  #sappAnnotationDialog .modal-content .input-cell span.k-widget.k-colorpicker {
+    width: 100%;
+  }
+
+  #sappAnnotationDialog .modal-content .input-cell span.k-widget.k-colorpicker .k-selected-color {
+    width: 100%;
+  }
+
+  #sappAnnotationDialog .modal-content .input-cell span.k-widget.k-colorpicker > span.k-header {
+    display: none;
+  }
+
+  #sappAnnotationDialog .annotationDialogHeader .Position_propertygrid .row .col:last-child {
+    display: none;
+  }
+
+  #sappAnnotationDialog .annotationDialogHeader .Fixture_propertygrid .row .col:last-child {
+    display: none;
+  }
+
+  #sappAnnotationImageDialog .modal-header {
+    position: absolute;
+    padding: 0 10px;
+    height: 44px;
+    top: 0;
+    width: 100%;
+    background-color: teal;
+    color: white;
+    font-weight: 500;
+    line-height: 44px;
+  }
+
+  .ui-resizable {
+    position: absolute;
+  }
+
+  .annotationstyle {
+    z-index: 10002 !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none !important;
+  }
+
+  #pog-drawspace {
+    display:none;
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }

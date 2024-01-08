@@ -1,0 +1,50 @@
+<h4 *ngIf="!openappendSectionNameDialog" class="custom-modal-header" mat-dialog-title>{{'APPEND_SECTIONS' |  translate}}</h4>
+<div *ngIf="!openappendSectionNameDialog" class="dialogCloseIcon">
+  <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<div *ngIf="!openappendSectionNameDialog" mat-dialog-content class="appendDialog">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="appendDropdDown">
+      <mat-form-field style="width:100%;">
+        <mat-select  #planogramName placeholder="{{'HEADER_PLANOGRAMS'|translate}}" [(ngModel)]="selectedPlanogram" (selectionChange)="onSelectionChange()" [matTooltip]="planogramName.triggerValue">
+          <mat-option *ngFor="let option of planogramList" [value]="option.IDPOG"  matTooltip="{{option.Name + ' - '+ option.IDPOG}}">
+            {{option.Name + ' - '+ option.IDPOG}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button [disabled]="addSectionView" class="dialog-box-buttons" (click)="addPogTogrid()" color="primary" cdkFocusInitial>
+        {{'ADD_SECTIONS' | translate}}
+      </button>
+    </div>
+  </div>
+  <div *ngIf="reportgridConfig && reportgridConfig.id!=''">
+    <shelf-ag-grid #appendSectionGrid [gridConfig]="reportgridConfig" (onContextSelect)="onMenuSelect($event)">
+    </shelf-ag-grid>
+  </div>
+</div>
+<div *ngIf="!openappendSectionNameDialog" mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'REPORT_BATCH_DIALOG_CANCEL' |  translate}}</button>
+  <button mat-raised-button [disabled]="currentAppendPog.length==0" (click)="appendSection()">{{'APPENDS' |  translate}}</button>
+</div>
+
+<!--for getting name-->
+
+<h4 class="custom-modal-header" mat-dialog-title  cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle  *ngIf="openappendSectionNameDialog" >{{'ADD_APPEND_SECTION_NAME' |  translate}}</h4>
+<div *ngIf="openappendSectionNameDialog" class="dialogCloseIcon">
+  <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<div *ngIf="openappendSectionNameDialog" mat-dialog-content class="appendNameDialog mat-container">
+  <div style="padding:10px;" fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field style="width:80%;">
+      <input matInput placeholder="{{'ENTER_APPEND_SECTION_NAME'|translate}}" [(ngModel)]="appendPogName">
+    </mat-form-field>
+  </div>
+</div>
+<div *ngIf="openappendSectionNameDialog" mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'REPORT_BATCH_DIALOG_CANCEL' |  translate}}</button>
+  <button mat-raised-button (click)="closeNameSection()">{{'SYNC_BACK' |  translate}}</button>
+  <button mat-raised-button [disabled]="!appendPogName" (click)="postAppendData()">{{'APPEND_OK' |  translate}}</button>
+</div>
+

@@ -1,0 +1,29 @@
+.custom-left-icon {
+  text-align: center;
+
+  &:before {
+    content: "\e005";
+  }
+}
+
+.custom-right-icon {
+  text-align: center;
+
+  &:before {
+    content: "\e007";
+  }
+}
+
+.k-splitbar {
+  background-color: #80808024;
+}
+
+.k-splitbar-horizontal {
+  .k-i-arrow-60-left {
+    text-align: center;
+  }
+}
+
+.k-resize-handle {
+  z-index: 0 !important;
+}

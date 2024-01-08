@@ -1,0 +1,32 @@
+<ng-container *ngIf="canRender">
+
+  <ng-container *ngIf="!isDraggable && !isDroppable">
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isDraggable && !isDroppable">
+    <app-dnd-source-wrapper [data]="dragData">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </app-dnd-source-wrapper>
+  </ng-container>
+
+  <ng-container *ngIf="!isDraggable && isDroppable">
+    <app-dnd-target-wrapper [targetInfo]="targetInfo">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </app-dnd-target-wrapper>
+  </ng-container>
+
+  <ng-container *ngIf="isDraggable && isDroppable">
+    <app-dnd-target-wrapper [targetInfo]="targetInfo">
+      <app-dnd-source-wrapper [data]="dragData">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+      </app-dnd-source-wrapper>
+    </app-dnd-target-wrapper>
+  </ng-container>
+
+</ng-container>
+
+<!-- parent content to be rendered with template -->
+<ng-template #contentTemplate>
+  <ng-content></ng-content>
+</ng-template>

@@ -1,0 +1,113 @@
+<app-dnd-wrapper [data]="getDragDropData(data)">
+  <div #annotationsEle id="{{data.$id}}" class="annotationcontainer" [ngClass]="{'selected-pogobj' :isAnnotationSelected,
+    'freeFlowDeSelected':data.LkExtensionType==4  && !isAnnotationSelected,
+    'freeFlowBoxSelected':data.LkExtensionType==4 && isAnnotationSelected,
+    'freeFlowConnectorDeSelected':data.LkExtensionType==6  && !isAnnotationSelected,
+  'freeFlowConnectorSelected':data.LkExtensionType==6 && isAnnotationSelected}" (click)="data.LkExtensionType!=5 && addToselction(data,$event)"
+    style="margin:auto;cursor: move;overflow: hidden;"
+    [ngStyle]="{'z-index':data.LkExtensionType==5?1:''}"
+    [hidden]="view" (dblclick)="selectAnnotation(data, $event)">
+
+    <span *ngIf="isAnnotationSelected &&( data.LkExtensionType!=4 && data.LkExtensionType!=6)">
+      <svg height="15" width="15" style="position: absolute; right: 0px; top: 0px;" (click)="data.LkExtensionType==5 && addToselction(data,$event)" >
+        <polygon points="0 0,15 15,15 0,0 0" style="fill: black; cursor: move" />
+        Sorry, your browser does not support inline SVG.
+      </svg>
+    </span>
+
+
+    <div class="contentHolder" [ngClass]="{'nooverflow': truncateByHeight(data), 'anTxtStyle': centerTxt(data)}"
+      [ngStyle]="divStyle">
+      <div *ngIf="data.LkExtensionType==1">
+        <div *ngFor="let line of ContentList" style="overflow-wrap: break-word;pointer-events: none;">
+          <span style="white-space: break-spaces;display: inherit;user-select: none;text-wrap: wrap;" [ngStyle]="{'margin-left': data.Attribute?.Font?.weight?'-0.85px':'-0.5px','margin-right':-data.Attribute?.Font?.weight?'-0.85px':'-0.5px'}">{{line}}</span>
+        </div>
+      </div>
+
+      <img *ngIf="data.LkExtensionType==3" [ngStyle]="imgStyle" [src]="imgUrl">
+      <div *ngIf="data.LkExtensionType==5" class="textAreaBox">
+
+        <textarea (mousedown)="$event.stopPropagation()" (click)="addToselction(data, $event, true)"  [id]="'freeFlowText_'+(data.IdPogObjectExtn  || data.IdPogObjectExtnLocal)"
+        [(ngModel)]="data.Content" (ngModelChange)="recordResize(true, true)" (keydown)="recordBeforeTextChange($event)"
+           [ngStyle]="{'cursor': isAnnotationSelected?'text':'default'}" class="textAreaBox" spellcheck="false" #annotationText
+          matInput placeholder="Type here...."></textarea>
+      </div>
+      <div *ngIf="data.LkExtensionType==6"
+      [ngStyle]="{'width': data.Attribute.location.width>data.Attribute.location.height?'100%':'',
+                  'height': data.Attribute.location.height>data.Attribute.location.width?'100%':''}"      >
+        <svg style="display: block"
+        [ngStyle]="{'width': data.Attribute.location.width>data.Attribute.location.height?'100%':'',
+                  'height': data.Attribute.location.height>data.Attribute.location.width?'100%':''}"
+          [attr.viewBox]="'0 0 '+annotationsEle.style.width.replace('px' ,'')*scaleFactor+' '+annotationsEle.style.height.replace('px' ,'')*scaleFactor"
+          xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker
+            [id]="'arrowConnector'+data.Attribute.style.lncolor.substring(1)"
+            viewBox="0 0 20 20"
+            refX="5"
+            refY="5"
+            markerWidth="10"
+            markerHeight="10"
+            [ngStyle]="{'fill': data.Attribute.style.lncolor}"
+            orient="auto-start-reverse">
+            <path d="M 0 0 L 20 5 L 0 10 z" />
+          </marker>
+          <marker
+            [id]="'arrowResizer'+data.Attribute.style.lncolor.substring(1)"
+            viewBox="0 0 20 20"
+            refX="5"
+            refY="5"
+            markerWidth="10"
+            markerHeight="10"
+            [ngStyle]="{'fill': 'transparent', 'stroke': 'rgb(105, 105, 105);', 'stroke-width': '3px'}"
+            orient="auto-start-reverse">
+            <path d="M 0 0 L 20 5 L 0 10 z" />
+          </marker>
+        </defs>
+
+          <g class="fitConnector" transform="scale(1, 1) translate(0,0)" >
+            <line [ngStyle]="{'fill': data.Attribute.style.lncolor, 'stroke-width': 1.5*scaleFactor, 'stroke': data.Attribute.style.lncolor, 'marker-end': 'url(&quot;#arrowConnector'+data.Attribute.style.lncolor.substring(1)+'&quot;);' }"
+          [attr.x1]="([1,4].includes(data.Attribute.location.direction))? annotationsEle.style.width.replace('px' ,'')*scaleFactor: 0"
+          [attr.y1]="([1,2].includes(data.Attribute.location.direction))? annotationsEle.style.height.replace('px' ,'')*scaleFactor: 0"
+          [attr.x2]="((!data.Attribute.location.direction || [2,3].includes(data.Attribute.location.direction))? annotationsEle.style.width.replace('px' ,'')-5: 5)*scaleFactor"
+          [attr.y2]="((!data.Attribute.location.direction || [3,4].includes(data.Attribute.location.direction))? annotationsEle.style.height.replace('px' ,'')-5: 5)*scaleFactor"
+          />
+          </g>
+          <g (click)="addToselction(data,$event)" (mousedown)="onResizerDown($event)" class="fitConnector"
+            transform="scale(1, 1) translate(0,0)" [ngClass]="{'enablePointerEvents':data.LkExtensionType==4 || data.LkExtensionType==6,
+                            'topLeft': data.LkExtensionType==6 && data.Attribute.location.direction == 1,
+                            'topRight': data.LkExtensionType==6 && data.Attribute.location.direction == 2,
+                            'bottomRight': (!data.Attribute.location.direction || (data.Attribute.location.direction == 3)),
+                            'bottomLeft': data.LkExtensionType==6 && data.Attribute.location.direction == 4 }">
+            <rect width="10" height="10" style="fill: none;"
+              [attr.transform]="'translate('+([1,4].includes(data.Attribute.location.direction)?(-10*scaleFactor):0)+','+([1,2].includes(data.Attribute.location.direction)?(-10*scaleFactor):0)+')'"
+              [attr.x]="((!data.Attribute.location.direction || [2,3].includes(data.Attribute.location.direction))? annotationsEle.style.width.replace('px' ,'')-10: 10)*scaleFactor"
+              [attr.y]="((!data.Attribute.location.direction || [3,4].includes(data.Attribute.location.direction))? annotationsEle.style.height.replace('px' ,'')-10: 10)*scaleFactor">
+            </rect>
+            <line style="display: none"
+              [ngStyle]="{'fill': data.Attribute.style.lncolor, 'stroke-dashoffset': '5', 'stroke-dasharray': getLineLength(),  'stroke-width': 1*scaleFactor, 'stroke': 'none', 'marker-end': 'url(&quot;#arrowResizer'+data.Attribute.style.lncolor.substring(1)+'&quot;);' }"
+              [attr.x1]="([1,4].includes(data.Attribute.location.direction))? annotationsEle.style.width.replace('px' ,'')*scaleFactor: 0"
+              [attr.y1]="([1,2].includes(data.Attribute.location.direction))? annotationsEle.style.height.replace('px' ,'')*scaleFactor: 0"
+              [attr.x2]="((!data.Attribute.location.direction || [2,3].includes(data.Attribute.location.direction))? annotationsEle.style.width.replace('px' ,'')-5: 5)*scaleFactor"
+              [attr.y2]="((!data.Attribute.location.direction || [3,4].includes(data.Attribute.location.direction))? annotationsEle.style.height.replace('px' ,'')-5: 5)*scaleFactor">
+            </line>
+          </g>
+        </svg>
+      </div>
+      <!-- <div class="resizer resizer-r"></div>
+      <div class="resizer resizer-b"></div> -->
+    </div>
+    <svg *ngIf="data.LkExtensionType!=6" (click)="addToselction(data,$event)" class="annotation-resizer bottomRight"
+      [ngClass]="{'enablePointerEvents':data.LkExtensionType==4 || data.LkExtensionType==6,
+                  'topLeft': data.LkExtensionType==6 && data.Attribute.location.direction == 1,
+                  'topRight': data.LkExtensionType==6 && data.Attribute.location.direction == 2,
+                  'bottomRight': (!data.Attribute.location.direction || (data.Attribute.location.direction == 3)),
+                  'bottomLeft': data.LkExtensionType==6 && data.Attribute.location.direction == 4 }"
+      (mousedown)="onResizerDown($event)" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <line style="fill: rgb(216, 216, 216); stroke-width: 32px; stroke: rgb(105, 105, 105);" x1="470.861" y1="23.141"
+        x2="26.861" y2="468.141" />
+      <line style="fill: rgb(216, 216, 216); stroke-width: 32px; stroke: rgb(100, 100, 100);" x1="471.861" y1="227.141"
+        x2="227.861" y2="473.141" />
+    </svg>
+  </div>
+</app-dnd-wrapper>

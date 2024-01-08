@@ -1,0 +1,24 @@
+<div class="multiple-clone-wrapper" cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle>
+<h1 class="custom-modal-header" mat-dialog-title>{{'CLONE_POG'|translate}}</h1>
+<div mat-dialog-content style="height: calc(100% - 90px);overflow: hidden;">
+
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="selectedValue" style="margin-left: 10px;">
+      <mat-radio-button class="radiobntnr" *ngFor="let option of radioButtonGroup" [value]="option.Value">{{option.Name}}</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field style="margin-right: 10px; margin-left: 50px; margin-top: 20px; ">
+      <mat-select placeholder="{{'CHOOSE_POGTYPE'|translate}}" [(ngModel)]="selectedType">
+        <mat-option *ngFor="let option of planogramType" [value]="option.value">
+          {{option.text}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'SH_CANCEL' |  translate}}</button>
+  <button mat-raised-button (click)="clonePlangram()">{{'PLANOGRAM_LIBRARY_CLONE' | translate}}</button>
+</div>
+</div>
+ 

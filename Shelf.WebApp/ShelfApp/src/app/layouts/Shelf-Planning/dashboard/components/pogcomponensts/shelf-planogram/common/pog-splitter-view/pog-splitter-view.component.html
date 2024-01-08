@@ -1,0 +1,69 @@
+<shelf-legend-cards (showLegend)="legendDisplay($event)"></shelf-legend-cards>
+
+<div [ngClass]="{showLegents:showlegends===true,webviewMode:sharedService.vmode}" fxLayout="row" fxLayoutAlign="start start" id="panelResize" class="doc-toolbar">
+    <div [ngStyle]="{'width': pogInfo?.isPogDownloaded && !isPin? '99%' : '100%'}">
+        <mat-sidenav-container autosize>
+            <mat-sidenav-content style="overflow: hidden;">
+                <srp-kendo-splitter [splitterHeight]="splitterHeight">
+                    <div leftPane id="lpane"  >
+                        <div class="pane-content">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="planogram-holder" *ngIf="pogInputData && selectedPogObject">
+                                    <shelf-main-panel [PogDataObj]="pogInputData" [panelID]="'panelOne'"
+                                        [exportoptions]="exportoptions"
+                                        (postMessage)="openPostMesaage($event)"
+                                        (openHighlightsideNav)="openHighlightsideNav()"
+                                        (showPogInfoAndHideRightSideNav)="showPogInfoAndHideRightSideNav($event)"
+                                        [selectedPogObject]="selectedPogObject">
+                                    </shelf-main-panel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div rightPane id="rpane" [ngStyle]="{'top': showFloatingShelves?'200px':'0px'}">
+                        <div class="pane-content">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="planogram-holder" *ngIf="pogInputData && selectedPogObject">
+                                    <shelf-main-panel [PogDataObj]="pogInputData" [exportoptions]="exportoptions"
+                                        [selectedPogObject]="selectedPogObject" [panelID]="'panelTwo'"
+                                        (openHighlightsideNav)="openHighlightsideNav()"
+                                        (postMessage)="openPostMesaage($event)"
+                                        (showPogInfoAndHideRightSideNav)="showPogInfoAndHideRightSideNav($event)">
+                                    </shelf-main-panel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </srp-kendo-splitter>
+            </mat-sidenav-content>
+            <mat-sidenav #snav [style.width.%]="(activeScreen=='PM')?'50':sidenavWidth" [mode]="isPin ? 'side' : 'over'"
+                position="end" (closed)="rightSideNavClosed()" class="sp-mat-sidenav">
+                <shelf-sidebar-navigation [activeScreen]="activeScreen" [pogInfo]="pogInfo" [pogData]="currentPog" [filterText]="filterText"
+                    [isPin]="isPin" [sidenavWidth]="sidenavWidth" (viewSideNav)="viewSelectedComponent($event)">
+                </shelf-sidebar-navigation>
+            </mat-sidenav>
+        </mat-sidenav-container>
+    </div>
+    <shelf-dnd-layer-wrapper></shelf-dnd-layer-wrapper>
+    <div *ngIf="pogInfo?.isPogDownloaded && showRightSideNav"
+        class="toggle">
+        <a id="SC" class="btn btn-secondary  toggleName" role="button" aria-pressed="true"
+            [ngClass]="{selected: activeScreen=='SC'}" (click)="sideNavContent('SC')">{{'SHOPPING_CART' |
+            translate}}</a>
+        <a id="PG" class="btn btn-secondary  toggleName" role="button" aria-pressed="true"
+            [ngClass]="{selected: activeScreen=='PG'}" (click)="sideNavContent('PG')">{{'PROPERTIES' |
+            translate}}</a>
+        <a id="HL" class="btn btn-secondary  toggleName" role="button" aria-pressed="true"
+            [ngClass]="{selected: activeScreen=='HL', 'last-pane': hideProductLibrary}" (click)="sideNavContent('HL')">{{'PANEL_HEADER_HIGHLIGHT' |
+            translate}}</a>
+        <a id="PL" class="btn btn-secondary  toggleName" role="button" aria-pressed="true" [hidden]="hideProductLibrary"
+            [ngClass]="{selected: activeScreen=='PL', 'last-pane': hidePAorAssortspecific && !hideProductLibrary}" (click)="sideNavContent('PL')">{{'PRODUCT_LIBRARY_SIDEBAR' |
+            translate}}</a>
+        <a  *ngIf="this.planogramStore.appSettings.showDynamicChart" [hidden]="hidePAorAssortspecific" id="AC" class="btn btn-secondary  toggleName last-pane" role="button" aria-pressed="true"
+            [ngClass]="{selected: activeScreen=='AC'}" (click)="sideNavContent('AC')">{{'CHARTS' | translate}}</a>
+    </div>
+</div>

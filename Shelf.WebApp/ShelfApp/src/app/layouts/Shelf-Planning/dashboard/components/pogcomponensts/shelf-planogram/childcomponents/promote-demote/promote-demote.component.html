@@ -1,0 +1,24 @@
+<h4 cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle class="custom-modal-header" mat-dialog-title>{{'POG_PROMOTE_DEMOTE' | translate}}</h4>
+<div class="dialogCloseIcon">
+  <mat-radio-group style="margin-right:10px;" aria-label="Select an option" [(ngModel)]="promoteFlag"
+    (ngModelChange)="selectionchange(promoteFlag)">
+    <mat-radio-button style="margin-right:5px;" *ngFor="let option of radioButtonGroup" [value]="option.Value">
+      {{option.Name}}</mat-radio-button>
+  </mat-radio-group>
+  <srp-custom-menus [screenName]="'planogramlib'" class="pull-right" [controlName]="'pogPromoteDemote'"
+    [type]="'gridMenu'" (menuButtonClick)="menuButtonClick_PromoteDemote($event)">
+  </srp-custom-menus>
+</div>
+<div mat-dialog-content style="height:82%;">
+  <ng-container *ngIf="pogGridConfig?.id !== '' && pogGridConfig?.columnDefs?.length">
+    <shelf-ag-grid #agPogGrid [gridConfig]="pogGridConfig" (actionEventEmit)="SelectedItem($event)" (selectedRow)="invokeSelectedRow($event)">
+    </shelf-ag-grid>
+  </ng-container>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'CANCEL'| translate}}</button>
+  <button mat-raised-button *ngIf="promoteFlag==1" [disabled]="isPromoteDisabled()"
+    (click)="invokePromoteDemote()">{{'BR_DASHBRD_PROMOTE'|translate}}</button>
+  <button mat-raised-button *ngIf="promoteFlag==2" [disabled]="isPromoteDisabled()"
+    (click)="invokePromoteDemote()">{{'PRM_DEMOTE'|translate}}</button>
+</div>

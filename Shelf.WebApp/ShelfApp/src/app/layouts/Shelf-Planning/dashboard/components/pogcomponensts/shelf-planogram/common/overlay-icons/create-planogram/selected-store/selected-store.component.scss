@@ -1,0 +1,24 @@
+
+.datecomponent {
+    ::ng-deep.k-datepicker .k-widget.k-dateinput {
+      display: none;
+    }
+    ::ng-deep.k-datepicker .k-picker-wrap {
+      border: none;
+    }
+    ::ng-deep.k-datepicker .k-select  {
+      background: none;
+    }
+  }
+.header{
+  font-weight: 500;
+  font-size: 15px;
+ 
+}
+
+.gridHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

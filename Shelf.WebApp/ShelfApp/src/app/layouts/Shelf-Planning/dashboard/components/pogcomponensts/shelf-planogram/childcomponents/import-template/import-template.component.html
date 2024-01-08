@@ -1,0 +1,36 @@
+<h4 class="custom-modal-header" mat-dialog-title>{{'SCENARIO_PROD_IMPORT_DALG_HEADER' |  translate}}</h4>
+<div class="dialogCloseIcon">
+  <label *ngIf="!displayRadiosInImportTemplate" for="xlf" mat-icon-button>
+    <span  matTooltip="{{'SCENARIO_PROD_IMPORT_BTN'| translate | titlecase}}" class="material-icons fileUploadIcon">
+      file_upload
+    </span>
+  </label>
+  <input *ngIf="!displayRadiosInImportTemplate" type="file" name="xlfile" id="xlf" style="display:none" [(ngModel)]="selfile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onFileChange($event)" />
+
+  <span *ngIf="!displayRadiosInImportTemplate" style="margin-left:10px;">{{fileName}}</span>
+  <mat-slide-toggle style="margin-right:7px;" *ngIf="displayRadiosInImportTemplate" [(ngModel)]="toggleClick" (ngModelChange)="toggelImportTemplate()">{{toggleName}}</mat-slide-toggle>
+  <srp-custom-menus [screenName]="'planogramlib'"
+                    class="pull-right"
+                    [controlName]="'pogImportAddDelete'"
+                    [type]="'gridMenu'"
+                    [myselectionlist]="pogLibHeaderMenuShowHide"
+                    (menuButtonClick)="menuButtonClickImportTemplate($event)">
+  </srp-custom-menus>
+</div>
+
+<div mat-dialog-content [style.height]="displayRadiosInImportTemplate?'89%':'80%'" style="overflow:hidden;">
+  <div *ngIf="productsInvalidFlag" style="margin:5px 0px;font-size: 0.94em;">
+    <mat-checkbox [(ngModel)]="removeInvalidProductsFlag">{{'SCENARIO_PROD_IMPORT_SKIP_PRODUCTS' | translate}}</mat-checkbox>
+  </div>
+  <div *ngIf="displayPogListFlag && importPoggridConfig && importPoggridConfig.id!==''" [style.height]="poggridCntnrHeight" class="importADCntnr">
+    <shelf-ag-grid #importPoggrid [gridConfig]="importPoggridConfig"></shelf-ag-grid>
+  </div>
+  <div *ngIf="!displayPogListFlag && productGridConfig && productGridConfig.id!=''" [style.height]="productgridCntnrHeight" class="importADCntnr">
+    <shelf-ag-grid #productGrid [gridConfig]="productGridConfig"></shelf-ag-grid>
+  </div>
+</div>
+<div *ngIf="!displayRadiosInImportTemplate" mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'SH_CANCEL' |  translate}}</button>
+  <button mat-raised-button *ngIf="productsInvalidFlag" [disabled]="!removeInvalidProductsFlag" (click)="applyImportFileData()">{{'AUTOSAVE_CONTINUE' |  translate}}</button>
+  <button mat-raised-button *ngIf="!productsInvalidFlag" [disabled]="!selfile" (click)="applyImportFileData()">{{'SH_APPLY' |  translate}}</button>
+</div>

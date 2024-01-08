@@ -1,0 +1,291 @@
+.title {
+  margin: 0;
+}
+
+.iconSpace {
+  margin-right: 5px !important;
+}
+
+.dialogCloseIcon {
+  .pin {
+    transform: rotate(90deg);
+  }
+
+  .spSearch {
+    border-radius: 23px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+  }
+
+  span {
+    margin-right: 12px;
+  }
+
+  .material-icons {
+    color: #656565;
+  }
+}
+.iconEnabled {
+  color: white;
+  cursor: pointer;
+  width: 20px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.iconDisabled {
+  color: #6F6F6F !important;
+  cursor: not-allowed;
+  margin-right: 10px;
+}
+.disable-select {
+  user-select: none;
+  /* supported by Chrome and Opera */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+}
+.dialog-content {
+  height: 100%;  
+  padding: 0;
+  margin: 0;
+}
+.cpboard {
+  height: 30px;
+  padding: 0px 5px 0px 10px;
+  margin: 0px;
+}
+#cart-body-id {
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  height: 100%;
+
+  .minHeightItems {
+    margin-left: 45px;
+  }
+
+  .list-view {
+    list-style: none;
+    padding: 0;
+    height: 84%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    li {
+      height: 90%;
+      position: 'relative';
+      box-shadow: 'none';
+      width: fit-content !important;
+      display: inline-flex;
+    }
+
+    .column-five {
+      line-height: 2em;
+      min-height: 2px;
+      float: right;
+      width: 55px;
+    }
+
+    .card-prod {
+      background-color: #fff;
+      line-height: 1.5rem;
+      padding: 16px 28px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 12px;
+      font-family: "Roboto";
+      position: relative;
+      z-index: 4;
+      box-shadow: none;
+
+      .card-block {
+        .card-data {
+          align-items: center;
+        }
+
+        .columnAssortAdd {
+          left: 0px;
+          position: absolute;
+          height: 90%;
+          width: 5px;
+          bottom: 4%;
+        }
+      }
+
+      .card-img {
+        text-align: center;
+        margin-left: 0;
+        width: fit-content;
+        float: left;
+        box-sizing: border-box;
+        margin-right: 2%;
+
+        #card-checkbox {
+          display: none;
+        }
+
+        .card-bg {
+          height: 50px;
+          max-width: 50px;
+          background: #ccc;
+          border-radius: 50%;
+          color: #000;
+        }
+
+        &:hover {
+          #card-checkbox {
+            display: block;
+            margin: 20px 25px;
+          }
+
+          .card-bg {
+            display: none;
+          }
+        }
+
+        .small-avatar-image {
+          overflow: scroll;
+          height: 110px;
+          width: 90px;
+          box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+          display: block;
+          width: 100%;
+          text-align: center;
+          padding: 5px;
+          max-width: 250px;
+        }
+      }
+
+      .card-data {
+        vertical-align: top;
+        width: 50%;
+
+        i {
+          color: #9e9e9e;
+          font-style: normal;
+        }
+      }
+
+      .card-unit,
+      .col-five {
+        width: 10%;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .dot-click {
+
+        button {
+          position: absolute;
+          right: 20px;
+          top: 16px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+.product-item-selected {
+  left: 40%;
+  position: absolute;
+  align-self: center;
+  font-size: 15px;
+  top: 9%;
+}
+
+.cart-item-compact {
+  display: inline-block;
+  margin: 0px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  border-bottom: 0px solid gray;
+  vertical-align: bottom;
+}
+
+.cart-item-compact>div,
+.cart-item-compact>img {
+  vertical-align: bottom;
+}
+
+.highlightOn>.cart-item-compact>div,
+.highlightOn>.cart-item-compact>img {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+.cart-item-compact>div.assortIndicator {
+  left: 0px;
+  height: 4px;
+  width: 100%;
+  bottom: -5px;
+  background-color: #ccc;
+}
+
+@-webkit-keyframes cart-marching-ants-1 {
+  0% {
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+  }
+
+  100% {
+    background-position: 40px 0, -40px 100%, 0 -40px, 100% 40px;
+  }
+}
+
+@keyframes cart-marching-ants-1 {
+  0% {
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+  }
+
+  100% {
+    background-position: 40px 0, -40px 100%, 0 -40px, 100% 40px;
+  }
+}
+
+.selected-item .positionElement {
+  background-size: 10px 2px, 10px 2px, 2px 10px, 2px 10px;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  -webkit-animation: cart-marching-ants-1 1s;
+  animation: cart-marching-ants-1 1s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  background-image: -webkit-linear-gradient(left, #fff 50%, #444 50%), -webkit-linear-gradient(left, #fff 50%, #444 50%), -webkit-linear-gradient(top, #fff 50%, #444 50%), -webkit-linear-gradient(top, #fff 50%, #444 50%);
+  background-image: linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%);
+  color: #000;
+}
+
+/* iAssort ARDI CSS */
+.cartiAssortAdd {
+  background-color: #00FF00 !important;
+}
+
+.cartiAssortDelete {
+  background-color: #FF0000 !important;
+}
+
+.cartiAssortRetain {
+  background-color: #0000FF !important;
+}
+
+.cartiAssortIgnore {
+  background-color: #D3D3D3 !important;
+}
+
+//selection of clipitem (border)
+.card-border{
+  border: 2px solid #4E9698;
+  border-radius: 5px; // Need to test 
+  width: fit-content;
+  padding-left: 5px;
+  padding-right: 8px;
+}
