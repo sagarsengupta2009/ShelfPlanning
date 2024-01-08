@@ -1,0 +1,37 @@
+.analysisSideMenu {
+  height: calc(100vh - 143px);
+
+  .contentmainCntnr {
+    width: 100%;
+    padding: 0px 6px;
+    margin: 5px 0px;
+
+    .contentCntnr {
+      width: 100%;
+      /*margin: 5px 0px;*/
+    }
+  }
+
+  ::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: transparent;
+  }
+
+  .sideButtonCntnr {
+    position: absolute;
+    right: 0px;
+    top: 40%;
+    z-index: 1;
+  }
+}
+
+.iconsCntnr {
+  padding: 0 5px;
+
+  .pin {
+    transform: rotate(90deg);
+  }
+
+  mat-icon {
+    color: #656565;
+  }
+}

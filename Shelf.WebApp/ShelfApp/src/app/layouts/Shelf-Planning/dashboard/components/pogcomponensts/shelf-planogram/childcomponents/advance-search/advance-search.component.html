@@ -1,0 +1,225 @@
+<div class="custom-modal-header">
+  <h1 style="display:inline" mat-dialog-title>{{'ADVANCED_SEARCH'|translate}}</h1>
+  <mat-icon class="dialogCloseIcon mt-1" (click)="closeDialog()">close</mat-icon>
+</div>
+<div *ngIf="localSearch.searchFieldsFrmDb && data=='FieldSearch'" mat-dialog-content style="height: calc(100% - 53px);">
+  <div *ngIf="data=='FieldSearch'">{{'FIELD_SEARCH'|translate}}</div>
+  <mat-list>
+    <mat-list-item>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-checkbox checked="true" [(ngModel)]="selectAll" (ngModelChange)="setSearchFilter($event, 'All', 'All')">
+          {{'ALL_FIELDS' | translate}}
+        </mat-checkbox>
+      </div>
+    </mat-list-item>
+    <mat-list-item *ngFor="let option of localSearch.searchFieldsFrmDb.FieldSearch">
+
+      <div style="margin-right:10px;">
+        <mat-checkbox [value]="option.IDDictionary" [(ngModel)]="option.selected"
+          (ngModelChange)="setSearchFilter($event, option.value)">
+          {{option.value}}
+        </mat-checkbox>
+      </div>
+
+    </mat-list-item>
+  </mat-list>
+</div>
+<div *ngIf="localSearch.searchFieldsFrmDb && data=='Actions'" mat-dialog-content style="height: calc(100% - 53px);">
+  <div *ngIf="data=='Actions'">{{'MENU-ACTIONS'|translate}}</div>
+  <mat-list>
+    <mat-list-item *ngFor="let option of localSearch.searchFieldsFrmDb.Actions">
+      <div style="margin-right:10px;">
+        <mat-checkbox [(ngModel)]="option.selected" (ngModelChange)="setActions($event, option.ACTIONID)">
+          {{option.Name| translate}}
+        </mat-checkbox>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<ng-container *ngIf="localSearch.searchFieldsFrmDb && data =='Expression'">
+  <div mat-dialog-content style="height: 85%;overflow: unset;">
+    <div id="expressionLeftPanel">
+      <mat-form-field style="margin-right:10px;">
+        <mat-select (selectionChange)="selectedOption()" [(ngModel)]="localSearch.selectedType">
+          <mat-option *ngFor="let option of localSearch.searchFieldsFrmDb.Expression" [value]="option.value">
+            <span>{{option.value}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field id="expressionsearch" appearance="fill" style="font-size: 12px;width: 100%;"
+        *ngIf="localSearch.hideForNumerictypes">
+        <mat-label>{{'SEARCH_HERE' | translate}}</mat-label>
+        <input matInput type="text" [(ngModel)]="localSearch.itemsearch">
+        <button matSuffix mat-icon-button (click)="localSearch.itemsearch = ''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div id="expressiontable" class="headercontent" *ngIf="!showQContent && localSearch.expressiontable">
+        <table id="expressiontable" class="expressiontable">
+          <tr *ngFor="let x of localSearch.itemList | filterPipe:{'search': localSearch.itemsearch}"
+            (click)="addQueryContent(x, localSearch.selectedType)">
+            <td>{{ x }}</td>
+          </tr>
+          <tr *ngIf="listEmpty">
+            <td> {{'NO_DATA_FOUND' | translate}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!----------Mat slider-->
+      <div id="expressiontable" class="expressiontable" *ngIf="showQContent && localSearch.expressiontable">
+
+        <kendo-rangeslider style="width: 100%; padding-right: 3%;" [min]="localSearch.minSlider"
+          [tickPlacement]="'both'" [max]="localSearch.maxSlider" (valueChange)="rangeChangeSlider($event)"
+          [largeStep]="localSearch.largeStep" [smallStep]="localSearch.smallStep"></kendo-rangeslider>
+        <br><br><br>
+        <mat-card>
+          <mat-card-content>
+            <section class="example-section">
+              <mat-form-field style="width: 40%;margin-left: -8%;" appearance="fill" *ngIf="localSearch.comp">
+                <input matInput [disabled]="localSearch.comp" />
+              </mat-form-field>
+              <mat-form-field style="width: 40%;margin-left: -8%;" appearance="fill" *ngIf="!localSearch.comp">
+                <mat-label>{{'SH_MIN' | translate }}</mat-label>
+                <input matInput type="number" NumberOnly [min]="0" [max]="localSearch.max" [(ngModel)]="localSearch.min" />
+              </mat-form-field>
+              <mat-form-field style="margin-right:2%;width: 25%;margin-left: 2%;">
+                <mat-select [(ngModel)]="localSearch.compValue" (selectionChange)="selectedCompValue()"
+                  style="padding-left: 38%;">
+                  <mat-option *ngFor="let option of localSearch.compExpression" [value]="option"
+                    style="padding-left: 38%;">
+                    <span style="padding-left:25%">{{option}}</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field style="width: 40%;" appearance="fill">
+                <mat-label>{{'SH_MAX' | translate}}</mat-label>
+                <input matInput type="number" NumberOnly [min]="localSearch.min" [(ngModel)]="localSearch.max">
+              </mat-form-field>
+
+            </section>
+
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!--Mat slider ends -->
+
+      <div class="matbutton" style="margin-top: 3%;" *ngIf="showQContent">
+        <button mat-raised-button (click)="rangeChange(localSearch.min, localSearch.max, localSearch.compValue)">
+          {{'PLANOGRAM_LIBRARY_ADD' | translate}}
+        </button>
+      </div>
+
+    </div>
+
+    <div id="expressionRightPanel">
+      <div id="savedSearchSelectList" class="savedSearchSelectList">
+        <mat-form-field style="width: 93%;">
+          <mat-label></mat-label>
+          <mat-select [(ngModel)]="localSearch.selectedOp" (selectionChange)="onSelect($event.value)"
+            (opened)="onOpen()" (closed)="onClose()">
+            <div class="searchCntnr">
+              <input placeholder="{{'SEARCH' | translate}}" matInput autocomplete="off" [(ngModel)]="localSearch.filter"
+                (keyup)="handleFilter($event.target.value)" />
+            </div>
+            <mat-option *ngFor="let option of localSearch.savedSearchOptions" [value]="option.name">
+              {{option.name}}
+            </mat-option>
+            <mat-option *ngIf="!localSearch.savedSearchOptions.length"
+              style="text-align: center; margin: 20px 0 20px 0;">
+              {{'NORECORDS' | translate}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="queryBlock" (click)="selectQueryBlock(0)"
+        [ngStyle]="localSearch.selectedQueryBlockId===0 && {'background-color': '#eff0f1'}">
+        <hr>
+        <ul id="expressionQuery" class="expressionQuery" style="width:90%;list-style: none;">
+          <li *ngFor="let queryContentValue  of localSearch.queryContent[0]; let x =index">
+            <fieldset>
+              <legend style="color: gray;font-size: 14px;">{{queryContentValue.attr}}</legend>
+          <li *ngFor="let nestedQueryContentValue of queryContentValue.val;let in=index" class="expressionQueryItem">
+            &times;<span style="word-break: break-all;"
+              (click)="removeQueryContent(0, x, i)">{{nestedQueryContentValue}}</span></li>
+          </fieldset>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="localSearch.count.length>0">
+        <div class="queryBlock" (click)="selectQueryBlock(in+1)" attr.id="queryBlock{{in+1}}"
+          [ngStyle]="localSearch.selectedQueryBlockId===in+1 && {'background-color': '#eff0f1'}"
+          *ngFor="let c of localSearch.count;let in=index">
+          <hr>
+          <mat-form-field style="width: 14%;">
+            <mat-select [(ngModel)]="localSearch.selectedAndOR[in+1]">
+              <mat-option *ngFor="let option of localSearch.andOrSelect" [value]="option">
+                <span>{{option}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <ul id="expressionQuery" class="expressionQuery" style="width:90%;list-style: none;">
+            <li *ngFor="let queryContentValue  of localSearch.queryContent[in+1];let x =index">
+              <fieldset>
+                <legend style="color: gray;font-size: 14px;">{{queryContentValue.attr}}</legend>
+            <li class="expressionQueryItem"
+              *ngFor="let nestedQueryContentValue of queryContentValue.val trackBy: trackByValue;let i=index">&times;
+              <span (click)="removeQueryContent(in+1, x, i)">{{nestedQueryContentValue}}</span>
+            </li>
+            </fieldset>
+            </li>
+          </ul>
+          <mat-icon id="divClose' + localSearch.noOfBlock + '" class="divClose" (click)="removeQueryBlock(in+1)"
+            style="color: blue;">close</mat-icon>
+        </div>
+
+      </div>
+
+
+      <div>
+        <button class="icon-action" [disabled]="disableAddOption()" (click)="QueryBlock();"
+          style="position:absolute; bottom: 22%; right: 27%;background-color: transparent;border: 0;">
+          <mat-icon style="font-size: 25px;font-weight: bolder; color: blue;">+</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions align="end"
+    style="padding: 0.75rem; border-top: 1px solid #dee2e6;">
+    <div style="width: 100%;">
+      <div class="input-field" style="float: left;">
+        <mat-form-field id="savedSearch_name" appearance="fill" style="font-size: 12px;">
+          <mat-label>{{'SAVETEMPLATE' | translate}}</mat-label>
+          <input matInput type="text" [(ngModel)]="localSearch.expressionsearch"
+            style=" height: inherit; margin-top: 5px;">
+        </mat-form-field>
+      </div>
+      <span class="matbutton m-2">
+        <button mat-raised-button (click)="deleteCurrentSearch()" [disabled]="isDeleteDisabled()">
+          {{'DELETE' | translate }}
+        </button>
+      </span>
+      <span class="matbutton m-2">
+        <button mat-raised-button (click)="saveQueryExpression()" [disabled]="isSaveDisabled()">
+          {{'SAVE' | translate}}
+        </button>
+      </span>
+
+      <span class="matbutton m-2">
+        <button mat-raised-button (click)="clearFilter()">
+          {{'PP_CLEAR' | translate}}
+        </button>
+      </span>
+
+      <span class="matbutton m-2">
+        <button mat-raised-button (click)="applyExpressionFilters();searchExpression();">
+          {{'SH_APPLY' | translate}}
+        </button>
+      </span>
+    </div>
+  </div>
+</ng-container>

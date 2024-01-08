@@ -1,0 +1,60 @@
+.upright-container{
+  height: 85% !important; //over ride mat-container in style.scss
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+
+  .example-radio-button {
+    margin: 5px;
+  }
+
+  .upright-dialog-main{
+    margin-top: 5px;
+    .center{
+      margin-top: 7px;
+    }
+    .addbtn{
+      margin-top: 5px
+    }
+  }
+  .upright-dialog-main input[type=text] {
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-top: 0px !important;
+    width: 100% !important;
+    .disabledDiv {
+      position: absolute;
+      left: 0px;
+      background-color: #e9e4e4;
+      z-index: 100;
+      right: 0px;
+      top: 0px;
+      bottom: 0px;
+      opacity: 0.3;
+    }
+  }
+
+  .variable-upright-div {
+    position: relative;
+    .multiple-value-holder{
+        position: relative;
+        height: calc(100vh - 570px);
+        border: 1px solid #F0F0F0;
+        overflow-y: scroll;
+        .material-icons{
+            font-size: 12px;
+        }
+        .selected{
+          background-color: #EEEEEE;
+        }
+      }
+}
+
+::ng-deep .mat-dialog-title {
+  margin: 0 0 -5px;
+
+}

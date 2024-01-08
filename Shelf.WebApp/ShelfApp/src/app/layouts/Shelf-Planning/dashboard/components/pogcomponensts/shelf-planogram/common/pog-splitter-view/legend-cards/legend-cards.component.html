@@ -1,0 +1,13 @@
+<div class="sapp-spectrum-palette" *ngIf="showSpectrumPaletteLegend && legendDisplay">
+  <div class="main-palette-container">
+    <div fxLayout="row" fxLayoutAlign="start start" class="palette-range-holder">
+      <div *ngFor="let d of colorPalette" class="palette-range-holder" [style.width.px]="eachColorDivWidth" [style.background-color]="d.color">
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div>{{startValue}}</div>
+      <div>{{midValue}}</div>
+      <div>{{endValue}}</div>
+    </div>
+  </div>
+</div>

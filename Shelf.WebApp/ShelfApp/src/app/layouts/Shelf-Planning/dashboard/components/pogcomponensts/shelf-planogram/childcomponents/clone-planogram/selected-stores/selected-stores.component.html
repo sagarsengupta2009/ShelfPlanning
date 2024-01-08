@@ -1,0 +1,57 @@
+<div class="storeCntnr" *ngIf="storeView">
+    <div *ngIf="storeView" class="headerCntnr datecomponent" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="headerName">
+            {{ 'SELECTED_STORES' | translate }}
+        </div>
+        <div>
+            <ng-container *ngIf="checkvmode">
+                <kendo-datepicker
+                    *ngIf="copyOfSelectedStore.length"
+                    [(ngModel)]="changeDate"
+                    matTooltip="{{ 'TOGGLE_CALENDAR' | translate }}"
+                    [value]="changeDate"
+                    (valueChange)="onDateChange()"
+                    [disabledDates]="disabledDates"
+                >
+                <kendo-timepicker-messages toggle=""></kendo-timepicker-messages>
+                </kendo-datepicker>
+                <button *ngIf="copyOfSelectedStore.length" mat-icon-button (click)="deleteselectedRows()">
+                    <mat-icon matTooltip="{{ 'DELETE' | translate }}">delete</mat-icon>
+                </button>
+                <button [disabled]="!saveActive" mat-icon-button (click)="saveStores()">
+                    <mat-icon matTooltip="{{ 'SAVE' | translate }}">save</mat-icon>
+                </button>
+                <button mat-icon-button (click)="openStoreDialog()">
+                    <mat-icon matTooltip="{{ 'STOTE_VIEW_ASSIGN_STORE' | translate }}">add</mat-icon>
+                </button>
+            </ng-container>
+            <button mat-icon-button (click)="excelasexportselectdstoregrid()">
+                <mat-icon matTooltip="{{ 'EXPORT_EXCEL' | translate }}">get_app</mat-icon>
+            </button>
+            <button *ngIf="!pogData.isLoaded" mat-icon-button (click)="closeStore()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="gridCntnr" *ngIf="!alertMsg && selectedstoregridConfig && selectedstoregridConfig.id !== ''">
+
+        <shelf-ag-grid #selectedstoregrid [gridConfig]="selectedstoregridConfig"  (selectedRow)="invokeSelectedstoreRow()" 
+        (rowValueUpdated)="editedValue($event)" (deleteEvent)="deleteObject()" (cellClickHandler)= "cellClickHandler($event)" ></shelf-ag-grid>
+    </div>
+    <div class="alert-center gridCntnr" *ngIf="alertMsg">
+        <div class="alert">
+            <div class="msg">
+                <span>
+                    <mat-icon>info</mat-icon>
+                </span>
+                <span>
+                    {{ 'STORE_NOT_LINKED' | translate }}
+                </span>
+                <span> </span>
+                <span>
+                    {{ 'STORE_PEN_ASSIGN' | translate }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div *ngFor="let d of reportTemplateData">
+  <div [ngSwitch]="d.ParameterType">
+    <div *ngSwitchCase="'0'">
+      <mat-form-field class="inputcntr" *ngIf="d.Visible && d.LookUp">
+        <mat-select [(ngModel)]="d.Value" placeholder="{{d.Name}}">
+          <mat-option *ngFor="let option of d.dropdown" title="{{option.Name}}" [value]="option.value">
+            <span>{{option.Name}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="inputcntr" *ngIf="d.Visible && !d.LookUp">
+        <mat-label>{{d.Name}}</mat-label>
+        <input matInput autocomplete="off" type="text" [(ngModel)]="d.Value">
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'1'">
+      <mat-form-field class="inputcntr" *ngIf="d.Visible">
+        <input matInput type="number" [(ngModel)]="d.Value" placeholder="{{d.Name}}">
+      </mat-form-field>
+    </div>
+    <div *ngSwitchCase="'2'">
+      <mat-checkbox *ngIf="d.Visible" [(ngModel)]="d.Value">{{d.Name}}</mat-checkbox>
+    </div>
+    <div *ngSwitchDefault>
+      <mat-form-field class="inputcntr" *ngIf="d.Visible">
+        <mat-label>{{d.Name}}</mat-label>
+        <input matInput autocomplete="off" type="text" [(ngModel)]="d.Value">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+

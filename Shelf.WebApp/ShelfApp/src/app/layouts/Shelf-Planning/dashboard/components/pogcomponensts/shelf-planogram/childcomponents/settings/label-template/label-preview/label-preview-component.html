@@ -1,0 +1,3 @@
+ <div  [ngClass]="LablePreviewCls" id="{{LablePreviewCls}}" [style.width.px]="width" [style.height.vh]="minHeight"  [style.max-height.%]="maxHeight"  [ngStyle]="stylePositionDiv">
+    <p  [ngStyle]="getLabelStyle"><span [ngStyle]="spanTagStyle" [innerHtml]="modifyLabelExpressionWithTitle | safe"></span></p>
+  </div>

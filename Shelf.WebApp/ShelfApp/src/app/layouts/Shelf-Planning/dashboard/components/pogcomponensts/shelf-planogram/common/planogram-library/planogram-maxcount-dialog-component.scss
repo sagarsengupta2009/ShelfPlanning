@@ -1,0 +1,31 @@
+.dialogCloseIcon {
+  float: right;
+  /*cursor: pointer;*/
+  margin-top: -35px;
+  width: 72px;
+  mat-icon {
+    margin: 0 5%;
+    cursor: pointer;
+    color: white;
+  }
+}
+
+  .maxCountDialog {
+    overflow: hidden;
+   
+    
+    ul {
+      list-style-type: none;
+      margin-top: 4px;
+    }
+
+  }
+  
+::ng-deep .last-cb .mat-checkbox-ripple {
+  height: 34px !important;
+}
+  
+
+ 
+
+  

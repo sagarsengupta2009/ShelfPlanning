@@ -1,0 +1,376 @@
+#propertypanel {
+  .fixtureImage {
+    margin: 0!important;
+    background-size: contain !important;
+    margin: 0px !important;
+}
+
+  .mat-icon-button {
+    padding: 0;
+    min-width: 0;
+    width: 30px;
+    height: 40%;
+    flex-shrink: 0;
+    line-height: 40px;
+    border-radius: 50%;
+    margin-bottom: -15px;
+  }
+
+  .mainTab {
+    line-height: 48px;
+    height: 48px;
+    background-color: transparent;
+    position: relative;
+    border: 0;
+    color: #008080 !important;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 20px;
+  }
+
+  .pin {
+    transform: rotate(90deg);
+  }
+
+  #prop-mat-tab {
+    ::ng-deep .mat-tab-label {
+      text-transform: initial;
+    }
+  }
+
+  .mat-slider-vertical {
+    height: 100px;
+  }
+
+  .example-box {
+    padding: 1%;
+  }
+
+  .dialogPinned {
+    margin: -22px 9px -11px 8px !important;
+  }
+
+  .upright {
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+  }
+
+  .zoom-mat-menu {
+    button:disabled,
+    button[disabled] {
+      opacity: 0.7 !important;
+    }
+  }
+
+  .sapp-property-grid {
+
+    button:disabled,
+    button[disabled] {
+      opacity: 0.7 !important;
+      cursor: not-allowed !important;
+    }
+
+    margin-top: 5px;
+  }
+
+  .property-grid-header {
+    cursor: pointer;
+  }
+
+  :host {
+    padding: 5px;
+  }
+
+  .mat-drawer-inner-container {
+    overflow: hidden;
+  }
+
+  .custom-header {
+    background-color: var(--background-tertiary);
+    color: white;
+  }
+
+  .headerCntnr {
+    .dialogCloseIcon-property-grid {
+      color: white;
+
+      .highlight-search {
+        background-color: rgb(221 221 221 / 60%);
+        ;
+      }
+    }
+
+    .material-icons {
+      color: white;
+    }
+
+    .mat-dialog-title {
+      margin: 0%;
+    }
+
+    cursor: move;
+  }
+
+
+  .input-component-label {
+    .style-icon {
+      transform: scale(0.6);
+      color: lightgrey;
+    }
+  }
+
+  .col-lg-3,
+  .col-lg-4 {
+    min-width: 150px;
+  }
+
+
+  .prop-grid-anchored {
+    height: calc(100vh - 300px);
+  }
+
+  .prop-grid-on-side {
+    height: calc(100vh - 295px);
+  }
+
+  .disable-active {
+    pointer-events: none;
+    opacity: 0.7;
+    border: 0 !important;
+    background-color: transparent !important;
+    box-shadow: 0 0 0 0 !important;
+    font-size: 10px !important;
+  }
+
+  .listViewCntnr {
+    mat-accordion {
+      padding: 0;
+
+      mat-expansion-panel {
+        margin: 0;
+
+        mat-expansion-panel-header {
+          padding: 0 5px;
+          height: 18px;
+          background-color: #80808047;
+          color: var(--background-tertiary);
+          border: 1px solid #D4DCE6;
+          font-size: 14px;
+          
+          &.mat-expansion-panel-header.mat-expanded {
+            height: 18px;
+            font-size: 14px;
+          }
+
+        }
+
+        .mat-expansion-panel-body {
+          padding: 0 5px
+        }
+
+        .mat-expansion-panel-content {
+          letter-spacing: normal;
+          font-size: 10px;
+      }
+        
+      }
+    }
+
+    .list-div-cntnr {
+      overflow: auto;
+      .list-item-cntnr {
+        border-bottom: 2px solid #80808024;
+        height: 17px;
+        .list-item{
+          width: 100%; 
+          height: 28px;
+          .list-item-label{
+            width:40%;
+            border-right: 2px solid #80808024;
+          }
+        }
+
+        .label-cntnr {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .list-item-cntnr:last-child {
+        border: none;
+      }
+
+      .list-item-cntnr:not(.cdk-drag-placeholder) {
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+      }
+    }
+  }
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }      
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }      
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  .example-button-row button {
+    margin-right: 8px;
+  }
+  
+  .search-input {
+    width: 100%;
+    height: 30px;
+    border-radius: 6px;
+    color: #212529;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .label-font{
+    font-size: 10px !important;
+  }
+  
+  .mat-list-item {
+    font-size: 10px !important;
+  }
+  
+  .mat-list-base {
+    font-size: 10px !important;
+    padding-top: 0px !important;
+  }
+  
+  
+  .mat-icon-fontsize{
+    font-size: 16px !important;
+    height: 18px !important;
+  }
+  
+  
+  .k-color-picker, .k-colorpicker {
+    width: min-content;
+    font-size: 10px !important;
+  }
+  
+  .k-button-md {
+    padding: 0px 0px !important;
+    font-size: 0px;
+  }
+  
+  .mat-list-item-content {
+    padding: 0 1px;
+  }
+  .cdk-virtual-scrollable{
+    will-change: auto !important;
+    transform: none !important;
+  }
+/*---------For ScrollBar -------------------*/
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    background: #808483;
+    -webkit-box-shadow: inset 0 0 6px #ccc;
+    box-shadow: inset 0 0 6px #ccc;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: #808483;
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: #808483;
+  }
+}
+
+/* ************* over ride ******************/
+
+
+.allocate {
+  #propertypanel {
+    .prop-grid-anchored {
+      height: calc(100vh - 350px);
+    }
+  }
+}
+
+.allocate,
+.iAssortNICI {
+  #propertypanel {
+    .prop-grid-on-side {
+      height: calc(100vh - 225px);
+    }
+
+    .mat-tab-body-content {
+      height: 100%;
+    }
+  }
+}
+
+
+@media (max-height: 500px) {
+
+  #propertypanel {
+    .prop-grid-on-side {
+      height: calc(100vh - 160px);
+    }
+  }
+
+  .allocate,
+  .iAssortNICI {
+    #propertypanel {
+      .prop-grid-on-side {
+        height: calc(100vh - 160px);
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+
+  .allocate,
+  .iAssortNICI {
+    #propertypanel {
+      .dialogCloseIcon-property-grid {
+        flex-wrap: wrap-reverse;
+      }
+
+      .prop-grid-on-side {
+        height: calc(100vh - 220px);
+      }
+    }
+  }
+
+  app-block-editor {
+    padding: 0px !important; //override default row > *
+    margin: 0px;
+  }
+}
+
+
+@media (max-width: 800px) {
+  #propertypanel {
+    .input-cell {
+      height: 100%;
+    }
+  }
+
+  .col-lg-6 {
+    width: 100%;
+  }
+
+}
+
+.multiPositionHeaderDiv{
+  padding-top: 5px;
+  padding-bottom: 12px;
+}

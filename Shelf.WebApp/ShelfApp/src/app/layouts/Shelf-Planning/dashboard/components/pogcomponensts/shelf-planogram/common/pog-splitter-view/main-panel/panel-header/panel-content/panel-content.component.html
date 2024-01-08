@@ -1,0 +1,25 @@
+<ng-container *ngIf="!panelPointer.isLoaded && displayView!='store'">
+    <div kendoTooltip filter="g.svgPosition[data-idpog] ,image, rect[data-idpog]" [tooltipTemplate]="template"
+        position="left" class="tooltipHolder" [showAfter]="sharedService.tooltipDelayTime">
+        <div *ngIf="svgDisplay" class="svg thumbnail-holder svgclass pointer-class" [ngClass]="{noCart: styleThumbnail == 'NOCART', sbsCart: styleThumbnail == 'SBSCART', ouCart: styleThumbnail == 'OUCART',  fullCart: styleThumbnail == 'FULLCART'}" id="thumbnail-holder_{{panelID}}" [innerHTML]="svgDisplay | safe"></div>
+        <div *ngIf="showNoPreview" class="svg thumbnail-holder svgclass" [ngClass]="{noCart: styleThumbnail == 'NOCART', sbsCart: styleThumbnail == 'SBSCART', ouCart: styleThumbnail == 'OUCART',  fullCart: styleThumbnail == 'FULLCART'}" id="thumbnail-holder_{{panelID}}"><img class="previewImg" [src]="imageNoPreviewSrc" /></div>
+        <ng-template #template let-anchor>
+            <div style="float:left;padding:15px">
+                <img src="{{checksvg(anchor)}}" style="max-height:90px;vertical-align:middle;" positionImgFallback />
+            </div>
+            <div style="float:right;font-size: 11px;line-height: 25px;text-align:left;">
+                <table>         
+                        <tr *ngFor="let tooltip of toolTipData">
+                          <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+                          <td class="tooltip-text-colon">:</td>
+                          <td>{{tooltip.value}}</td>
+                        </tr>  
+              </table>
+            </div>
+        </ng-template>
+    </div>
+</ng-container>
+<ng-container *ngIf="panelPointer.isLoaded || displayView=='store'">
+    <shelf-panel-body [displayView]="panelPointer.view" [isPogDownloaded]="panelPointer.isLoaded" [sectionObject]="sectionObject"
+        [selectedPogObject]="selectedPogObject" [panelID]="panelID" (closeStore)="closeStore()"></shelf-panel-body>
+</ng-container>

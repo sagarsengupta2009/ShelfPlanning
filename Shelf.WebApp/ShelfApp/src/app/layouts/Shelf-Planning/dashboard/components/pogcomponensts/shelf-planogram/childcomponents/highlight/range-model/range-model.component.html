@@ -1,0 +1,188 @@
+<div class="rangeModelCntnr">
+  <div style="font-weight:600;" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span>{{modelHL.type | translate}}</span>
+      <span>-</span>
+      <span>{{highlightService.getStringNameFromField()}}</span>
+    </div>
+    <div>
+      {{highlightService.buttonSettings.templateName}}
+    </div>
+    <div>
+      <button style="cursor:pointer" mat-icon-button [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="display">{{'DISPLAY' | translate}}</button>
+        <!--<button mat-menu-item [matMenuTriggerFor]="sort">{{'SORT' | translate}}</button>-->
+        <button *ngIf="savedSearchOptions.length>1" mat-menu-item [matMenuTriggerFor]="limit">{{'LIMIT' |
+          translate}}</button>
+        <button mat-menu-item
+          (click)="highlightService.buttonSettings.showSaveAs=false; highlightService.buttonSettings.showSave=true;">{{'SAVE_AS'
+          | translate}}</button>
+        <button mat-menu-item
+          *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && highlightService.buttonSettings.showAddSysTemp"
+          (click)="emit('SYSTEM_TEMPLATE')">{{'SYSTEM_TEMPLATE' | translate}}</button>
+        <button mat-menu-item
+          *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && highlightService.buttonSettings.showUpdate"
+          (click)="emit('UPDATE')">{{'UPDATE' | translate}}</button>
+        <button mat-menu-item
+          *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && highlightService.buttonSettings.showRemove"
+          (click)="emit('REMOVE')">{{'REMOVE' | translate}}</button>
+        <button mat-menu-item *ngIf="highlightService.setRulsetAllocateMode()"
+          (click)="emit('TOGGLE_TEMPLATE')">{{'Toggle' | translate}}</button>
+      </mat-menu>
+      <mat-menu #display="matMenu">
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showRangePercentageLinear" (click)="showRangePercentageLinear = !showRangePercentageLinear; toggleRangeModelPercentageLinear()">
+            {{'LINEAR_PERCENT' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showRangeLinear" (click)="showRangeLinear = !showRangeLinear; toggleRangeModelLinear()">{{'LINEAR' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showSPM" (click)="toggleSpectrumSpm()">{{'SPM' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showRangePercentageCapacity" (click)="showRangePercentageCapacity = !showRangePercentageCapacity; toggleRangeModelPercentageCapacity()">
+            {{'CAPACITY_PERCENT' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showRangeCapacity" (click)="showRangeCapacity = !showRangeCapacity; toggleRangeModelCapacity()">{{'CAPACITY' | translate}}
+          </mat-checkbox>
+        </div>
+      </mat-menu>
+      <mat-menu #limit="matMenu">
+        <mat-radio-group style="display: flex;flex-direction: column;" [(ngModel)]="advFind">
+          <mat-radio-button style="padding:5px;" class="example-radio-button"
+            *ngFor="let findTemplate of savedSearchOptions;index as i" (click)="DoAdvFind(i)" [value]="i">
+            {{findTemplate.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-menu>
+    </div>
+  </div>
+  <div>
+    <i *ngIf="savedSearchOptions[advFind]?.search" style="font-size:12px;">{{savedSearchOptions[advFind].name}}</i>
+  </div>
+  <div *ngIf="totalVal != 0" style="margin-top:8px" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Total {{highlightService.getStringNameFromField()}} : {{totalVal}}
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>{{'SPLIT_INTO' | translate}}</mat-label>
+        <input matInput [disabled]="showCount" autocomplete="off" type="number" min="2" max="10" [(ngModel)]="highlightService.splitCount"
+          (keypress)="keyPressNumbers($event)" (keyup)="validateKeyup($event)" (ngModelChange)="validateKeyup()">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row pt-2 pb-3">
+    <div class="col-md-6 p-0 d-flex align-items-center">
+      <span style="font-family: Roboto, 'Helvetica Neue', sans-serif; font-weight: 500; margin-right: 2%;">{{'DISPLAY' | translate}} %</span>
+      <mat-slide-toggle [(ngModel)]="showCount" (ngModelChange)="toggleChange(showCount)">{{'COUNT' | translate}}</mat-slide-toggle>
+    </div>
+    <div class="col-md-6 p-0 d-flex align-items-center">
+      <mat-checkbox [(ngModel)]="excludeZeroVal" (change)="toggleExcludeZeroVal()" [disabled]="disableExcludeZero()" class="exclude-zero-cb">
+        {{'EXCLUDE_ZERO' | translate}} {{highlightService.getStringNameFromField()}}
+      </mat-checkbox>
+    </div>
+  </div>
+  <div *ngIf="!showCount">
+    <div *ngIf="sliderDisplay" [style.display]="totalVal != 0 ? 'block' : 'none'" class="sliderCntnr">
+      <nouislider #slider [config]="someKeyboardConfig" [(ngModel)]="sliderRange"
+        (ngModelChange)="sliderRangeChange($event)"></nouislider>
+    </div>
+    <div *ngIf="totalVal != 0" id="cartListID" [ngClass]="sharedService.link !== 'allocate' ? 'cart-list-shelf-view' : 'cart-list-allocate-view'">
+      <ul class="list-view" id="create-planogram-ID">
+        <li *ngFor="let item of values;index as i" class="card-prod">
+          <div fxLayout="row" fxLayoutGap="5px">
+            <div *ngIf="showRangePercentageLinear" class="matprogressbarCntnr">
+              <mat-progress-bar mode="determinate" value="{{item.rangePercentageLinear}}"></mat-progress-bar>
+            </div>
+            <div class="colorPicker">
+              <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+                [paletteSettings]="paletteSettings" [value]="item.color" (valueChange)="colorChange($event,i)">
+              </kendo-colorpicker>
+            </div>
+            <div>
+              <mat-form-field [style.width.px]="120">
+                <input matInput autocomplete="off" type="text" [(ngModel)]="item.label" (keyup)="onInputField($event)"
+                  (blur)="isNumeric(item.label, i)">
+              </mat-form-field>
+            </div>
+            <div>
+              {{item.value}}% ({{item.actPer}})
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="additionalFields" *ngIf="showRangePercentageLinear">
+              <span>{{'LINEAR_PERCENT' | translate}} : </span> <span>{{item.rangePercentageLinear}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showRangeLinear" style="margin-left: 10px;">
+              <span>{{'LINEAR' | translate}} : </span> <span>{{item.rangeLinear}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showSPM" style="margin-left: 10px;">
+              <span>SPM : </span><span>{{item.SPM}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showRangePercentageCapacity" style="margin-left: 10px;">
+              <span>{{'CAPACITY_PERCENT' | translate}} : </span> <span>{{item.rangePercentageCapacity}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showRangeCapacity" style="margin-left: 10px;">
+              <span>{{'CAPACITY' | translate}} : </span> <span>{{item.rangeCapacity}}</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="showCount">
+    <div *ngIf="sliderDisplay" [style.display]="totalVal != 0 ? 'block' : 'none'" class="sliderCntnr">
+      <nouislider #sliderCount [config]="someKeyboardConfig" [(ngModel)]="sliderRange"
+        (ngModelChange)="countSliderRangeChange($event)"></nouislider>
+    </div>
+    <div *ngIf="totalVal != 0" id="cartListID" [ngClass]="sharedService.link !== 'allocate' ? 'cart-list-shelf-view' : 'cart-list-allocate-view'">
+      <ul class="list-view" id="create-planogram-ID">
+        <li *ngFor="let item of valuesCount;index as i" class="card-prod">
+          <div fxLayout="row" fxLayoutGap="5px">
+            <div *ngIf="showRangePercentageLinear" class="matprogressbarCntnr">
+              <mat-progress-bar mode="determinate" value="{{item.rangePercentageLinear}}"></mat-progress-bar>
+            </div>
+            <div class="colorPicker">
+              <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+                [paletteSettings]="paletteSettings" [value]="item.color" (valueChange)="colorChangeCount($event,i)">
+              </kendo-colorpicker>
+            </div>
+            <div>
+              <mat-form-field style="width: 120px;">
+                <input matInput autocomplete="off" type="text" [(ngModel)]="item.label" (keyup)="onInputField($event)">
+              </mat-form-field>
+            </div>
+            <div>
+              {{item.value}} ({{item.inset}})
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="additionalFields" *ngIf="showRangePercentageLinear">
+              <span>{{'LINEAR_PERCENT' | translate}} : </span> <span>{{item.rangePercentageLinear}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showRangeLinear" style="margin-left: 10px;">
+              <span>{{'LINEAR' | translate}} : </span> <span>{{item.rangeLinear}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showSPM" style="margin-left: 10px;">
+              <span>SPM : </span><span>{{item.SPM}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showRangePercentageCapacity" style="margin-left: 10px;">
+              <span>{{'CAPACITY_PERCENT' | translate}} : </span> <span>{{item.rangePercentageCapacity}}</span>
+            </span>
+            <span class="additionalFields" *ngIf="showRangeCapacity" style="margin-left: 10px;">
+              <span>{{'CAPACITY' | translate}} : </span> <span>{{item.rangeCapacity}}</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

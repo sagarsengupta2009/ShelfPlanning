@@ -1,0 +1,76 @@
+.mainCntnr {
+  overflow: hidden !important;
+  margin: -4.6%;
+
+  .custom-modal-header {
+    margin: 0%;
+  }
+
+  .displayMenu {
+    margin: 1%;
+    height: calc(100vh - 24em);
+    max-height: 60vh;
+
+    .example-radio-group {
+      display: flex;
+      flex-direction: column;
+      margin: 2%;
+
+      mat-radio-button {
+        margin-top: 5px;
+      }
+
+      mat-checkbox {
+        margin-left: 20px;
+        margin-top: 5px;
+      }
+    }
+
+    .example2-radio-group {
+      display: flex;
+      flex-direction: column;
+      margin: 15px 0;
+
+      mat-radio-button {
+        margin: 5px 0 5px 20px;
+      }
+    }
+
+    span.shortcuts-font-size {
+      color: lightgray;
+      font-size: 0.8em;
+    }
+
+    .example-card {
+      max-width: 500px;
+
+      mat-checkbox {
+        margin: 12px 0 0 0;
+      }
+    }
+
+    mat-card-subtitle {
+      font-size: 30px
+    }
+
+    mat-card-title {
+      color: var(--background-tertiary);
+      font-size: 40px
+    }
+
+  }
+
+  .actionsCntnr {
+    margin-bottom: 1%;
+    margin-right: 2%;
+  }
+
+  .mat-select {
+    border: 1px solid #a1a1a1;
+  }
+
+  .leftPadding{
+    padding-left: 12%;
+  }
+
+}

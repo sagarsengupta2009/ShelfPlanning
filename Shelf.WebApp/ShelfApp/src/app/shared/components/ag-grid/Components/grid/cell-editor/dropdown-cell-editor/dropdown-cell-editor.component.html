@@ -1,0 +1,6 @@
+<div class="dropDownList" [ngStyle]="getStyle()">
+    <div class="dropDownListItem" *ngFor="let item of items;trackBy: trackById" (click)="selectItem(item.key)"
+        [ngClass]="{'dropDownListSelectedItem': item.key === selectedItemID}" >
+        {{ item.value }}
+    </div>
+</div>

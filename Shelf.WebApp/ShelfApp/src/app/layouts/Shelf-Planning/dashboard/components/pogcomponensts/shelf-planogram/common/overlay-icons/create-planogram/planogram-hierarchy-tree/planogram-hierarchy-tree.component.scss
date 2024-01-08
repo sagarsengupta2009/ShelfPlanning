@@ -1,0 +1,59 @@
+.kdropdown {
+  .header {
+    margin-right: 12px;
+    font-size: 12px
+  }
+
+  .k-dropdown, .k-dropdowntree {
+    font-size: 12px;
+  }
+}
+
+.planogramStoreHierarchyTreeWrapper {
+  box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+  display: inline-table;
+  vertical-align: top;
+  text-align: left;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid rgba(20,53,80,0.14);
+  position: relative;
+ // top: 0;
+
+  .row {
+    height: 30px;
+    padding: 5px 10px;
+    background-color: #ececec;
+  }
+}
+
+
+.inner-addon {
+  position: relative;
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  margin-top: -15px;
+}
+
+/* align icon */
+.left-addon .glyphicon {
+  left: 0px;
+}
+
+.right-addon .glyphicon {
+  right: 10px;
+}
+
+.content-tree {
+ height: calc(100vh - 28em);
+ cursor: pointer;
+  padding: 10px;
+  ::ng-deep .k-display-none, ::ng-deep .k-hidden {
+    display: block !important;
+    
+  }
+}

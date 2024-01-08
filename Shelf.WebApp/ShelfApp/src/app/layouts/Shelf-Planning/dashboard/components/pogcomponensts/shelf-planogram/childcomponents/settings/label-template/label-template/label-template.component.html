@@ -1,0 +1,383 @@
+
+<div class="labelCntnr">
+  <div class="editBody" fxLayout="row" fxLayoutGap="16px">
+    <ng-container *ngIf="gridConfigData1 && gridConfigData1.id!==''">
+      <div fxLayout="column" fxFlex="24">
+        <div class="block" style="padding-top: 10px;" fxLayout="row" >
+          <div  fxFlex="75">
+<div class="inputcntr marginLeft" style="width: 92%" fxLayout="column">
+  <mat-label>{{'LIBRARY' | translate}}</mat-label>
+              <mat-select style="width: auto;" #templateSelect
+              (selectionChange)="templateChanged()"
+              (openedChange)="focusInput()"
+              disableOptionCentering
+              panelClass="labelTemplateInputPanel"
+              [(ngModel)]="currTemplate">
+                <input placeholder="{{'SEARCH_TEMPLATE' | translate}}" #templateInput (keyup)="$event.stopImmediatePropagation();"  />
+                <mat-option *ngFor="let template of templatesData | filterPipe:{'col':'TEMPLATE_NAME', 'search': templateInput.value}"  [value]="template">
+                  <span style="font-size:12px;">{{template.TEMPLATE_NAME}}</span>
+                </mat-option>
+              </mat-select>
+            </div>
+
+          </div>
+          <div class="label-icons" align="end" fxFlex="25">
+            <button [disabled]="currTemplate.TEMPLATE_NAME =='DefaultTemplate'" (click)="openDialog('Clone')" class="buttonIcons"><mat-icon class="cloneIcon" [ngClass]="currTemplate.TEMPLATE_NAME =='DefaultTemplate'?'deleteIconDisabled':'deleteIconEnabled'" matTooltip="{{'POG_LIB_ITEM_CLONE '| translate}}" >filter_none</mat-icon></button>
+            <button [disabled]="currTemplate.TEMPLATE_NAME =='DefaultTemplate'" class="buttonIcons" (click)="openDialog('Delete')">
+              <mat-icon  matTooltip="{{'DELETE_TEMPLATE'| translate}}" [ngClass]="currTemplate.TEMPLATE_NAME =='DefaultTemplate'?'deleteIconDisabled':'deleteIconEnabled'" >delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="gridTabs block">
+          <mat-tab-group animationDuration="0ms" mat-align-tabs="start" id="position-setting" (selectedTabChange)="tabChanged($event.index)">
+            <mat-tab label="LABEL_1">
+              <ng-template  mat-tab-label>
+                <mat-checkbox class="marginLeft"  #enableLabel1 [(ngModel)]="currTemplate.LABEL_1.ENABLED"></mat-checkbox>
+                <div class="label marginLeft" ><label>{{'LABEL_1'|translate}}</label></div>
+              </ng-template>
+              <shelf-ag-grid #grid1 [gridConfig]="gridConfigData1" (selectedRow)="invokeSelectedRow()">
+              </shelf-ag-grid>
+            </mat-tab>
+            <mat-tab label="LABEL_2">
+              <ng-template mat-tab-label>
+                <mat-checkbox class="marginLeft" #enableLabel2 [(ngModel)]="currTemplate.LABEL_2.ENABLED"></mat-checkbox>
+                <div class="label marginLeft"  ><label>{{'LABEL_2'|translate}}</label></div>
+              </ng-template>
+              <shelf-ag-grid #grid2 [gridConfig]="gridConfigData2" (selectedRow)="invokeSelectedRow()">
+              </shelf-ag-grid>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </ng-container>
+    <div fxLayout="column" fxFlex="32" [ngClass]="gridId==labelType.POSITION?'justifyContentPosition':'justifyContentFixture'" >
+        <div class="block">
+          <div class="labelItem marginBottom"><label>{{'TEXT_PROPERTIES' | translate}}</label></div>
+          <div *ngFor="let child of templateMetaData" fxLayout="column" class="marginLeft">
+            <div *ngFor="let obj of child.children">
+              <div *ngIf="obj.key.includes('FONT_FAMILY')" fxLayout="column">
+                <div *ngIf="obj.fieldObj.UIType=='Select'" fxLayout="column" fxLayoutAlign="none" class="inputcntr">
+                  <mat-label>{{obj.fieldObj.Name}}</mat-label>
+                  <mat-select [disabled]="obj.fieldObj.Readonly" panelClass="labelTemplateInputPanel"
+                    (selectionChange)="changeInFontSize(currTemplate['LABEL_'+labelID]['SHRINK_TO_FIT'],obj.fieldObj.KeyName,labelID)"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                    <mat-option *ngFor="let option of obj.fieldObj.Values" [value]="option.value">
+                      <span>{{option.text}}</span>
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div *ngIf="obj.fieldObj.UIType=='Text'" fxLayout="column" fxLayoutAlign="none" class="inputcntr">
+                  <mat-label>{{obj.fieldObj.Name}}</mat-label>
+                  <input [disabled]="obj.fieldObj.Readonly" matInput class="textbox-input" type="text"
+                    (mousedown)="$event.stopPropagation();" [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                </div>
+              </div>
+        
+            </div>
+          </div>
+          <div *ngFor="let child of templateMetaData" fxLayout="row wrap" class="marginLeft">
+            <div *ngFor="let obj of child.children">
+        
+              <div *ngIf="obj.key.includes('FONT') && !obj.key.includes('FONT_FAMILY')" fxLayout="column">
+                <div *ngIf="obj.fieldObj.UIType=='Select'" fxLayout="column" fxLayoutAlign="none" class="inputcntr">
+                  <mat-label>{{obj.fieldObj.Name}}</mat-label>
+                  <mat-select (openedChange)="filterText=''" [disabled]="obj.fieldObj.Readonly"
+                    panelClass="labelTemplateInputPanel"
+                    (selectionChange)="changeInFontSize(currTemplate['LABEL_'+labelID]['SHRINK_TO_FIT'],obj.fieldObj.KeyName,labelID)"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                    <input style="width:fit-content" *ngIf="obj.key.includes('FONT_SIZE')" [(ngModel)]="filterText"
+                      (ngModelChange)="onDataBound(obj.fieldObj.Values,filterText)" [ngModelOptions]="{standalone: true}"
+                      placeholder="{{'SEARCH' | translate}}" matInput type="text" />
+                    <mat-option *ngFor="let option of obj.fieldObj.Values | filterPipe:{'col':'text', 'search': filterText}"
+                      [value]="option.value">
+                      <span>{{option.text}}</span>
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div *ngIf="obj.fieldObj.UIType=='Radio'" fxLayout="column" fxLayoutAlign="none" class="inputcntr"
+                  style="margin-right: 0px;">
+                  <mat-label>{{obj.fieldObj.Name}}</mat-label>
+                  <mat-radio-group [disabled]="obj.fieldObj.Readonly" class="smallRadio" aria-label="Select an option"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                    <mat-radio-button *ngFor="let option of obj.fieldObj.Values" [value]="option.value"
+                      [checked]="option.checked">{{option.text}}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div *ngIf="obj.fieldObj.UIType=='Color'" fxLayout="column" fxLayoutAlign="none" class="inputcntr">
+                  <mat-label>{{obj.fieldObj.Name}}</mat-label>
+                  <div class="labelcolorpicker" fxLayout="row">
+                    <input [disabled]="obj.fieldObj.Readonly" matInput class="textbox-input" type="text"
+                      (mousedown)="$event.stopPropagation();" [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]"
+                      [placeholder]="fillColor">
+                    <kendo-colorpicker [disabled]="obj.fieldObj.Readonly" class="colorpicker" [format]="'hex'"
+                      [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings"
+                      [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                    </kendo-colorpicker>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="block" [ngClass]="{'alignmentErrorVisible': applyPosAlignJustifyValidation()}">
+          <div class="labelItem marginBottom"><label>{{'ALIGNMENT' | translate}}</label></div>
+          <div *ngFor="let child of templateMetaData" fxLayout="column" class="marginLeft">
+            <div *ngFor="let obj of child.children">
+              <div
+                *ngIf="alignmentsSection.includes(obj.fieldObj.KeyName) && !alignmentsBooleanSection.includes(obj.fieldObj.KeyName)"
+                fxLayout="column">
+                <div *ngIf="obj.fieldObj.KeyName=='VERTICAL_ALIGNMENT'" fxLayout="column" fxLayoutAlign="none"
+                  class="inputcntr">
+                  <div fxLayout="row">
+                    <mat-label [ngClass]="{'asterisk': sameAlignmentSelected}">{{obj.fieldObj.Name}}</mat-label>
+                    <mat-icon class="marginLeft" [ngClass]="obj.fieldObj.Readonly?'disabledField':''"
+                      [ngStyle]="{'border': currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]==option.value?'1px solid':'none'}"
+                      (click)="onchangeAlignment(option.value, obj.fieldObj.KeyName, obj.fieldObj.Readonly)"
+                      *ngFor="let option of obj.fieldObj.Values" fxLayout="row" fxLayoutGap="5px">
+                      {{'format_align_'+(option.value==0?'left':(option.value==1?'center':'right'))}}
+                    </mat-icon>
+                  </div>
+                </div>
+                <div *ngIf="obj.fieldObj.UIType=='Radio'&&obj.fieldObj.KeyName!='VERTICAL_ALIGNMENT'" fxLayout="column"
+                  fxLayoutAlign="none" class="inputcntr">
+                  <mat-label
+                    [ngClass]="{'asterisk': obj.fieldObj.KeyName=='HORIZONTAL_ALIGNMENT' && sameAlignmentSelected}">{{obj.fieldObj.Name}}</mat-label>
+                  <mat-radio-group [disabled]="obj.fieldObj.Readonly" class="smallRadio" aria-label="Select an option"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                    <mat-radio-button *ngFor="let option of obj.fieldObj.Values" [value]="option.value"
+                      [checked]="option.checked">{{option.text}}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div *ngIf="obj.fieldObj.UIType=='boolean'" fxLayout="row" fxLayoutAlign="none" class="inputcntr">
+                  <mat-checkbox (ngModelChange)="updateFontSize($event,obj.fieldObj.KeyName,labelID);"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]"
+                    [disabled]="obj.fieldObj.Readonly || disabledShrinkFit(obj.fieldObj.KeyName,labelID)">{{obj.fieldObj.Name}}</mat-checkbox>
+                </div>
+                <div *ngIf="obj.fieldObj.UIType=='Select'" fxLayout="column" fxLayoutAlign="none" class="inputcntr"
+                  style="width: 100%;">
+                  <mat-label>{{obj.fieldObj.Name}}</mat-label>
+                  <mat-select [disabled]="obj.fieldObj.Readonly"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                    <mat-option *ngFor="let option of obj.fieldObj.Values" [value]="option.value">
+                      <span>{{option.text}}</span>
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let child of templateMetaData" fxLayout="row wrap" class="marginLeft">
+            <div *ngFor="let obj of child.children">
+              <div *ngIf="alignmentsBooleanSection.includes(obj.fieldObj.KeyName)" fxLayout="column">
+                <div *ngIf="obj.fieldObj.UIType=='boolean'" fxLayout="row" fxLayoutAlign="none" class="inputcntr">
+                  <mat-checkbox (ngModelChange)="updateFontSize($event,obj.fieldObj.KeyName,labelID);"
+                    [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]"
+                    [disabled]="obj.fieldObj.Readonly || disabledShrinkFit(obj.fieldObj.KeyName,labelID)">{{obj.fieldObj.Name}}</mat-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="alignmentError asteriskBefore" *ngIf="gridId == 'POSITION_LABEL' && applyPosAlignJustifyValidation()">
+            {{'SAME_ALIGNMENT_AS_OTHER_LABEL' | translate}}</div>
+        </div>
+      
+        <div class="block">
+          <div class="labelItem marginBottom"><label>{{'BORDERS_N_BG' | translate}}</label></div>
+          <div class="marginLeft" style="line-height: 9px;" *ngFor="let child of templateMetaData" fxLayout="row wrap"
+            fxLayoutAlign="start center">
+            <ng-container *ngFor="let obj of child.children">
+              <ng-container *ngIf="backgroundsSection.includes(obj.fieldObj.KeyName)" fxLayout="row">
+        
+                <ng-container *ngIf="obj.fieldObj.UIType=='Color'">
+                  <div class="inputcntr" fxLayout="column" fxFlex="25">
+                    <mat-label class="paddingBottom">{{obj.fieldObj.Name}}</mat-label>
+                    <div fxLayout="row">
+                      <input [disabled]="obj.fieldObj.Readonly" matInput class="textbox-input" type="text"
+                        (mousedown)="$event.stopPropagation();"
+                        [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]" [placeholder]="fillColor">
+                      <span class="labelcolorpicker">
+                        <kendo-colorpicker [disabled]="obj.fieldObj.Readonly" class="colorpicker" [format]="'hex'"
+                          [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings"
+                          [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                        </kendo-colorpicker>
+                      </span>
+                    </div>
+                  </div>
+                </ng-container>
+                <div *ngIf="obj.fieldObj.UIType=='Slider'" fxFlex="40" (mousedown)="$event.stopPropagation();">
+                  <div class="slider inputcntr" fxLayout="column" fxFlex="100">
+                    <mat-label class="paddingBottom">{{obj.fieldObj.Name}}</mat-label>
+                    <div fxLayout="row" style="align-items: center">
+                      <mat-slider [disabled]="obj.fieldObj.Readonly" fxFlex="70" #sliderSize
+                        (change)="updateSliderSetting($event.value)" step="10" min="0" max="100"
+                        [(value)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                      </mat-slider>
+                      <mat-select [disabled]="obj.fieldObj.Readonly" fxFlex="30" class="sliderSelect"
+                        [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]">
+                        <mat-option *ngFor="let option of sliderValues;let i= index" [value]="option">
+                          <span>{{i}}</span>
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="block" *ngIf="gridId!=labelType.POSITION" style="height: 34%;">
+          <div class="labelItem marginBottom"><label>{{'APPLY_TO' | translate}}:</label></div>
+          <div class="marginLeft fixtureSelectionContainer" style="line-height: 9px;" *ngFor="let child of templateMetaData">
+            <div *ngIf="child.children.length">
+              <mat-checkbox [disabled]="isAllFixturesReadonly(child.children)" fxFlex="5"
+                [checked]="isAllFixturesSelected()" (change)="updateAllFixtures($event)"><label>{{'ALL_FIXTURES'|translate}}</label></mat-checkbox>
+            </div>
+            <ng-container *ngFor="let obj of child.children">
+              <div *ngIf="obj.fieldObj.UIType=='boolean' && fixtureKeyNames.includes(obj.fieldObj.KeyName)">
+                <mat-checkbox [disabled]="obj.fieldObj.Readonly" fxFlex="5"
+                  [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]"><label>{{obj.fieldObj.Name|translate}}</label></mat-checkbox>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="block">
+          <div *ngFor="let child of templateMetaData" fxLayout="column" class="marginLeft">
+            <div *ngFor="let obj of child.children">
+              <div *ngIf="obj.key.includes('DECIMALS')" fxLayout="column">
+                <mat-radio-group class="decimals" [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]" name="option">
+                  <mat-label class="decimals-label">{{obj.fieldObj.Name}}:</mat-label>                
+                  <ul class="decimals-list">
+                    <li class="decimals-option" [ngClass]="{'active': currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]==option.value}" 
+                    *ngFor="let option of obj.fieldObj.Values; let i = index">
+                      <mat-radio-button disableRipple="true" [value]="option.value">
+                        <p>{{option.text}}</p>
+                      </mat-radio-button>
+                    </li>
+                  </ul>
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>  
+
+  <div fxLayout="column" fxFlex="44">
+    <div class="block" fxFlex="55" style="margin-bottom: 8px;">
+      <div class="labelItem"><label>{{'LABEL_EXPRESSION' | translate}}</label></div>
+  
+      <div class="marginLeft">
+        <mat-label>{{('OVERRIDE_TITLE'| translate)}}</mat-label>
+        <div fxLayout="row">
+          <input fxFlex="40" class="search-chip" placeholder="{{'ENTER_VALUE' | translate}}" appearance="outline"
+            #labelInput [matChipInputFor]="chipList" (blur)="titleEditBlur()" (keydown)="inputKeyDown($event, 'S')"
+            (paste)="trimExtraSpaces($event, 'S')"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="titleEditBlur()" (mousedown)="$event.stopPropagation();" />
+          <div *ngFor="let child of templateMetaData">
+            <div *ngFor="let obj of child.children">
+              <div *ngIf="obj.fieldObj.UIType=='boolean' && obj.fieldObj.KeyName=='SHOW_LABEL_TITLE'">
+                <mat-checkbox [disabled]="obj.fieldObj.Readonly" fxFlex="20" style="margin-left:10px" #showTitle
+                  (ngModelChange)="showTitleChange($event);"
+                  [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]"><label>{{obj.fieldObj.Name|translate}}</label></mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-form-field class="form-chip" appearance="none">
+          <mat-chip-list #chipList cdkDropList (cdkDropListDropped)="drop($event)">
+            <span *ngIf="currTemplate.labelFiltersSelected && currTemplate.labelFiltersSelected.length">
+              <mat-chip id="{{'chip_'+field.IDDictionary}}" cdkDrag class="full-chip"
+                *ngFor="let field of currTemplate.labelFiltersSelected[labelID-1]" [selectable]="selectable">
+                <label class="resizer">
+                  <input #chipStartTitle onInput="this.parentNode.dataset.value = this.value" size="1"
+                    id="{{'chipInput_1S_'+field.IDDictionary+'_L'+labelID}}" (keypress)="prevent($event)"
+                    (paste)="trimExtraSpaces($event, 'S')"
+                    (keyup)="($event.key=='Enter' && gridId==labelType.POSITION?updateChipTitle({dictID: field.IDDictionary,direction: 'startInputs', labelID: labelID, currElement: $event.target}):prevent($event));"
+                    (keydown)="inputKeyDown($event, 'S')" (blur)="titleUpdate()"
+                    [ngStyle]="{'max-width': chipStartTitle.value.length==0?'0.5ch': chipStartTitle.value.length<4?(chipStartTitle.value.length*1.15)+'ch':'' }"
+                    [(ngModel)]='field.startTitle' (mousedown)="$event.stopPropagation();" autocomplete="off" />
+                </label>
+                <span (keypress)="prevent($event)" (keyup)="prevent($event)" (keydown)="prevent($event)" tabindex="0"
+                  id="{{'chipLabel'+field.IDDictionary}}" class="label-chip"
+                  (click)="titleEdit(field.IDDictionary, chipStartTitle)">
+                  <label>{{field.value}}</label>
+                  <mat-icon class="cancel" matChipRemove (click)="remove(field)">cancel</mat-icon>
+                </span>
+                <label class="resizer">
+                  <input #chipEndTitle onInput="this.parentNode.dataset.value = this.value" size="1"
+                    id="{{'chipInput_1E_'+field.IDDictionary+'_L'+labelID}}" (keypress)="prevent($event)"
+                    (paste)="trimExtraSpaces($event, 'E')"
+                    (keyup)="($event.key=='Enter' && gridId==labelType.POSITION?updateChipTitle({dictID: field.IDDictionary,direction: 'endInputs', labelID: labelID, currElement: $event.target}):prevent($event));"
+                    (keydown)="inputKeyDown($event, 'E')" (blur)="titleUpdate()"
+                    [ngStyle]="{'max-width': chipEndTitle.value.length==0?'0.5ch': chipEndTitle.value.length<4?(chipEndTitle.value.length*1.15)+'ch':'' }"
+                    [(ngModel)]='field.endTitle' (mousedown)="$event.stopPropagation();" autocomplete="off" />
+                </label>
+              </mat-chip>
+            </span>
+          </mat-chip-list>
+        </mat-form-field>
+  
+      </div>
+  
+      <br>
+    </div>
+    <div *ngFor="let child of templateMetaData">
+      <div *ngFor="let obj of child.children">
+        <div *ngIf="obj.fieldObj.UIType=='boolean' && obj.fieldObj.KeyName=='SHOW_PEGBOARD_LABEL'">
+          <mat-checkbox [disabled]="obj.fieldObj.Readonly" fxFlex="5" style="margin-left:10px;margin-bottom:8px"
+            *ngIf="gridId==labelType.POSITION" (ngModelChange)="showPegboardTitleChange($event);"
+            [(ngModel)]="currTemplate['LABEL_'+labelID][obj.fieldObj.KeyName]"><label>{{obj.fieldObj.Name|translate}}</label></mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="block" fxFlex="40">
+      <div class="labelItem"><label>{{'PREVIEW' | translate}}</label></div>
+  
+      <div fxLayout="row">
+        <div class="marginLeft" style="margin-right: 6px;">
+          <mat-label>{{('LABEL_1' | translate)+' -'}}</mat-label>
+          <sp-label-preview [showTitle]="currTemplate['LABEL_1'].SHOW_LABEL_TITLE" [LablePreviewCls]="Lable1PreviewCls"
+            [width]="125" [minHeight]="16" [maxHeight]="100" [selectedLabelExpression]="currTemplate['LABEL_1'].LABEL"
+            [labelFilters]="labelFilters" [transparency]="currTemplate['LABEL_1'].TRANSPARENCY"
+            [fillColor]="currTemplate['LABEL_1'].BACKGROUND_COLOR" [strokeColor]="currTemplate['LABEL_1'].STROKE_COLOR"
+            [fontcolor]="currTemplate['LABEL_1']?.FONT_COLOR"
+            [fontSize]="currTemplate['LABEL_1']?.SHRINK_TO_FIT? shrinkFitValue_1 ?shrinkFitValue_1:currTemplate['LABEL_1']?.FONT_SIZE:currTemplate['LABEL_1']?.FONT_SIZE"
+            [fontstyle]="currTemplate['LABEL_1']?.FONT_STYLE" [fonttype]="currTemplate['LABEL_1']?.FONT_FAMILY"
+            [justify]="currTemplate['LABEL_1']?.VERTICAL_ALIGNMENT"
+            [textOrientaion]="currTemplate['LABEL_1']?.LABEL_ORIENTATION"
+            [position]="currTemplate['LABEL_1']?.HORIZONTAL_ALIGNMENT"
+            [stretchToFacing]="currTemplate['LABEL_1']?.STRECH_TO_FACING" [wrapText]="currTemplate['LABEL_1']?.WORD_WRAP"
+            [shrinkToFit]="currTemplate['LABEL_1']?.SHRINK_TO_FIT"></sp-label-preview>
+        </div>
+        <div class="marginLeft">
+          <mat-label>{{('LABEL_2' | translate)+' -'}}</mat-label>
+          <sp-label-preview [showTitle]="currTemplate['LABEL_2'].SHOW_LABEL_TITLE" [LablePreviewCls]="Lable2PreviewCls"
+            [width]="315" [minHeight]="16" [maxHeight]="100" [selectedLabelExpression]="currTemplate['LABEL_2'].LABEL"
+            [labelFilters]="labelFilters" [transparency]="currTemplate['LABEL_2'].TRANSPARENCY"
+            [fillColor]="currTemplate['LABEL_2'].BACKGROUND_COLOR" [strokeColor]="currTemplate['LABEL_2'].STROKE_COLOR"
+            [fontcolor]="currTemplate['LABEL_2']?.FONT_COLOR"
+            [fontSize]="currTemplate['LABEL_2']?.SHRINK_TO_FIT? shrinkFitValue_2?shrinkFitValue_2:currTemplate['LABEL_2']?.FONT_SIZE:currTemplate['LABEL_2']?.FONT_SIZE"
+            [fontstyle]="currTemplate['LABEL_2']?.FONT_STYLE" [fonttype]="currTemplate['LABEL_2']?.FONT_FAMILY"
+            [justify]="currTemplate['LABEL_2']?.VERTICAL_ALIGNMENT"
+            [textOrientaion]="currTemplate['LABEL_2']?.LABEL_ORIENTATION"
+            [position]="currTemplate['LABEL_2']?.HORIZONTAL_ALIGNMENT"
+            [stretchToFacing]="currTemplate['LABEL_2']?.STRECH_TO_FACING" [wrapText]="currTemplate['LABEL_2']?.WORD_WRAP"
+            [shrinkToFit]="currTemplate['LABEL_2']?.SHRINK_TO_FIT"></sp-label-preview>
+        </div>
+      </div>
+  
+    </div>
+  </div>    
+  </div>
+  <div class="editButtons" align="end">
+    <button mat-raised-button (click)="cancel.emit()">{{'PANEL_HEADER_CANCEL' |
+      translate}}</button>
+    <button mat-raised-button [disabled]="currTemplate.TEMPLATE_NAME=='DefaultTemplate' || sameAlignmentSelected"
+      (click)="updateLabelSettings(true)">{{'PANEL_HEADER_APPLY' |
+      translate}}</button>
+    <button mat-raised-button [disabled]="sameAlignmentSelected"
+      (click)="currTemplate.TEMPLATE_NAME=='DefaultTemplate'?openDialog('Save'): updateLabelSettings(false,'','',true)">{{'PANEL_HEADER_SAVE'
+      |
+      translate}}</button>
+  </div>
+</div>

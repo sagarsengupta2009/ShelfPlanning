@@ -1,0 +1,24 @@
+.dropDownList {
+    max-height: 170px;
+    height: auto;
+    overflow: auto;
+    background-color: aliceblue;
+    font-family: 'Roboto';
+    font-size: 14px;
+}
+
+.dropDownListItem {
+    padding: 8px 10px;
+}
+
+.dropDownListItem:hover {
+    cursor: pointer;
+    background-color: #c7d0d8;
+    color: #6F6F6F;
+}
+
+.dropDownListSelectedItem {
+    /* Whichever is our selected item, highlight it, and KEEP IT highlighted ! */
+    background-color: #009688;
+    color: white;
+}

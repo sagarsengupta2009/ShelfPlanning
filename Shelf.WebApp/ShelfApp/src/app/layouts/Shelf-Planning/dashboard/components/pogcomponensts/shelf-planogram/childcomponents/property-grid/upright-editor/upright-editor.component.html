@@ -1,0 +1,88 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start">
+    <h4 mat-dialog-title>
+        {{'UPRIGHT_SPACING' | translate }}
+    </h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close>close</mat-icon>
+    </div>
+</div>
+<mat-dialog-content class="mat-typography upright-container">
+    <div class="row upright-dialog-main">
+        <div class="col-sm-12">
+            <mat-radio-group [(ngModel)]="type" [disabled]="isReadOnlyUpright || isReadonly">
+                <mat-radio-button class="example-radio-button" [value]="uprightType.None">
+                    {{'NONE' | translate }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-sm-12">
+            <mat-radio-group [(ngModel)]="type" [disabled]="isReadOnlyUpright || isReadonly">
+                <mat-radio-button class="example-radio-button" [value]="uprightType.Fixed">
+                    {{'FIXED' | translate }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-sm-12" *ngIf="type == uprightType.Fixed">
+            <kendo-numerictextbox class="property-grid-input" [spinners]="false" [(ngModel)]='fixedUpright'
+                [disabled]="(isReadOnlyUpright || isReadonly)" [disabled]="type != uprightType.Fixed"
+                (blur)="validateOnblur(fixedUpright)">
+            </kendo-numerictextbox>
+            <div class="input-component-line"></div>
+            <div class="disabledDiv" [hidden]="type == uprightType.Fixed"></div>
+        </div>
+
+
+        <div class="col-sm-12">
+            <mat-radio-group id="radio-variable" [(ngModel)]="type" [disabled]="isReadOnlyUpright || isReadonly"
+                (change)="getUprightsPositions()">
+                <mat-radio-button class="example-radio-button" [value]="uprightType.Variable">
+                    {{'VARIABLE' | translate}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="col-sm-12" *ngIf="type == uprightType.Variable">
+            <div class="row">
+                <div class="col-sm-5 addbtn">
+                    <button mat-raised-button [disabled]="isReadOnlyUpright || isReadonly || !newVal || newVal < 1"
+                        (click)="variableAdd()">
+                        {{'ADD' | translate}}
+                    </button>
+                </div>
+                <div class="col-sm-7">
+                    <kendo-numerictextbox class="property-grid-input" [spinners]="false" [(ngModel)]='newVal'
+                        [disabled]="(isReadOnlyUpright || isReadonly)" [disabled]="type != uprightType.Variable"
+                        (blur)="validateOnblur(newVal)">
+                    </kendo-numerictextbox>
+                    <div class="input-component-line"></div>
+                </div>
+                <div class="col-sm-12 variable-upright-div">
+                    <div class="multiple-value-holder">
+                        <div *ngFor="let a of uprightsPositionsArr; let i = index" (click)="selectIt(i)"
+                            [ngClass]='{"selected":(a == selectedRow)}'>
+                            {{a}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 center">
+                    <button mat-raised-button (click)="variableRemove()"
+                        [disabled]="type != uprightType.Variable  || !selectedRow || isReadOnlyUpright || isReadonly">
+                        {{'REMOVE' | translate }}
+                    </button>
+                </div>
+                <div class="col-sm-7 center">
+                    <button mat-raised-button (click)="variableRemoveAll()"
+                        [disabled]="type != uprightType.Variable || !(uprightsPositionsArr.length > 0) || isReadonly">
+                        {{'REMOVE_ALL' |translate}}
+                    </button>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close> {{'GRILLINFO_CANCEL' | translate}}</button>
+    <button mat-raised-button (click)="updateModel()">
+        {{'GRILLINFO_APPLY' | translate}}
+    </button>
+</mat-dialog-actions>

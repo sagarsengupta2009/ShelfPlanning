@@ -1,0 +1,62 @@
+<div class="custom-modal-header">
+<h4 mat-dialog-title>{{'HEADER_USER_SETTINGS' | translate}}</h4>
+<mat-icon class="dialogCloseIcon" (click)="closeDialog()">close</mat-icon>
+</div>
+<div mat-dialog-content class="dialogCntnr">
+  <div class="contentmainCntnr" fxLayout="row" fxLayoutAlign="end center">
+    <div style="margin-right:10px;width:50%">
+      <mat-form-field class="contentCntnr">
+        <mat-label>{{'MAXIMUM_NUMBER_OF_LEVELS' | translate}}</mat-label>
+        <input matInput autocomplete="off" type="text" [(ngModel)]="data.mlevels" (ngModelChange)="refreshAnalysisCharts()">
+      </mat-form-field>
+    </div>
+    <div style="margin-right:10px;">
+      <mat-slide-toggle [(ngModel)]="data.showLabels" (ngModelChange)="refreshAnalysisCharts()">{{'LABELS' | translate}}</mat-slide-toggle>
+    </div>
+    <div style="margin-right:10px;">
+      <mat-slide-toggle [(ngModel)]="data.showLegends" (ngModelChange)="refreshAnalysisCharts()">{{'LEGENDS' | translate}}</mat-slide-toggle>
+    </div>
+    <div style="margin-right:10px;">
+      <mat-slide-toggle [(ngModel)]="data.showValueInPercent" (ngModelChange)="refreshAnalysisCharts()">{{'SHOW_AS_PERCENT' | translate}}</mat-slide-toggle>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start center">
+       <div class="contentmainCntnr">
+      <mat-form-field class="contentCntnr">
+        <mat-select placeholder="{{'CHARTS_TYPE' | translate}}" [(ngModel)]="data.selectedChartType" (selectionChange)="onChartTypeChange()">
+          <mat-option *ngFor="let option of data.chartTypeList" [value]="option.ID">
+            {{option.Name | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="contentmainCntnr">
+      <mat-form-field class="contentCntnr">
+        <mat-select placeholder="{{'LEVELS' | translate}}" [(ngModel)]="data.selectedAttributeType" (selectionChange)="changeAttributeType()">
+          <mat-option *ngFor="let option of data.levels" [value]="option.Id">
+            {{option.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div [style.display]="data.selectedChartType==1 ? 'block' : 'none'" class="contentmainCntnr">
+      <mat-form-field class="contentCntnr">
+        <mat-select placeholder="{{'MEASURES' | translate}}" [(ngModel)]="data.selectedCategoryTypeinPie" (selectionChange)="changeAttributeType()">
+          <mat-option *ngFor="let option of data.measures" [value]="option.Id">
+            {{option.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div [style.display]="data.selectedChartType!=1 ? 'block' : 'none'" class="contentmainCntnr">
+      <mat-form-field class="contentCntnr">
+        <mat-select placeholder="{{'MEASURES' | translate}}" (selectionChange)="oncheckboxChange()" [(ngModel)]="data.selectedMeasureid" multiple>
+          <mat-option *ngFor="let option of data.measures" [value]="option.Id">
+            {{option.Name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+</div>

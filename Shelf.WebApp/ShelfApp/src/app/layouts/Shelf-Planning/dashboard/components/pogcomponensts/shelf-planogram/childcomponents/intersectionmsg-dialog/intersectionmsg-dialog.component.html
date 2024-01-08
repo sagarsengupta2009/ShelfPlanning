@@ -1,0 +1,14 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane" fxLayout="row" fxLayoutAlign="space-between start"
+  class="custom-modal-header intersectionmsg-title" cdkDragHandle>
+  <h4 mat-dialog-title>
+    Fit-Check Problems
+  </h4>
+</div>
+<mat-dialog-content class="mat-typography mat-container intersectionmsg-content">
+  <div *ngFor="let intersectionMessage of messages; let i = index">
+    {{intersectionMessage}}
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-footer" align="end">
+  <button mat-raised-button (click)="okClick()"> {{'CLOSE'|translate}}</button>
+</mat-dialog-actions>

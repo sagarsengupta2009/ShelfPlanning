@@ -1,0 +1,219 @@
+<div style="width: 100%; height: 100%;" class="create-peg-component">
+    <div cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+        <h4 cdkDragHandle class="custom-modal-header" mat-dialog-title>{{'CREATE_NEW_PEG' | translate}}</h4>
+    </div>
+    <form [formGroup]="pegCreateForm">
+        <div class="flex-container" style="margin-top: 10px;">
+            <div class="form-field-area">
+                <div class="flex-row">
+                    <div class="inputcntr first-row-child">
+                        <mat-label class="asterisk">{{'PEG_TYPE' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="PegType" type="text" [matAutocomplete]="pegTypeAuto" [maxlength]="pegTypeMaxLength"/>
+                            <mat-autocomplete #pegTypeAuto="matAutocomplete">
+                                <mat-option *ngFor="let pegType of filteredPegTypes | async" [value]="pegType">
+                                    <span>{{ pegType }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr first-row-child">
+                        <mat-label class="asterisk">{{'PEG_NAME' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="PegName" type="text" [matAutocomplete]="pegNameAuto" [maxlength]="pegNameMaxLength"/>
+                            <mat-autocomplete #pegNameAuto="matAutocomplete">
+                                <mat-option *ngFor="let pegName of filteredPegNames | async" [value]="pegName">
+                                    <span>{{ pegName }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr first-row-child">
+                        <mat-label>{{'PEG_VENDOR_NAME' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="PegVendor" type="text" [matAutocomplete]="pegVendorAuto" [maxlength]="pegVendorMaxLength"/>
+                            <mat-autocomplete #pegVendorAuto="matAutocomplete">
+                                <mat-option *ngFor="let pegVendor of filteredPegVendors | async" [value]="pegVendor">
+                                    <span>{{ pegVendor }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <div class="inputcntr" fxFlex="55">
+                        <mat-label>{{'PEG_DESCRIPTION' | translate}}</mat-label>
+                        <mat-form-field>
+                            <textarea matInput formControlName="PegDescription" [maxlength]="pegDescriptionMaxLength" #PegDescription [rows]="rowSize"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                  <div class="inputcntr numerical-input" fxFlex="12">
+                    <mat-label>{{'PEG_WEIGHT' | translate}}</mat-label>
+                    <mat-form-field>
+                        <input matInput formControlName="PegWeight" type="text" #PegWeight="matTooltip"
+                        (focusout)="toggleTooltip(PegWeight, false)" (focusin)="toggleTooltip(PegWeight, true)" (mouseenter)="toggleTooltip(PegWeight, true)" (mouseleave)="toggleTooltip(PegWeight, false)"
+                        [matTooltipDisabled]="!pegCreateForm.controls.PegWeight.errors?.pattern" [matTooltip]="getPatternErrorTooltip(PegWeight, 'PegWeight')"/>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="allowPegPartID" class="inputcntr" fxFlex="25">
+                  <mat-label>{{'PEG_PART_ID' | translate}}</mat-label>
+                  <mat-form-field>
+                      <input matInput formControlName="PegPartID" type="text"  [maxlength]="pegPartIDMaxLength"  #PegPartID="matTooltip"
+                      (focusout)="toggleTooltip(PegPartID, false)" (focusin)="toggleTooltip(PegPartID, true)" (mouseenter)="toggleTooltip(PegPartID, true)" (mouseleave)="toggleTooltip(PegPartID, false)"
+                      [matTooltipDisabled]="!pegCreateForm.controls.PegPartID.errors?.isDuplicate" [matTooltip]="getPatternErrorTooltip(PegPartID, 'PegPartID')" />
+
+                  </mat-form-field>
+              </div>
+                </div>
+                <div class="flex-row">
+                    <div class="inputcntr numerical-input">
+                        <mat-label class="asterisk">{{'PEG_LENGTH' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="PegLength" type="text" #PegLength="matTooltip"
+                            (focusout)="toggleTooltip(PegLength, false)" (focusin)="toggleTooltip(PegLength, true)" (mouseenter)="toggleTooltip(PegLength, true)" (mouseleave)="toggleTooltip(PegLength, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.PegLength.errors?.pattern" [matTooltip]="getPatternErrorTooltip(PegLength, 'PegLength')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label class="asterisk">{{'PEG_HEIGHT_SLOPE' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="HeightSlope" type="text" #HeightSlope="matTooltip"
+                            (focusout)="toggleTooltip(HeightSlope, false)" (focusin)="toggleTooltip(HeightSlope, true)" (mouseenter)="toggleTooltip(HeightSlope, true)" (mouseleave)="toggleTooltip(HeightSlope, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.HeightSlope.errors?.pattern" [matTooltip]="getPatternErrorTooltip(HeightSlope, 'HeightSlope')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label>{{'PEG_MAX_WEIGHT' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="MaxPegWeight" type="text" #MaxPegWeight="matTooltip"
+                            (focusout)="toggleTooltip(MaxPegWeight, false)" (focusin)="toggleTooltip(MaxPegWeight, true)" (mouseenter)="toggleTooltip(MaxPegWeight, true)" (mouseleave)="toggleTooltip(MaxPegWeight, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.MaxPegWeight.errors?.pattern" [matTooltip]="getPatternErrorTooltip(MaxPegWeight, 'MaxPegWeight')"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="flex-row">
+                    <div class="inputcntr numerical-input">
+                        <mat-label class="asterisk">{{'PEG_BACK_HOOKS' | translate}}</mat-label>
+                        <mat-form-field [hideRequiredMarker]="true" [floatLabel]="'never'">
+                            <mat-select placeholder="{{'SELECT_PLACE_HOLDER' | translate}}" formControlName="BackHooks">
+                                <mat-option *ngFor="let n of numberDropdown" [value]="n"> {{n}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label [ngClass]="{'label-disabled':backSpaceLabelDisabled}">{{'PEG_BACK_SPACING' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="BackSpacing" type="text" #BackSpacing="matTooltip"
+                            (focusout)="toggleTooltip(BackSpacing, false)" (focusin)="toggleTooltip(BackSpacing, true)" (mouseenter)="toggleTooltip(BackSpacing, true)" (mouseleave)="toggleTooltip(BackSpacing, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.BackSpacing.errors?.pattern" [matTooltip]="getPatternErrorTooltip(BackSpacing, 'BackSpacing')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label class="asterisk">{{'PEG_BACK_Y_OFFSET' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="BackYOffset" type="text" #BackYOffset="matTooltip"
+                            (focusout)="toggleTooltip(BackYOffset, false)" (focusin)="toggleTooltip(BackYOffset, true)" (mouseenter)="toggleTooltip(BackYOffset, true)" (mouseleave)="toggleTooltip(BackYOffset, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.BackYOffset.errors?.pattern && !pegCreateForm.controls.BackYOffset.errors?.max" [matTooltip]="getPatternErrorTooltip(BackYOffset, 'BackYOffset')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label class="asterisk">{{'PEG_FRONT_BARS' | translate}}</mat-label>
+                        <mat-form-field [hideRequiredMarker]="true" [floatLabel]="'never'">
+                            <mat-select placeholder="{{'SELECT_PLACE_HOLDER' | translate}}" formControlName="FrontBars">
+                                <mat-option *ngFor="let n of frontBarDropdown" [value]="n"> {{n}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label [ngClass]="{'label-disabled':frontSpaceLabelDisabled}">{{'PEG_FRONT_SPACING' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="FrontSpacing" type="text" #FrontSpacing="matTooltip"
+                            (focusout)="toggleTooltip(FrontSpacing, false)" (focusin)="toggleTooltip(FrontSpacing, true)" (mouseenter)="toggleTooltip(FrontSpacing, true)" (mouseleave)="toggleTooltip(FrontSpacing, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.FrontSpacing.errors?.pattern" [matTooltip]="getPatternErrorTooltip(FrontSpacing, 'FrontSpacing')"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="flex-row ">
+                    <div class="inputcntr numerical-input">
+                        <mat-label class="asterisk">{{'PEG_SCANNER_TAG' | translate}}</mat-label>
+                        <mat-radio-group formControlName="IsPegTag" class="small-radio">
+                            <mat-radio-button checked [value]=true>Yes</mat-radio-button>
+                            <mat-radio-button [value]=false>No</mat-radio-button>
+                        </mat-radio-group>
+
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label [ngClass]="{'asterisk': pegTagFieldsAsterisk}">{{'PEG_TAG_HEIGHT' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput type="text" formControlName="TagHeight" #TagHeight="matTooltip"
+                            (focusout)="toggleTooltip(TagHeight, false)" (focusin)="toggleTooltip(TagHeight, true)" (mouseenter)="toggleTooltip(TagHeight, true)" (mouseleave)="toggleTooltip(TagHeight, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.TagHeight.errors?.pattern" [matTooltip]="getPatternErrorTooltip(TagHeight, 'TagHeight')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label [ngClass]="{'asterisk': pegTagFieldsAsterisk}">{{'PEG_TAG_WIDTH' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput type="text" formControlName="TagWidth" #TagWidth="matTooltip"
+                            (focusout)="toggleTooltip(TagWidth, false)" (focusin)="toggleTooltip(TagWidth, true)" (mouseenter)="toggleTooltip(TagWidth, true)" (mouseleave)="toggleTooltip(TagWidth, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.TagWidth.errors?.pattern" [matTooltip]="getPatternErrorTooltip(TagWidth, 'TagWidth')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label [ngClass]="{'asterisk': pegTagFieldsAsterisk}">{{'PEG_TAG_Y_OFFSET' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="TagYOffset" type="text" #TagYOffset="matTooltip"
+                            (focusout)="toggleTooltip(TagYOffset, false)" (focusin)="toggleTooltip(TagYOffset, true)" (mouseenter)="toggleTooltip(TagYOffset, true)" (mouseleave)="toggleTooltip(TagYOffset, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.TagYOffset.errors?.pattern" [matTooltip]="getPatternErrorTooltip(TagYOffset, 'TagYOffset')"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="inputcntr numerical-input">
+                        <mat-label [ngClass]="{'asterisk': pegTagFieldsAsterisk}">{{'PEG_TAG_X_OFFSET' | translate}}</mat-label>
+                        <mat-form-field>
+                            <input matInput formControlName="TagXOffset" type="text" #TagXOffset="matTooltip"
+                            (focusout)="toggleTooltip(TagXOffset, false)" (focusin)="toggleTooltip(TagXOffset, true)" (mouseenter)="toggleTooltip(TagXOffset, true)" (mouseleave)="toggleTooltip(TagXOffset, false)"
+                            [matTooltipDisabled]="!pegCreateForm.controls.TagXOffset.errors?.pattern" [matTooltip]="getPatternErrorTooltip(TagXOffset, 'TagXOffset')"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="peg-image-area">
+                <div class="row">
+                    <mat-label class="file-header">{{(imageURL ? 'PEG_IMAGE' : 'UPLOAD_PEG_IMAGE') | translate}}</mat-label>
+                </div>
+                <div class="row">
+                    <mat-label class="file-type">{{'FILE_SHOULD_BE_JPEG_JPG_PNG' | translate}}</mat-label>
+                </div>
+                <div>
+                  <label for="file-upload" class="file-box" [title]="uploadImageText | translate"  >
+                    <div *ngIf="!imageURL" class="selected-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="margin: 0% 35%; fill: var(--background-tertiary);" viewBox="0 0 576 512">
+                          <path
+                            d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z" />
+                        </svg>
+                        <div class="row" >
+                          <mat-label class="selected-file-name">{{uploadImageText | translate}}</mat-label>
+                      </div>
+                      </div>
+                      <div *ngIf="imageURL" class="selected-image">
+                        <div class="uploaded-image">
+                          <img #pegImage [ngClass]="imageClass" [src]="imageURL | safeiframeurl" />
+                        </div>
+                      </div>
+
+                    </label>
+                    <input type="file" name="uploadselectFile" id="file-upload" style="display: none;"
+                        accept="image/jpeg, image/png" (change)="onFileSelected($event)" />
+                </div>
+                <div class="row" >
+                  <mat-label class="selected-file-name">{{selectedFileName}}</mat-label>
+              </div>
+            </div>
+        </div>
+        <div class="footer">
+            <mat-label class="asteriskBefore">{{'FIELDS_ARE_MANDATORY' | translate}}</mat-label>
+            <button mat-raised-button (click)="onSave()" [disabled]="!pegCreateForm.valid">{{'PEG_CREATE' | translate}}</button>
+        </div>
+    </form>
+</div>

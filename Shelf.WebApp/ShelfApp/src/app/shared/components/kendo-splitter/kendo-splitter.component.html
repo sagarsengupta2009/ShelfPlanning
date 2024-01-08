@@ -1,0 +1,13 @@
+<!-- wrong height calc. -->
+<kendo-splitter #splitter [orientation]="config.orientation" [style.height]="splitterHeight" [ngStyle]="updateStyleSC()">
+    <!---->
+    <kendo-splitter-pane id="splitterpane-panelOne" #leftPaneElement [size]="config.lsize" [min]="config.lmin"
+                         (collapsedChange)="collapsedChangeLeftEvent($event)"
+                         [style.height]="kPaneHeight">
+        <ng-content select="[leftPane]"></ng-content>
+    </kendo-splitter-pane>
+    <kendo-splitter-pane id="splitterpane-panelTwo" #rightPaneElement [size]="config.rsize" [min]="config.rmin"  [resizable]="placing == 0 ? false : true"
+                         (sizeChange)="onSizeRightChange($event)" (collapsedChange)="collapsedChangeEvent($event)">
+        <ng-content select="[rightPane]"></ng-content>
+    </kendo-splitter-pane>
+</kendo-splitter>

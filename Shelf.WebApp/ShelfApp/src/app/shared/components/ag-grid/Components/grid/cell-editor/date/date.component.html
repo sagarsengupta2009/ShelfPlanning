@@ -1,0 +1,2 @@
+<input type="date" [ngModel]="value | date:'yyyy-MM-dd'" class="custom-date-picker-input"
+    (change)="valueChanged($event)" min="{{minDate}}" max="{{maxDate}}">

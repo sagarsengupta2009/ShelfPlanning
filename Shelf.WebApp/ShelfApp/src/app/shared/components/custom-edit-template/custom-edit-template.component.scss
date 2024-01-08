@@ -1,0 +1,33 @@
+.k-grid .no-padding {
+  padding: 0;
+}
+// .whole-cell {
+//   display: block;
+//   padding: 6px 12px; /* depends on theme */
+// }
+// .whole-cell td:parent{
+//   border-color: red($color: #ff0000) !important;
+//   border-width: medium !important;
+// }
+
+.whole-cell {
+  border-color: red !important;
+  border-width: medium !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: var(--foreground-primary);
+}
+
+.numericTextbox {
+  width: 100%;
+  background-color: white !important;
+  border-style: solid !important;
+  border-width: thin !important;
+  border-color: var(--foreground-primary) !important;
+}
+
+
+.dropdownClass {
+  background: #ff6358 !important;
+}

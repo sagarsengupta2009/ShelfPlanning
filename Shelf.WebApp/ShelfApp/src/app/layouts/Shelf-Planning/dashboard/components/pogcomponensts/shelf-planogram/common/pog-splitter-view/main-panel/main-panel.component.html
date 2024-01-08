@@ -1,0 +1,36 @@
+<ng-container [ngSwitch]="displayView">
+  <ng-container *ngSwitchCase="'printView'">
+    <div (mouseover)="mouseout()" style="height: calc(100vh - 100px);">
+      <ng-template #printContainerRef></ng-template>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'npiView'">
+    <div (mouseover)="mouseout()">
+      <ng-template #npiContainerRef></ng-template>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+    <div class="sapp-panel planogram-panel" [id]="panelID">
+      <div (click)="updatePanel()" #downloadedPlanogram class="sapp-panel-container">
+        <div id="sapp-panel-blur-{{panelID}}"></div>
+        <ng-container *ngIf="selectedPogObject && PogDataObj">
+          <shelf-panel-header #panelHeader [PogDataObj]="PogDataObj" [selectedPogObject]="selectedPogObject"
+            [panelID]="panelID" [exportoptions]="exportoptions" (openReportsScreen)="openPrintScreen($event)"
+            (openPostMessage)="openPostMessage($event)" (openHighlight)="openHighlight()"
+            (openStoreView)="openStoreView()" (mouseoverDockToolbar)="mouseout()" (openNPIScreen)="opennpiScreen($event)" [panelID]="panelID"
+            [sectionObject]="sectionObject">
+          </shelf-panel-header>
+          <shelf-panel-content [panelID]="panelID" [panelPointer]="panelService.panelPointer[panelID]"
+            (updateHeaderIcon)="handleHeaderIcons()" (mouseover)="mouseout()" (closeStoreView)="closeStore($event)">
+          </shelf-panel-content>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<!-- <sapp-preloader from="ID"></sapp-preloader> TODO - PRANAY-->
+<span class="quickDisp">
+  <span class="pogIDQuickDisp"></span>
+  <span class="pogNameQuickDisp"></span>
+</span>

@@ -1,0 +1,370 @@
+.grid {
+  //padding-top: 10px;
+  font-family: Roboto, Helvetica Neue, sans-serif;
+  line-height: 1.6em;
+  z-index: 0;
+}
+.icon {
+  position: absolute;
+  z-index: 1000;
+  color: white !important;
+  cursor: pointer;
+  background-color: #69cbb9;
+}
+
+.icondiv {
+  text-align: right;
+  padding-right: 25px;
+  position: relative;
+}
+.k-grid .k-grid-filter, .k-grid .k-header-column-menu, .k-grid .k-hierarchy-cell .k-icon {
+  color: white;
+}
+
+.k-grid .k-i-minus.k-icon {
+  color: #424242;
+}
+
+.k-grid .k-i-plus.k-icon {
+  color: #424242;
+}
+
+// .k-grid-header .k-i-sort-asc-sm, .k-grid-header .k-i-sort-desc-sm, .k-grid-header .k-sort-order {
+//   color: white
+// }
+
+.k-grid th {
+  font-size: 16px;
+  background-color: var(--background-quaternary);
+  color: #fff !important;
+}
+.k-grid th {
+  font-size: 16px;
+  background-color: var(--background-quaternary);
+  color: #fff !important;
+}
+.k-grid-header .k-header {
+  background-color: #4E9698; /*var(--background-quaternary)*/
+}
+.k-column-resizer{
+  cursor: col-resize !important;
+  display: block;
+  height: 1000%;
+  position: absolute;
+  top: 0;
+  width: 0.5em;
+}
+
+.k-grid tr {
+  background-color: #f5f5f5;
+  border-spacing: 0;
+  border-radius: 10px;
+  border-color: #f9f9f9;
+}
+
+.k-grid td {
+  padding: 10.4px 18.2px;
+  border-color: #e6e6e6;
+  font-size: 13px;
+}
+
+.k-grid-header .k-header > .k-link {
+  display: -webkit-box;
+}
+
+.k-grid-header .k-grid-filter:hover {
+  background-color: var(--hover-background-color);
+  border-radius: 50%;
+}
+
+.k-grid-content-locked {
+  border-color: var(--background-quaternary) !important;
+}
+
+.k-grouping-row td {
+  font-weight: normal !important;
+  font-size: 0.8em !important;
+}
+
+.k-grid-header .k-grid-filter.k-state-active {
+  color: #e8e8e8;
+  background-color: rgb(0, 188, 212);
+  border-radius: 50%;
+}
+
+.automation .k-grid tr.k-state-selected > td {
+  background-color: var(--selected-item-background-color) !important;
+  border-color: var(--selected-row-border-color);
+  color: var(--selected-row-data-color) !important;
+}
+
+/*.k-grid tr.k-state-selected > td {
+  color: var(--selected-row-data-color);
+  }*/
+
+.automation .k-grid tr:hover {
+  background-color: var(--hover-background-color) !important;
+}
+
+.tooltipContent {
+  max-width: 250px;
+  padding: 10px 10px 10px 10px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.66);
+  border-radius: 3%;
+  font-size: 0.8em;
+  z-index: 99;
+}
+
+.tooltipContent .head {
+  font-size: 1.1em;
+}
+
+// .tooltipContent .content {
+// }
+
+.tooltipContent hr {
+  padding: 5px 0px 7px 0px;
+  margin: 0px;
+  color: whitesmoke;
+}
+
+// .grid-editable {
+// }
+
+.grid-not-editable {
+  pointer-events: none;
+}
+
+.k-grid .k-grouping-row p {
+  white-space: nowrap;
+}
+
+.k-grid td a {
+  //color: #337ab7;
+  cursor: pointer;
+}
+
+.isactivecell {
+  border-color: var(--foreground-primary) !important;
+  border-width: thin !important;
+}
+
+.filling-cell {
+  border-color: blue !important;
+  border-left: solid blue 1px !important;
+  border-right: solid blue 1px !important;
+  border-bottom: solid thin #0000ff4d !important;
+}
+
+.k-grid-table td {
+  text-align: center !important;
+  vertical-align: middle !important;
+  position: relative !important;
+}
+
+.dynamincdiv {
+  position: absolute !important;
+  vertical-align: bottom !important;
+  text-align: right !important;
+  bottom: 8px !important;
+  right: 8px !important;
+
+  &:after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background-color: orangered;
+    cursor: crosshair;
+    z-index: 1;
+    display: inline-block;
+    position: absolute;
+    border-left: 5px solid transparent;
+    border-top: 5px solid transparent;
+  }
+}
+
+.dynamiccurser {
+  cursor: crosshair;
+  background-color: red !important;
+}
+
+.customevent {
+  font-size: 13px;
+  padding: 0px 0px;
+}
+
+.customeventShelf {
+  font-size: 13px;
+  padding: 0px 0px;
+  color: #67696c;
+}
+
+.k-grid tr {
+  height: 46px;
+}
+
+.k-grid tr.passive {
+  background-color: #cad6da;
+}
+
+.wraping-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+.wraping-text > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wraping-text > div > button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: contents;
+}
+
+.k-grid tr.invalid {
+  background-color: #ff6358;
+  color: #000000;
+}
+
+.k-grid tr.blocked {
+  background-color: #b7edb9;
+  color: #000000;
+}
+
+.pog-left {
+  background-color: darkslategray !important;
+  color: white !important;
+}
+
+.pog-right {
+  background-color: darkolivegreen !important;
+  color: white !important;
+}
+
+.modelMinWidth {
+  min-width: 1055px;
+}
+
+.expandTableCell {
+  font-size: large;
+  color: #90d3e8;
+  padding: inherit
+}
+
+.shrinkCellValue {
+  font-size: large;
+  color: #90d3e8;
+  padding: inherit
+}
+
+
+.k-grid-header .k-i-sort-asc-sm, .k-grid-header .k-i-sort-desc-sm, .k-grid-header .k-sort-order {
+  color: white
+}
+
+.k-grid-columnmenu-popup {
+  max-height: calc(100vh - 200px);
+  ;
+  overflow-y: auto;
+}
+
+.tag-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.color-green {
+  background-color: green;
+}
+
+.color-grey {
+  background-color: gray;
+}
+
+.pogType {
+  margin-right: 6px;
+  border: .1px solid;
+  display: inline-block;
+  width: 29px;
+  height: 26px;
+  text-align: center;
+  line-height: 26px;
+}
+
+.is-new {
+  font-size: 8px;
+  /* background-color: transparent; */
+  /* border: 0; */
+  /* height: 0; */
+  /* width: 0; */
+  /* display: inline; */
+  /* padding: 0; */
+  /* margin: 0; */
+  /* position: absolute; */
+  /* top: 3px; */
+  /* left: -42px; */
+  /* color: gray; */
+  /* position: relative; */
+  /* cursor: pointer; */
+  line-height: 10px;
+}
+
+.plib-avatar {
+  background-color: green;
+  color: white;
+  display: inline-block;
+  width: 26px;
+  margin-right: 6px;
+  line-height: 26px;
+  vertical-align: inherit;
+  border-radius: 50%;
+  text-align: center
+}
+
+.k-grid tr.nopadding {
+  height: 46px !important;
+
+  .k-grid tr.k-state-selected > td {
+    background-color: var(--selected-item-background-color) !important;
+    border-color: var(--selected-row-border-color);
+    color: var(--selected-row-data-color) !important;
+  }
+
+  td {
+    padding: 0;
+    height: 46px !important;
+  }
+}
+
+.whole-cell {
+  height: 46px;
+  display: block;
+  padding: 10.4px 18.2px; /* depends on theme */
+}
+
+.productImg {
+  overflow: hidden;
+  height: 36px;
+  text-align: center;
+
+  .img {
+    height: 100% !important;
+  }
+}
+
+.borderLeftPurple {
+  border-left: 3px solid purple;
+}

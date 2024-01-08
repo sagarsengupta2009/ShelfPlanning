@@ -1,0 +1,30 @@
+.tools-view{
+ height:  calc(100vh - 23.9em);
+}
+
+.settingCntnr {
+    // height: 99%;
+    // overflow: hidden;
+  
+    // .mat-tab-label {
+    //   min-width: 170px;
+    // }
+  }
+
+  .example-card {
+    max-width: 700px;
+   // margin: 13px;
+    }
+    
+    mat-card-subtitle{
+    font-size:30px
+    }
+    
+    mat-card-title{
+    color: var(--background-tertiary);
+    font-size:40px
+    }
+  
+    // .mat-dialog-content{
+    // max-height: 70vh;
+    // }

@@ -1,0 +1,8 @@
+<div *ngIf="hierarchy != 'freeFlow'">
+  <sp-annotation-editor [originalAnnotation]="annotation" [referenceItem]="selectedPogItem"
+    (editAnnotation)="editAnnotation($event)"></sp-annotation-editor>
+</div>
+<div *ngIf="hierarchy == 'freeFlow'">
+  <sp-freeflow-dialog [originalAnnotation]="annotation" [referenceItem]="selectedPogItem" [dummyTrigger]="dummyTrigger"
+    (editAnnotation)="editAnnotation($event)"></sp-freeflow-dialog>
+</div>

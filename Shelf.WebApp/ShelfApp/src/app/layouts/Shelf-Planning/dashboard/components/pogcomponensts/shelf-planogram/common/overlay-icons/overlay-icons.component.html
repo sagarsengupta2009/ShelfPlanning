@@ -1,0 +1,4 @@
+<ng-container
+  *ngIf="speedDialFabButtons?.length > 0 && link !=='allocate' && mode !== 'iAssortNICI'">
+  <srp-fab-speed-dial [buttons]="speedDialFabButtons" (iconClickEvent)="iconClickEvent($event)"></srp-fab-speed-dial>
+</ng-container>

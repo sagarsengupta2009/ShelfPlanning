@@ -1,0 +1,10 @@
+<h1 class="custom-modal-header" mat-dialog-title> {{'CLONE_PLANOGRAM' | translate }}</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>{{'PLANOGRAM_NAME' | translate}}</mat-label>
+        <input matInput [(ngModel)]="pogName">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions id="cloneActions">
+    <button mat-button class="dialog-box-buttons" [mat-dialog-close]="pogName" cdkFocusInitial translate="PLANOGRAM_LIBRARY_CLONE"></button>
+</div>

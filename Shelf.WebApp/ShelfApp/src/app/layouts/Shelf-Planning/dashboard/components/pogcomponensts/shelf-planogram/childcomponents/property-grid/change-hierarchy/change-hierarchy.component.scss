@@ -1,0 +1,10 @@
+.hierarchy-Height{
+    height: calc(100vh - 80%);
+    .content-tree {
+        height: calc(100vh - 330px);
+        ::ng-deep .k-display-none,
+        ::ng-deep .k-hidden {
+            display: block !important;
+        }
+    }
+}

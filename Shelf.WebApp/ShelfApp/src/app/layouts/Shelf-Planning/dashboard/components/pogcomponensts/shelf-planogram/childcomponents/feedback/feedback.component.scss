@@ -1,0 +1,14 @@
+.dialogCloseIcon {
+  float: right;
+ 
+  mat-icon {
+    margin-right: 0.2em;
+    cursor: pointer;
+  }
+}
+
+.custom-modal-header .mat-dialog-title {
+  margin: 0;
+  display: inline-block;
+}
+

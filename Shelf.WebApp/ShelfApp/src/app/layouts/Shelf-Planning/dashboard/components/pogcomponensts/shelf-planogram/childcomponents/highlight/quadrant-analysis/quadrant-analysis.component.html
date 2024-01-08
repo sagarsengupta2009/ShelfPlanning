@@ -1,0 +1,117 @@
+<div class="quadrantCntnr">
+  <div style="font-weight:600;" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span>{{modelHL.type | translate}}</span>
+      <span>-</span>
+      <span>{{getStringNameFromField}}</span>
+      <span>&</span>
+      <span>{{getStringNameFromFieldQ}}</span>
+    </div>
+    <div>
+      {{getTemplateName}}
+    </div>
+    <div>
+      <button style="cursor:pointer" mat-icon-button [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="display">{{'DISPLAY' | translate}}</button>
+        <!--<button mat-menu-item [matMenuTriggerFor]="sort">{{'SORT' | translate}}</button>-->
+        <button *ngIf="savedSearchOptions.length>1" mat-menu-item [matMenuTriggerFor]="limit">{{'LIMIT' |
+          translate}}</button>
+        <button mat-menu-item (click)="showSave()">{{'SAVE_AS'
+          | translate}}</button>
+        <button mat-menu-item *ngIf="showSystemTemplate" (click)="emit('SYSTEM_TEMPLATE')">{{'SYSTEM_TEMPLATE' |
+          translate}}</button>
+        <button mat-menu-item *ngIf="showUpdate" (click)="emit('UPDATE')">{{'UPDATE' | translate}}</button>
+        <button mat-menu-item *ngIf="showRemove" (click)="emit('REMOVE')">{{'REMOVE' | translate}}</button>
+        <button mat-menu-item *ngIf="toggleTemplate" (click)="emit('TOGGLE_TEMPLATE')">{{'Toggle' | translate}}</button>
+      </mat-menu>
+      <mat-menu #display="matMenu">
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showQuadrantPercentageLinear" (click)="toggleQuadrantPercentageLinear()">
+            {{'LINEAR_PERCENT' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showQuadrantLinear" (click)="toggleQuadrantLinear()">{{'LINEAR' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showSPM" (click)="toggleSpectrumSpm()">{{'SPM' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showQuadrantPercentageCapacity" (click)="toggleQuadrantPercentageCapacity()">
+            {{'CAPACITY_PERCENT' | translate}}</mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showQuadrantCapacity" (click)="toggleQuadrantCapacity()">{{'CAPACITY' | translate}}
+          </mat-checkbox>
+        </div>
+      </mat-menu>
+      <mat-menu #limit="matMenu">
+        <mat-radio-group style="display: flex;flex-direction: column;" [(ngModel)]="advFind">
+          <mat-radio-button style="padding:5px;" class="example-radio-button"
+            *ngFor="let findTemplate of savedSearchOptions;index as i" (click)="DoAdvFind(i)" [value]="i">
+            {{findTemplate.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-menu>
+    </div>
+  </div>
+  <div>
+    <i *ngIf="savedSearchOptions[advFind]?.search" style="font-size:12px;">{{savedSearchOptions[advFind].name}}</i>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start start" [style.display]="(maximum > 0 && maximumQ > 0) ? 'block' : 'none'">
+    <div>{{getStringNameFromField}}</div>
+    <div class="sliderCntnr">
+      <nouislider #slider1 [config]="someKeyboardConfig1" [(ngModel)]="sliderRange1"></nouislider>
+    </div>
+    <div>{{getStringNameFromFieldQ}}</div>
+    <div class="sliderCntnr">
+      <nouislider #slider2 [config]="someKeyboardConfig2" [(ngModel)]="sliderRange2"></nouislider>
+    </div>
+  </div>
+  <div [style.display]="(maximum > 0 && maximumQ > 0) ? 'block' : 'none'" id="cartListID"  [ngClass]="sharedService.link !== 'allocate' ? 'cart-list-shelf-view' : 'cart-list-allocate-view'">
+    <ul class="list-view" id="create-planogram-ID">
+      <li *ngFor="let row of values;index as i" class="card-prod">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div *ngIf="showQuadrantPercentageLinear" class="matprogressbarCntnr">
+            <mat-progress-bar mode="determinate" value="{{row.quadrantPercentageLinear}}"></mat-progress-bar>
+          </div>
+          <div class="colorPicker">
+            <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+              [paletteSettings]="paletteSettings" [value]="row.color" (valueChange)="colorChange($event,i)">
+            </kendo-colorpicker>
+          </div>
+          <div>
+            <mat-form-field>
+              <input matInput autocomplete="off" type="text" [(ngModel)]="row.label" (keyup)="onInputField($event)"
+                (blur)="isNumeric(row.label, i)">
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          {{row.value}}
+        </div>
+        <div style="margin-top:10px;">
+          <span class="additionalFields" *ngIf="showQuadrantPercentageLinear">
+            <span>{{'LINEAR_PERCENT' | translate}} : </span> <span>{{row.quadrantPercentageLinear}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showQuadrantLinear" style="margin-left: 10px;">
+            <span>{{'LINEAR' | translate}} : </span> <span>{{row.quadrantLinear}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showSPM" style="margin-left: 10px;">
+            <span>SPM : </span><span>{{row.SPM}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showQuadrantPercentageCapacity" style="margin-left: 10px;">
+            <span>{{'CAPACITY_PERCENT' | translate}} : </span> <span>{{row.quadrantPercentageCapacity}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showQuadrantCapacity" style="margin-left: 10px;">
+            <span>{{'CAPACITY' | translate}} : </span> <span>{{row.quadrantCapacity}}</span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

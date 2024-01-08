@@ -1,0 +1,49 @@
+<div class='fab-container' (mouseenter)="onToggleFab()" (mouseleave)="onToggleFab()"
+  [style.flexDirection]="'column-reverse'">
+  <button mat-fab class="fab-toggler" (click)="onClickFab(defaultbtn)"
+    matTooltip="{{'FLOATING_BUTTON_OPEN_PLANOGRAM'| translate}}" matTooltipPosition="before">
+    <i class="material-icons white" [@fabToggler]="{value: fabTogglerState}">{{defaultbtn.icon}}</i>
+  </button>
+  <div [className]="'column-reverse'" [@speedDialStagger]="buttons.length" [hidden]="link =='iAssort'">
+    <ng-container *ngFor="let btn of buttons">
+      <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="btn.icon === 'add_to_photos'">
+          <button [hidden]="OnSelectionChange(btn)" mat-mini-fab [ngStyle]="{'background-color': btn.btncolor}"
+            matTooltip="{{btn.tooltip}}" matTooltipPosition="before" (click)="onClickFab(btn)">
+            <i *ngIf="btn.displayIcon" class="material-icons white">{{btn.icon}}</i>
+            <img *ngIf="!btn.displayIcon && btn.imgUrl != ''" class="reviewImg" src="{{btn.imgUrl}}">
+          </button>
+        </ng-container>
+        <ng-container *ngSwitchCase="btn.icon === 'pegicon'">
+          <button [hidden]="OnSelectionChange(btn)" mat-mini-fab [ngStyle]="{'background-color': btn.btncolor}"
+            matTooltip="{{btn.tooltip}}" matTooltipPosition="before" (click)="onClickFab(btn)">
+            <i *ngIf="btn.displayIcon" class="material-icons white">
+              <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 12.35"
+                style="vertical-align: super;">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #fff;
+                    }
+                  </style>
+                </defs>
+                <path class="cls-1"
+                  d="m6.54,11.99c0,.2.33.36.74.36s.73-.16.74-.36h0v-3.58c.53-.33,1.04-.67,1.43-.94.03-.02.05-.04.08-.05-.65-.28-1.16-.5-1.47-.62-.1-.04-.14-.07-.17-.04-.25.16-.46.3-.72.46-.33.2-.65.39-.93.52-.13.06-.27.11-.41.14-.14.03-.3.04-.45.04-.25,0-.51-.04-.76-.09-.37-.09-.72-.22-.96-.33-.12-.06-.22-.11-.29-.14-.03-.02-.06-.03-.07-.04h-.02s0,0,0,0h0s-.54-.31-.54-.31c-.35-.2-.59-.39-.77-.56-.27-.25-.38-.46-.43-.58-.03-.06-.04-.11-.04-.14,0,0,0-.01,0-.02v-2.43s0,0,0,0c0,0,0-.01,0-.02,0-.01,0-.03,0-.04,0-.02,0-.03,0-.05-.02-.08-.1-.15-.21-.21-.13-.07-.32-.11-.52-.11s-.38.04-.52.11c-.13.07-.22.16-.22.26,0,0,0,0,0,.01H0v2.19H0v.29c0,.08,0,.22.05.4.07.27.22.63.53,1.01.3.38.76.78,1.41,1.15h0s.54.3.54.3c.07.04.39.22.85.4.26.1.56.2.89.28.33.08.7.13,1.09.13.24,0,.5-.02.75-.07.14-.03.28-.07.42-.12v2.79h0ZM.74,3.64c-.36,0-.65-.17-.71-.34.07.17.37.29.72.29s.64-.12.72-.29c-.07.18-.37.34-.73.34Z" />
+                <path class="cls-1"
+                  d="m6.26.09c-.15.07-.24.16-.24.27h0v2.02h0c0,.23.04.44.09.64.1.35.28.63.48.85.3.33.63.52.89.64.21.1.38.14.45.16.39.12.71.24.95.35.18.08.32.17.43.24.06.04.1.07.14.11.06.05.09.1.11.12h0s-.02.04-.04.07h-.01c-.07-.02-.14-.04-.2-.07-.03-.01-.06-.02-.08-.03-.2-.08-.37-.16-.5-.21-.13-.06-.23-.09-.29-.12-.15-.06-.32-.1-.49-.1-.04,0-.09,0-.13,0-.01,0-.03,0-.04,0-.03,0-.06,0-.09.02-.01,0-.03,0-.04,0-.03,0-.06.02-.09.03-.01,0-.02,0-.04.01h-.01s-.07.03-.1.05h0s-.02.02-.02.02c-.02.01-.05.03-.07.04-.01,0-.02.02-.04.03-.02.01-.04.03-.05.04-.01,0-.02.02-.03.03-.01,0-.02.02-.03.03h0s-.07.07-.1.1c-.08.09-.14.18-.19.28-.09.16-.15.33-.19.49-.07.25-.1.49-.12.74-.01.12-.02.24-.02.36.2-.11.42-.24.64-.37.25-.15.36-.22.59-.38,0,0,.1-.08.15-.07.05.02.09.03.09.03.04.02.04.02.17.07.49.2,1.5.63,2.75,1.16,1.87.8,4.26,1.82,6.18,2.64.96.41,1.8.77,2.41,1.03.3.13.54.23.71.3.17.07.26.11.26.11h.01s.01.01.01.01c.07.03.37.13.86.13.31,0,.69-.04,1.12-.17.37-.11.78-.29,1.21-.56.07-.04.13-.08.2-.13h0s0,0,0,0c0,0,0,0,0,0,.01,0,.02-.01.03-.02.16-.12.1-.48-.14-.81-.23-.31-.55-.48-.71-.38h0s-.01,0-.02.01c-.16.12-.1.48.14.81.2.27.45.43.63.41-.19.03-.48-.12-.68-.38-.24-.33-.26-.71-.1-.83-.38.25-.72.4-1,.49-.29.09-.52.11-.69.11-.14,0-.24-.01-.29-.03-.02,0-.04,0-.04-.01-.33-.14-3.1-1.33-5.95-2.55-1.48-.63-2.98-1.27-4.18-1.78.04-.08.08-.17.1-.27.03-.12.05-.25.05-.39,0-.04,0-.09,0-.14,0-.08-.02-.15-.04-.23-.06-.21-.17-.42-.31-.59-.22-.27-.51-.49-.89-.7-.38-.2-.85-.39-1.44-.57h-.03s-.02-.01-.02-.01h0s-.07-.02-.15-.05c-.07-.03-.15-.07-.23-.12-.12-.07-.23-.17-.3-.28-.04-.06-.07-.11-.09-.18-.02-.07-.04-.15-.04-.26v-.26h0V.37h0s0,0,0,0c0-.11-.1-.2-.24-.27-.12-.05-.27-.09-.44-.09h-.11c-.17,0-.32.04-.44.09Zm1.22.31c-.04.19-.36.38-.74.38-.41,0-.73-.22-.73-.42,0,.2.33.37.74.37.38,0,.69-.14.73-.33Z" />
+              </svg>
+
+            </i>
+          </button>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <button [hidden]="OnSelectionChange(btn)" mat-mini-fab matTooltip="{{btn.tooltip}}"
+            matTooltipPosition="before" [ngStyle]="{'background-color': btn.btncolor}" (click)="onClickFab(btn)">
+            <i *ngIf="btn.displayIcon" class="material-icons white">{{btn.icon}}</i>
+            <img *ngIf="!btn.displayIcon && btn.imgUrl != ''" class="reviewImg" src="{{btn.imgUrl}}">
+          </button>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

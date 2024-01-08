@@ -1,0 +1,61 @@
+<div *ngIf="rowData.property === 'Orientation'" class="oriBox d-flex justify-content-between"
+    style="margin-top: -13px;margin-right: -12px;">
+    <div class="oriHeader">
+        {{'TOOLTIP_ORIENTATION' | translate }}
+    </div>
+    <div>
+        <mat-icon class="dialogCloseIcon" (click)="close()">close</mat-icon>
+    </div>
+</div>
+
+<div mat-dialog-content [ngClass]="{orientationDialog: rowData.property === 'Orientation'}">
+    <div *ngIf="rowData.data.ObjectType === 'Position'" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+        <div *ngIf="rowData.property === 'Facings'">
+            <h5>{{'FACINGS_CONTEXT' | translate}}</h5>
+            <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="currentFacing"
+                (change)="changeFacingCxt(rowData.data)">
+                <mat-radio-button *ngFor="let k of facingList" [value]="k">
+                    {{ k }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="row" *ngIf="rowData.property === 'Orientation'">
+            <div class="col-6 orientationList">
+                <div class="box" *ngFor="let orientationOpts of allOrientations">
+                    <div class="inner-box" id="{{k.value}}"
+                      [ngClass]="{'default': defaultOrientation===k.value , 'selected': currentOrientation===k.value, 'orientation-disabled': !this.allowedOrientations.includes(k.value)}"
+                        *ngFor="let k of orientationOpts" (click)="changeOrientationCxt(k)">
+                        <span>
+                            {{ k.text }}
+                        </span>
+                        <span style="font-style: italic;text-transform: lowercase;" *ngIf="defaultOrientation===k.value">
+                            {{ '(' + ('DEFAULT' | translate) +')' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div style="margin-top: 10%;width: 100%; object-fit: cover;text-align: center;">
+                    <img *ngIf="!showIcon" [src]="orientationImageFilePath" height="175px" style="max-width: 100%;" [ngStyle]="{'rotate':rotateImg}" (error)="handleImageError()">
+                    <div *ngIf="showIcon" style="height: 175px;max-width: 100%;" [innerHTML]="orientationIconFile | safe"></div>
+                </div>
+
+                <div class="d-flex justify-content-between pagination-div">
+                    <span class="left-arrow" (click)="switchToNextPreviousOrientation('prev')"><</span>
+                    <span class="right-arrow" (click)="switchToNextPreviousOrientation('next')">></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="rowData.data.ObjectType === 'Fixture' || rowData.data.ObjectType === 'POG'" cdkDrag
+        cdkDragRootElement=".cdk-overlay-pane">
+        <h5>{{'FIXTURE_CONTEXT_CRUNCH_MODE' | translate }}</h5>
+        <mat-radio-group class="example-radio-group" aria-label="Select an option" [(ngModel)]="crunchMode.current"
+            style="line-height: 35px;" (change)="changeFixCrunchModeCxt()">
+            <mat-radio-button *ngFor="let k of crunchMode.crunchModeOptions" [value]="k.value">
+                {{ k.text }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>

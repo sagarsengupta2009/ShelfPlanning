@@ -1,0 +1,163 @@
+.create-peg-component {
+
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-field-area {
+        width: 80%;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-end;
+    }
+
+    .first-row-child {
+        flex-basis: 30%;
+    }
+
+    .numerical-input {
+        flex-basis: 15%;
+    }
+
+    .inputcntr {
+        display: flex;
+        flex-direction: column;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font-size: 12px;
+        margin-right: 16px;
+
+        .small-radio {
+            mat-radio-button {
+                margin-right: 5px;
+                margin-top: 10px;
+            }
+        }
+    }
+
+
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+        margin: 0;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        border: none;
+    }
+
+
+    .asterisk:after, .asteriskBefore:before{
+        content: "*";
+        color: red;
+    }
+
+    .peg-image-area {
+        width: 20%;
+        margin: 3vh 0;
+    }
+
+    .file-box {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 2px dashed var(--background-tertiary);
+        border-radius: 7px;
+        opacity: 1;
+        cursor: pointer;
+        height: 30vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .file-type {
+        margin: 1vh 0;
+        text-align: center;
+        font-size: 10px;
+        color: #C4C3C5;
+    }
+
+    .file-header {
+        margin: 1vh 0;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .selected-file-name {
+        margin-top: 1vh;
+        text-align: center;
+        font-size: 12px;
+        color: grey;
+        opacity: 1;
+        word-wrap: break-word;
+    }
+
+    .selected-image {
+      max-height: 99%;
+      max-width: 99%;
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .uploaded-image {
+      height: 100%;
+      width: 100%;
+      margin-left:1%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .considerHeight {
+        height: 100%;
+      }
+
+      .considerWidth {
+        width: 100%;
+      }
+    }
+    .footer {
+        margin-right: 8px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        mat-label {
+            font-size: 10px;
+        }
+    }
+
+    .mat-form-field-infix { //unsetting width set by mat form field
+        width: unset;
+    }
+
+    .label-disabled {
+        opacity: 0.5;
+    }
+}
+
+.mat-autocomplete-panel mat-option {
+    font-size: 14px;
+    height: 40px;
+}
+
+.mat-autocomplete-panel {
+    height:200px;
+}
+
+.mat-autocomplete-hidden {
+    display: none !important;
+}
+
+.hide-tooltip {
+    display: none !important;
+}

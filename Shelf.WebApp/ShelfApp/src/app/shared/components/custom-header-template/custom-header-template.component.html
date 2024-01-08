@@ -1,0 +1,18 @@
+<span [ngSwitch]="column.headerType">
+  <div *ngSwitchCase="'chechbox'">
+    <input class="k-checkbox" id="selectAllCheckboxId" kendoGridSelectAllCheckbox [state]="selectAllState"
+           (selectAllChange)="onSelectAllCheckBoxChange($event)">
+    <label class="k-checkbox-label" for="selectAllCheckboxId"></label>
+  </div>
+  <div *ngSwitchCase="'icon'">
+    <div *ngIf="column.title.length > 0" [matTooltip]="column.title" [matTooltipDisabled]="showDetailedTooltip">
+      <mat-icon [style.color]="column.color">{{column.iconName}}</mat-icon>
+    </div>
+  </div>
+  <div *ngSwitchDefault>
+    <div id="{{column.field}}" *ngIf="column.title.length > 0" (mouseenter)="onMouseEnter($event, column)" (mouseleave)="onMouseLeave()"
+         [matTooltip]="column.title" [matTooltipDisabled]="showDetailedTooltip">
+      {{ column.title }}
+    </div>
+  </div>
+</span>

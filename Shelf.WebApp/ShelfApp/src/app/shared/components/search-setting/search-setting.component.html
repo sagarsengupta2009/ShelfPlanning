@@ -1,0 +1,73 @@
+<div style="position: relative; height: 100%; width: 100%;">
+    <div class="tab-lists scroll_tabs_container">
+        <div class="scroll_tab_left_button mdi-"
+            style="position: absolute; left: 0px; top: 0px; width: 26px; cursor: pointer; display: none;"></div>
+
+        <div class="scroll_tab_inner"
+            style="margin: 0px; overflow: hidden; white-space: nowrap; text-overflow: clip; position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px;">
+            <span class="waves-effect waves-theme-color ng-binding scroll_tab_first tab_selected"
+                (click)="openTab('Search_Options')"
+                style="display: inline-block; zoom: 1; -webkit-user-select: none;">{{'SEARCH_SETTINGS_SEARCH_OPTIONS' |
+                translate}}<span class="active-indicator"></span></span>
+
+            <span class="waves-effect waves-theme-color ng-binding" (click)="openTab('Project_Filters')"
+                style="display: inline-block; zoom: 1; -webkit-user-select: none;"
+                *ngIf="customSearchType.searchType == 'Product' && isDisplayProjectFilter">{{'SEARCH_SETTINGS_PROJECT_FILTERS'
+                | translate}}<span class="active-indicator"></span></span>
+        </div>
+    </div>
+    <div class="search-setting-body">
+        <div class="TAB_ID_ Search_Options">
+            <div class="section">
+                <div class="input-cell">
+                    <div>
+                       <mat-radio-group [(ngModel)]="selectedMode" (change)="changedValue()">
+                            <mat-radio-button  class="radio-group" *ngFor="let item of modeValues" [value]="item.value">
+                                {{item.value | translate}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section">
+                <label>{{'SEARCH_SETTINGS_SEARCH_ON' | translate}} </label>
+                <div class="input-cell">
+                    <div class="input-component-body">
+                        <kendo-dropdownlist id="searchOn{{customSearchType.searchType}}" [data]="fieldOptions"
+                            [textField]="'text'" [valueField]="'value'" [(ngModel)]="selectedField"
+                            [valuePrimitive]="true" (change)="changedValue()">
+                        </kendo-dropdownlist>
+                    </div>
+                    <div class="input-component-line"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="TAB_ID_ Project_Filters" style="display:none"
+            *ngIf="customSearchType.searchType == 'Product' && isDisplayProjectFilter">
+            <p>
+                <input type="checkbox" id="{{customSearchType.searchType}}_isProjectFilterTurnedOn"
+                    [(ngModel)]="customSearchType.includeProjectFilter" />
+                <label
+                    for="{{customSearchType.searchType}}_isProjectFilterTurnedOn">{{'SEARCH_SETTINGS_FILTER_HIERARCHY' |
+                    translate}}</label>
+            </p>
+            <h4>{{'SEARCH_SETTINGS_PROJECT_HIERARCHY' | translate}}</h4>
+            <div class="project-hierarchy-container">
+                <div id="{{customSearchType.searchType}}_treeview-left"
+                    style="position: absolute;height: 99%;width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+
+    <a *ngIf="checkPlanogram" (click)="onClose()" class="btn waves-effect ng-binding modal-close sapp-theme-color"
+        style="margin-right:10px">{{'PANEL_HEADER_CANCEL' | translate}}</a>
+    <a *ngIf="checkProductFixture" class="btn waves-effect ng-binding sapp-theme-color" (click)="onClose()"
+        style="margin-right:10px">{{'PANEL_HEADER_CANCEL' | translate}}</a>
+    <a class="btn waves-effect ng-binding sapp-theme-color" (click)="applySearchSettings()"
+        style="margin-right:10px" *ngIf="isDisplayApplyBtnInSearch">{{'PANEL_HEADER_APPLY' | translate}}</a>
+</div>

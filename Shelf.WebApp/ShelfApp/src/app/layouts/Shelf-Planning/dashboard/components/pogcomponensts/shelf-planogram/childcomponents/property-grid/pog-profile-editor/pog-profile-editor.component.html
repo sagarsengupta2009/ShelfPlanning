@@ -1,0 +1,17 @@
+<div class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start" cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle>
+    <h4 mat-dialog-title>{{'PROP_POG_QUALIFIER' | translate }}
+    </h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <mat-icon mat-dialog-close >close</mat-icon>
+    </div>
+</div>
+<div mat-dialog-content class="mat-typography fit-content">
+    <sp-pogqualifier-editor *ngIf="true" [data]="data" [isReadonly]="isReadonly">
+    </sp-pogqualifier-editor>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close> {{'GRILLINFO_CANCEL'|translate}}</button>
+    <button mat-raised-button *ngIf="hasPogPrrofileSettingPrepared();" (click)="savePogQualifier()">
+        {{'PANEL_HEADER_APPLY'|translate}}
+    </button>
+</div>

@@ -1,0 +1,148 @@
+// .material-icons {
+//   color: var(--icons);
+//   vertical-align: middle;
+// }
+
+.mat-menu-item .mat-icon-no-color {
+  color: var(--background-tertiary);
+}
+
+/*.mat-menu-item {
+  color: var(--background-tertiary) !important;
+}*/
+
+$plibHeight: 45px;
+$rightMenuWidth: 164px;
+
+#plib {
+  width: calc(100% - #{$rightMenuWidth});
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 2;
+    border-radius: 50%;
+    color: var(--foreground-quaternary);
+    font-size: 14px;
+  }
+
+  .pogID {
+    text-align: left;
+    display: block;
+  }
+
+  .green {
+    background: green;
+  }
+
+  .amber {
+    background: gold;
+  }
+
+  .failed {
+    background: rgb(243, 6, 6);
+  }
+
+  .sync {
+    background: rgb(59, 135, 223);
+  }
+
+  .mat-tab-label {
+    min-height: $plibHeight;
+    font-weight: 400;
+    color: var(--font-color);
+  }
+
+  .mat-tab-label-content {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .mat-tab-label-active {
+    background-color: white;
+    border-bottom: 3px solid var(--foreground-primary);
+  }
+
+  .pogName {
+    max-width: 115px;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+
+  .approved {
+    background-color: green;
+  }
+
+  .rejected {
+    background-color: red;
+  }
+
+  .status {
+    border-radius: 50%;
+    color: #fde8e8;
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    vertical-align: unset;
+  }
+
+  .pogID {
+    margin: 0;
+  }
+}
+
+.planogram-panel {
+  .thumbnail-holder {
+    position: absolute;
+    top: $plibHeight + 7px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .tooltipHolder {
+      width: 100%;
+      height: 100%;
+
+      .svg {
+        width: 100%;
+        height: 100%;
+
+        .noPogImage {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+
+          p {
+            flex: 0 0 120px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.rightMenu {
+  height: $plibHeight;
+  width: $rightMenuWidth;
+  text-align: right;
+
+  button {
+    margin: 0 5px;
+    // float: right;
+  }
+}
+
+#noPogContainer {
+  position: relative;
+  height: 100%;
+
+  #noPogfound {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    font-weight: 500;
+  }
+}

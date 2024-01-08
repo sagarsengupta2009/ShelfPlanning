@@ -1,0 +1,170 @@
+<!-- Right Top corner, setings icon -->
+<div *ngIf="gridConfig.columnDefs && !gridConfig.hideColumnConfig">
+  <mat-icon class="menuicon icon" style="background-color:transparent;color:var(--foreground-primary)"
+    aria-hidden="false" (click)="openColumnConfig()" aria-label="perm_data_setting"
+    [matTooltip]="'GRID_SETTINGS' | translate">
+    settings
+  </mat-icon>
+  <mat-icon class="menuicon icon" aria-hidden="false" (click)="openColumnConfig()" aria-label="perm_data_setting"
+    [matTooltip]="'GRID_SETTINGS' | translate">perm_data_setting</mat-icon>
+</div>
+
+<!-- Left Top corner, grouping icon -->
+<!-- TODO : change to if else-->
+<div class="icondiv" *ngIf="gridConfig.columnDefs && !gridConfig.hideGroupHeader">
+  <mat-icon class="menuicon icon" *ngIf="rowGroupPanelShow === 'always'" aria-hidden="false"
+    (click)="showRowGroupPanel(false)" aria-label="Hide" matTooltip="{{'HIDE'| translate}}">keyboard_arrow_up</mat-icon>
+  <mat-icon class="menuicon icon" *ngIf="rowGroupPanelShow === 'never'" aria-hidden="false"
+  (click)="showRowGroupPanel(true)" aria-label="Show" matTooltip="{{'SHOW'| translate}}">keyboard_arrow_down</mat-icon>
+  </div>
+<ng-container [ngSwitch]="gridConfig?.type">
+  <ng-container *ngSwitchCase="'pivotGrid'">
+    <ag-grid-angular #agGrid
+        [id]="gridConfig.id"
+        class="ag-theme-alpine grid" 
+        [ngStyle]="{height: gridConfig.height}"
+        [columnDefs]="gridConfig.columnDefs"
+        [defaultColDef]="defaultColDefPivot"
+        [autoGroupColumnDef]="autoGroupColumnDef"
+        [sideBar]="true"
+        [pivotMode]="gridConfig.pivotMode"
+        [rowData]="gridConfig.data"
+        [multiSortKey]="'ctrl'"
+        [sortingOrder]="sortingOrder"
+        [defaultExcelExportParams]="defaultExcelExportParams"
+        [getMainMenuItems]="getMainMenuItems"
+        [getContextMenuItems]="getContextMenuItems"
+        [excelStyles]="gridConfig.excelStyles"
+        (gridReady)="onGridReady($event)"
+        [gridOptions]="gridOptions"
+        [getLocaleText]="localeTextFunc"
+  ></ag-grid-angular>
+  </ng-container>
+  <ng-container *ngSwitchCase="'serverside'">
+    <ag-grid-angular #agGrid 
+        [id]="gridConfig.id"
+        class="ag-theme-alpine grid" 
+        [ngStyle]="{height: gridConfig.height}"
+        [rowData]="gridConfig.data"
+        [getRowStyle]="getRowStyle"
+        [getMainMenuItems]="getMainMenuItems"
+        [columnDefs]="gridConfig.columnDefs"
+        [defaultColDef]="gridConfig.defaultColDef"
+
+        [rowModelType]="'infinite'"
+
+        [pagination]="false"
+        [paginationPageSize]="50"
+        [cacheBlockSize]="50"
+        [serverSideFilterOnServer]="true"
+        [serverSideInfiniteScroll]="true"
+
+        [rowHeight]="gridConfig.rowHeight"
+        [headerHeight]="gridConfig.rowHeight"
+        [groupHeaderHeight]="gridConfig.rowHeight"
+
+        [rowSelection]="gridConfig.rowSelection"
+        [isRowSelectable]="isRowSelectable"
+
+        [multiSortKey]="'ctrl'"
+        [sortingOrder]="sortingOrder"
+        [animateRows]="true"
+
+        [groupDefaultExpanded]="-1"
+        [groupDisplayType]="'groupRows'"
+        [groupRowRendererParams]="groupRowRendererParams"
+        [autoGroupColumnDef]="autoGroupColumnDef"
+        rowGroupPanelShow="{{rowGroupPanelShow}}"
+        [suppressDragLeaveHidesColumns]="true"
+        [suppressMakeColumnVisibleAfterUnGroup]="true"
+        [postProcessPopup]="postProcessPopup"
+
+        [excelStyles]="gridConfig.excelStyles"
+        [defaultExcelExportParams]="defaultExcelExportParams"
+
+        [tooltipShowDelay]="gridConfig.tooltipShowDelay"
+        [tooltipHideDelay]="gridConfig.tooltipHideDelay"
+
+        [getContextMenuItems]="getContextMenuItems"
+        
+        [getLocaleText]="localeTextFunc"
+
+        (cellClicked)="onCellClicked($event)"
+        (selectionChanged)="onSelectionChanged($event)"
+        (gridReady)="onServerGridReady($event)">
+    </ag-grid-angular>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <ag-grid-angular #agGrid
+        [id]="gridConfig.id"
+        class="ag-theme-alpine grid"
+        [ngStyle] = "{height: gridConfig.height}"
+        [rowData]="gridConfig.data"
+        [getRowStyle]="getRowStyle"
+        [getMainMenuItems]="getMainMenuItems"
+        [columnDefs]="gridConfig.columnDefs"
+        [defaultColDef]="gridConfig.defaultColDef"
+
+        [rowHeight]="gridConfig.rowHeight"
+        [headerHeight]="gridConfig.rowHeight"
+        [groupHeaderHeight]="gridConfig.rowHeight"
+
+        [rowSelection]="gridConfig.rowSelection"
+        [isRowSelectable]="isRowSelectable"
+
+        [multiSortKey]="'ctrl'"
+        [sortingOrder]="sortingOrder"
+        [animateRows]="true"
+
+        [groupDefaultExpanded]="-1"
+        [groupDisplayType]="'groupRows'"
+        [groupRowRendererParams]="groupRowRendererParams"
+        [autoGroupColumnDef]="autoGroupColumnDef"
+        rowGroupPanelShow="{{rowGroupPanelShow}}"
+        [suppressDragLeaveHidesColumns]="true"
+        [suppressMakeColumnVisibleAfterUnGroup]="true"
+        [postProcessPopup]="postProcessPopup"
+
+        [enableRangeHandle]="false"
+        [enableRangeSelection]="true"
+        [fillHandleDirection]="'y'"
+        [enableFillHandle]="gridConfig.isFillDown"
+        [enableCellChangeFlash]="true"
+        [undoRedoCellEditing]="true"
+        [undoRedoCellEditingLimit]="5"
+        [stopEditingWhenCellsLoseFocus]="true"
+        [suppressMultiRangeSelection]="true"
+        [suppressClearOnFillReduction]="true"
+        [suppressClickEdit]="allowClickEdit"
+
+        [excelStyles]="gridConfig.excelStyles"
+        [defaultExcelExportParams]="defaultExcelExportParams"
+
+        [tooltipShowDelay]="gridConfig.tooltipShowDelay"
+        [tooltipHideDelay]="gridConfig.tooltipHideDelay"
+
+        [getContextMenuItems]="getContextMenuItems"
+        
+        [getLocaleText]="localeTextFunc"
+
+       
+        [masterDetail]="gridConfig.masterDetails?.show"
+        [detailCellRendererParams]="detailCellRendererParams"
+
+        (gridReady)="onGridReady($event)"
+        (firstDataRendered)="onFirstDataRendered($event)"
+        (cellClicked)="onCellClicked($event)"
+        (rangeSelectionChanged) ="onRangeSelectionChanged($event)"
+        (cellEditingStopped)="onCellEditingStopped($event)"
+        (cellKeyDown)="onCellKeyDown($event)"
+        (sortChanged)="onSortChanged($event)"
+        (filterChanged)="onFilterChanged($event)"
+        (cellValueChanged)="onCellValueChanged($event)"
+        (selectionChanged)="onSelectionChanged($event)">
+    </ag-grid-angular>
+  </ng-container>
+</ng-container>
+
+<!-- [rowMultiSelectWithClick]="true"
+Property rowMultiSelectWithClick=true is set to enable multiple row selection with clicks.
+This is useful for touch devices where Ctrl and Shift clicks are not available.-->

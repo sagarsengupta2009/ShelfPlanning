@@ -1,0 +1,37 @@
+<div class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start">
+    
+    <h4 mat-dialog-title>{{'ANNOTATION_IMAGE_LIBRARY' | translate}}</h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <sp-search class="spSearch"></sp-search>
+        <mat-icon [matMenuTriggerFor]="menu1" matTooltip="{{'MORE'|translate}}"  #matMenuTrigger="matMenuTrigger">more_vert
+        </mat-icon>
+        <mat-menu #menu1="matMenu">
+            <button mat-menu-item (click)="sortByName()">{{'SORT_BY_NAME' | translate}}</button>
+            <button mat-menu-item (click)="sortByDate()">{{'SORT_BY_DATE' | translate}}</button>
+        </mat-menu>
+        <mat-icon mat-dialog-close matTooltip="{{'CLOSE'|translate}}" >close</mat-icon>
+    </div>
+
+</div>
+
+<div class="AnnotationDialog" mat-dialog-content>
+    <span *ngIf="imageList.length ==0">{{'PREPARING_ANNOTATION_IMAGE_LIST' | translate}}</span>
+   <div class="cart-body" *ngIf="imageList.length > 0">
+       <ul class="list-view collection" >
+            <li *ngFor="let itemData of imageList | search:'Name':searchText" class="collection-item row" (click)="dialog.close(itemData)">
+                <div style=" align-items: center;">
+                    <div class="col-sm-12">
+                        <span title="Name" style="letter-spacing: 1px; position: absolute; top: 30px; border-bottom: 1px solid #e0e0e0; text-align: center; width: 30%;">{{itemData.Name}}</span>
+                        <span title="Created Date" style="letter-spacing: 1px; position: absolute; top: 90px; border-bottom: 1px solid #e0e0e0; text-align: center; width: 30%;">{{intl.formatDate(this.intl.parseDate(itemData.CreatedTs), this.skeletonDateTimeFormat) }}</span>
+                        <span class="small-avatar-image z-depth-1">
+                            <img src="{{itemData.Image}}">
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="item-tooltip-big z-depth-1" style="display:none;">
+            <img src="" style="height:100%;margin:auto;display: block;">
+        </div>
+    </div>
+</div>

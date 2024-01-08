@@ -1,0 +1,75 @@
+{
+  "SidebarMenu": [
+    {
+      "idSequence": 1,
+      "text": "Rules",
+      "icon": "school",
+      "path": "/automation/rules",
+      "selected": true,
+      "type": "both"
+    },
+    {
+      "idSequence": 2,
+      "icon": "sync",
+      "text": "Bay Mapping",
+      "path": "/automation/bay-mapping",
+      "type": "reset"
+    },
+    {
+      "idSequence": 3,
+      "icon": "widgets",
+      "text": "Run",
+      "path": "/automation/run",
+      "type": "both"
+    },
+    {
+      "idSequence": 4,
+      "icon": "find_in_page",
+      "text": "Review Planogram",
+      "path": "/automation/review-planogram",
+      "type": "both"
+    },
+    {
+      "idSequence": 5,
+      "icon": "equalizer",
+      "text": "Analysis",
+      "path": "/automation/analysis",
+      "type": "both"
+    },
+    {
+      "idSequence": 6,
+      "icon": "publish",
+      "text": "Publish",
+      "path": "/automation/publish",
+      "type": "both"
+    },
+    {
+      "idSequence": 7,
+      "icon": "shuffle",
+      "text": "Store Assignments",
+      "path": "/automation/store-assignments",
+      "type": "both"
+    },
+    {
+      "idSequence": 8,
+      "icon": "settings_applications",
+      "text": "Tools",
+      "path": "/automation/tools",
+      "type": "both"
+    },
+    {
+      "idSequence": 9,
+      "icon": "assignment",
+      "text": "Report Templates",
+      "path": "/automation/report-templates",
+      "type": "both"
+    },
+    {
+      "idSequence": 10,
+      "icon": "block",
+      "text": "Exclusions",
+      "path": "/automation/exclusions",
+      "type": "reset"
+    }
+  ]
+}

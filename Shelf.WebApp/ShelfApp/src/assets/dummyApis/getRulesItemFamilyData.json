@@ -1,0 +1,15 @@
+[
+  {
+    "groupName": "Test item family",
+    "min": 2,
+    "max": 2,
+    "productKeys": "619924|472067|790074",
+    "rulesetId": 0,
+    "type": "ItemFamily",
+    "scenarioId": 0,
+    "partitionKey": "1400",
+    "rowKey": "IGroup_1293208_Test item family",
+    "timestamp": "2019-12-30T08:07:56.4278569+00:00",
+    "eTag": "W/\"datetime'2019-12-30T08%3A07%3A56.4278569Z'\""
+  }
+]

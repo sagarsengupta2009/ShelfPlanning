@@ -1,0 +1,98 @@
+<div class="row upright-dialog-main">
+    <div class="row">
+        <div id="separator-direction" class="col-sm-12">
+            <mat-select id="separator-dir" [disabled]="isReadonly" [(ngModel)]="separatorDir">
+                <mat-option *ngFor="let option of separatorDirectionLkup" [value]="option.value">
+                    <span>{{option.text}}</span>
+                </mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="row">
+        <div id="separator-thickness" class="input-field col-sm-12" *ngIf="separatorDir >= 0">
+            <mat-form-field>
+                <mat-label>{{'FIXTURE_SEPARATORS_THICKNESS' | translate}}</mat-label>
+                <input matInput  [ngClass]="{active:(separatorThickness > 0)}" class="validate thickness-only-number" [disabled]="separatorDir == 0" 
+                    placeholder="{{'FIXTURE_SEPARATORS_THICKNESS' | translate }}" allowDecimalNumbers (blur)="onBlureThickness(separatorThickness)"  [(ngModel)]='separatorThickness'>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="separatorDir >= 0">
+        <mat-radio-group [(ngModel)]="type" [disabled]="separatorDir == 0">
+            <mat-radio-button value="fixed">{{'FIXTURE_SEPARATORS_FIXED' | translate }}</mat-radio-button>
+            <mat-radio-button value="variable">{{'FIXTURE_SEPARATORS_VARIABLE' | translate }}</mat-radio-button>
+        </mat-radio-group>
+
+    </div>
+    <div class="row" *ngIf="type=='fixed'">
+        <div class="input-field col-sm-6" *ngIf="separatorDir == 3 || separatorDir == 2">
+            <mat-form-field>
+                <mat-label>{{'FIXTURE_SEPARATORS_VERTICAL_SPACE' | translate }}</mat-label>
+                <input matInput [ngClass]="{active:(fixedUprightX > 0)}" [disabled]="isReadonly && type!='fixed'" class="upright-fixed k-input only-number"
+                    placeholder="{{'FIXTURE_SEPARATORS_VERTICAL_SPACE' | translate }}" allowDecimalNumbers (keyup)="onKeyUp($event)" [(ngModel)]='fixedUprightX'>
+            </mat-form-field>
+            <div class="disabledDiv k-input" [hidden]="type=='fixed'"></div>
+        </div>
+        <div class="input-field col-sm-6" *ngIf="separatorDir == 3 || separatorDir == 1">
+            <mat-form-field>
+                <mat-label>{{'FIXTURE_SEPARATORS_HORIZONTAL_SPACING' | translate}}</mat-label>
+                <input matInput [ngClass]="{active:(fixedUprightX > 0)}" [disabled]="isReadonly && type!='fixed'" class="upright-fixed k-input only-number"
+                    placeholder="{{'FIXTURE_SEPARATORS_HORIZONTAL_SPACING' | translate }}" allowDecimalNumbers (keyup)="onKeyUp($event)" [(ngModel)]='fixedUprightY'>
+            </mat-form-field>
+            <div class="disabledDiv k-input" [hidden]="type=='fixed'"></div>
+        </div>
+    </div>
+    <div class="row" *ngIf="type=='variable'">
+        <div class="input-field col-sm-6" *ngIf="separatorDir == 3 || separatorDir == 2">
+            <mat-form-field>
+                <mat-label>{{'FIXTURE_SEPARATORS_VERTICAL_SPACE' | translate}}</mat-label>
+                <input matInput [ngClass]="{active:(fixedUprightX > 0)}" class="k-input only-number ng-pristine ng-valid ng-empty ng-touched"
+                    [disabled]="isReadonly &amp;&amp; (type!='variable')" allowDecimalNumbers (keyup)="onKeyUp($event)"  [(ngModel)]='newValX'>
+            </mat-form-field>
+            <button mat-icon-button [disabled]="isReadonly &amp;&amp; (type!='variable' || !newValX)"
+                (click)="variableAddX(newValX);">
+                <mat-icon class="material-icons iconSpace" matTooltip="{{'SHF_ADD' | translate}}">add</mat-icon>
+            </button>
+        </div>
+        <div class="input-field col-sm-6" *ngIf="separatorDir == 3 || separatorDir == 1">
+            <mat-form-field>
+                <mat-label>{{'FIXTURE_SEPARATORS_HORIZONTAL_SPACING' | translate}}</mat-label>
+                <input matInput [ngClass]="{active:(fixedUprightX > 0)}" class="k-input only-number ng-pristine ng-valid ng-empty ng-touched"
+                    [disabled]="isReadonly &amp;&amp; (type!='variable')"
+                    placeholder="{{'FIXTURE_SEPARATORS_HORIZONTAL_SPACING' | translate }}" allowDecimalNumbers (keyup)="onKeyUp($event)" [(ngModel)]='newValY'>
+            </mat-form-field>
+            <button mat-icon-button [disabled]="isReadonly &amp;&amp; (type!='variable' || !newValY)"
+                (click)="variableAddY(newValY);">
+                <mat-icon class="material-icons iconSpace" matTooltip="{{'SHF_ADD' | translate}}">add</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="row" *ngIf="type=='variable'">
+        <div class="col-sm-6 variable-upright-div" *ngIf="(separatorDir == 3 || separatorDir == 2)">
+            <div class="multiple-value-holder">
+                <div *ngFor="let a of uprightsPositionsArrX; let index = index" (click)="selectItX(index)"
+                    [ngClass]='{"selected":(a == selectedRowX)}'>
+                    {{a}}
+                    <button *ngIf="(a == selectedRowX)" mat-icon-button
+                         (click)="variableRemoveX();">
+                        <mat-icon class="material-icons iconSpace red-text" matTooltip="{{'DELETE' | translate}}">close
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 variable-upright-div" *ngIf="(separatorDir == 3 || separatorDir == 1)">
+            <div class="multiple-value-holder">
+                <div *ngFor="let a of uprightsPositionsArrY; let index = index" (click)="selectItY(index)"
+                    [ngClass]='{"selected":(a == selectedRowY)}'>
+                    {{a}}
+                    <button *ngIf="(a == selectedRowY)" mat-icon-button
+                        (click)="variableRemoveY();">
+                        <mat-icon class="material-icons iconSpace red-text" matTooltip="{{'DELETE' | translate}}">close
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

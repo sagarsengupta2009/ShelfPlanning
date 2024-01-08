@@ -1,0 +1,153 @@
+
+.create-planogram-body {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #e0e0e0;
+      height: 100%;
+      overflow: auto;
+      .collection .collection-item {
+        background-color: #fff;
+        line-height: 1.5rem;
+        padding: 10px 20px;
+        margin: 0 15px;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 12px;
+        cursor: pointer;
+        .active-indicator {
+          width: 5px;
+          background-color: #e6e6e6;
+          opacity: 0;
+          border: 0;
+          height: 108px;
+          position: absolute;
+        }
+
+        &.selected-item {
+          background-color: #e0e0e0;
+          position: relative;
+
+          .active-indicator {
+            opacity: 1;
+          }
+        }
+      }
+
+      .list-view {
+        list-style: none;
+
+        .s8 {
+          width: 60%;
+          display: inline-block;
+          box-shadow: 1px 4px 10px #ccc;
+        }
+
+        .s3 {
+          width: 38%;
+          display: inline-block;
+          vertical-align: top;
+          margin-left: 2%;
+        }
+      }
+    }
+
+  .mdi-action-lock:before {
+    content: "\e641"; }
+  
+  .mdi-action-lock-open:before {
+    content: "\e642"; }
+  
+  .mdi-action-lock-outline:before {
+    content: "\e643"; }
+
+    .lock{
+        
+            margin-left: 90%;
+            margin-top: -20%
+    }
+
+
+
+    .icon-container {
+        margin-left: 90%;
+      }
+    .lock_after{
+        margin-top: -154px;
+        margin-right: -50px;
+}
+
+li:hover .action-grp {
+    display: block !important;
+}
+
+
+.datecomponent {
+  width: 28px;
+  display: inline-block;
+  ::ng-deep.k-datepicker .k-widget.k-dateinput {
+    display: none;
+  }
+
+  ::ng-deep.k-datepicker .k-picker-wrap {
+    border: none;
+  }
+
+  ::ng-deep.k-datepicker .k-select {
+    background: none;
+  }
+  ::ng-deep .k-datepicker .k-tooltip{
+    background-color: rgb(49, 48, 48);
+    color: #fff;
+  }
+
+  
+}
+
+.spSearch {
+  float:left;
+  line-height: 3;
+  border-radius: 23px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+  margin-top:2px;
+ 
+}
+
+.iconStyle{
+  color: #9E9E9E;
+  margin-bottom: -25px;
+}
+
+.EditDeleteiconstyle{
+  margin-bottom: -78px
+}
+.selector-body{
+  height: 100%;
+  overflow: hidden;
+}
+
+.modal-header-custom 
+{  
+  float: left;
+  width: calc(100% - 500px);
+  
+}
+
+.modal-header-block
+{
+  display:table;
+  width: calc(100% + 48px);
+}
+
+.modal-header-right
+{
+  width:  500px;
+}
+
+.mat-dialog-title {
+  margin: 0 0 10px !important;
+}
+
+.custom-mat-icons
+{
+ margin-top: 5px;
+ text-align: right;
+}

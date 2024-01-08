@@ -1,0 +1,6 @@
+{
+  "ApiUrl": "https://fnallocateapiabsresetuat.azurewebsites.net",
+  "ApiCode": "nhYBj9j8wklPqqEC0VfQ9RvN6W6nHqzj41w6TmvqaeY5TAaf1LnmYg==",
+  "ApplicationUrl": "https://localhost:44300/",
+  "StorageBlobUrl": "https://stpaabsresetuat.blob.core.windows.net"
+}

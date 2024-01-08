@@ -1,0 +1,18 @@
+<h4 class="custom-modal-header"  mat-dialog-title>{{popUpTitle}}</h4>
+<mat-icon class="dialogCloseIcon" (click)="closeDialog()">close</mat-icon>
+<div mat-dialog-content class="dialogContent">
+  <div class="listCntnr">
+    <ul style="margin-bottom:0px;">
+      <li class="collection" *ngFor="let info of moreInfoList">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <span>{{info.name}}</span>
+          <span>{{info.value}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="previewCntnr" fxLayout="row" fxLayoutAlign="center center">
+    <div *ngIf="image" class="imageCntnr" [innerHTML]="dynamicContent | safe"></div>
+    <img class="imageCntnr" *ngIf="!image" [src]="noImagePath" />
+  </div>
+</div>

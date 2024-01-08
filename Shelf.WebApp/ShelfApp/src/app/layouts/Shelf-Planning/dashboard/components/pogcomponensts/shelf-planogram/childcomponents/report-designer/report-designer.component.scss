@@ -1,0 +1,182 @@
+.reportTemplatebody {
+  background-color: white;
+
+  .headerClass {
+    height: 35px;
+  }
+
+  position: absolute;
+  height: calc(100% - 102px);
+  width: 95.3%;
+  top: 56px;
+}
+
+.formfield {
+  margin-top: 2%;
+}
+
+.heading {
+  margin-top: -2;
+  height: 9%;
+  margin-bottom: 0%;
+}
+
+.matformfield {
+  width: 50%;
+}
+
+.iFrame-Designer-Holder {
+  height: 100%;
+  width: 100%;
+  /*position: absolute;
+    z-index: 0;*/
+}
+
+.active-indicator {
+  width: 5px;
+  background-color: #e6e6e6;
+  opacity: 0;
+  border: 0;
+  height: 108px;
+  position: absolute;
+}
+
+.header {
+  /*padding-top: 0%;
+    margin-top: -3px;
+    display: inline-block;
+     padding-left: 10px;
+    font-weight: 400;
+    font-size: 17px;*/
+  /*line-height: 50px;*/
+  /*margin-left: 2%;*/
+  color: gray;
+}
+
+.icon_rp {
+  color: #b2b2b2;
+  padding-left: 2%;
+  padding-bottom: 26px;
+}
+
+.holds-the-iframe {
+   background: url(../../../../../../../../../assets/images/spinner_newlogo.gif) center center no-repeat;
+   background-size: 100px 100px;
+}
+
+.input-component-line {
+  width: 100%;
+  border-top: 1px solid gray;
+  padding: 10px;
+}
+
+.create {
+  margin-left: 49.5%;
+}
+
+.pivotgrid {
+  display: inline-block;
+  vertical-align: top;
+  width: 70%;
+}
+
+.configurator {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.report-job-queue-main .job-queue-grid thead th:nth-of-type(2) a.k-grid-filter {
+  top: 14px;
+}
+
+.report-job-queue-main .job-queue-grid thead th:nth-of-type(2) a.k-link {
+  width: 2.3em;
+  margin-left: -11px;
+  position: relative;
+}
+
+#openReport,
+.deleteRC {
+  color: #2bbbad !important;
+}
+
+@media screen and (max-width: 1023px) {
+
+  .pivotgrid,
+  .configurator {
+    display: none;
+  }
+}
+
+.traversal_links {
+  position: relative;
+  float: right;
+  bottom: -203px;
+  margin-right: 22px;
+}
+
+.pivot_reports {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+// .singleRefresh {
+//   -webkit-animation: rotation 2s infinite linear;
+// }
+
+// @-webkit-keyframes rotation {
+//   from {
+//     -webkit-transform: rotate(0deg);
+//   }
+//   to {
+//     -webkit-transform: rotate(359deg);
+//   }
+// }
+
+.Report-Drop-Down .dropdown-content {
+  height: 350px;
+}
+
+.merchReportDetails label:before {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.merchReportDetails [type='radio'] + label:after {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.ReportDataSource-Drop-Down .dropdown-content {
+  height: 350px;
+}
+
+.analysisMenu {
+  width: 100%;
+  float: right;
+  position: absolute;
+}
+
+.analysisMenuIcons a {
+  width: 46px;
+  height: 46px;
+  text-align: center;
+  line-height: 46px;
+  display: inline-block;
+}
+
+.dialogCloseIcon {
+  float: right;
+  /*cursor: pointer;*/
+  margin-top: -40px;
+  color: white;
+
+  mat-icon {
+    cursor: pointer;
+    margin: 0 5px;
+    margin-bottom: 4px;
+    color: white;
+  }
+}

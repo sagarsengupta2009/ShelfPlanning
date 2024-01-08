@@ -1,0 +1,211 @@
+
+$plibHeight: 45px;
+//$rightMenuWidth: 12vw;
+
+.sapp-panel-header {
+  .rightMenu {
+    height: $plibHeight;
+  //  padding-right: 0px !important;
+    // margin-left: -30px;
+    // margin-right: -33px;
+    // width: 26%;
+    // width: $rightMenuWidth;
+    // button {
+    //   margin: 0px -4px; //0 5px;
+    //   float: right;
+    // }
+
+    // .material-icons {
+    //   /*color: grey;*/
+    // }
+
+    .iconSpace {
+      margin-right: 5px !important;
+    }
+  }
+
+  .headerContentAlign {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1.5em;
+}
+
+  .is-dirty {
+    color: #f44336;
+    font-weight: 700;
+  }
+
+  .nowarp {
+    flex-wrap: nowrap;
+  }
+
+  .leftMenu {
+    width: auto;
+    height: 48px;
+    float: left;
+
+    .noStyle {
+      border-radius: 46px;
+      width: 44px;
+      height: 45px;
+      line-height: 46px;
+      display: inline-block;
+      text-align: center;
+      font-size: 22px;
+      color: #b2b2b2;
+      float: left;
+      background: #fff;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .col-sm-9 {
+      padding-right: 0px;
+      padding-left: 0px;
+      margin-left: 0px;
+    }
+  }
+
+  #plib {
+    // width: calc(100% - #{$rightMenuWidth});
+    .plibTabs {
+      .mat-tab-label {
+        min-height: $plibHeight;
+        font-weight: 400;
+        // color: var(--font-color);
+        color: var(--foreground-quaternary);
+        opacity: 1 !important;
+        text-transform: uppercase;
+        height: 45px !important;
+        padding: 0 30px !important;
+        min-width: 120px !important;
+      }
+
+      .mat-tab-label-content {
+        font-size: 12px !important;
+        font-weight: 500 !important;
+      }
+
+      .mat-tab-label-active {
+        background-color: white !important;
+        border-bottom: 3px solid var(--foreground-primary) !important;
+      }
+    }
+
+    .circle {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 2;
+      border-radius: 50%;
+      color: var(--foreground-quaternary);
+      font-size: 14px;
+    }
+
+    .pogID {
+      text-align: left;
+      display: block;
+      color: #000;
+      padding-top: 6%;
+      font-size: 0.75em;
+      font-weight: normal;
+
+      .new {
+        font-size: 0.75em;
+        font-weight: normal;
+        color: #252525;
+        position: absolute;
+        top: 3px;
+        margin-left: 5px;
+      }
+
+      .font-small {
+        font-size: 15px;
+      }
+    }
+
+    .pogIDBold {
+      font-weight: bold;
+      text-align: left;
+      display: block;
+      color: #000;
+    }
+
+    .green {
+      background: #438F0E;
+    }
+
+    .amber {
+      background: #FFFB0A;
+      color: black;
+    }
+
+    .retired {
+      background: #FF4600;
+    }
+
+    .live {
+      background: #0E1F8F;
+    }
+
+    .failed {
+      background: rgb(243, 6, 6);
+    }
+
+    .sync {
+      background: rgb(59, 135, 223);
+    }
+
+
+
+    .pogName {
+      max-width: 200px;
+      text-overflow: ellipsis;
+      margin: 0;
+      color: #000;
+      margin-bottom: 5px;
+      font-size: 0.85em;
+      font-weight: normal;
+    }
+
+    .ellipsis {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .approved {
+      background-color: green;
+    }
+
+    .rejected {
+      background-color: red;
+    }
+
+    .status {
+      border-radius: 50%;
+      color: #fde8e8;
+      width: 12px;
+      height: 12px;
+      font-size: 12px;
+      vertical-align: unset;
+    }
+
+    .pogID {
+      margin: 0;
+    }
+  }
+
+  .pa-pog-type{
+    font-weight: bold;
+    margin-left: 3px;
+  }
+}
+
+@media (max-width: 800px) {
+  .sapp-panel-header{
+    .headerContentAlign {
+      padding-right: 0px;
+    }
+  }
+}

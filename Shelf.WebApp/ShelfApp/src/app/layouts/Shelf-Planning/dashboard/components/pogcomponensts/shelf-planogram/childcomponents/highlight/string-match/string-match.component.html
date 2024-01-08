@@ -1,0 +1,117 @@
+<div class="stringMatchCntnr">
+  <div style="font-weight:600;" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span>{{modelHL.type | translate}}</span>
+      <span>-</span>
+      <span>{{stringNameFromField}}</span>
+    </div>
+    <div>
+      <button style="cursor:pointer" mat-icon-button [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="display">{{'DISPLAY' | translate}}</button>
+        <button *ngIf="savedSearchOptions.length>1" mat-menu-item [matMenuTriggerFor]="limit">
+          {{'LIMIT' | translate}}
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="sort">{{'SORT' | translate}}</button>
+        <button mat-menu-item (click)="saveAs()">
+          {{'SAVE_AS' | translate}}
+        </button>
+        <button mat-menu-item *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && showAddSysTemp"
+          (click)="emitId('SYSTEM_TEMPLATE')">{{'SYSTEM_TEMPLATE' | translate}}</button>
+        <button mat-menu-item *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && showUpdate"
+          (click)="emitId('UPDATE')">{{'UPDATE' | translate}}</button>
+        <button mat-menu-item *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && showRemove"
+          (click)="emitId('REMOVE')">{{'REMOVE' | translate}}</button>
+        <button mat-menu-item *ngIf="setRulsetAllocateMode">{{'Toggle' | translate}}</button>
+      </mat-menu>
+      <mat-menu #display="matMenu">
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showPercentageLinear" (click)="showPercentageLinear=!showPercentageLinear">
+            {{'LINEAR_PERCENT' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showLinear" (click)="showLinear=!showLinear">
+            {{'LINEAR' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showSpm" (click)="showSpm=!showSpm">
+            {{'SPM' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showCapacityPercentage" (click)="showCapacityPercentage=!showCapacityPercentage">
+            {{'CAPACITY_PERCENT' | translate}}
+          </mat-checkbox>
+        </div>
+        <div style="padding:5px;">
+          <mat-checkbox [(ngModel)]="showCapacity" (click)="showCapacity=!showCapacity">
+            {{'CAPACITY' | translate}}
+          </mat-checkbox>
+        </div>
+      </mat-menu>
+      <mat-menu #sort="matMenu">
+        <button mat-menu-item (click)="sortByName()">{{'NAME' | translate}}</button>
+        <button mat-menu-item (click)="sortByPercentageLinear()">{{'LINEAR_PERCENT' | translate}}</button>
+      </mat-menu>
+      <mat-menu #limit="matMenu">
+        <mat-radio-group style="display: flex;flex-direction: column;" [(ngModel)]="advFind">
+          <mat-radio-button style="padding:5px;" class="example-radio-button"
+            *ngFor="let savedTemplate of savedSearchOptions;let i = index" (click)="doAdvFind(savedTemplate)" [value]="i">
+            {{savedTemplate.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-menu>
+    </div>
+  </div>
+  <div *ngIf="templateName!=='None'" style="font-weight:600;" fxLayout="row" fxLayoutAlign="space-between center">{{templateName}}</div>
+  <div>
+    <i *ngIf="savedSearchOptions[advFind]?.search" style="font-size:12px;">{{savedSearchOptions[advFind].name}}</i>
+  </div>
+  <div id="cartListID" [ngClass]="sharedService.link !== 'allocate' ? 'cart-list-shelf-view' : 'cart-list-allocate-view'">
+    <ul *ngIf="inputRangeModel" class="list-view" id="create-planogram-ID">
+      <li *ngFor="let item of inputRangeModel.rangeModel;index as i" class="card-prod">
+        <div *ngIf="showPercentageLinear" class="matprogressbarCntnr">
+          <mat-progress-bar mode="determinate" value="{{getPercentageLinear(item)}}"></mat-progress-bar>
+        </div>
+        <div class="card-img colorPicker">
+          <kendo-colorpicker [format]="'hex'" (valueChange)="colorChange($event,i)"
+            [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings" [value]="item.color">
+          </kendo-colorpicker>
+        </div>
+        <div class="card-data" fxLayout="column" fxLayoutAlign="space-between start">
+          <span class="col s12 adjust-width">
+            {{item.value}}
+          </span>
+          <span>
+            <mat-form-field>
+              <input matInput autocomplete="off" type="text" [(ngModel)]="item.label" (keyup)="onInputField($event)"
+                (blur)="isNumeric(item.label, i)">
+            </mat-form-field>
+          </span>
+        </div>
+        <div style="margin-top:10px;">
+          <span class="additionalFields" *ngIf="showPercentageLinear">
+            <span>{{'LINEAR_PERCENT' | translate}} : </span> <span>{{getPercentageLinear(item)}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showLinear" style="margin-left: 10px;">
+            <span>{{'LINEAR' | translate}} : </span> <span>{{getLinear(item)}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showSpm" style="margin-left: 10px;">
+            <span>SPM : </span><span>{{isNaNCheck(SPM[item.value], item.value)}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showCapacityPercentage" style="margin-left: 10px;">
+            <span>{{'CAPACITY_PERCENT' | translate}} : </span> <span>{{getPercentageCapacity(item)}}</span>
+          </span>
+          <span class="additionalFields" *ngIf="showCapacity" style="margin-left: 10px;">
+            <span>{{'CAPACITY' | translate}} : </span><span>{{getCapacity(item)}}</span>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

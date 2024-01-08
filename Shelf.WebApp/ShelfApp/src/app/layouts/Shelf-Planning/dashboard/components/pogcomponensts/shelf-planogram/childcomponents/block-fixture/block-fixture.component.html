@@ -1,0 +1,25 @@
+<!-- <div class="appTooltip">
+<div [ngStyle]='styleBlockFixture(itemData)' appTooltip="{{templateData(itemData)}}" class='shelf_{{itemData.ObjectDerivedType}}'>
+    <div #dataContainer>BlockFixture</div>
+</div>
+</div> -->
+
+<div kendoTooltip filter="svg" [tooltipTemplate]="sharedService.turnoff_tooltip ? template : ''" position="left" class="tooltipHolder" [showAfter]="sharedService.tooltipDelayTime">
+    <div [ngStyle]='styleBlock' class='shelf_{{data.ObjectDerivedType}}'>
+        <div #dataContainer>BlockFixture</div>
+    </div>
+    <ng-template #template let-anchor>
+      <div style="float:left;padding:15px;margin-top: 35px;">
+        <img src="{{checkplanogram(anchor)}}" style="max-height:90px;vertical-align:middle" />
+      </div>
+      <div style="float:right;font-size: 11px;line-height: 20px;margin: 5px;word-break: break-word;">
+        <table>
+          <tr *ngFor="let tooltip of ToolTipData">
+            <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+            <td class="tooltip-text-colon">:</td>
+            <td>{{tooltip.value}}</td>
+          </tr>
+      </table>
+      </div>
+    </ng-template>
+  </div>

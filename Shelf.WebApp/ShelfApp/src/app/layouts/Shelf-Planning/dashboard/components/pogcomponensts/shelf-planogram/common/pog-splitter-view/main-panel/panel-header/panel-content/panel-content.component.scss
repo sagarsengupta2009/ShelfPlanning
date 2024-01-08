@@ -1,0 +1,70 @@
+.svgclass {
+    text-align: center;
+    /* margin-top: 5%; */
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+  }
+
+  // .svg{
+  //   width: 80%;
+  // }
+
+  .thumbnail-holder {
+   bottom: 0;
+    left: 0;
+    right: 0;
+
+
+    .tooltipHolder {
+      width: 100%;
+      height: 100%;
+
+      .svg {
+        width: 100%;
+        height: 100%;
+
+        .noPogImage {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+
+          p {
+            flex: 0 0 120px;
+          }
+        }
+      }
+    }
+  }
+
+  
+  .noCart {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    top: 40px;
+  }
+
+  .fullCart {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 42px;
+  }
+
+  .sbsCart{
+    position: relative;
+    width: 90%;
+    height: 90%;
+    top: 30px;;
+  }
+
+  .ouCart {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 30px;;
+  }
+  

@@ -1,0 +1,13 @@
+<div disableRightClick>
+  <h4 cdkDrag cdkDragRootElement=".cdk-overlay-pane" class="custom-modal-header" class="custom-modal-header" mat-dialog-title>{{'SHORTCUT_KEYS_INFO' | translate }}</h4>
+  <div class="dialogCloseIcon">
+    <mat-icon mat-dialog-close>close</mat-icon>
+  </div>
+
+  <div mat-dialog-content [style.height]="'calc(100vh - 15em)'" class="scroll-class" (mousedown)="$event.stopPropagation();">
+    <ng-container *ngIf="gridConfigGrid && gridConfigGrid.id != ''">
+      <shelf-ag-grid  #helpGrid style="margin-top:20px;width:60%;" [gridConfig]="gridConfigGrid">
+      </shelf-ag-grid>
+    </ng-container>
+  </div>
+</div>

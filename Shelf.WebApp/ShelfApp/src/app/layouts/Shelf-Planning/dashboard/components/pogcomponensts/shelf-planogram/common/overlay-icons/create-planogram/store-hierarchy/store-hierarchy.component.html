@@ -1,0 +1,43 @@
+<kendo-splitter orientation="horizontal">
+    <kendo-splitter-pane size="25%" min="15%" max="50%">
+        <div class="planogramStoreHierarchyTree">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="poGStoreHierarchyHearder">
+                <div class="col">{{'STORE_HIER' | translate}}</div>
+                <div class="col right inner-addon right-addon" >
+                    <span (click)="storeIconSearch(text)" id="storeSearchBtn" class="material-icons glyphicon">
+                        search
+                    </span>
+                    <input id="pogHeirarchySearch" class="search form-control" [(ngModel)]="text"
+                        (keyup)="onkeyup(text)" (keyup.enter)="storeIconSearch(text)" placeholder="{{'SEARCH' | translate}}" />
+                </div>
+            </div>
+     
+            <div class="content-tree">
+                <kendo-treeview [nodes]="parsedData" textField="Name" kendoTreeViewExpandable kendoTreeViewSelectable
+                    [expandBy]="'IdHierStr'" kendoTreeViewHierarchyBinding [hasChildren]="hasChildren"
+                    [children]="fetchChildren" (selectionChange)="onNodeSelect($event)" (expand)="handleExpand($event)"
+                    (collapse)="handleCollapse($event)" [(expandedKeys)]="expandedKeys">
+                </kendo-treeview>
+            </div>
+        </div>
+    </kendo-splitter-pane>
+    <kendo-splitter-pane>
+        <div class="content-table">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="gridHeader">
+                <div class="stores">
+                    <span [ngStyle]="{'visibility': selectedStore.length > 0 ? 'visible' : 'hidden'}">{{selectedStore.length}}</span> {{'STORES' | translate}} 
+                    <span [ngStyle]="{'visibility': selectedStore.length > 0 ? 'visible' : 'hidden'}">  {{'SELECTED' | translate}}  </span>
+                </div>
+                <div>
+                    <button mat-icon-button *ngIf="selectedStore && selectedStore.length" (click)="resetSelectedData()">
+                        <mat-icon matTooltip="{{'POG_LIB_CLEARALL'|translate}}">clear_all</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <ng-container *ngIf="gridConfig && gridConfig.id !== ''">
+                <shelf-ag-grid #grid [gridConfig]="gridConfig" (selectedRow)="invokeSelectedRow()">
+                </shelf-ag-grid>
+            </ng-container>
+        </div>
+    </kendo-splitter-pane>
+</kendo-splitter>

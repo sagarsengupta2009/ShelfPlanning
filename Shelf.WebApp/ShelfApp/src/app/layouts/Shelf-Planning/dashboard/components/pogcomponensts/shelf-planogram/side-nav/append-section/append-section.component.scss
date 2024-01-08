@@ -1,0 +1,24 @@
+.dialogCloseIcon {
+    float: right;
+    /*cursor: pointer;*/
+    margin-top: -35px;
+
+    mat-icon {
+        margin: 0 5px;
+        cursor: pointer;
+        color: white;
+    }
+}
+
+.appendDialog {
+    overflow: hidden;
+}
+
+.appendNameDialog {
+    overflow: hidden;
+}
+
+.appendDropdDown {
+    margin-right: 10px;
+    width: 50%;
+}

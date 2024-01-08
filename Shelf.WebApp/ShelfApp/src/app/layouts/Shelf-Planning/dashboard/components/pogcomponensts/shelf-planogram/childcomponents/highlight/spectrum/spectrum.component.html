@@ -1,0 +1,150 @@
+<!--<sp-legend-card [showLegend]="legendSelected"></sp-legend-card>-->
+<div class="spectrumCntnr">
+  <div style="font-weight:600;" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <span>{{modelHL.type | translate}}</span>
+      <span>-</span>
+      <span>{{highlightService.getStringNameFromField()}}</span>
+    </div>
+    <div>
+      {{highlightService.buttonSettings.templateName}}
+    </div>
+    <div>
+      <button style="cursor:pointer" mat-icon-button [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <!--<button mat-menu-item [matMenuTriggerFor]="display">{{'DISPLAY' | translate}}</button>-->
+        <!--<button mat-menu-item [matMenuTriggerFor]="sort">{{'SORT' | translate}}</button>-->
+        <button *ngIf="savedSearchOptions.length>1" mat-menu-item [matMenuTriggerFor]="limit">{{'LIMIT' |
+          translate}}</button>
+        <button mat-menu-item
+          (click)="highlightService.buttonSettings.showSaveAs=false; highlightService.buttonSettings.showSave=true;">{{'SAVE_AS'
+          | translate}}</button>
+        <button mat-menu-item
+          *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && highlightService.buttonSettings.showAddSysTemp"
+          (click)="emit('SYSTEM_TEMPLATE')">{{'SYSTEM_TEMPLATE' | translate}}</button>
+        <button mat-menu-item
+          *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && highlightService.buttonSettings.showUpdate"
+          (click)="emit('UPDATE')">{{'UPDATE' | translate}}</button>
+        <button mat-menu-item
+          *ngIf="modelHL.chosenTemplate && !modelHL.chosenTemplate.isSystem && highlightService.buttonSettings.showRemove"
+          (click)="emit('REMOVE')">{{'REMOVE' | translate}}</button>
+        <button mat-menu-item (click)="generateRange()">{{'REFRESH' | translate}}</button>
+        <button mat-menu-item (click)="changeLegends()">
+          <mat-icon *ngIf="legendSelected">keyboard_arrow_right</mat-icon>
+          <span>{{'LEGENDS' | translate}}</span>
+        </button>
+        <button mat-menu-item *ngIf="highlightService.setRulsetAllocateMode()"
+          (click)="emit('TOGGLE_TEMPLATE')">{{'Toggle' | translate}}</button>
+      </mat-menu>
+      <mat-menu #limit="matMenu">
+        <mat-radio-group style="display: flex;flex-direction: column;" [(ngModel)]="advFind">
+          <mat-radio-button style="padding:5px;" class="example-radio-button"
+            *ngFor="let findTemplate of savedSearchOptions;index as i" (click)="DoAdvFind(i)" [value]="i">
+            {{findTemplate.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-menu>
+    </div>
+  </div>
+  <div>
+    <i *ngIf="savedSearchOptions[advFind]?.search" style="font-size:12px;">{{savedSearchOptions[advFind].name}}</i>
+  </div>
+  <div style="margin-top:8px" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <mat-checkbox [(ngModel)]="HL_HIGHLOWPOINT" (ngModelChange)="toggleModelSp(HL_HIGHLOWPOINT)">{{'HL_HIGHLOWPOINT' |
+        translate}}</mat-checkbox>
+    </div>
+    <div>
+      <span>
+        {{'MIN' | translate}}: {{getMinValue(modelHL.field)}}
+      </span>
+      <span style="margin-left:10px">
+        {{'MAX' | translate}}: {{getMaxValue(modelHL.field)}}
+      </span>
+    </div>
+  </div>
+
+  <div id="cartListID" [ngClass]="sharedService.link !== 'allocate' ? 'cart-list-shelf-view' : 'cart-list-allocate-view'">
+    <ul class="list-view" id="create-planogram-ID">
+      <!--start-->
+      <li class="card-prod">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div style="margin-bottom: 5px;margin-right:10px;" class="colorPicker">
+            <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+              [paletteSettings]="paletteSettings" [value]="modelSP_startcolor"
+              (valueChange)="colorChange($event,'start')">
+            </kendo-colorpicker>
+            <span class="colorPicherLabl">{{'HL_LOW' | translate}}</span>
+          </div>
+          <div style="width:43%;margin-right:10px;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [(ngModel)]="modelSP_startLabel"
+                (keyup)="onInputField($event)" (blur)="isNumeric(modelSP_startLabel,'start')">
+            </mat-form-field>
+          </div>
+          <div style="width:43%;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [disabled]="modelSP_specify!='highlow'"
+                [(ngModel)]="modelSP_startval" (ngModelChange)="modelSP_startvalFn()" (keyup)="onInputField($event)"
+                limitToTwoDecimalDigit>
+            </mat-form-field>
+          </div>
+        </div>
+      </li>
+
+      <!--middle-->
+      <li class="card-prod">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div style="margin-bottom: 5px;margin-right:10px;" class="colorPicker">
+            <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+              [paletteSettings]="paletteSettings" [value]="modelSP_middlecolor"
+              (valueChange)="colorChange($event,'middle')">
+            </kendo-colorpicker>
+            <span class="colorPicherLabl">{{'HL_MID' | translate}}</span>
+          </div>
+          <div style="width:43%;margin-right:10px;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [(ngModel)]="modelSP_middleLabel"
+                (keyup)="onInputField($event)" (blur)="isNumeric(modelSP_middleLabel,'middle')">
+            </mat-form-field>
+          </div>
+          <div style="width:43%;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [disabled]="modelSP_specify!='midpoint'"
+                [(ngModel)]="modelSP_middleval" (ngModelChange)="modelSP_middlevalFn()" (keyup)="onInputField($event)"
+                limitToTwoDecimalDigit>
+            </mat-form-field>
+          </div>
+        </div>
+      </li>
+
+      <!--end-->
+      <li class="card-prod">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div style="margin-bottom: 5px;margin-right:10px;" class="colorPicker">
+            <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings"
+              [paletteSettings]="paletteSettings" [value]="modelSP_endcolor" (valueChange)="colorChange($event,'end')">
+            </kendo-colorpicker>
+            <span class="colorPicherLabl">{{'HL_HIGH' | translate}}</span>
+          </div>
+          <div style="width:43%;margin-right:10px;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [(ngModel)]="modelSP_endLabel"
+                (keyup)="onInputField($event)" (blur)="isNumeric(modelSP_endLabel,'end')">
+            </mat-form-field>
+          </div>
+          <div style="width:43%;">
+            <mat-form-field style="width:100%;">
+              <input matInput autocomplete="off" type="text" [disabled]="modelSP_specify!='highlow'"
+                [(ngModel)]="modelSP_endval" (ngModelChange)="modelSP_endvalFn()" (keyup)="onInputField($event)"
+                limitToTwoDecimalDigit>
+            </mat-form-field>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

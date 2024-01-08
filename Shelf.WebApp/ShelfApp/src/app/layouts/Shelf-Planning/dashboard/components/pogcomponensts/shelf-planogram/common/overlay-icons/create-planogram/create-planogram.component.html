@@ -1,0 +1,140 @@
+<div class="modal-header-block custom-modal-header">
+  <div class="modal-header-custom">
+    <h4 cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-dialog-title class="header"
+      *ngIf="!data.fromMenu">{{'CREATE_NEW_PLANOGRAM' | translate | titlecase}}</h4>
+    <h4 cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle mat-dialog-title class="header"
+      *ngIf="data.fromMenu">{{'PLANOGRAM_TEMPLATE' | translate | titlecase}}</h4>
+  </div>
+  <div class="pull-right modal-header-right">
+    <sp-search [isChildSearch]="true" class="spSearch" (emitChildSearchText)="ChildSearchItems($event)" #searchDetail>
+    </sp-search>
+    <div class="custom-mat-icons">
+      <div class="datecomponent"
+        *ngIf="selectedStoreView && selectedStore && selectedStore.copyOfSelectedStore.length > 0">
+        <kendo-datepicker style="width:28px;height:28px;" [(ngModel)]="changeDate" [value]="changeDate"
+          matTooltip="{{'TOGGLE_CALENDAR'| translate}}" (valueChange)="onDateChange()" [disabledDates]="disabledDates">
+          <kendo-timepicker-messages toggle=""></kendo-timepicker-messages>
+        </kendo-datepicker>
+      </div>
+      <mat-icon *ngIf="selectedStoreView && selectedStore && selectedStore.copyOfSelectedStore.length > 0"
+        (click)="deleteSelectedRows()" matTooltip="{{'DELETE' | translate}}">delete</mat-icon>
+      <mat-icon *ngIf="selectedStoreView" matTooltip="{{'EXPORT_EXCEL'| translate}}" (click)="exportToExcel()">
+        file_download
+      </mat-icon>
+      <mat-icon *ngIf="!hierarchyView && storeHierarchyView && !selectedStoreView"
+        matTooltip="{{'EXPORT_EXCEL'| translate}}" (click)="exportToExcelStore()">
+        file_download
+      </mat-icon>
+      <mat-icon (click)="closeDialogheader()">close</mat-icon>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-content class="mat-typography">
+  <div *ngIf="!hierarchyView && !storeHierarchyView" class="create-planogram-body">
+    <div id="resultStatusBar" *ngIf="!isDataAvailable()">
+      <i>{{'FIXTURE_LIBRARY_NO_RESULTS_FOUND' | translate}}</i>
+    </div>
+    <ul class="list-view collection" id="create-planogram-ID" *ngIf="displayMode == 1">
+      <li *ngFor="let itemData of pogTemplatesList"
+        [ngClass]="{'selected-item': selectedTemplate?.IDPOG === itemData.IDPOG }" class="collection-item"
+        id="{{itemData.IDPOG}}" (click)="clickedItemSelection(itemData);">
+        <div class='active-indicator'> </div>
+        <div class="row">
+          <div class="col s8">
+            <span class="small-avatar-image z-depth-1" style="display:block;height:100%;width:100%;text-align:center;">
+              <img style="height: 100px;width: 100%;" src="{{itemData.Image}}" />
+            </span>
+          </div>
+          <div class="col s3">
+            <div style="margin-top:28px;">
+              {{itemData.Name}}
+            </div>
+            <div>
+              {{itemData.Height}} x {{itemData.Length}} x {{itemData.Depth}}
+            </div>
+          </div>
+
+          <div *ngIf="data.fromMenu && (isSystemTemplate(itemData))" class="iconStyle">
+
+            <button mat-icon-button class="icon-container" (click)="editPogTemplate(itemData)">
+              <mat-icon matTooltip="{{'EDIT' | translate}}" class="material-icons"
+                style="margin-top: -161px;margin-left: 30px;">
+                edit
+              </mat-icon>
+            </button>
+            <button mat-icon-button (click)="deletePogTemplate(itemData.IDPOG)">
+              <mat-icon matTooltip="{{'DELETE' | translate}}" class="material-icons lock_after"
+                style="margin-right: -25px;">
+                delete
+              </mat-icon>
+            </button>
+          </div>
+
+
+          <div *ngIf="data.fromMenu && !(isSystemTemplate(itemData))" class="iconStyle">
+            <button mat-icon-button class="icon-container">
+              <mat-icon matTooltip="{{'SYSTEM_TEMPLATE' | translate}}" class="material-icons lock_after">
+                lock
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="item-tooltip-big z-depth-1" style="display:none;">
+      <img src="" style="height:100%;margin:auto;display: block;">
+    </div>
+  </div>
+
+  <div class="selector-body" *ngIf="!data.fromMenu"
+    [style.display]="(hierarchyView && !storeHierarchyView)? 'block' : 'none'">
+    <sp-planogram-hierarchy-tree #phierarchy>
+    </sp-planogram-hierarchy-tree>
+  </div>
+  <div class="selector-body" *ngIf="!data.fromMenu"
+    [style.display]="(!hierarchyView && storeHierarchyView && !selectedStoreView)? 'block' : 'none'">
+    <sp-store-hierarchy #store [stores]="StoreGridData"></sp-store-hierarchy>
+  </div>
+  <div class="selector-body" *ngIf="selectedStoreView && !data.fromMenu">
+    <sp-selected-store #selectedStore [selectedStore]="StoreGridData"></sp-selected-store>
+  </div>
+</div>
+<div mat-dialog-actions align="end" *ngIf="!data.fromMenu">
+  <button mat-raised-button (click)="appendToSection()"
+    *ngIf="!hierarchyView && !storeHierarchyView && showHideAppend()">
+    {{'APPEND' | translate}}
+  </button>
+  <span>
+    <button mat-raised-button style="margin-left: 8px;" *ngIf="!hierarchyView && !storeHierarchyView"
+      (click)="showHierarchyTree()" [disabled]="checkifTemplateSelected()">
+      {{'SYNC_NEXT' | translate}}
+    </button>
+  </span>
+
+  <!-- planogram hierarchy View -->
+
+  <button (click)="showTemplateView()" mat-raised-button *ngIf="hierarchyView && !storeHierarchyView">
+    {{'SYNC_BACK'| translate}}
+  </button>
+  <button mat-raised-button (click)="showStoreHierarchyTree()" *ngIf="hierarchyView && !storeHierarchyView">
+    {{'SYNC_NEXT'| translate}}
+  </button>
+
+  <!-- store hierarchy View -->
+  <button (click)="showHierarchyTree()" mat-raised-button
+    *ngIf="!hierarchyView && storeHierarchyView && !selectedStoreView">
+    {{'SYNC_BACK' | translate}}
+  </button>
+  <button (click)="showSelectedStore()" mat-raised-button
+    *ngIf="!hierarchyView && storeHierarchyView && !selectedStoreView">
+    {{'SYNC_NEXT' | translate}}
+  </button>
+
+  <!-- store hierarchy View -->
+
+  <button (click)="storeView()" mat-raised-button *ngIf="selectedStoreView">{{'SYNC_BACK' | translate }}</button>
+  <button mat-raised-button (click)="getSectionTemplate()" *ngIf="selectedStoreView">
+    {{'CREATE_NEW_PLANOGRAM_BUTTON' | translate }}
+  </button>
+</div>

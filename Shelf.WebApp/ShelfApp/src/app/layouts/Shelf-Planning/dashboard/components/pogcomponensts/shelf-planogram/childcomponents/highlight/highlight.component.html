@@ -1,0 +1,130 @@
+<div>
+  <div class="iconsCntnr" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <mat-slide-toggle [(ngModel)]="highlightService.modelHL.tool" (ngModelChange)="toggleChange(true)"
+        #highlightOnOffToggle>
+        {{highlightService.modelHL.toggleName}}</mat-slide-toggle>
+    </div>
+    <div>
+      <button mat-icon-button>
+        <mat-icon class="material-icons iconSpace" matTooltip="{{'EXPAND_COLLAPSE'|translate}}"
+          [matMenuTriggerFor]="Zmenu" style="transform: rotate(90deg)">expand</mat-icon>
+      </button>
+      <mat-menu #Zmenu="matMenu">
+        <div class="zoom-mat-menu">
+          <button mat-icon-button [disabled]="width == 25" (click)="changeSideNavWidth('minimize',$event)">
+            <mat-icon class="minimize">minimize</mat-icon>
+          </button>
+          <button mat-icon-button [disabled]="width == 50" (click)="changeSideNavWidth('maximize',$event)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-raised-button class="resetBtn" (click)="changeSideNavWidth('reset',$event)">
+            {{'RESET' |translate}}
+          </button>
+        </div>
+      </mat-menu>
+      <srp-custom-menus [screenName]="'planogramlib'" class="pull-right" [controlName]="'PohHighlightView'"
+        [type]="'gridMenu'" [myselectionlist]="pogHighlightHeaderMenuShowHide"
+        (menuButtonClick)="menuButtonClick_Highlight($event)">
+      </srp-custom-menus>
+    </div>
+  </div>
+  <div class="iconsCntnr" *ngIf="highlightService.buttonSettings.showSave" fxLayout="row"
+    fxLayoutAlign="space-between center">
+    <div>
+      <mat-form-field class="fieldMargin">
+        <mat-label>{{'ENTER_TEMPLATE_NAME' | translate}}</mat-label>
+        <input matInput autocomplete="off" type="text" (keyup)="onTemplateName($event)"
+          [(ngModel)]="highlightService.buttonSettings.templateName">
+      </mat-form-field>
+    </div>
+    <div>
+      <button *ngIf="highlightService.buttonSettings.showSave && highlightService.buttonSettings.templateName!=''"
+        matTooltip="{{'SAVE_TEMPLATE' | translate}}" mat-icon-button (click)="saveTemplate()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button *ngIf="highlightService.buttonSettings.showSave" matTooltip="{{'CLOSE_EDITOR' | translate}}"
+        mat-icon-button (click)="colseSaveAsEditor()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="!highlightService.modelHL.tool"  [ngClass]="sharedService.link !== 'allocate' ? 'template-list-container-shelf-view' : 'template-list-container-allocate-view'">
+    <div class="search-list-container">
+      <div>
+        <mat-form-field floatLabel="never">
+          <mat-icon matSuffix>search</mat-icon>
+          <input (keyup)="onListSearch($event)" matInput placeholder="{{'SEARCH' | translate}}"
+            [(ngModel)]="filterListText">
+        </mat-form-field>
+      </div>
+      <div class="fav-toggle-container">
+        <mat-slide-toggle [(ngModel)]="highlightService.modelHL.Favorite"
+          (ngModelChange)="toggleFavorite(true)">{{'FAVORITE' | translate}}
+        </mat-slide-toggle>
+      </div>
+    </div>
+    <div cdkDropList class="template-list" (cdkDropListDropped)="drop($event)" *ngIf="!toggleFavoriteTemplate">
+      <div class="template-box" *ngFor="let template of allTemplates | filterPipe:{'col':'name', 'search': filterListText}"
+        cdkDrag cdkDragPreviewContainer="parent">
+        <div (mouseenter)="onMouseEnter(template.GUID)" (mouseleave)="onMouseLeave(template.GUID)">
+          <div class="flex-row">
+            <div>
+              <mat-icon cdkDragHandle style="color: darkgray; cursor: move;">drag_indicator</mat-icon>
+            </div>
+            <div *ngIf="!template.isFavorite">
+              <mat-icon style="cursor: pointer;" class="favorite-margin"
+                (click)="markUnmarkFavoriteTemplate(template.GUID)">favorite_border</mat-icon>
+            </div>
+            <div *ngIf="template.isFavorite">
+              <mat-icon style="color: gray; cursor: pointer;" class="favorite-margin"
+                (click)="markUnmarkFavoriteTemplate(template.GUID)">favorite</mat-icon>
+            </div>
+            <div style="cursor: pointer;" (click)="reDirectToTemplate(template)">{{template.name}}</div>
+            <div id="{{template.GUID}}" [ngClass]="template.isDefault == true ? 'defaultHighLight' : 'non-defaultHighLight'" (click)="setAsDefault(template.GUID)">{{ template.isDefault ? 'Default' : '' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="template-list" *ngIf="toggleFavoriteTemplate">
+      <div class="template-box"
+        *ngFor="let template of favoriteTemplatesList | filterPipe:{'col':'name', 'search': filterListText}">
+        <div (mouseenter)="onMouseEnter(template.GUID)" (mouseleave)="onMouseLeave(template.GUID)">
+          <div class="flex-row">
+            <div>
+              <mat-icon style="color: lightgray;">drag_indicator</mat-icon>
+            </div>
+            <div *ngIf="!template.isFavorite">
+              <mat-icon style="cursor: pointer;" class="favorite-margin"
+                (click)="markUnmarkFavoriteTemplate(template.GUID)">favorite_border</mat-icon>
+            </div>
+            <div *ngIf="template.isFavorite">
+              <mat-icon style="color: gray; cursor: pointer;" class="favorite-margin"
+                (click)="markUnmarkFavoriteTemplate(template.GUID)">favorite</mat-icon>
+            </div>
+            <div style="cursor: pointer;" (click)="reDirectToTemplate(template)">{{template.name}}</div>
+            <div id="{{template.GUID}}" [ngClass]="template.isDefault == true ? 'defaultHighLight' : 'non-defaultHighLight'" (click)="setAsDefault(template.GUID)">{{ template.isDefault ? 'Default' : '' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="highlightService.modelHL.tool">
+    <sp-string-match #stringMatch
+      *ngIf="highlightService.modelHL?.type==STRING_MATCH && highlightService.modelHL?.field!='?'"
+      [modelHL]="highlightService.modelHL" [updateRangeModel]='updateRangeModel'(changedList)="changedList()"
+      (emitSelection)="selection($event)"></sp-string-match>
+    <sp-numeric-range #numericmatch
+      *ngIf="highlightService.modelHL?.type==NUMERIC_RANGE && highlightService.modelHL?.field!='?'"
+      [modelHL]="highlightService.modelHL" [updateRangeModel]='updateRangeModel' (changeFieldCount)="FieldCountchange($event)"
+      (emitSelection)="selection($event)"></sp-numeric-range>
+    <sp-spectrum #spectrum *ngIf="highlightService.modelHL?.type==COLOR_SCALE && highlightService.modelHL?.field!='?'"
+      [modelHL]="highlightService.modelHL" [updateRangeModel]='updateRangeModel' (emitSelection)="selection($event)"></sp-spectrum>
+    <sp-range-model #rangeModel
+      *ngIf="highlightService.modelHL?.type==TOP_BOTTOM_ANALYSIS && highlightService.modelHL?.field!='?'"
+      [modelHL]="highlightService.modelHL" [updateRangeModel]='updateRangeModel' (emitSelection)="selection($event)"></sp-range-model>
+    <sp-quadrant-analysis #quadrant
+      *ngIf="highlightService.modelHL?.type==QUADRANT_ANALYSIS && highlightService.modelHL?.field!='?' && highlightService.modelHL?.fieldQ"
+      [modelHL]="highlightService.modelHL" [updateRangeModel]='updateRangeModel'(emitSelection)="selection($event)"></sp-quadrant-analysis>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.intersectionmsg-title {
+    .mat-dialog-title {
+        margin: 0%;
+    }
+
+    cursor: move;
+}
+
+.intersectionmsg-content {
+    &.mat-dialog-content {
+        margin: 2% 0;
+        height: fit-content;
+    }
+}

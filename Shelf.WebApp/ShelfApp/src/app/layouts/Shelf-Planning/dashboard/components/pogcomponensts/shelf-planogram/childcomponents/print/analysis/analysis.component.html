@@ -1,0 +1,94 @@
+<div class="analysisCntnr" style="height: calc(100vh - 15rem)">
+    <div class="iconsCntnr" fxLayout="row" fxLayoutAlign="end center">
+        <div>
+            <button mat-icon-button>
+                <mat-icon class="material-icons iconSpace" matTooltip="{{'EXPAND_COLLAPSE'|translate}}" [matMenuTriggerFor]="Zmenu"  style="transform: rotate(90deg)">expand</mat-icon
+                >
+            </button>
+            <mat-menu #Zmenu="matMenu">
+                <div class="zoom-mat-menu">
+                    <button mat-icon-button [disabled]="width == 15" (click)="changeSideNavWidth('minimize', $event)">
+                        <mat-icon class="minimize">minimize</mat-icon>
+                    </button>
+                    <button mat-icon-button [disabled]="width == 60" (click)="changeSideNavWidth('maximize', $event)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-raised-button class="resetBtn" (click)="changeSideNavWidth('reset', $event)">
+                        {{'RESET' |translate}}
+                    </button>
+                </div>
+            </mat-menu>
+            <srp-custom-menus
+                [screenName]="'planogramlib'"
+                class="pull-right"
+                [controlName]="'pogChartView'"
+                [type]="'gridMenu'"
+                [myselectionlist]="pogChartHeaderMenuShowHide"
+                (menuButtonClick)="menuButtonClick_Chart($event)"
+            >
+            </srp-custom-menus>
+        </div>
+    </div>
+    <div class="alert-center" *ngIf="chartDataSource.length == 0" style="height: 100%">
+        <div class="alert">
+            <span class="msg">{{ 'NO_DATA_AVAILABLE' | translate }}</span>
+        </div>
+    </div>
+    <div [style.display]="selectedChartType == 1 && chartDataSource.length > 0 ? 'block' : 'none'" style="height: 100%">
+        <kendo-chart #pieChart style="height: 100%" [title]="pieChart_title">
+            <kendo-chart-legend [visible]="showLegends" position="bottom"></kendo-chart-legend>
+            <kendo-chart-tooltip>
+                <ng-template kendoChartSeriesTooltipTemplate let-dataItem="dataItem" let-value="value">
+                    <span>{{ dataItem.SubClass }}</span
+                    ><span>: </span><span>{{ value | number:'1.2-2' }}</span> <span *ngIf="showValueInPercent">%</span>
+                </ng-template>
+            </kendo-chart-tooltip>
+            <kendo-chart-series>
+                <kendo-chart-series-item
+                    autoFit="true"
+                    type="pie"
+                    [data]="chartDataSource"
+                    [field]="selectedCategoryTypeinPie"
+                    [labels]="{ visible: showLabels, content: labelContent }"
+                    categoryField="SubClass"
+                >
+                </kendo-chart-series-item>
+            </kendo-chart-series>
+        </kendo-chart>
+    </div>
+    <div [style.display]="selectedChartType == 2 && chartDataSource.length > 0 ? 'block' : 'none'" style="height: 100%">
+        <kendo-chart #barChart style="height: 100%" [title]="barChart_title">
+            <kendo-chart-legend [visible]="showLegends" position="top"></kendo-chart-legend>
+            <kendo-chart-tooltip>
+                <ng-template kendoChartSeriesTooltipTemplate let-dataItem="dataItem" let-value="value">
+                    <div>{{ dataItem.SubClass }}</div>
+                    <div *ngFor="let d of barGraphSeries">
+                        <span>{{ d.name }}</span
+                        ><span>: </span><span>{{ dataItem[d.field] | number:'1.2-2' }}</span> <span *ngIf="showValueInPercent">%</span>
+                    </div>
+                </ng-template>
+            </kendo-chart-tooltip>
+            <kendo-chart-category-axis>
+                <kendo-chart-category-axis-item [visible]="showLabels" [labels]="{ rotation: 'auto' }"> </kendo-chart-category-axis-item>
+            </kendo-chart-category-axis>
+            <kendo-chart-series>
+                <kendo-chart-series-item
+                    autoFit="true"
+                    *ngFor="let d of barGraphSeries"
+                    type="column"
+                    [data]="chartDataSource"
+                    [name]="d.name"
+                    [field]="d.field"
+                    [labels]="{ visible: showLabelsBarGraph,font:'10px sans-serif',content: labelContent }"
+                    [categoryField]="d.categoryField"
+                >
+                </kendo-chart-series-item>
+            </kendo-chart-series>
+        </kendo-chart>
+    </div>
+    <div style="height: 100%" *ngIf="chartDataSource.length > 0 && selectedChartType == 3 && reportGridConfig?.id !== '' && reportGridConfig?.columnDefs?.length">
+        <ng-container>
+            <shelf-ag-grid #agReportGrid [gridConfig]="reportGridConfig"></shelf-ag-grid>
+          </ng-container>
+    </div>
+</div>

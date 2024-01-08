@@ -1,0 +1,111 @@
+.messageCntnr {
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .searchCntnr {
+    margin: 5px 15px;
+
+    input {
+      line-height: 40px;
+      border-bottom: 1px solid #aaa;
+    }
+  }
+
+  .headerCntnr {
+    padding: 5px 15px;
+    border-bottom: 2px solid #4E9698;
+  }
+
+  .commentHeader {
+    border-bottom: 1px solid;
+
+    .commentHeaderCntnr {
+      margin: 4px 5px;
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    .sortKeyCntnr {
+      /*border-bottom: 2px solid #26a69a;*/
+      font-weight: 600;
+    }
+  }
+
+  .commentSection {
+    mat-list-item {
+      border-bottom: 1px solid #26a69a;
+      height: 100%;
+    }
+
+    mat-list-option {
+      border-bottom: 1px solid #26a69a;
+      height: 100%;
+    }
+
+    .name {
+      line-height: 1.4em;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      .replayofreplay {
+        font-size: 0.6em;
+        color: gray;
+        font-weight: 400;
+      }
+
+      .storeIdentifier {
+        line-height: 1.4em;
+        font-weight: 400;
+        margin-left: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .text {
+      color: #2793e6;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .replay {
+      color: #999;
+      font-weight: 500;
+      font-size: 0.8em;
+      cursor: pointer;
+      margin-right: 1em;
+    }
+
+    .replay:hover {
+      color: #666;
+    }
+
+    .attachment:hover {
+      border-bottom: 1px solid;
+    }
+
+    .attachment {
+      cursor: pointer;
+    }
+
+    .imageCntnr {
+      max-width: 100%;
+      max-height: 200px;
+      width: auto;
+      height: auto;
+      cursor: pointer;
+    }
+  }
+}
+
+.select-all {
+  line-height: 1.2em;
+  padding-top: 0.9em;
+  padding-bottom: 0.9em;
+  padding-left: 0.9em;
+}

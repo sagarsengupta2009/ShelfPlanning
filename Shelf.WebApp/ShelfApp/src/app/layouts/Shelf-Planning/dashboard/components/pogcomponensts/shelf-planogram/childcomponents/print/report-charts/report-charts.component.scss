@@ -1,0 +1,35 @@
+.leftCntnr {
+  height: 100%;
+  width: 30%;
+  padding: 0 10px;
+  overflow:auto;
+
+  mat-form-field.explicitLabel {
+    /*mat-label {
+      font-size: 10px;
+    }*/
+    input {
+      display: none;
+    }
+
+    ::ng-deep .mat-form-field-underline {
+      display: none;
+    }
+
+    ::ng-deep  .k-multiselect .k-multiselect-wrap {
+      max-height: 58px;
+      overflow: auto;
+    }
+  }
+}
+
+.rightCntnr {
+  height: 100%;
+  width: 70%;
+  padding: 0 10px;
+}
+
+.inputcntr {
+  width: 40%;
+}
+

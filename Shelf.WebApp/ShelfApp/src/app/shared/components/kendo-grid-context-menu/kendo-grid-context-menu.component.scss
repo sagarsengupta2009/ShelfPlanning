@@ -1,0 +1,35 @@
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  /*width: 185px;*/
+}
+
+.menu li {
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding: 0px 12px;
+  transition: background .2s, color .2s;
+}
+
+.menu li:last-child {
+  border-bottom: 0;
+}
+
+.menu li:hover {
+  background: #e8e8e8;
+}
+
+.menu li:active {
+  //background: #ff6358;
+  background: var(--selected-item-background-color);
+  color: #fff;
+}
+
+.topicons {
+  font-weight: 400;
+}
+
+.menuicon {
+  margin-right: 16px;
+}

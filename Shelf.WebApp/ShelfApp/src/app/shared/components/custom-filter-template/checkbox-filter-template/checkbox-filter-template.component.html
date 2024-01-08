@@ -1,0 +1,14 @@
+<li>
+    <span>
+        <input type="checkbox" (click)="filterValues('unchecked')" [checked]="appliedUncheckedFilter"
+            class="k-checkbox checkbox_position assignpog">
+        <input class="assignpog" type="checkbox" disabled>
+    </span>
+</li>
+<li>
+    <span>
+        <input type="checkbox" class="k-checkbox checkbox_position" [checked]="appliedCheckedFilter"
+            (click)="filterValues('checked')">
+        <input type="checkbox" checked disabled>
+    </span>
+</li>

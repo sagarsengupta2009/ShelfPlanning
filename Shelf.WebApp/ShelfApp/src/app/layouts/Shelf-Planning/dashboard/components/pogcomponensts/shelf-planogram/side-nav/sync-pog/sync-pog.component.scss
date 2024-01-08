@@ -1,0 +1,53 @@
+.spSearch {
+    margin: -5px 5px;
+    border-radius: 23px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+    margin-top: 2px;
+}
+
+.searchCntnr {
+    margin: 5px 15px;
+}
+
+.syncPogDialog {
+    overflow: hidden;
+
+    ::ng-deep #sync-mat-tab .mat-tab-label {
+        font-weight: 400;
+        color: var(--font-color);
+    }
+
+    ::ng-deep #sync-mat-tab .mat-tab-label-content {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    ::ng-deep #sync-mat-tab .mat-tab-label-active {
+        background-color: white;
+        border-bottom: 3px solid var(--foreground-primary);
+    }
+
+    .anchordropdown {
+        mat-select {
+            font-size: 12px;
+        }
+        .matDropDownField {
+            width: 400px;
+        }
+    }
+
+    .SyncPogContainer {
+        .help-text {
+            margin-top: -10px;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.includeCartItem {
+    margin-left: 25px;
+}
+
+.mat-dialog-title {
+    margin: 0 0 10px !important;
+}

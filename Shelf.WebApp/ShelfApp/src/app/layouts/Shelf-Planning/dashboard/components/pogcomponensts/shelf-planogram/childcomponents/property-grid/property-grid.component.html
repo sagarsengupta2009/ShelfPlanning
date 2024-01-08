@@ -1,0 +1,670 @@
+<div id="propertypanel" style="height: 100%;">
+  <div id="propertyheight" cdkDrag cdkDragRootElement=".cdk-overlay-pane" [cdkDragDisabled]="state" class="headerCntnr"
+    [ngClass]="{'custom-header':state,'custom-modal-header':!state}" fxLayout="row" fxLayoutAlign="space-between start"
+    cdkDragHandle>
+
+    <ng-container *ngIf="!isListView ;else allPropertyListHeader">
+      <h1 mat-dialog-title [ngClass]="{'example-box': state === true}">{{headerName}} {{'PLANOGRAM_LIBRARY_PROPERTIES' |
+        translate}}</h1>
+    </ng-container>
+    <ng-template #allPropertyListHeader>
+      <ng-container *ngIf="isListView  && !isListViewSetting ;else configurePropertyListHeader">
+        <h1 mat-dialog-title [ngClass]="{'example-box': state === true}">{{'PROPERTY_LIST_VIEW'|translate}}</h1>
+      </ng-container>
+    </ng-template>
+    <ng-template #configurePropertyListHeader>
+      <h1 mat-dialog-title [ngClass]="{'example-box': state === true}">{{'CONFIGURE_PROPERTY_LIST'|translate}}</h1>
+    </ng-template>
+
+    <div class="dialogCloseIcon dialogCloseIcon-property-grid" fxLayout="row" fxLayoutAlign="end center"
+      style="float: right;">
+      <button mat-icon-button *ngIf="state">
+        <mat-icon class="material-icons iconSpace" matTooltip="{{'EXPAND_COLLAPSE'|translate}}"
+          [matMenuTriggerFor]="Zmenu" style="transform: rotate(90deg)">expand</mat-icon>
+      </button>
+      <mat-menu #Zmenu="matMenu">
+        <div class="zoom-mat-menu">
+          <button mat-icon-button [disabled]="sideNavWidth <= 20" (click)="changeSideNavWidth('minimize',$event)">
+            <mat-icon class="minimize">minimize</mat-icon>
+          </button>
+          <button mat-icon-button [disabled]="sideNavWidth >= 50" (click)="changeSideNavWidth('maximize',$event)">
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <button mat-raised-button class="resetBtn" (click)="changeSideNavWidth('reset',$event)">
+            {{'RESET' |translate}}
+          </button>
+        </div>
+      </mat-menu>
+      <button mat-icon-button *ngIf="!isListView" (click)="changeGridView()">
+        <mat-icon class="material-icons" matTooltip="{{'LIST_VIEW'|translate}}">list
+        </mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="isListView && !isListViewSetting" (click)="changeGridView()">
+        <mat-icon class="material-icons" matTooltip="{{'TAB_VIEW'|translate}}">tab
+        </mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="isListView && !isListViewSetting"
+        (click)="ShowPropertyListSettings()">
+        <mat-icon class="material-icons" matTooltip="{{'SETTINGS'|translate}}">settings
+        </mat-icon>
+      </button>
+
+      <button mat-icon-button *ngIf="isListViewSetting" [ngClass]="{'highlight-search':showSearchBox===true}"
+        (click)="searchPropertyList()">
+        <mat-icon class="material-icons" matTooltip="{{'SEARCH'|translate}}">search
+        </mat-icon>
+      </button>
+
+      <button mat-icon-button *ngIf="!state" (click)="openInSideNav()">
+        <mat-icon class="material-icons" matTooltip="{{'PLANOGRAM_LIBRARY_PIN'|translate}}">
+          push_pin
+        </mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="state" (click)="openDialog()">
+        <mat-icon class="material-icons iconSpace" style="margin-top: 3px;"
+          matTooltip="{{'PLANOGRAM_LIBRARY_MAXIMIZE'|translate}}">aspect_ratio</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="state && isPin" (click)="OnpinUnpin()">
+        <mat-icon class="material-icons iconSpace pin" style="margin-top: 3px;"
+          matTooltip="{{'PLANOGRAM_LIBRARY_UNPIN' | translate}}">
+          push_pin
+        </mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="state && !isPin" (click)="OnpinUnpin()">
+        <mat-icon class="material-icons iconSpace" style="margin-top: 3px;"
+          matTooltip="{{'PLANOGRAM_LIBRARY_PIN' | translate}}">
+          push_pin
+        </mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="!state" (click)="close()">
+        <mat-icon class="material-icons"  matTooltip="{{'CLOSE'|translate}}">
+          close
+        </mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="state" (click)="Onclose()">
+        <mat-icon class="material-icons iconSpace" matTooltip="{{'CLOSE'|translate}}">
+          close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="!isListView" class="sapp-property-grid" [ngClass]="[propertyGridType + '_propertygrid']">
+    <div class="property-grid-header">
+      <div class='row' *ngIf="!state && propertyGridType == 'Position' && selectedMultiPositions.length === 1">
+        <div class='col-sm-6 col-md-2'>
+          <ng-container *ngIf="tabList.header.images?.length > 0 ; else notCustomImage">
+            <ng-container *ngFor="let imageName of tabList.header.images">
+              <img *ngIf="imageSrcs[imageName]"
+                style='max-height: 120px; max-width: 100%; display: block; margin: auto;' [src]="imageSrcs[imageName]"
+                positionImgFallback />
+            </ng-container>
+          </ng-container>
+          <ng-template #notCustomImage>
+            <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback/>
+          </ng-template>
+        </div>
+        <div class='col-sm-12 col-md-6'>
+          <div>
+            <ng-container *ngIf="tabList.header.custom; else notCustom">
+              <ng-container *ngFor="let fObj of tabList.header.children">
+                <span *ngIf="fObj.show && fObj.column != 2"
+                  [style]="fObj.style">{{fObj.translatedText}}{{fObj[fObj.field]}}</span><br
+                  *ngIf="fObj.show && !fObj.noLine && fObj.column != 2" />
+              </ng-container>
+            </ng-container>
+            <ng-template #notCustom>
+              <div *ngIf="itemData?.Fixture?.FixtureNumber">
+                {{'BAY' | translate }} :
+                {{itemData?.Fixture?.ModularNumber}}
+                {{'FIXTURE' | translate}} : {{itemData?.Fixture?.FixtureNumber}}
+                {{'Position' | translate}} : {{itemData?.Position?.PositionNo}}
+              </div>
+              <div *ngIf="itemData?.Position?._LastLocation?.DescData">
+                Last
+                Location:{{itemData?.Position?._LastLocation?.DescData}}
+              </div>
+              <div><b>{{itemData.Position.Product.UPC}}</b></div>
+              <div *ngIf="itemData?.Position?.Product?.SKU">{{itemData?.Position?.Product?.SKU}}</div>
+              <div><b>{{itemData?.Position?.Product?.Name}}</b></div>
+              <div>{{itemData?.Position?.Product?.DescSize}}</div>
+              <div>{{itemData?.Position?.Capacity}}</div>
+              <shelf-dimension-display [dimension]="itemData?.Position?.ProductPackage">
+              </shelf-dimension-display>
+            </ng-template>
+          </div>
+        </div>
+        <div class='col-sm-12 col-md-4'>
+           <button class="material-icons hbtn" id="FirstItemPosition" (click)="selectSectionFirstItem($event)">
+              skip_previous
+            </button>
+            <button class="material-icons hbtn" id="HomeItemPosition" [disabled]="itemData?.Fixture?.FixtureNumber == 0"
+              (click)="selectHomeItem($event)">
+              fast_rewind
+            </button>
+            <button class="material-icons hbtn" id="PreviousPosition" (click)="selectPreviousPosition($event)">
+              chevron_left
+            </button>
+            <button class="material-icons hbtn" id="NextPosition" (click)="selectNextPosition($event)">
+              chevron_right
+            </button>
+            <button class="material-icons hbtn" id="EndItemPosition" [disabled]="itemData?.Fixture?.FixtureNumber == 0"
+              (click)="selectEndItem($event)">
+              fast_forward
+            </button>
+            <button class="material-icons hbtn" id="LastItemPosition" (click)="selectSectionLastItem($event)">
+              skip_next
+            </button>
+          <div>
+            <ng-container *ngIf="tabList.header.custom">
+              <ng-container *ngFor="let fObj of tabList.header.children">
+                <span *ngIf="fObj.show && fObj.column == 2"
+                  [style]="fObj.style">{{fObj.translatedText}}{{fObj[fObj.field]}}</span><br
+                  *ngIf="fObj.show && !fObj.noLine && fObj.column == 2" />
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class='row' *ngIf="state && propertyGridType == 'Position' && selectedMultiPositions.length === 1">
+        <div class='col-sm-12  pined'>
+          <button class="material-icons hbtn" id="FirstItemPosition" (click)="selectSectionFirstItem($event)">
+            skip_previous
+          </button>
+          <button class="material-icons hbtn" id="HomeItemPosition" [disabled]="itemData?.Fixture?.FixtureNumber == 0"
+            (click)="selectHomeItem($event)">
+            fast_rewind
+          </button>
+          <button class="material-icons hbtn" id="PreviousPosition" (click)="selectPreviousPosition($event)">
+            chevron_left
+          </button>
+          <button class="material-icons hbtn" id="NextPosition" (click)="selectNextPosition($event)">
+            chevron_right
+          </button>
+          <button class="material-icons hbtn" id="EndItemPosition" [disabled]="itemData?.Fixture?.FixtureNumber == 0"
+            (click)="selectEndItem($event)">
+            fast_forward
+          </button>
+          <button class="material-icons hbtn" id="LastItemPosition" (click)="selectSectionLastItem($event)">
+            skip_next
+          </button>
+        </div>
+        <div class='row'>
+          <div class='col-sm-6 col-md-2'>
+            <ng-container *ngIf="tabList.header.images && tabList.header.images.length > 0 ; else notCustomImage">
+              <ng-container *ngFor="let imageName of tabList.header.images">
+                <img *ngIf="imageSrcs[imageName]"
+                  style='max-height: 120px; max-width: 100%; display: block; margin: auto;' [src]="imageSrcs[imageName]"
+                  positionImgFallback />
+              </ng-container>
+            </ng-container>
+            <ng-template #notCustomImage>
+              <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback />
+            </ng-template>
+          </div>
+          <div class='col-sm-12 col-md-10'>
+            <div>
+              <ng-container *ngIf="tabList.header.custom; else notCustom">
+                <ng-container *ngFor="let fObj of tabList.header.children">
+                  <span *ngIf="fObj.show" [style]="fObj.style">{{fObj.translatedText}}{{fObj[fObj.field]}}</span><br
+                    *ngIf="fObj.show && !fObj.noLine" />
+                </ng-container>
+              </ng-container>
+              <ng-template #notCustom>
+                <div *ngIf="itemData?.Fixture?.FixtureNumber">
+                  {{'BAY' | translate }} :
+                  {{itemData?.Fixture?.ModularNumber}}
+                  {{'FIXTURE' | translate}} : {{itemData?.Fixture?.FixtureNumber}}
+                  {{'Position'}} : {{itemData?.Position?.PositionNo}}
+                </div>
+                <div *ngIf="itemData?.Position?._LastLocation?.DescData">
+                  Last
+                  Location:{{itemData?.Position?._LastLocation?.DescData}}
+                </div>
+                <div><b>{{itemData.Position.Product.UPC}}</b></div>
+                <div *ngIf="itemData?.Position?.Product?.SKU">{{itemData?.Position?.Product?.SKU}}</div>
+                <div><b>{{itemData?.Position?.Product?.Name}}</b></div>
+                <div>{{itemData?.Position?.Product?.DescSize}}</div>
+                <div>{{itemData?.Position?.Capacity}}</div>
+                <shelf-dimension-display [dimension]="itemData?.Position?.ProductPackage">
+                </shelf-dimension-display>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row' *ngIf="!state && propertyGridType == 'Fixture'">
+        <div class='col-sm-12 col-lg-2' [hidden]='true'>
+          <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback />
+        </div>
+        <div class='col-sm-6 col-md-8'>
+          <div>
+            <div>
+              {{'BAY' | translate}}:{{isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.ModularNumber}}
+              {{ 'FIXTURE' | translate }}:{{isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.FixtureNumber}}
+            </div>
+            <div>
+              <b>
+                {{ isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.FixtureType}}
+              </b>
+            </div>
+            <div>
+              <b>
+                {{ isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.FixtureDesc}}
+              </b>
+            </div>
+            <div>
+              <div>
+                <b>
+                  {{'DIMENTION_AVAILABLE' |translate}}
+                </b>
+              </div>
+              <div>
+                <shelf-dimension-display [isMultiple]="isMultiFixMode" [dimension]="itemData?.ChildDimension">
+                </shelf-dimension-display>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf='!isMultiFixMode' class='col-sm-12 col-md-4'>
+          <button class="material-icons hbtn" id="firstItemFixture" (click)="selectSectionFirstItemFixture($event)">
+            skip_previous
+          </button>
+          <button class="material-icons hbtn" id="homeItemFixture" (click)="selectHomeItemFixture($event)">
+            fast_rewind
+          </button>
+          <button class="material-icons hbtn" id="previousFixture" (click)="selectPreviousFixture($event)">
+            chevron_left
+          </button>
+          <button class="material-icons hbtn" id="nextFixture" (click)="selectNextFixture($event)">
+            chevron_right
+          </button>
+          <button class="material-icons hbtn" id="endItemFixture" (click)="selectEndItemFixture($event)">
+            fast_forward
+          </button>
+          <button class="material-icons hbtn" id="lastItemFixture" (click)="selectSectionLastItemFixture($event)">
+            skip_next
+          </button>
+        </div>
+      </div>
+      <div class='row' *ngIf="state && propertyGridType == 'Fixture'">
+        <div *ngIf='!isMultiFixMode' class='col-sm-12  pined'>
+          <button class="material-icons hbtn" id="firstItemFixture" (click)="selectSectionFirstItemFixture($event)">
+            skip_previous
+          </button>
+          <button class="material-icons hbtn" id="homeItemFixture" (click)="selectHomeItemFixture($event)">
+            fast_rewind
+          </button>
+          <button class="material-icons hbtn" id="previousFixture" (click)="selectPreviousFixture($event)">
+            chevron_left
+          </button>
+          <button class="material-icons hbtn" id="nextFixture" (click)="selectNextFixture($event)">
+            chevron_right
+          </button>
+          <button class="material-icons hbtn" id="endItemFixture" (click)="selectEndItemFixture($event)">
+            fast_forward
+          </button>
+          <button class="material-icons hbtn" id="lastItemFixture" (click)="selectSectionLastItemFixture($event)">
+            skip_next
+          </button>
+        </div>
+        <div class='row'>
+          <div class='col-sm-12 col-lg-2' [hidden]='true'>
+            <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback />
+          </div>
+          <div class='col-sm-12 col-md-10'>
+            <div>
+              <div>
+                {{'BAY' | translate}}:{{isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.ModularNumber}}
+                {{'FIXTURE' |translate}}:{{isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.FixtureNumber}}
+              </div>
+              <div>
+                <b>
+                  {{isMultiFixMode ? MULTIPLE_VALUES :itemData?.Fixture?.FixtureType}}
+                </b>
+              </div>
+              <div>
+                <b>
+                  {{ isMultiFixMode ? MULTIPLE_VALUES : itemData?.Fixture?.FixtureDesc}}
+                </b>
+              </div>
+              <div>
+                <div>
+                  <b>
+                    {{'DIMENTION_AVAILABLE' |translate}}
+                  </b>
+                </div>
+                <div>
+                  <shelf-dimension-display [isMultiple]="isMultiFixMode" [dimension]="itemData?.ChildDimension">
+                  </shelf-dimension-display>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row' *ngIf="propertyGridType == 'POG'">
+        <div class='col-sm-12 col-lg-2' [hidden]='true'>
+          <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback />
+        </div>
+        <div class='col-sm-12 col-lg-10'>
+          <div>
+            <div>
+              <div>
+                <b *ngIf='itemData.PogActionType  == 2'>
+                  Project Type:
+                  SHELF
+                </b>
+              </div>
+              <ng-container *ngIf="tabList.header.custom; else notCustom">
+                <ng-container *ngFor="let fObj of tabList.header.children">
+                  <span *ngIf="fObj.show" [style]="fObj.style">{{fObj[fObj.field]}}</span><br *ngIf="fObj.show" />
+                </ng-container>
+              </ng-container>
+              <ng-template #notCustom>
+                <div><b>{{itemData.IDPOG}}</b></div>
+                <div><b>{{itemData?.Name}}</b></div>
+                <div>
+                  <b *ngIf='itemData.Remarks != null'> {{itemData?.Remarks}}</b>
+                </div>
+              </ng-template>
+              <shelf-dimension-display [dimension]="itemData?.Dimension">
+              </shelf-dimension-display>
+            </div>
+            <div>
+              {{'TRANSLATESKU'|translate}} : {{itemData?.SKUCount?.pog}}
+              [{{itemData?.SKUCount?.cart}}]
+            </div>
+            <div>
+              <div> </div>
+              <div> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row' *ngIf="state && propertyGridType ==  'Multiple'">
+        <div class='col-sm-12 col-lg-2' [hidden]='true'>
+          <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback />
+        </div>
+        <div class='col-sm-6 col-md-10'>
+          <div>
+            <div>
+              <span>{{'BAY' | translate}}:</span><span>{{MULTIPLE_VALUES}}</span>
+              <span>{{'FIXTURE' | translate}}:</span><span>{{MULTIPLE_VALUES}}</span>
+            </div>
+            <div>
+              <b>
+                <span>{{MULTIPLE_VALUES}}</span>
+              </b>
+            </div>
+            <div>
+              <b>
+                <span>{{MULTIPLE_VALUES}}</span>
+              </b>
+            </div>
+            <div>
+              <div>
+                <b> {{'DIMENTION_AVAILABLE' | translate}} </b>
+              </div>
+              <div>
+                <b>
+                  <span>{{MULTIPLE_VALUES}}</span>
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col m4 s12' style='margin-top: -16px;'> </div>
+      </div>
+      <div class='row' *ngIf="!state && propertyGridType ==  'Multiple'">
+        <div class='col-sm-12 col-lg-2' [hidden]='true'>
+          <img style='max-height:120px;max-width:100%;' [src]="imageSrc" positionImgFallback />
+        </div>
+        <div class='col-sm-6 col-md-8'>
+          <div>
+            <div>
+              <span> {{'BAY' | translate}}:</span>
+              <span>
+                <{{MULTIPLE_VALUES}}>
+              </span>
+              <span> {{'FIXTURE' | translate}}:</span>
+              <span>
+                <{{MULTIPLE_VALUES}}>
+              </span>
+            </div>
+            <div>
+              <b>
+                <span>
+                  <{{MULTIPLE_VALUES}}>
+                </span>
+              </b>
+            </div>
+            <div>
+              <b>
+                <span>
+                  <{{MULTIPLE_VALUES}}>
+                </span>
+              </b>
+            </div>
+            <div>
+              <div>
+                <b> {{'DIMENTION_AVAILABLE' | translate}} </b>
+              </div>
+              <div>
+                <b>
+                  <span>
+                    <{{MULTIPLE_VALUES}}>
+                  </span>
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row' *ngIf="propertyGridType === 'Block'">
+        <app-block-editor [blockData]="itemData"></app-block-editor>
+      </div>
+      <div class='row' *ngIf="propertyGridType ===  'Position' && selectedMultiPositions.length > 1">
+        <div class='col-sm-6 col-md-8 col-lg-12 multiPositionHeaderDiv'>
+          <div>
+            <span><b>{{'BAY' | translate}}:</b></span> {{MULTIPLE_VALUES}}
+            <span><b>{{'FIXTURE' | translate}}:</b></span> {{MULTIPLE_VALUES}}
+            <span><b>{{'Position' | translate}}:</b></span> {{MULTIPLE_VALUES}}
+          </div>
+          <div  [matTooltip]="multiPositionHeaderFields.UPCOnTooltip"
+              [matTooltipDisabled]="multiPositionHeaderFields.UPC.length < 6" >
+              <span><b>UPC:</b></span>
+              <ng-container *ngFor="let upc of multiPositionHeaderFields.UPC; let index = index;">
+                <span *ngIf="index < 5">{{ upc }}{{ index < multiPositionHeaderFields.UPC.length - 1 && index < 4 ? ', ' : multiPositionHeaderFields.UPC.length > 5 ? MULTIPLE_VALUES : ''}}</span>
+              </ng-container>
+            </div>
+          <div><span><b>{{'POSITIONS_COUNT' | translate}}: </b>{{ selectedMultiPositions.length}}</span></div>
+          <div><span><b>{{'TOTAL_CAPACITY' | translate}}: </b>{{multiPositionHeaderFields.totalCapacity}}</span> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="tabList && !isListView">
+    <mat-tab-group animationDuration="0ms" id="prop-mat-tab" class="property-mat-tab" (wheel)="scrollTabs($event)"
+      [selectedIndex]="selectedIndex" [ngClass]="!state ? 'prop-grid-anchored' : 'prop-grid-on-side'" #propertyTabGroup>
+
+      <mat-tab *ngFor="let tab of getFilteredTabs(); let index = index">
+        <ng-template class="w-100" mat-tab-label>
+          <span class="mainTab" id="maintab" (click)="openTab(index)">{{ tab.title | translate }}</span>
+        </ng-template>
+        <div id="sappPropertyGridbody"
+          [ngClass]="{'pinnedTool': state && (sideNavWidth == 30 || sideNavWidth == 40|| isPin)}">
+          <div class="property-grid-body">
+            <div class="{{tab.guid}}" id="{{tab.title}}">
+              <div class="row">
+                <ng-container *ngFor="let fObj of tab.children">
+                  <div *ngIf="checkFieldVisibility(fObj)" class="col-sm-12 col-md-12 col-lg-{{style(tab)}}" style="position:relative;">
+                    <div [ngClass]="['input-cell field-' + fObj.IDDictionary]">
+                      <div class="input-component-label">
+                        <label for="{{fObj.field}}"> {{fObj.value}}</label>
+                        <mat-icon *ngIf="fObj.Remarks" title="{{fObj.Remarks}}" class="style-icon">info</mat-icon>
+                      </div>
+                      <shelf-property-grid-template #pGTemplate [fieldData]="fObj" [ABSStoreNumber]="ABSStoreNumber"
+                        [itemData]="itemData" [fieldObjectType]="propertyGridType" [propertyGridType]="propertyGridType"
+                        (fieldTemplateChanges)="fieldChange($event)" [avilablePkgStyleList]="avilablePkgStyleList" [selectedPkgStyle]="selectedPkgStyle">
+                      </shelf-property-grid-template>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <ng-container *ngFor="let gObj of tab.group">
+                <div class="divider"></div>
+                <div class="section fixtype {{gObj.belongs}}">
+                  <h5 *ngIf="gObj.children?.length && !gObj.table?.columns?.length">
+                    {{gObj.title | translate}}
+                    <i *ngIf="gObj.remark != 'undefined' && gObj.remark != '' && gObj.remark != null"
+                      style="position:relative;top:-7px;" title="gObj.remark"
+                      class="mdi-action-info-outline remarks-icon"></i>
+                  </h5>
+                  <div *ngIf="gObj.table?.rows?.length" class="row">
+
+                    <table *ngIf="gObj.table?.columns?.length && evaluateExpression(gObj.table)" class="col-sm-12 col-md-12 col-lg-{{style(tab)}}" style="position:relative; border: 1px solid #e0e0e0; table-layout: fixed;">
+                      <tr *ngIf="gObj.title && gObj.table?.columns?.length" style="border-bottom: 1px solid #e0e0e0; width: '100%';">
+                        <td [ngStyle]="{'width': 100/((gObj.table?.columns?.length+1) || 1)+'%'}"> {{gObj.title | translate}}</td>
+                        <td *ngFor="let columnHeader of gObj.table.columns"
+                          style="position:relative; text-align: center;" [ngStyle]="{'width': 100/((gObj.table?.columns?.length+1) || 1)+'%'}" >
+                          <span style="font-size: 10px; color: #444444 !important;">
+                            {{columnHeader.title | translate}}
+                          </span></td>
+                        </tr>
+                    <ng-container *ngFor="let row of gObj.table?.rows">
+                      <tr *ngIf="evaluateExpression(row)" style="border-bottom: 1px solid #e0e0e0; width: '100%';  height: 20px !important;">
+                        <td  style="position:relative;" [ngStyle]="{'width': 100/((row?.children?.length+1) || 1)+'%'}">
+                          <div class="input-component-label">
+                            <label> {{row.title | translate}}</label>
+                            <i *ngIf="row.Remarks" title="{{row.Remarks}}"
+                              class="mdi-action-info-outline remarks-icon"></i>
+                          </div>
+                        </td>
+                        <ng-container *ngFor="let rowChild of row?.children">
+                          <td style="position:relative; text-align: center;" [ngStyle]="{'width': 100/(row?.children?.length+1 || 1)+'%'}">
+                            <div [ngClass]="['input-cell field-' + rowChild.IDDictionary]">
+                              <shelf-property-grid-template #pGTemplate [fieldData]="rowChild"
+                                [ABSStoreNumber]="ABSStoreNumber" [itemData]="itemData"
+                                [fieldObjectType]="propertyGridType" [propertyGridType]="propertyGridType"
+                                (fieldTemplateChanges)="fieldChange($event)">
+                              </shelf-property-grid-template>
+                              <div class="input-component-label">
+                                <label> {{rowChild.title | translate}}</label>
+                              </div>
+                            </div>
+                          </td>
+                        </ng-container>
+                      </tr>
+                    </ng-container>
+                    </table>
+                </div>
+                  <div class="row">
+                    <ng-container *ngFor="let fObj of gObj.children">
+                      <div class="col-sm-12 col-md-12 col-lg-{{style(gObj)}}" style="position:relative;">
+                        <div [ngClass]="['input-cell field-' + fObj.IDDictionary]">
+                          <div class="input-component-label">
+                            <label for="{{fObj.field}}"> {{fObj.value}}</label>
+                            <i *ngIf="fObj.Remarks" title="{{fObj.Remarks}}"
+                              class="mdi-action-info-outline remarks-icon"></i>
+                          </div>
+                          <shelf-property-grid-template #pGTemplate [fieldData]="fObj" [ABSStoreNumber]="ABSStoreNumber"
+                            [itemData]="itemData" [fieldObjectType]="propertyGridType"
+                            [propertyGridType]="propertyGridType" (fieldTemplateChanges)="fieldChange($event)" [avilablePkgStyleList]="avilablePkgStyleList" [selectedPkgStyle]="selectedPkgStyle">
+                          </shelf-property-grid-template>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div id='propertyListView' [ngStyle]="{'height': propertyListViewHeight}" class="listViewCntnr" *ngIf="isListView && !isListViewSetting">
+      <mat-accordion multi>
+        <mat-expansion-panel (afterExpand)="expandCollapse(true)" (afterCollapse)="expandCollapse(false)"
+          [expanded]="true" *ngFor="let item of allPropertyListViewData">
+          <mat-expansion-panel-header>
+            {{translationObj[item.key] | translate}}
+          </mat-expansion-panel-header>
+          <mat-list [ngStyle]= "{'height': item.styleHeight}" class="list-div-cntnr">
+            <cdk-virtual-scroll-viewport itemSize="auto" class="virtual-viewport" style="height:100%;">
+              <ng-container *cdkVirtualFor="let fObj of item.value">
+                <mat-list-item class="list-item-cntnr" *ngIf="checkFieldVisibility(fObj)">
+                  <div [ngClass]="['input-cell field-' + fObj.IDDictionary]" class="list-item" fxLayout="row"
+                    fxLayoutAlign="space-between center">
+                    <div #toolTip [ngClass]="{'disable-active': fObj.ReadOnly === true }"
+                      class="input-component-label label-cntnr list-item-label" [matTooltip]="fObj.value"
+                      [matTooltipDisabled]="isDisabled(toolTip)">
+                      <label for="{{fObj.field}}" class="label-font"> {{fObj.value}}</label>
+                      <mat-icon *ngIf="fObj.Remarks" title="{{fObj.Remarks}}" class="style-icon mat-icon-fontsize">info</mat-icon>
+                    </div>
+                    <div style="width: 60%;">
+                      <shelf-property-grid-template #pGTemplate [fieldData]="fObj" [ABSStoreNumber]="ABSStoreNumber"
+                        [fieldObjectType]="item.key" [itemData]="getSelectedPropertyData(item.key)" [isListView]="true"
+                        [propertyGridType]="propertyGridType" (fieldTemplateChanges)="fieldChange($event)"
+                        [avilablePkgStyleList]="avilablePkgStyleList" [selectedPkgStyle]="selectedPkgStyle">
+                      </shelf-property-grid-template>
+                    </div>
+                  </div>
+                </mat-list-item>
+              </ng-container>
+          </cdk-virtual-scroll-viewport>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+  </div>
+
+
+  <div id='propertyListView' [ngStyle]="{height:configureListViewHeight}" class="listViewCntnr"
+    *ngIf="isListViewSetting">
+    <div *ngIf="showSearchBox">
+      <input class="search-input" matInput type="search" [(ngModel)]="searchText"
+        placeholder="{{'SEARCH' | translate}}">
+    </div>
+    <mat-accordion multi>
+      <div cdkDropList (cdkDropListDropped)="drop($event, configList)">
+        <mat-expansion-panel (afterExpand)="expandCollapse(true)" (afterCollapse)="expandCollapse(false)"
+          [expanded]="true" *ngFor="let item of configList;let i=index">
+          <mat-expansion-panel-header cdkDrag>
+            <mat-icon class="mat-icon-fontsize" cdkDragHandle style="color: darkgray; padding-top: 3px!important; width: 15px;">drag_indicator</mat-icon>
+            <mat-checkbox multi style="margin-right: 5px;" [(ngModel)]="item.checked" (click)="$event.stopPropagation()"
+              (change)="isAllSelected($event, item.key)">
+            </mat-checkbox>
+            {{translationObj[item.key] | translate}}
+          </mat-expansion-panel-header>
+          <mat-list cdk-scrollable [ngStyle]="{'max-height': matConfigListHeight}" class="list-div-cntnr">
+            <div cdkDropList (cdkDropListDropped)="drop($event, item.value,item.key)">
+              <mat-list-item class="list-item-cntnr"
+                *ngFor="let fObj of item.value | filterPipe:{'col':'value', 'search': searchText}; let i = index"
+                cdkDrag [cdkDragDisabled]="searchText!=''" actualContainer="div.column-list">
+                <div [ngClass]="['input-cell field-' + fObj.IDDictionary]"  class="list-item"
+                  fxLayout="row" fxLayoutAlign="space-between center">
+                  <div #toolTip
+                    class="input-component-label  label-cntnr list-item-label">
+                    <mat-icon class="mat-icon-fontsize" style="color: darkgrey; width: 15px;"
+                      [ngStyle]="{'cursor': searchText!='' ? 'no-drop' : 'pointer'}"
+                      cdkDragHandle>drag_indicator</mat-icon>
+                    <mat-checkbox [name]="fObj.field" [(ngModel)]="fObj.displayField"
+                      (change)="displayfieldChange(item.key)"></mat-checkbox>
+                    <label for="{{fObj.field}}" class="label-font" [matTooltip]="fObj.value"
+                      [matTooltipDisabled]="isDisabled(toolTip)"> {{fObj.value}}</label>
+                  </div>
+                </div>
+              </mat-list-item>
+            </div>
+          </mat-list>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
+  </div>
+
+  <div *ngIf="isListViewSetting" class="example-button-row" style="text-align: right; margin-top: 8px;">
+    <button mat-raised-button (click)="onCancel()"> {{'CANCEL'|translate}}</button>
+    <button mat-raised-button (click)="onApply()">{{'APPLY' | translate}}</button>
+  </div>
+
+</div>

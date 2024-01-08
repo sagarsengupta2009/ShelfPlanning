@@ -1,0 +1,76 @@
+<h4 cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle class="custom-modal-header" mat-dialog-title>
+    {{ 'ANALYSIS' | translate }}&nbsp;{{ 'REPORT' | translate }}</h4>
+<div class="dialogCloseIcon">
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<!-- report section -->
+<div class="report-section">
+
+    <!-- Header  -->
+    <div class="headerCntnr" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button mat-icon-button class="show-reports-button mr-10" (click)="showSavedReports = !showSavedReports"
+                *ngIf="userReports.length > 0">
+                <mat-icon matTooltip="{{'YOUR_REPORTS' | translate}}">description</mat-icon>
+            </button>
+            <span class="font-14 gray-color"><em>{{'LAST_UPDATE' | translate}}: {{lastModified | date: languageService.getDateFormat()}} {{lastModified | date: languageService.getTimeFormat()}}</em></span>
+            <button matTooltip="{{'REFRESH'| translate}}" mat-icon-button class="refresh-button" (click)="refreshReports(true)">
+                <mat-icon class="primary-color">refresh</mat-icon>
+            </button>
+        </div>
+        <div>
+            <mat-form-field *ngIf="!showReportNameLabel" class="w-280">
+                <input [disabled]="isViewOnly" matInput [(ngModel)]="reportName"
+                    placeholder="{{'ENTER_REPORT_NAME' | translate}}" maxlength="35" (keyup)="setShowSaveIcon()"
+                    (keydown)="validateReportName($event)">
+            </mat-form-field>
+            <label *ngIf="showReportNameLabel" class="label-color fw-bold"
+                (dblclick)="showReportNameLabel = isViewOnly;">{{reportName}}</label>
+            <label class="label-color fw-bold" *ngIf="seletedReport?.IsSystemReport"> {{sharedStr}}</label>
+        </div>
+        <div>
+            <mat-checkbox class="p-2" *ngIf="isAdmin" [(ngModel)]="isSystemReport">
+                {{'ALL_USERS' | translate}}
+            </mat-checkbox>
+            <button (click)="saveTemplateConfirmation()" mat-icon-button *ngIf="showSaveIcon">
+                <mat-icon matTooltip="{{'SAVE' | translate}}">save</mat-icon>
+            </button>
+            <button matTooltip="{{'EXPORT_EXCEL'| translate}}" (click)="exportPivotData()" mat-icon-button>
+                <mat-icon>download</mat-icon>
+            </button>
+            <button matTooltip="{{'DELETE'| translate}}" mat-icon-button
+                *ngIf="currentIdTemplate != -1 && !isViewOnly" (click)="deleteReport()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-sidenav-container class="h-100">
+        <mat-sidenav #sidenav mode="side" [(opened)]="showSavedReports" class="mat-sidenav-custom">
+            <div class="pt-1 gray-color" fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="fw-semibold">
+                    <span>{{'YOUR_REPORTS' | translate}}</span>
+                </div>
+            </div>
+            <div cdkDropList class="template-list" (cdkDropListDropped)="drop($event)">
+                <ng-container *ngFor="let report of userReports">
+                    <button mat-button class="clickable fw-normal" [matTooltip]="tooltipReportName"
+                        (click)="editReport(report)" (mouseover)="mouseOverOnButton($event.currentTarget, report.Name)"
+                        [ngClass]="{'selected': currentIdTemplate == report.IdTemplate}" cdkDrag
+                        cdkDragPreviewContainer="parent">
+                        <mat-icon cdkDragHandle class="drag-icon">drag_indicator</mat-icon>
+                        {{report.Name}} {{report.IsSystemReport ? sharedStr : ''}}
+                    </button>
+                </ng-container>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <div id="CreateReport" class="gridCntnr">
+                <ng-container *ngIf="aggridConfig?.id !== '' && aggridConfig?.columnDefs?.length">
+                    <shelf-ag-grid #agGrid [gridConfig]="aggridConfig"></shelf-ag-grid>
+                </ng-container>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

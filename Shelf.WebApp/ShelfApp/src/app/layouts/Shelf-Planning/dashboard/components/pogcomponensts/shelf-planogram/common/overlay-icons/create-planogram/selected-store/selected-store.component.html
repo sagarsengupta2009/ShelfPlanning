@@ -1,0 +1,7 @@
+<div style="height: calc(100vh - 14em);">
+  <ng-container *ngIf="selectedGridConfig && selectedGridConfig.id !== ''">
+    <shelf-ag-grid #grid [gridConfig]="selectedGridConfig" (selectedRow)="invokeSelectedstoreRow()" 
+    (rowValueUpdated)="editedValue($event)">
+    </shelf-ag-grid>
+  </ng-container>
+</div>

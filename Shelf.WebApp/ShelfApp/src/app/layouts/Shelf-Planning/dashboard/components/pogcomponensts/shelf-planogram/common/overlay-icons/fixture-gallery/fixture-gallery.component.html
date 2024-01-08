@@ -1,0 +1,70 @@
+<div cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle class="custom-modal-header" fxLayout="row" fxLayoutAlign="space-between start">
+    <h4 mat-dialog-title>{{ 'FIXTURE_LIBRARY' | translate }}</h4>
+    <div fxLayout="row" fxLayoutAlign="end">
+        <sp-search #searchDetail class="spSearch" *ngIf="!searchSettingVisibility" [isChildSearch]="true"
+            (emitChildSearchText)="childSearchItems($event)" [selectedSearchField]="fixture.selectedField"></sp-search>
+        <div class="mat-custom-icons">
+            <mat-icon *ngIf="!searchSettingVisibility" matTooltip="{{ 'FIXTURE_LIBRARY_REFRESH' | translate }}"
+                (click)="refreshFixtures()">refresh
+            </mat-icon>
+            <mat-icon *ngIf="!searchSettingVisibility" [matMenuTriggerFor]="menu" #matMenuTrigger="matMenuTrigger" matTooltip="{{ 'MORE' | translate }}">
+                more_vert
+            </mat-icon>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onSetting()">
+                    <mat-icon>settings</mat-icon>
+                    <span>{{ 'POG_LIB_DROPDOWN_SETTINGS' | translate }}</span>
+                </button>
+            </mat-menu>
+            <mat-icon mat-dialog-close matTooltip="{{ 'CLOSE' | translate }}">close</mat-icon>
+        </div>
+    </div>
+</div>
+
+<div class="fixtureDialog" mat-dialog-content>
+    <div id="FixResultStatusBar"
+        *ngIf="searchProductsData && searchProductsData.length == 0 && !searchSettingVisibility">
+        <i>No result found</i>
+    </div>
+    <div class="cart-body" *ngIf="searchProductsData && searchProductsData.length > 0 && !searchSettingVisibility"
+        id="fixture-body-id">
+        <ul class="list-view collection FixtureLib">
+            <li *ngFor="let fixture of searchProductsData"
+                [ngClass]="{ disabled: fixture.isLoaded && fixture.isPOGDataReturnFail }"
+                class="collection-item collection-fixture-item row">
+                <app-dnd-wrapper [data]="getDragDropData(fixture)">
+                    <div class="row" style="align-items: center">
+                        <div class="col-sm-6">
+                            <span class="small-avatar-image z-depth-1">
+                                <img src="{{ fixture.Image }}" alt="No Image Available"
+                                    style="height: 100px; width: 100%" />
+                            </span>
+                        </div>
+                        <div class="col-sm-5" style="text-align: center; line-height: 3em">
+                            <div>
+                                <span class="col-sm-12">{{ fixture.Name }}</span>
+                            </div>
+                            <div>
+                                <span class="col-sm-12">
+                                    {{ fixture.Height }} &#10005; {{ fixture.Length }} &#10005;
+                                    {{ fixture.Depth }}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <span [ngClass]="{
+                                    'fixture-loading': !fixture.isLoaded,
+                                    'fixture-red': isLoaded && fixture.isPOGDataReturnFail,
+                                    'fixture-green': fixture.isLoaded && !fixture.isPOGDataReturnFail
+                                }"></span>
+                        </div>
+                    </div>
+                </app-dnd-wrapper>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="searchSettingVisibility">
+        <sp-search-setting [customSearchType]="fixture" [type]="fixture.searchType" [id]="fixture.id"
+            (close)="cancelSearchSetting($event)" (onUpdateProductHierarchy)="updateProductHierarchy($event)">
+        </sp-search-setting>
+    </div>
+</div>

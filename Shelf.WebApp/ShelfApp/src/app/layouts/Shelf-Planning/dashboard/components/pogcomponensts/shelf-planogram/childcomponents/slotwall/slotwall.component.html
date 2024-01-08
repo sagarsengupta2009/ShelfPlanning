@@ -1,0 +1,18 @@
+
+<div kendoTooltip filter="svg" [tooltipTemplate]=" turnOffTooltip ? template : ''" position="left" class="tooltipHolder" [showAfter]="sharedService.tooltipDelayTime">
+    <div #dataContainer>slotwall works!</div>
+    <ng-template #template let-anchor>
+      <div style="float:left;padding:15px;margin-top: 35px;">
+        <img src="{{ checkPlanogram(anchor) }}" style="max-height:90px;vertical-align:middle" />
+      </div>
+      <div style="float:right;font-size: 11px;line-height: 20px;margin: 5px;word-break: break-word;">
+        <table>         
+          <tr *ngFor="let tooltip of toolTipData">
+            <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+            <td class="tooltip-text-colon">:</td>
+            <td>{{tooltip.value}}</td>
+          </tr>  
+         </table>
+      </div>
+    </ng-template>
+  </div>

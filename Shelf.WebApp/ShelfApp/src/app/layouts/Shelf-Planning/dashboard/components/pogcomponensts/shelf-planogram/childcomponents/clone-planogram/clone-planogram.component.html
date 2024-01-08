@@ -1,0 +1,104 @@
+<h4 class="custom-modal-header" mat-dialog-title *ngIf="!fromPanel" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{'CLONE_POG'|translate}}</h4>
+<h4 class="custom-modal-header" mat-dialog-title *ngIf="fromPanel" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{'SELECT_STORES'|translate}}</h4>
+<div *ngIf="!fromPanel" class="dialogCloseIcon">
+  <span style="margin-right:7px;">{{toggleName}}</span>
+  <mat-slide-toggle [(ngModel)]="toggleClick" (ngModelChange)="ontoggleChange()"></mat-slide-toggle>
+</div>
+<div *ngIf="fromPanel" class="dialogCloseIcon">
+  <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+
+<div mat-dialog-content class="dialogCntnr">
+  <div style="height:100%;">
+    <div style="height:100%;" [style.display]="toggleClick ? 'block' : 'none'">
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom:-13px;">
+        <div style="font-size:0.93em;">  {{'SELECTED_STORES' | translate}}</div>
+        <div class="datecomponent">
+          <mat-form-field style="margin-right:10px;">
+            <mat-select placeholder="{{'CHOOSE_POGTYPE'|translate}}" [(ngModel)]="selectedType">
+              <mat-option *ngFor="let option of planogramType" [value]="option.value">
+                {{option.text}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <kendo-datepicker *ngIf="copyOfSelectedStore.length" style="width:28px;height:28px;" [(ngModel)]="changeDate" matTooltip="{{'TOGGLE_CALENDAR'| translate}}" [value]="changeDate" (valueChange)="onDateChange()" [disabledDates]="disabledDates">
+            <kendo-timepicker-messages toggle=""></kendo-timepicker-messages>
+          </kendo-datepicker>
+          <button *ngIf="copyOfSelectedStore.length" mat-icon-button (click)="deleteselectedRows()">
+            <mat-icon  matTooltip="{{'DELETE'|translate}}">delete</mat-icon>
+          </button>
+          <button mat-icon-button (click)="excelasexportselectdstoregrid()">
+            <mat-icon matTooltip="{{'EXPORT_EXCEL'| translate}}">get_app</mat-icon>
+          </button>
+        </div>
+      </div>
+      <ng-container *ngIf="selectedstoregridConfig && selectedstoregridConfig.id !== ''" style="height: calc(100% - 42px);">
+          <shelf-ag-grid #selectedstoregrid [gridConfig]="selectedstoregridConfig" (onContextSelect)="onContextMenuSelect($event)"
+          (selectedRow)="invokeSelectedstoreRow()" (rowValueUpdated)="editedValue($event)">
+          </shelf-ag-grid>
+      </ng-container>
+    </div>
+    <div style="height:100%;" [style.display]="!toggleClick ? 'block' : 'none'">
+      <kendo-splitter style="height:100%;">
+        <kendo-splitter-pane [collapsible]="true" style="width:25%;">
+          <mat-card class="heirarchylist">
+            <div style="height:100%;">
+              <div class="poGStoreHierarchyHearder row" style="background-color:#ececec">
+                <div class="col" style="padding-top:5px;">{{'STORE_HIER'| translate}}</div>
+                <div class="col right inner-addon right-addon" style="padding-top:22px">
+                  <span (click)="getSearhitem(searchText)" id="storeSearchBtn" class="material-icons glyphicon"
+                        style="padding:2px;cursor: pointer;">
+                    search
+                  </span>
+                  <input id="pogHeirarchySearch" class="search form-control" [(ngModel)]="searchText" (keyup)="onkeyup(searchText)" (keyup.enter)="getSearhitem(searchText)" placeholder="{{'SEARCH' | translate}}" />
+                </div>
+              </div>
+
+              <div style="overflow:auto;height:calc(100% - 24px)">
+                <kendo-treeview [nodes]="parsedData" textField="Name" kendoTreeViewExpandable kendoTreeViewSelectable kendoTreeViewHierarchyBinding
+                                [(expandedKeys)]="expandedKeys" [expandBy]="'IdHierStr'" (expand)="handleExpand($event)" (collapse)="handleCollapse($event)"
+                                [hasChildren]="hasChildren" [children]="fetchChildren" (selectionChange)="onNodeSelect($event)">
+                </kendo-treeview>
+              </div>
+            </div>
+          </mat-card>
+        </kendo-splitter-pane>
+        <kendo-splitter-pane [collapsible]="true" style="width:75%">
+          <mat-card class="listcntnr">
+            <div style="height:100%;">
+              <div fxLayout="row" fxLayoutAlign="space-between center" style="background-color:#ededed;height: 5vh;">
+                <div>
+                  <span *ngIf="selectedstoreData && selectedstoreData.length">{{selectedstoreData.length}}</span>
+                  <span *ngIf="selectedstoreData && selectedstoreData.length==0" style="margin-left:5px;margin-right:5px;">{{'STORES' | translate}}</span>
+                  <span *ngIf="selectedstoreData && selectedstoreData.length" style="margin-left:5px;margin-right:5px;">{{'STORES_PLURAL' | translate}}</span>
+                  <span *ngIf="selectedstoreData && selectedstoreData.length">{{'SELECTED'| translate}}</span>
+                </div>
+                <div>
+
+                  <button mat-icon-button *ngIf="selectedstoreData && selectedstoreData.length" (click)="resetSelectedData()">
+                    <mat-icon matTooltip="{{'POG_LIB_CLEARALL'|translate}}">clear_all</mat-icon>
+                  </button>
+                  <button *ngIf="storegridConfig && storegridConfig.id !== ''" mat-icon-button (click)="excelasexportstoregrid()">
+                    <mat-icon matTooltip="{{'EXPORT_EXCEL'| translate}}">get_app</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <ng-container *ngIf="storegridConfig && storegridConfig.id !== ''" class="storeGridCntnr">
+                <shelf-ag-grid #storegrid [gridConfig]="storegridConfig"
+                (selectedRow)="invokeGridSelectedRow($event)"></shelf-ag-grid>
+              </ng-container>
+            </div>
+          </mat-card>
+        </kendo-splitter-pane>
+      </kendo-splitter>
+    </div>
+
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+
+  <button mat-raised-button *ngIf="fromPanel" (click)="closeDialog()">{{'OK'|translate}}</button>
+  <button mat-raised-button *ngIf="!fromPanel" mat-dialog-close>{{'SH_CANCEL'|translate}}</button>
+  <button mat-raised-button *ngIf="!fromPanel" (click)="clonePlanogram()">{{'PLANOGRAM_LIBRARY_CLONE'|translate}}</button>
+</div>

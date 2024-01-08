@@ -1,0 +1,5 @@
+<div [ngClass]="{'contentWidth':(gridConfig?.id ==='br-DashBoardGrid')}"
+  *ngIf="gridConfig?.id !==''">
+  <srp-kendo-grid #grid [gridConfig]="gridConfig" (actionEventEmit)="SelectedItem($event)">
+  </srp-kendo-grid>
+</div>

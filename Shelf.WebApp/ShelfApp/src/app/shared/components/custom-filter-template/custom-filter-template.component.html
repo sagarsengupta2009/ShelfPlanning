@@ -1,0 +1,26 @@
+<mat-form-field *ngIf="showFilter">
+    <input matInput placeholder="{{'SEARCH' | translate}}" (input)="onInput($event)">
+</mat-form-field>
+
+<ul>
+    <li #itemElement1>
+        <input type="checkbox" style="height:18px; width:18px;" id="chk-SelectAllFilter" (click)="selectAllChecked()"
+            class="k-checkbox" [checked]="selectedAll" />
+        <label style="font-size: medium;font-weight:bold;" class="k-multiselect-checkbox k-checkbox-label"
+            for="chk-SelectAllFilter">
+            {{ 'SELECTAll'| translate}}
+        </label>
+    <li #itemElement *ngFor="let item of currentData; let i = index;"
+        (click)="onSelectionChange(valueAccessor(item.field), itemElement)"
+        [ngClass]="{'k-state-selected': isItemSelected(item.field)}">
+        <input type="checkbox" id="chk-{{valueAccessor(item.field)}}" class="k-checkbox"
+            [checked]="isItemSelected(item.field)" />
+        <label *ngIf="field != 'blockColor_template'" class="k-multiselect-checkbox k-checkbox-label wraping-text"
+            for="chk-{{valueAccessor(item.field)}}"
+            [innerHTML]="(textAccessor(item.value) | formatAgColumn:item ) | safe">
+        </label>
+        <div *ngIf="field === 'blockColor_template'" class="blockColorClass"
+            [innerHTML]="textAccessor(item.value)| formatAgColumn: item | safe">
+        </div>
+    </li>
+</ul>

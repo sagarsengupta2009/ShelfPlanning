@@ -1,0 +1,22 @@
+.contentmainCntnr {
+  width: 100%;
+  padding: 0px 6px;
+  margin: 5px 0px;
+
+  .contentCntnr {
+    width: 100%;
+    /*margin: 5px 0px;*/
+  }
+}
+
+.dialogCloseIcon {
+  float: right;
+  margin-top: -22px;
+  cursor: pointer;
+  color:white;
+}
+
+
+.mat-dialog-title {
+  margin: -5px !important;
+}

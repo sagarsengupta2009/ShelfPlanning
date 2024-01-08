@@ -1,0 +1,6 @@
+<span *ngIf="isMultiple">...</span>
+<b *ngIf="canShowDimension">
+    {{ dimension.Height ? dimension.Height.toFixed(2) : '' }} x
+    {{ dimension.Width ? dimension.Width.toFixed(2) : '' }} x
+    {{ dimension.Depth ? dimension.Depth.toFixed(2) : '' }}
+</b>

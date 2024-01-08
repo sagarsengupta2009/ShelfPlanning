@@ -1,0 +1,47 @@
+<ng-container [ngSwitch]="true">
+    <button class="contextmenu" mat-menu-item *ngSwitchCase="enableCrunchMode"
+        (click)="openCrunchMode(data,$event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_CRUNCH_MODE' |
+        translate}}</button>
+    <mat-divider *ngSwitchCase="enableCrunchMode"></mat-divider>
+    <button class="contextmenu border-margin" *ngSwitchCase="enableCrossbar" mat-menu-item [matMenuTriggerFor]="menu2"
+        #matMenuTrigger="matMenuTrigger" (mouseenter)="openResourceMenu();" 
+        >{{'SPREAD_PACK' | translate}}</button>
+    <mat-divider *ngSwitchCase="enableCrossbar"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="enableClearAllPos"
+        (click)="clearPosition($event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_MENU_CLEAR_ALL_POSITION' |
+        translate}}</button>
+    <mat-divider *ngSwitchCase="enableClearAllPos"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="enableFlip"
+        (click)="flipFixturecxt($event)" (mouseenter)="closeResourceMenu();">{{'MIRROR' |
+        translate}}<span class="right grey-text font-14">Ctrl+I</span></button>
+    <mat-divider *ngSwitchCase="enableFlip"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="enableCopy"
+        (click)="copyFixtureCxt($event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_MENU_COPY' |
+        translate}} <span class="right grey-text font-14">Ctrl+C</span></button>
+    <mat-divider *ngSwitchCase="enableCopy"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="enablePaste"
+        (click)="pasteFixtureCxt($event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_MENU_PASTE'
+        | translate}} <span class="right grey-text font-14">Ctrl+V</span></button>
+    <mat-divider *ngSwitchCase="enablePaste"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="annotationDis"
+        (click)="addEditAnnotation($event)" (mouseenter)="closeResourceMenu();">{{'ANNOTATE'
+        |translate}}</button>
+    <mat-divider *ngSwitchCase="annotationDis"></mat-divider>
+</ng-container>
+<button class="contextmenu border-margin" mat-menu-item
+    (click)="deleteFixtureCxt($event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_MENU_DELETE'|translate}}</button>
+<mat-divider></mat-divider>
+<button class="contextmenu border-margin" mat-menu-item (click)="objectPropertyGrid($event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_PROPERTIES' | translate}}</button>
+<mat-divider></mat-divider>
+<button class="contextmenu" mat-menu-item (click)="openSectionInfo($event);" (mouseenter)="closeResourceMenu();">{{'SECTION_PROPERTIES' | translate}}</button>
+
+<mat-menu #menu2="matMenu">
+    <button mat-menu-item (click)="crossbarPositionChange($event, 'spread', 'CROSSBAR_SPREAD')">{{'CROSSBAR_SPREAD' |
+        translate}}</button>
+    <button mat-menu-item
+        (click)="crossbarPositionChange($event, 'packleft', 'CROSSBAR_PACK_LEFT')">{{'CROSSBAR_PACK_LEFT' |
+        translate}}</button>
+    <button mat-menu-item
+        (click)="crossbarPositionChange($event, 'packright', 'CROSSBAR_PACK_RIGHT')">{{'CROSSBAR_PACK_RIGHT' |
+        translate}}</button>
+</mat-menu>

@@ -1,0 +1,21 @@
+.gridcntnr {
+  height: 100%;
+  /*::ng-deep.k-grid-content {
+    background-color: #ffffff;
+    height: 100%;
+  }*/
+}
+
+.dialogCloseIcon {
+  float: right;
+  /*cursor: pointer;*/
+  margin-top: -40px;
+   color:white;
+  ::ng-deep mat-icon {
+    cursor: pointer;
+    margin: 0 5px;
+    margin-bottom: 4px;
+    color: white;
+  }
+  
+}

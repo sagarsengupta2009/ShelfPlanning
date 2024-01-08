@@ -1,0 +1,43 @@
+.dialogCloseIcon {
+    float     : right;
+    margin-top: -48px;
+
+    mat-icon {
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    .spSearch {
+        margin: -5px 5px;
+        border-radius: 23px;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+      }
+}
+#MustStock{
+    margin-top: 15px;
+}
+.searchCntnr {   
+    margin: 5px 15px;
+}
+// .mat-dialog-content-main{
+//   height: calc(100vh - 13em);
+// }
+
+input[readonly] {
+    opacity: 0.5;
+    caret-color: transparent;
+  }
+
+.disabled-readonly-field{
+   pointer-events: none;
+}
+
+.text-overflow{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 250px;
+}
+
+.mat-dialog-container{
+    overflow: unset;
+}

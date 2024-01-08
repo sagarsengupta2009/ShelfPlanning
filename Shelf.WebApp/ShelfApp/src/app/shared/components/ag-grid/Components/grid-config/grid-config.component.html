@@ -1,0 +1,183 @@
+<div mat-dialog-title class="flex-container modelMinWidth custom-modal-header" style="max-height:50px">
+  <div>
+
+    <span>{{'GRID_SETTINGS'| translate}}</span>
+    <!-- <h4 mat-dialog-title>{{'GRID_SETTINGS'| translate}}</h4> -->
+    <!--<span> {{ gridId }}</span>-->
+    <div class="reset_icon">
+      <span class="material-icons" matTooltip="{{'RESET' | translate}}" (click)="resetColumnConfig()"> refresh </span>
+      <span class="material-icons"
+        matTooltip="{{'SAVE' | translate }}" (click)="SaveConfiguration()"> save </span>
+    </div>
+  </div>
+</div>
+<mat-dialog-content style="overflow: hidden;">
+  <mat-card class="config-card-col" style="width:50%;background-color:#b2b9be">
+    <mat-card-subtitle>
+      <div class="row">
+        <div class="col-sm-4">
+          <strong>{{'COLUMNS' | translate}}</strong>
+        </div>
+        <div class="col-sm-8 search_txt_div" *ngIf="gridConfig.data && gridConfig.data.length > 7">
+          <div class="input-group search_txt_group">
+            <div class="input-group-addon icon-padding"><i class="material-icons" style="color:var(--icons)">search</i>
+            </div>
+            <input type="text" class="form-control" id="searchCol" name="searchCol" [(ngModel)]="searchColumn"
+              (keyup)="searchAndHighlight()" placeholder="{{'SEARCH'|translate}}">
+            <div class="input-group-addon icon-padding right" style="border: none;">
+              <span class="material-icons icon-class" *ngIf="showSearchArrow" (click)="gotoElement(true)">
+                keyboard_arrow_up
+              </span>
+              <span class="material-icons icon-class" *ngIf="showSearchArrow" (click)="gotoElement()">
+                keyboard_arrow_down
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div cdkDropList class="config-card-content" [cdkDropListData]="gridConfig.data" #configList="cdkDropList"
+        id="configList" [cdkDropListConnectedTo]="[sortList, groupList]"
+        (cdkDropListDropped)="drop($event, gridConfig.data)">
+        <div class="pop" *ngFor="let data of gridConfig.data | orderBy: 'isHide'; let i = index" cdkDrag
+          [cdkDragData]=data [ngClass]="{
+                'hidden-background': data['isHide'],
+                'lock-background': data['isLocked'],
+                'unlock-background': !data['isLocked'],
+                'searchcss': data['searchcss']
+              }">
+
+          <div *cdkDragPreview fxLayout="column" fxFlexAlign="center">
+            <strong class="col-title">
+              <span *ngIf="!data['isHide']" style="padding-right:2px;">{{i+1}}.</span>
+              {{data["columnTitle"]}}
+            </strong>
+            <span class="col-desc" *ngIf="data['columnTitle'] != data['columnDescription']">
+              {{ data["columnDescription"] }}
+            </span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxLayout="column" fxFlexAlign="center">
+              <strong class="col-title">
+                <span *ngIf="!data['isHide']" style="padding-right:2px;">{{i+1}}.</span>
+                {{data["columnTitle"]}}
+              </strong>
+              <span class="col-desc" *ngIf="data['columnTitle'] != data['columnDescription']">
+                {{ data["columnDescription"] }}
+              </span>
+            </div>
+            <div class="action-icons" fxLayout="row" fxLayoutAlign="center center">
+              <!-- <div fxLayout="column" fxFlexAlign="right">
+                  <strong class="col-title">
+                    <span> {{data["width"]}}</span>
+                  </strong>
+                  <span class="col-desc">
+                    width
+                  </span>
+                </div> -->
+              <div *ngIf="!data['isHide']">
+                <kendo-colorpicker style="z-index:-1" #picker [format]="'hex'" [value]="data['color']"
+                  [paletteSettings]="paletteSettings" (valueChange)="OnColorChange($event, data)"></kendo-colorpicker>
+                <mat-icon matTooltip="{{'COLUMN_COLOR' | translate}}" (click)="pickerSwitch(picker)"
+                  class="material-icons-menu icon-class" [ngStyle]="{'color':data['color']}">
+                  arrow_drop_down_circle
+                </mat-icon>
+              </div>
+              <mat-icon *ngIf="data['isLocked'] && !data['isHide']" matTooltip="{{'UNLOCK' | translate}}" (click)="lockUnlock(0, data)"
+                class="material-icons-menu icon-class">lock</mat-icon>
+              <mat-icon *ngIf="!data['isLocked'] && !data['isHide']" matTooltip="{{'LOCK' | translate}}" (click)="lockUnlock(1, data)"
+                class="material-icons-menu icon-class">lock_open</mat-icon>
+              <mat-icon *ngIf="!data['isHide']" matTooltip="{{'HIDE' | translate}}" (click)="hideShow(0, data)"
+                class="material-icons-menu icon-class">visibility</mat-icon>
+              <mat-icon *ngIf="data['isHide']" matTooltip="{{'SHOW' | translate}}" (click)="hideShow(1, data)"
+                class="material-icons-menu icon-class">visibility_off</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="config-card" style="width:22%;background-color:#6386c459">
+    <mat-card-subtitle>
+      <strong>{{ 'SORTING' | translate }}</strong>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div cdkDropList [cdkDropListData]="inputGridConfig.sort" #sortList="cdkDropList" id="sortList"
+        class="list-background config-card-content" (cdkDropListDropped)="drop($event, inputGridConfig.sort)"
+        [cdkDropListEnterPredicate]="validateDrop">
+        <span class="drag_drop_msg" *ngIf="inputGridConfig.sort.length == 0">
+          {{ 'DRAG_AND_DROP_COLUMN_HERE_FOR_SORTING' | translate }}
+        </span>
+        <div *ngFor="let data of inputGridConfig.sort; let i = index" cdkDrag class="pop unlock-background"
+          cdkDragLockAxis="y">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxLayout="column" fxFlexAlign="center">
+              <strong class="col-title">
+                <span *ngIf="!data['isHide']" style="padding-right:2px;">{{i+1}}.</span>
+                {{ bindTitleOrDescription(data["colId"], 0) }}
+              </strong>
+              <span class="col-desc" *ngIf="data['disc'] != ''">
+                {{ bindTitleOrDescription(data["colId"], 1) }}
+              </span>
+            </div>
+            <div class="action-icons" fxLayout="row" fxLayoutAlign="end center">
+              <span matTooltip="{{'SORT_ASCENDING' | translate}}" class="k-icon k-i-sort-asc-sm" *ngIf="data['sort'] === 'asc'"
+                (click)="sortItem(i, 0)"></span>
+              <span matTooltip="{{'SORT_DESCENDING' | translate}}" class="k-icon k-i-sort-desc-sm" *ngIf="data['sort'] === 'desc'"
+                (click)="sortItem(i, 1)">
+              </span>
+              <mat-icon matTooltip="{{'REMOVE' | translate}}" (click)="removeSort(i)" class="material-icons-menu icon-class">
+                delete
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="config-card" style="width:22%;background-color:#2050513d">
+    <mat-card-subtitle>
+      <strong>{{'GROUPING' | translate}}</strong>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div cdkDropList [cdkDropListData]="inputGridConfig.groups"
+        [ngClass]="{'disableDiv': inputGridConfig.gridConfig.hideGroupHeader}" #groupList="cdkDropList" id="groupList"
+        class="list-background config-card-content" (cdkDropListDropped)="drop($event, inputGridConfig.groups)">
+        <span class="drag_drop_msg"
+          *ngIf="inputGridConfig.groups.length == 0 && !inputGridConfig.gridConfig?.hideGroupHeader">
+          {{ 'DRAG_AND_DROP_COLUMN_HERE_FOR_GROUPING'| translate}}
+        </span>
+        <span class="drag_drop_msg" *ngIf="inputGridConfig.gridConfig?.hideGroupHeader">
+          {{'NOT_PERMITTED_FOR_THIS_GRID'| traslate}}
+        </span>
+        <div *ngFor="let data of inputGridConfig.groups; let i = index" cdkDrag class="pop unlock-background"
+          cdkDragLockAxis="y">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div fxLayout="column" fxFlexAlign="center">
+              <strong class="col-title">
+                <span style="padding-right:2px;">{{i+1}}.</span>
+                {{ bindTitleOrDescription(data["colId"],0) }}
+              </strong>
+              <span class="col-desc" *ngIf="data['disc'] != ''">
+                {{ bindTitleOrDescription(data["colId"],1) }}
+              </span>
+            </div>
+            <div class="action-icons" fxLayout="row" fxLayoutAlign="end center">
+              <mat-icon matTooltip="{{'REMOVE' | translate}}" (click)="removeGroup(i)" class="material-icons-menu icon-class">
+                delete
+              </mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+<!-- <mat-dialog-actions align="end" style="max-height: 50px">
+    <button mat-raised-button
+            [mat-dialog-close]="{ onsaveClick : true, config: inputGridConfig.gridConfig , sort: inputGridConfig.sort, groups : inputGridConfig.groups}"
+            (click)="SaveConfiguration()">
+      Save
+    </button>
+  </mat-dialog-actions> -->

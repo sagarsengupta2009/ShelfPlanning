@@ -1,0 +1,55 @@
+<div id="blockEditor">
+  <div mat-dialog-content [ngClass]="blockCreation ? 'create-block' : 'edit-block'" style='display: grid;'>
+    <div *ngIf="blockCreation" class='row' style="margin-bottom: 15px;">
+      <h3>{{"CREATE_MANUAL_BLOCK" | translate}}</h3>
+    </div>
+    <div class='row'>
+      <div class='column'>
+        <mat-form-field appearance="fill">
+          <mat-label>{{"BLOCK_NAME" | translate}}</mat-label>
+          <input minlength="1" required cdkFocusInitial matInput autocomplete="off" [(ngModel)]="blockName"
+            (input)="this.blockNameUpdate.next($event)">
+        </mat-form-field>
+      </div>
+      <div class="info column">
+        <p *ngIf="!blockCreation">{{"ITEMS" | translate}} : <span>{{itemsCount}}</span></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <p>{{"blockColor" | translate}}</p>
+        <kendo-colorpicker [format]="'hex'" [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings"
+          [value]="selectedColor" (valueChange)="onChangeColor($event)">
+        </kendo-colorpicker>
+      </div>
+      <div class="column">
+        <p>{{"blockOutline" | translate}}</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Select</mat-label>
+          <mat-select [(value)]="borderSize" (selectionChange)="updateBlock()">
+            <mat-option value="0.5"><span>Small</span>
+              <div style="border-bottom: 1px solid black;"></div>
+            </mat-option>
+            <mat-option value="1.0"><span>Medium</span>
+              <div style="border-bottom: 2px solid black;"></div>
+            </mat-option>
+            <mat-option value="2.0"><span>Large</span>
+              <div style="border-bottom: 3px solid black;"></div>
+            </mat-option>
+            <mat-option value="3.0"><span>Largest</span>
+              <div style="border-bottom: 4px solid black;"></div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <div mat-dialog-actions align="end" style="gap:10px;padding-bottom: 5px;">
+    <button class="delete-block" (click)="deleteBlock()" *ngIf="isManualBlock" mat-button
+      style="margin-right:auto;">{{"DELETE" |
+      translate}}</button>
+    <button *ngIf="blockCreation" (click)="cancelBlock()" mat-button>{{"CANCEL" | translate}}</button>
+    <button *ngIf="blockCreation" (click)="updateBlock(true)" mat-button>{{"OK" | translate}}</button>
+  </div>
+</div>

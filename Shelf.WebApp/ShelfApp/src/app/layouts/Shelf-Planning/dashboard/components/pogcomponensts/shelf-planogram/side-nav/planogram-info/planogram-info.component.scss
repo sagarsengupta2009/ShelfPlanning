@@ -1,0 +1,48 @@
+#planograminformation {
+    .dialogCloseIcon {
+        float: right;
+        margin-top: -35px;
+
+        mat-icon {
+            cursor: pointer;
+            color: white;
+        }
+    }
+
+    .mat-dialog-title {
+        margin: 0px !important;
+        display: block !important;
+    }
+
+    .data-section {
+        overflow: hidden;
+        margin: 0 -10px;
+
+        .list-div-cntnr {
+            max-height: calc(100vh - 22em);
+            overflow: auto;
+
+            .list-item-cntnr {
+                height: 30px;
+                border-bottom: 1px solid #d3d3d366;
+
+                .row-cntnr {
+                    width: 100%;
+                    margin: 0 -16px;
+
+                    .column-cntnr {
+                        width: 50%;
+                        font-size: 0.75em;
+                    }
+                }
+            }
+        }
+    }
+
+    //For field information text should not overlapping
+    .mat-list-item {
+        height: auto !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+}

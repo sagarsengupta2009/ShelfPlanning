@@ -1,0 +1,24 @@
+{
+  "RulesTypes": [
+    {
+      "name": "Blocks",
+      "value": "BLOCKS"
+    },
+    {
+      "name": "Placement",
+      "value": "PLACEMENT"
+    },
+    {
+      "name": "Priority Based Inventory",
+      "value": "ITEM_PRIORITY_RULES"
+    },
+    {
+      "name": "Item Family",
+      "value": "GROUP_RULES"
+    },
+    {
+      "name": "Automatic Placement",
+      "value": "AUTOMATIC_PLACEMENT"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+<div [@infoConsole] class="information-console" *ngIf="isOpenInfoConsole || isRunningInAllocate" cdkDrag>
+  <div class="information-console-header row" cdkDragHandle>
+    <div class="col-md-4 header-name">
+      <span translate>INFORMATIONCONSOLELABLE </span>
+    </div>
+    <div class="pull-right  col-md-8">
+
+      <a class="close" (click)="closeInformationConsole()">
+        <mat-icon class="material-icons m-r-13" matTooltip="{{'CLOSE'|translate}}">close</mat-icon>
+      </a>
+      <a class="close" (click)="clearInfoLogs()">
+        <mat-icon class="material-icons m-r-13" matTooltip="{{'POG_LIB_CLEARALL'|translate}}">clear_all</mat-icon>
+      </a>
+      <a class="close">
+        <mat-icon class="material-icons m-r-13" [matMenuTriggerFor]="more" matTooltip="{{'INFO_CONSOLE_TRANSPARENCY' |translate}}"
+          aria-hidden="false" aria-label="more">
+          settings_brightness
+        </mat-icon>
+      </a>
+      <mat-menu #more="matMenu">
+        <button mat-menu-item (click)="setBrightness('high')"
+          [ngStyle]="{'background-color': (brightness === 'high') ? 'lightgray' : '#ffffff'}">
+          <i class="material-icons">brightness_high</i>&nbsp;&nbsp;
+          <span class="header_more" translate>HIGH</span>
+        </button>
+        <button mat-menu-item (click)="setBrightness('medium')"
+          [ngStyle]="{'background-color': (brightness === 'medium') ? 'lightgray' : '#ffffff'}">
+          <i class="material-icons">brightness_medium</i>&nbsp;&nbsp;
+          <span translate class="header_more">MEDIUM</span>
+        </button>
+        <button mat-menu-item (click)="setBrightness('low')"
+          [ngStyle]="{'background-color': (brightness === 'low') ? 'lightgray' : '#ffffff'}">
+          <i class="material-icons">brightness_low</i>&nbsp;&nbsp;
+          <span translate class="header_more">LOW</span>
+        </button>
+        <button mat-menu-item (click)="setBrightness('none')"
+          [ngStyle]="{'background-color': (brightness === 'none') ? 'lightgray' : '#ffffff'}">
+          <i class="material-icons">brightness_auto</i>&nbsp;&nbsp;
+          <span translate class="header_more">NONE</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="information-console-body-parent">
+
+    <div class="information-console-body layout-fill">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th translate>PP_TYPE</th>
+            <th translate>PP_CODE</th>
+            <th translate>PP_DESCRIPTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of infoLogs | filterInfoBy:selectedInfoView:'Type'" (click)="selectLog(item)"
+            (dblclick)="copyMessageTOClipboard(item);">
+            <td align="center">
+              <span *ngIf="item.Type==='E'" class="error-error">
+                <mat-icon matTooltip="Error">block</mat-icon>
+              </span>
+              <span *ngIf="item.Type==='W'" class="error-warning">
+                <mat-icon matTooltip="Warning">warning</mat-icon>
+              </span>
+              <span *ngIf="item.Type==='I'" class="error-notice">
+                <mat-icon matTooltip="Information">info</mat-icon>
+              </span>
+            </td>
+            <td align="left">{{item.Code?item.Code:''}}</td>
+            <td align="left" class="break-word">{{item.Message}}</td>
+            <td *ngIf="item.Type === 'I' && item.SubType !== 6 && item.SubType !== 7">
+              <mat-icon (click)="deleteLog(item)" style="cursor:pointer;">delete</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="information-console-footer">
+      <div class="input">
+        <mat-radio-group aria-labelledby="custom-radio-group-label" class="custom-radio-group pull-left"
+          [(ngModel)]="selectedInfoView">
+          <mat-radio-button class="custom-radio-button" *ngFor="let filtervalue of itemViewFilter"
+            [value]="filtervalue.Type">
+            {{filtervalue.Value}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+  <canvas id="circlePointer" width="120" height="120" style="position:relative;" #canvas></canvas>
+  <span id="errorIndicatorId" class="error-indicator" #errorIndicator></span>
+</div>

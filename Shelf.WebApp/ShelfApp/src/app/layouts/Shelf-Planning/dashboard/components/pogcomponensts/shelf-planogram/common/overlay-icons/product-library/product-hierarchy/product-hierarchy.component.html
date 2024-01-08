@@ -1,0 +1,33 @@
+<div style="height:100%;">
+  <div class="content-body">
+    <kendo-splitter class="splitterHierarchy">
+      <kendo-splitter-pane size="25%">
+        <div class="content-tree">
+          <kendo-treeview [nodes]="parsedData" textField="Name" kendoTreeViewExpandable kendoTreeViewSelectable
+            [expandBy]="'IdProdHier'" kendoTreeViewHierarchyBinding [hasChildren]="hasChildren"
+            [children]="fetchChildren" (selectionChange)="onNodeSelect($event)" (expand)="handleExpand($event)"
+            (collapse)="handleCollapse($event)" [(expandedKeys)]="expandedKeys" selectBy="IdProdHier"
+            [(selectedKeys)]="productlibraryService.selectedKeys">
+          </kendo-treeview>
+        </div>
+      </kendo-splitter-pane>
+      <kendo-splitter-pane>
+        <div class="content-table">
+          <ng-container
+            *ngIf="!alertmsg && gridConfigHierarachy?.id !== '' && gridConfigHierarachy?.columnDefs?.length">
+            <app-dnd-wrapper [data]="getDragDropDataGrid()">
+              <shelf-ag-grid #agHierarachyGrid [gridConfig]="gridConfigHierarachy"
+                (selectedRow)="invokeSelectedRow($event)">
+              </shelf-ag-grid>
+            </app-dnd-wrapper>
+          </ng-container>
+          <div *ngIf="alertmsg" class="alert-center">
+            <div class="alert">
+            {{'SELECT_HIERARCHY_DATA' | translate}}
+            </div>
+          </div>
+        </div>
+      </kendo-splitter-pane>
+    </kendo-splitter>
+  </div>
+</div>

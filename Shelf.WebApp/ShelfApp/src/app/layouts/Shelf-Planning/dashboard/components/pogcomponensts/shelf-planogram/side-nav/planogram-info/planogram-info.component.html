@@ -1,0 +1,22 @@
+<div id="planograminformation">
+    <div cdkDrag cdkDragRootElement=".cdk-overlay-pane" fxLayout="row" fxLayoutAlign="space-between start"
+        class="custom-modal-header" cdkDragHandle (cdkDragReleased)="onDrag()">
+        <h4 mat-dialog-title>
+            {{'POG_INFO' | translate}}</h4>
+        <mat-icon (click)="closeDialog()">close</mat-icon>
+    </div>
+    <div class="data-section">
+        <mat-list class="list-div-cntnr">
+            <mat-list-item class="list-item-cntnr" *ngFor="let obj of pogInfoData">
+                <div fxLayout="row" fxLayoutAlign="start center" class="row-cntnr">
+                    <div class="column-cntnr">
+                        {{obj.name}}
+                    </div>
+                    <div class="column-cntnr">
+                        {{obj.value}}
+                    </div>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

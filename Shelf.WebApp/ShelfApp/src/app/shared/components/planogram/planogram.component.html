@@ -1,0 +1,145 @@
+<div *ngIf="!sharedService.isShelfLoaded" class="planogram-panel" (click)="border(0)">
+  <div style="display:flex;" *ngIf="PogData && PogData.length > 0">
+    <mat-tab-group animationDuration="0ms" id="plib" #tabGroup (selectedTabChange)="CheckAndRedirect($event)" [(selectedIndex)]="selectedIndex">
+      <mat-tab *ngFor="let item of PogData;let i = index" label="{{item.Name}}" class="plibTabs">
+        <ng-template mat-tab-label>
+          <span class="circle"
+                *ngIf="item.requestStatus == null"
+                [ngClass]="{'green': !item.isReadOnly, 'amber': item.isReadOnly, 'markAsDelete':item.isMarkedAsDelete, 'markAsInvalid':item.isInvalid}">
+            {{item.statusCode}}
+          </span>
+          <span *ngIf="item.requestStatus != null" class="circle"
+                [ngClass]="{'sync': item.requestStatus == 3 || item.requestStatus == 4, 'green':item.requestStatus == 5, 'failed':item.requestStatus == 6}">
+            <mat-icon *ngIf="item.requestStatus == 3" class="white">access_time</mat-icon>
+            <mat-icon *ngIf="item.requestStatus == 4" class="white">sync</mat-icon>
+            <mat-icon *ngIf="item.requestStatus == 5" class="white">done</mat-icon>
+            <mat-icon *ngIf="item.requestStatus == 6" class="white">close</mat-icon>
+          </span>
+
+          <div>
+            <p class="pogID">
+              {{item.rowKey}}
+              <i class="material-icons status approved" *ngIf="item.approveState == 'A'" matTooltip="{{'PLANOGRAM_IS_APPROVED'|translate}}">
+                done
+              </i>
+              <i class="material-icons status rejected" *ngIf="item.approveState == 'R'" matTooltip="{{'PLANOGRAM_IS_REJECTED'|translate}}">
+                close
+              </i>
+            </p>
+            <p class="pogName" [matTooltip]="item.pogName">
+              {{item.pogName }}
+            </p>
+          </div>
+        </ng-template>
+        <ng-template matTabContent>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+    <div class="rightMenu">
+      <srp-custom-menus [screenName]="'rules'"
+                        *ngIf="Screen === 'rules'"
+                        [controlName]="'Rules_LeftSidePanel'"
+                        [type]="'gridMenu'"
+                        [myselectionlist]="MenuCriteria"
+                        (menuButtonClick)="menuButtonClick($event)">
+      </srp-custom-menus>
+
+      <srp-custom-menus [screenName]="'review'"
+                        *ngIf="Screen === 'review'"
+                        [controlName]="'Review_LeftSidePanel'"
+                        [type]="'gridMenu'"
+                        [myselectionlist]="MenuCriteria"
+                        (menuButtonClick)="menuButtonClick($event)">
+      </srp-custom-menus>
+      <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Options">
+        <mat-icon matTooltip="{{'LPD_MOREOPTION' |translate}}">more_vert</mat-icon>
+      </button>
+      <button  mat-icon-button  [matMenuTriggerFor]="appremmenu" aria-label="more">
+        <mat-icon  class="material-icons ng-scope"  >thumbs_up_down </mat-icon>
+      </button>
+      <button mat-icon-button type="button">
+        <mat-icon class="material-icons ng-scope" aria-label=""
+         md-labeled-by-tooltip="md-tooltip-42" role="img"
+          (click)="planogramService.downloadPlanogram()"
+          matTooltip="{{'REVIEW_DOWNLOAD_POG'|translate}}">cloud_download</mat-icon>
+      </button>
+      -->
+      <mat-menu #menu="matMenu">
+        <!--<button mat-menu-item>
+          <mat-icon>rate_review</mat-icon>
+          <span>Submit</span>
+        </button>-->
+        <!-- <button mat-menu-item
+        (click)="approveReject('','Recall')"
+        *ngIf="scenarioDetails.AssignmentType == 0 && selectedPogApproveState == 'SA'">
+          <mat-icon>undo</mat-icon>
+          <span translate>SUBMIT_RECALL</span>
+        </button> -->
+        <!-- <button mat-menu-item
+        *ngIf="(scenarioDetails.AssignmentType == 0 && selectedPogApproveState != 'SA') || scenarioDetails.AssignmentType != 0"
+
+        (click)="approveReject('I','Approve')">
+          <mat-icon>thumb_up</mat-icon>
+          <span translate>{{scenarioDetails.AssignmentType == 0 ? 'SUBMITTED_FOR_APPROVAL' :'REVIEW_APPROVE_POG'}}</span>
+        </button> -->
+        <!-- <button *ngIf="scenarioDetails.AssignmentType != 0"
+            mat-menu-item (click)="approveReject('R', 'Reject')">
+          <mat-icon>thumb_down</mat-icon>
+          <span translate>REVIEW_REJECT_POG</span>
+        </button> -->
+        <!-- <button mat-menu-item>
+          <mat-icon>update</mat-icon>
+          <span translate>Restore</span>
+        </button>
+        <button mat-menu-item (click)="cloneDialog()">
+          <mat-icon>content_copy</mat-icon>
+          <span translate>CLONE_PLANOGRAM</span>
+        </button> -->
+      </mat-menu>
+      <!-- <mat-menu #appremmenu="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="movetogenerate" translate>Move to Generate</button>
+        <mat-menu #movetogenerate="matMenu">
+          <button mat-menu-item translate>Approve</button>
+          <button mat-menu-item translate>Approve All</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item translate>Reject</button>
+          <button mat-menu-item translate>Reject All</button>
+        </mat-menu>
+        <button mat-menu-item [matMenuTriggerFor]="movetoreview" translate>Move to Review</button>
+        <mat-menu #movetoreview="matMenu">
+          <button mat-menu-item translate *ngIf="(scenarioDetails.AssignmentType == 0 && selectedPogApproveState != 'SA') || scenarioDetails.AssignmentType != 0"
+          (click)="approveReject('I','Approve')"
+          >Approve</button>
+          <button mat-menu-item translate>Approve All</button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item translate  *ngIf="scenarioDetails.AssignmentType != 0"
+              (click)="approveReject('R', 'Reject')">Reject</button>
+          <button mat-menu-item translate>Reject All</button>
+        </mat-menu>
+      </mat-menu> -->
+    </div>
+  </div>
+  <div class="thumbnail-holder">
+    <!--<div *ngIf="!svg">Loading...</div>-->
+    <div *ngIf="noPogs" id="noPogContainer">
+      <p id="noPogfound" translate>NO_PLANOGRAMS_FOUND!</p>
+    </div>
+    <div *ngIf="!noPogs" kendoTooltip filter="image, rect[data-idpog]" [tooltipTemplate]="template" position="right" class="tooltipHolder">
+      <div class="svg" [innerHTML]="svg"></div>
+      <ng-template #template let-anchor>
+        <div style="float:left;padding:15px">
+          <img *ngIf="anchor.nativeElement.href != undefined" src="{{anchor.nativeElement.href.baseVal}}" style="max-height:200px;vertical-align:middle" />
+        </div>
+        <div style="float:right">
+          <table>         
+            <tr *ngFor="let tooltip of getToolTipData(anchor)">
+              <td class="tooltip-key-name">{{ tooltip.keyName}}</td>
+              <td class="tooltip-text-colon">:</td>
+              <td>{{tooltip.value}}</td>
+            </tr>  
+          </table>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

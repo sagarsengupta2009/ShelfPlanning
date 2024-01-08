@@ -1,0 +1,14 @@
+.selectedAntFixture {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 1px;
+    border: 1px solid;
+    border-image: url("/Areas/iShelf/ClientApplication/appMaterial/css/themes/default/img/ants.gif") 1 fill repeat;
+    -moz-border-image: url("/Areas/iShelf/ClientApplication/appMaterial/css/themes/default/img/ants.gif") 1 fill repeat;
+    -webkit-border-image: url("/Areas/iShelf/ClientApplication/appMaterial/css/themes/default/img/ants.gif") 1 fill repeat;
+    -webkit-box-sizing: "border-box";
+    -moz-box-sizing: "border-box";
+    box-sizing: "border-box";
+    }

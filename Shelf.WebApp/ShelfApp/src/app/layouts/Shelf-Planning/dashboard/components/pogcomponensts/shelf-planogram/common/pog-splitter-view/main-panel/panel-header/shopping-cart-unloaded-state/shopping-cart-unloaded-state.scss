@@ -1,0 +1,78 @@
+.dialogCloseIcon {
+  float: right;
+  margin-top: -17px;
+
+  mat-icon {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+
+  .spSearch {
+    float: left;
+    border-radius: 23px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 2px 1px -1px rgb(0 0 0 / 12%);
+    margin-top: 2px;
+
+  }
+}
+
+.assortIndicator {
+  left: 0px;
+  position: relative;
+  height: 4px;
+  width: 100%;
+  bottom: -1px;
+  background-color: #ccc;
+}
+
+/* iAssort ARDI CSS */
+.cartiAssortAdd {
+  background-color: #00FF00 !important;
+}
+
+.cartiAssortDelete {
+  background-color: #FF0000 !important;
+}
+
+.cartiAssortRetain {
+  background-color: #0000FF !important;
+}
+
+.cartiAssortIgnore {
+  background-color: #D3D3D3 !important;
+}
+
+.shoppingcart-Unloaded-topview {
+  padding-top: 0px !important;
+
+  .mat-dialog-container {
+    padding: 0px !important;
+  }
+}
+
+#cartThumbnailID {
+  padding: 0px;
+  margin: 1rem 0 0 0;
+  height: 90%;
+  overflow: auto;
+}
+
+.mat-dialog-content {
+  overflow: inherit;
+  height: 70% !important;
+}
+
+
+.modal-container {
+  padding: 20px;
+}
+
+.modal-header-custom {
+  margin-top: -17px;
+}
+.shopping-cart-item-image-pa {
+  bottom: 0px;
+  left: 0px;
+  max-height: 40px;
+  max-width: 40px;
+}

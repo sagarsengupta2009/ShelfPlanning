@@ -1,0 +1,8 @@
+<h4 class="custom-modal-header" mat-dialog-title>{{'REPORT_REPORTS' | translate}}</h4>
+<div class="dialogCloseIcon">
+    <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<div *ngIf="reportGridConfig" class="reportDialog">
+    <shelf-ag-grid #agShelfReportGrid [gridConfig]="reportGridConfig"
+    (actionEventEmit)="redirectToPowerBIReport($event)"></shelf-ag-grid>
+</div>

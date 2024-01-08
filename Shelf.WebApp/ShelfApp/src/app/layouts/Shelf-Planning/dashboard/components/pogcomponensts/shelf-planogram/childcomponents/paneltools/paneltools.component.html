@@ -1,0 +1,342 @@
+<div class="custom-modal-header" mat-dialog-title>{{'PANEL_HEADER_TOOLS' | translate}}</div>
+<div mat-dialog-content class="body-content-height">
+  <mat-tab-group mat-stretch-tabs animationDuration="0ms" id="prop-mat-tab" (selectedTabChange)="onTabChanged($event.tab.textLabel);">
+    <mat-tab label="{{'PANEL_HEADER_ALLOCATE' | translate}}">
+      <!--Allocation view-->
+      <div id="tools-allocate-{{panelID}}" class="tools-view col s12" *ngIf="isAllocateview"
+        style="display: block; line-height:initial;">
+        <div class="row" style="margin-top: 10px;">
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="allocate.itemsMode">
+            <mat-radio-button [value]="2">
+              {{'CONTEXT_TOOL_MENU_ALL_ITEMS' | translate}}
+            </mat-radio-button>
+            <mat-radio-button [value]="1" [disabled]="isSelectedItemsDisabled" style="margin-left: 40px;">
+              {{'CONTEXT_TOOL_MENU_SELECTED_ITEMS' | translate}}
+            </mat-radio-button>
+          </mat-radio-group>
+
+          <div id="advOptions" style="margin-top: 10px;">
+            <div class="accordionCntnr">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header (click)="toggleAdvOptions()">
+                    {{'CONTEXT_TOOL_MENU_ADVANCED_OPTIONS' | translate}}
+                  </mat-expansion-panel-header>
+
+                  <div class="col s12">
+                    <mat-checkbox style="margin-top: 5px;" [(ngModel)]="allocate.overrideInv"
+                      (change)='onOverrideInvChange($event.checked)'>
+                      {{'CONTEXT_TOOL_MENU_OVERRIDE_INVENTORY_MODEL_DATA' | translate}}
+                    </mat-checkbox>
+                  </div>
+
+                  <div class="col s11 offset-s1" style="padding-top:15px;">
+                    <div class="row">
+
+                      <div class="col s6 m6 l6">
+                        <mat-checkbox style="margin-top: 5px;" [disabled]="!allocate.overrideInv"
+                          [(ngModel)]="allocate.useItems">
+                          {{'CONTEXT_TOOL_MENU_USE_ITEMS' | translate}}
+                        </mat-checkbox>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;" [ngClass]="{disabledNoOfCasesDiv: !isActiveNOofCasesNo}">
+                      <div class="input-field col s2">
+                        <label>{{'FACINGS_CONTEXT' | translate}}</label>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MIN_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0"
+                            [(ngModel)]="allocate.invData.FacingsMin" [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MAX_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0"
+                            [(ngModel)]="allocate.invData.FacingsMax" (keydown)=" keypress($event)"
+                            [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s2">
+                        <label>{{'CONTEXT_TOOL_MENU_UNITS' | translate}}</label>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MIN_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0"
+                            [(ngModel)]="allocate.invData.UnitsMin" [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MAX_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0"
+                            [(ngModel)]="allocate.invData.UnitsMax" [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s2">
+                        <label>{{'CONTEXT_TOOL_CASES' | translate}}</label>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MIN_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0"
+                            [(ngModel)]="allocate.invData.CasesMin" [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MAX_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0"
+                            [(ngModel)]="allocate.invData.CasesMax" [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s2">
+                        <label>{{'CONTEXT_TOOL_DOS' | translate}}</label>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label [ngClass]="{'active': allocate.invData.DOSMin !== undefined}">
+                            {{'CONTEXT_TOOL_MENU_MIN_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0" [(ngModel)]="allocate.invData.DOSMin"
+                            [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+                      </div>
+                      <div class="input-field col s5">
+                        <mat-form-field>
+                          <mat-label>
+                            {{'CONTEXT_TOOL_MENU_MAX_VALUE' | translate}}
+                          </mat-label>
+                          <input matInput autocomplete="off" type="number" min="0" [(ngModel)]="allocate.invData.DOSMax"
+                            [disabled]="!allocate.overrideInv">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </mat-tab>
+    <mat-tab label="{{'ADJUST_SECTIONS' | translate}}" *ngIf="!isIassort()">
+      <div id="tools-resize-{{panelID}}" class="tools-view col s12" *ngIf="isResizeview" style="display: block;">
+        <mat-card class="example-card">
+          <mat-card-title>
+            <h6 style="margin-top:5px;">{{'ADD_BAY' | translate}}</h6>
+          </mat-card-title>
+          <mat-card-content>
+
+            <div style="padding:0 5px;" class="row">
+              <div class="col s6" style="border-top: 1px solid black;padding:20px 0px;">
+                <div class="input-field">
+                  <mat-form-field>
+                    <mat-label>{{'CONTEXT_TOOL_MENU_ADD_MANY_MODULARS' | translate}}</mat-label>
+                    <input matInput type="number" min="0" max="5" step="1" [value]="1"
+                      [(ngModel)]="resizeObj.noOfMoudlars" (keydown)="keypress($event)">
+                  </mat-form-field>
+                </div>
+                <div class="input-field">
+                  <mat-form-field>
+                    <mat-label>{{'CONTEXT_TOOL_MENU_MODULAR_WIDTH' | translate}}</mat-label>
+                    <input matInput autocomplete="off" type="number" min="1" [value]="fixtureWidth"
+                      [(ngModel)]="resizeObj.modularWidth">
+                  </mat-form-field>
+                </div>
+                <div class="switch">
+                  {{'CONTEXT_TOOL_MENU_ADD_TO_LEFT' | translate}} <mat-slide-toggle
+                    [(ngModel)]="resizeObj.addRightOrLeft" (ngModelChange)="updateFIXWidth()">
+                  </mat-slide-toggle> {{'CONTEXT_TOOL_MENU_ADD_TO_RIGHT' | translate}}
+                </div>
+              </div>
+              <div class="col s4" style="border-top: 1px solid black;padding-left:81px;padding-top:20px">
+                <div class="col s12">
+                  <h6 class="black-text">{{'CONTEXT_TOOL_MENU_DUPLICATE' | translate}}</h6>
+                </div>
+                <div class="col s12">
+                  <mat-checkbox style="margin-top: 5px;" [(ngModel)]="resizeObj.duplicateFixtures">
+                    {{'FLOATING_BUTTON_FIXTURES' | translate}}
+                  </mat-checkbox>
+                </div>
+                <div class="col s12">
+                  <mat-checkbox style="margin-top: 5px;" [(ngModel)]="resizeObj.duplicatePositions"
+                    [disabled]="!resizeObj.duplicateFixtures">
+                    {{'CONTEXT_TOOL_MENU_POSITIONS' | translate}}
+                  </mat-checkbox>
+                </div>
+                <div class="col s12">
+                  <mat-checkbox style="margin-top: 5px;" [(ngModel)]="resizeObj.duplicateFacings"
+                    [disabled]="(!resizeObj.duplicateFixtures || !resizeObj.duplicatePositions)">
+                    {{'FACINGS_CONTEXT' | translate}}
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+
+        <mat-card class="example-card">
+          <mat-card-title>
+            <h6>{{'CONTEXT_TOOL_MENU_RESIZE_MODULARS' | translate}}</h6>
+          </mat-card-title>
+          <mat-card-content>
+
+            <div style="padding:0 5px;" class="row">
+
+              <div class="col s6" style="border-top: 1px solid black;padding:20px 0px;">
+                <div class="input-field">
+                  <mat-form-field>
+                    <mat-label>{{'CONTEXT_TOOL_MENU_SECTION_NEW_WIDTH' | translate}}</mat-label>
+                    <input matInput autocomplete="off" type="number" [value]="sectionWidth"
+                      [(ngModel)]="resizeSectionObj.sectionNewWidth">
+                  </mat-form-field>
+                </div>
+
+                <h6 style="float:left;">
+                  {{'CONTEXT_TOOL_MENU_INCREASE_DECREASE_SECTION_WIDTH' | translate}} :
+                </h6>
+                <div class="switch" style="float:left;">
+
+                  {{'CONTEXT_TOOL_MENU_ADD_TO_LEFT_EDGE' | translate}} <mat-slide-toggle
+                    [(ngModel)]="resizeSectionObj.adjustRightOrLeft">
+                  </mat-slide-toggle> {{'CONTEXT_TOOL_MENU_ADD_TO_RIGHT_EDGE' | translate}}
+
+                </div>
+              </div>
+              <div class="col s4" style="border-top: 1px solid black;padding-left:81px;padding-top:20px;">
+                <div class="col s12">
+                  <h6>{{'CONTEXT_TOOL_MENU_SECTION_CURRENT_WIDTH' | translate}} : </h6>
+                  {{sectionWidth}}
+                </div>
+              </div>
+              <div style="padding:0px;">
+                <h6 style="margin-top: 12px">
+                  {{'CONTEXT_TOOL_MENU_NOTES' | translate}}
+                </h6>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </mat-tab>
+    <mat-tab label="{{'SPLIT_SHELF' | translate}}" *ngIf="!isIassort()">
+      <div id="tools-shelf-splitter-{{panelID}}" class="tools-view col s12" *ngIf="isSplitShelfview"
+        style="display: block;">
+        <div class="row">
+          <div class="col s12" style="margin-top:50px;">
+            <mat-form-field>
+              <mat-label>{{'ADD_BAY_INTERVAL' | translate}}</mat-label>
+              <input matInput autocomplete="off" type="number" min="0" [(ngModel)]="split.width"
+                (keydown)=" keypress($event)">
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <mat-checkbox style="margin-top: 5px;" style="margin-left: 20px;" [(ngModel)]="split.isMerge">
+              {{'MERGE_SHELVES_BEFORE_SPLITTING' | translate}}
+            </mat-checkbox>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <mat-checkbox style="margin-top: 5px;" style="margin-left: 20px;" [(ngModel)]="split.noBays">
+              {{'NO_BAYS' | translate}}
+            </mat-checkbox>
+
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="{{'PANEL_HEADER_SORTPLAGRAM' | translate}}" *ngIf="!isIassort()">
+      <div id="tools-shelf-splitter-{{panelID}}" class=" tools-view col s12" *ngIf="isSortPlanogramView"
+        style="display: block;">
+        <div class="row sortPlanogram">
+          <div class="input-field col s5" style="width: 31% !important;">
+            <label>{{'CONTEXT_TOOL_SORT_BY' | translate}} : </label>
+            <mat-form-field>
+              <mat-label>{{'CHOOSE_OPTION' | translate}}</mat-label>
+              <mat-select [(value)]="sortTypeSelected">
+                <mat-option (click)="onSelectSort(i)" *ngFor="let obj of sortOptions trackBy:tracksortOption; let i = index" [value]="i">
+                  <span>{{getFieldName(obj.IDDictionary)}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <input type="file" style="display:none" (change)="onFileChange($event.target.files)">
+              <label *ngIf="sortTypeSelected === 0"
+                style="color: gray;font-size: 0.8em;word-break:break-word;">{{fileName}}</label>
+            </div>
+          </div>
+          <div class="input-field col s7" style="width: 54% !important;">
+            <label>{{'CONTEXT_TOOL_SEQUENCEORDER_BY' | translate}} : </label>
+            <mat-form-field>
+              <mat-label>{{'CHOOSE_OPTION' | translate}}</mat-label>
+              <mat-select [(value)]="sequenceTypeSelected">
+                <mat-option *ngFor="let obj of sequenceList trackBy: trackSequenceList" [value]="obj.value">
+                  <span>{{obj.field}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div style="margin-top: 5px;">
+            <mat-slide-toggle [(ngModel)]="intelligentOption">{{'INTELLIGENT' | translate}}</mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div mat-dialog-actions align="end">
+
+  <div *ngIf="isAllocateviewHeader">
+    <button mat-raised-button mat-dialog-close>{{'PANEL_HEADER_CANCEL' | translate}}</button>
+    <button mat-raised-button (click)="runAllocation()">{{'PANEL_HEADER_ALLOCATE' | translate}}</button>
+  </div>
+  <div *ngIf="isResizeviewHeader">
+    <button mat-raised-button mat-dialog-close>{{'PANEL_HEADER_CANCEL' | translate}}</button>
+    <button mat-raised-button (click)="resetTools()">{{'RESET' | translate}}</button>
+    <button mat-raised-button (click)="applyResizeModular()">{{'PANEL_HEADER_RESIZE' | translate}}</button>
+  </div>
+  <div *ngIf="isSplitShelfviewHeader">
+    <button mat-raised-button mat-dialog-close>{{'PANEL_HEADER_CANCEL' | translate}}</button>
+    <button mat-raised-button (click)="applySplitShelf()">Ok</button>
+
+  </div>
+  <div *ngIf="isSortPlanogramViewHeader">
+    <button mat-raised-button mat-dialog-close>{{'PANEL_HEADER_CANCEL' | translate}}</button>
+    <button mat-raised-button (click)="applySortByPlanogram()">Ok</button>
+
+  </div>
+</div>

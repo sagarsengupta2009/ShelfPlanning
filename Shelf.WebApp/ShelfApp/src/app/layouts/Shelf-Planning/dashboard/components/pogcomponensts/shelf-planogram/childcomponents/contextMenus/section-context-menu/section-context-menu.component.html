@@ -1,0 +1,53 @@
+<button class="contextmenu" mat-menu-item (click)="openCrunchMode(data)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_CRUNCH_MODE' |
+    translate}}</button>
+<mat-divider></mat-divider>
+<button class="contextmenu border-margin" mat-menu-item
+    (click)="sectionSelectAll($event)" (mouseenter)="closeResourceMenu();">{{'SECTION_CONTEXT_MENU_SELECT_ALL' |
+    translate}}<span class="right grey-text font-14">Ctrl+A</span></button>
+<mat-divider></mat-divider>
+<button class="contextmenu" mat-menu-item (click)="handleSectionFlip()" (mouseenter)="closeResourceMenu();">{{'MIRROR' | translate}}<span
+        class="right grey-text font-14">Ctrl+I</span></button>
+<mat-divider></mat-divider>
+<ng-container [ngSwitch]="true">
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="checkFixturePasteStatus()"
+        (click)="pasteFixtureCxt($event)" (mouseenter)="closeResourceMenu();">Paste
+        Fixture</button>
+    <mat-divider *ngSwitchCase="checkFixturePasteStatus()"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item #annotationTrigger="matMenuTrigger"
+      (mouseenter)="openResourceMenu('annotationMenu');"
+      [matMenuTriggerFor]="annotationMenu" *ngSwitchCase="annotationDis">{{'ANNOTATE'
+      |translate}}</button>
+    <mat-divider *ngSwitchCase="annotationDis"></mat-divider>
+</ng-container>
+<button class="contextmenu border-margin" mat-menu-item (click)="showSectionDetailCxt($event)" (mouseenter)="closeResourceMenu();">{{'MULTIPLE_FIXTURE_EDIT'
+    | translate}}</button>
+<mat-divider></mat-divider>
+<button *ngIf="pogContainsAnnotation" class="contextmenu border-margin" mat-menu-item #templateSaveTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="saveTemplateMenu" [hidden]="!saveAsTemplatePermission"
+  (mouseenter)="openResourceMenu('saveTemplateMenu');">{{'SECTION_CONTEXT_SAVE_AS_TEMPLATE' | translate}}
+</button>
+<button [hidden]="!saveAsTemplatePermission" *ngIf="!pogContainsAnnotation" class="contextmenu" mat-menu-item (click)="savePlanogramTemplate($event, true)" (mouseenter)="closeResourceMenu();">{{'SECTION_CONTEXT_SAVE_AS_TEMPLATE' | translate}}</button>
+<mat-divider></mat-divider>
+<button class="contextmenu border-margin" mat-menu-item (click)="objectPropertyGrid($event)" (mouseenter)="closeResourceMenu();">{{'SECTION_PROPERTIES' | translate}}</button>
+<mat-divider></mat-divider>
+<button class="contextmenu border-margin" mat-menu-item (click)="resetBaysToUpright($event)" (mouseenter)="closeResourceMenu();">{{'RESET_ALL_BAYS_TO_UPRIGHT_INTERVALS' | translate}}</button>
+<mat-menu #saveTemplateMenu="matMenu">
+  <ng-container [ngSwitch]="true">
+    <button mat-menu-item
+      (click)="savePlanogramTemplate($event, true)">{{'WITH_ANNOTATIONS' |
+      translate}}</button>
+    <button mat-menu-item
+      (click)="savePlanogramTemplate($event, false)">{{'WITHOUT_ANNOTATIONS' |
+      translate}}</button>
+  </ng-container>
+</mat-menu>
+<mat-menu #annotationMenu="matMenu"  >
+  <ng-container [ngSwitch]="true">
+    <button mat-menu-item
+    (click)="addEditAnnotation($event, 'section')">{{'SECTION' |
+      translate}}</button>
+    <button mat-menu-item
+    (click)="addEditAnnotation($event, 'freeFlow')">{{'FREEFLOW' |
+      translate}}</button>
+  </ng-container>
+</mat-menu>

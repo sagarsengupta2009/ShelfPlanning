@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+}
+
+.content-header {
+  width: 100%;
+}
+
+mat-tree-node {
+  min-height: 0px !important;
+}
+
+.content-body {
+  height: 100%;
+
+  .content-tree {
+    height: 100%;
+    /*height: calc(100vh - 20.5em) !important;*/
+    overflow-y: auto;
+
+    ::ng-deep .k-display-none, ::ng-deep .k-hidden {
+      display: block !important;
+    }
+  }
+
+  .content-table {
+    height: 100%;
+  }
+
+  .splitterHierarchy {
+    height: 100%;
+    width: 100%;
+    /*height: calc(100vh - 20em);*/
+    box-sizing: border-box;
+    overflow: auto;
+    cursor: pointer;
+  }
+}
+
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+mat-card {
+  margin: 10px;
+  height: inherit
+}
+
+.arrowHolder {
+  height: 50px;
+  width: 100%;
+  vertical-align: baseline;
+  line-height: 50px;
+  color: #808080;
+  font-size: 14px;
+  padding: 0 2em;
+}

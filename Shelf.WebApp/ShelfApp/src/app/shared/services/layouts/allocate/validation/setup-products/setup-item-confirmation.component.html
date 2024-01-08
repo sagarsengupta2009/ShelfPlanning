@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{"SETUP_PRODUCTS_ACROSS_DIVISION" | translate}}</h1>
+<div mat-dialog-content>
+  <p> {{"THE_FOLLOWING_PRODUCTS_ARE_NOT_SETUP_AT_DIVISION" | translate}}: </p>
+  <p> {{productList}} </p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog(false)" mat-dialog-close>{{"CANCEL" | translate}}</button>
+  <button mat-button (click)="closeDialog(true)" cdkFocusInitial style="margin-left: 30px;margin-right: 10px;">
+    {{"OK" |translate}}
+  </button>
+</div>

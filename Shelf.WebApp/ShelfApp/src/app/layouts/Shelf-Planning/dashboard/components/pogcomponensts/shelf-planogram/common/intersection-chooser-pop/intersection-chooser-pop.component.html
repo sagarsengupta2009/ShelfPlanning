@@ -1,0 +1,14 @@
+<div id="intersectionChooserPop-{{sectionID}}" class="intersect-chooser-pop" style="display:none;">
+  <div id="intersect-chooser-pop-id-{{sectionID}}" class="intersect-window z-depth-5"
+    hm-tap="clickedOnIntersectWindow($event);">
+    <h4 class="header-holder">{{'INTERSECTION_POP_HEADER' | translate}}</h4>
+    <div class="position-holder" id="intersectingPosition-holder-id-{{sectionID}}"
+      *ngIf="intersectingPosition.length > 0">
+      <div *ngFor="let itemData of intersectingPosition">
+        <sp-shelf-nested class="shelf-nested-block" [items]="[itemData]" [nestedItemKey]="'Children-intersection'" [panelID]="panelID"
+          [bycoordinate]="false"></sp-shelf-nested>
+      </div>
+    </div>
+  </div>
+  <div class="intersect-overlay" hm-tap="clickedOnIntersectOverlay($event);"></div>
+</div>

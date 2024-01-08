@@ -1,0 +1,49 @@
+<div>
+  <mat-form-field class="inputcntr">
+    <mat-select [(ngModel)]="selComType" placeholder="{{'REPORT_COMPARISION_TYPE' | translate}}">
+      <mat-option *ngFor="let option of comparisionTypeList" title="{{option.Text}}" [value]="option.Id">
+        {{option.Text}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+<div *ngIf="selComType==1">
+  <mat-form-field class="inputcntr">
+    <mat-select [(ngModel)]="selScenario" placeholder="{{'REPORT_COMPARE_WITH' | translate}}">
+      <mat-option *ngFor="let option of reportsComparewithArray" title="{{option.Name}}" [value]="option.IDPOG">
+        <span>{{option.Name}}</span><span>-</span><span>{{option.IDPOG}}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div *ngIf="selComType==3">
+  <ng-autocomplete style="width:100%;" [data]="data"
+                   [searchKeyword]="keyword"
+                   [customFilter]="customFilter"
+                   (selected)='selectEvent($event)'
+                   (inputChanged)='getServerResponse($event)'
+                   [itemTemplate]="itemTemplate"
+                   (inputCleared)="searchCleared()"
+                   [debounceTime]="600" [minQueryLength]="3"
+                   placeholder="{{planogram.selectedField}}">
+  </ng-autocomplete>
+
+  <ng-template #itemTemplate let-item>
+    <a href="javascript:void(0)">
+      <div class="row">
+        <div class="col-10">
+          <span [innerHTML]="item.displayName"></span>
+        </div>
+      </div>
+    </a>
+  </ng-template>
+
+
+</div>
+<div *ngIf="selComType==2">
+  <shelf-store-card #StoreCardComponent></shelf-store-card>
+</div>
+

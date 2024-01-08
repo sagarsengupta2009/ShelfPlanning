@@ -1,0 +1,113 @@
+<div *ngIf="!showPABlocksMenu">
+  <button class="contextmenu" [disabled]="enableFacings" mat-menu-item (click)="openFacingsDialog(data,$event)"
+    (mouseenter)="closeResourceMenu();">
+    {{'FACINGS_CONTEXT' |translate}}
+    <span class="right grey-text font-14">1-9</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button class="contextmenu border-margin" style="height:48px;line-height:48px;" mat-menu-item
+    (click)="openOrientationDialog(data,$event)" (mouseenter)="closeResourceMenu();">{{'TOOLTIP_ORIENTATION' |
+    translate}}
+    <ul class="demo right grey-text font-14">
+      <li class="up">Shift + ↑</li>
+      <li class="down">Shift + ↓</li>
+    </ul>
+  </button>
+  <mat-divider></mat-divider>
+  <ng-container [ngSwitch]="true">
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="enableCut" (click)="cutPositionCxt($event)"
+      (mouseenter)="closeResourceMenu();">{{'POSITION_CONTEXT_MENU_CUT' |
+      translate}}<span class="right grey-text font-14">Ctrl+X</span></button>
+    <mat-divider *ngSwitchCase="enableCut"></mat-divider>
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="enableCopy" (click)="copyPositionCxt($event)"
+      (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_MENU_COPY' |
+      translate}}<span class="right grey-text font-14">Ctrl+C</span></button>
+    <mat-divider *ngSwitchCase="enableCopy"></mat-divider>
+  </ng-container>
+  <button class="contextmenu border-margin" mat-menu-item [ngStyle]="checkPositionPasteStatus()"
+    (click)="pastePositionCxt($event)" (mouseenter)="closeResourceMenu();">{{'FIXTURE_CONTEXT_MENU_PASTE' |
+    translate}}<span class="right grey-text font-14">Ctrl+V</span></button>
+  <mat-divider></mat-divider>
+  <button class="contextmenu border-margin" mat-menu-item (click)="deletePositionCxt($event)"
+    (mouseenter)="closeResourceMenu();">{{'DELETE'|translate}}</button>
+  <mat-divider></mat-divider>
+  <ng-container [ngSwitch]="true">
+    <button class="contextmenu border-margin" mat-menu-item *ngSwitchCase="annotationDis"
+      (click)="addEditAnnotation($event)" (mouseenter)="closeResourceMenu();">{{'ANNOTATE'
+      |translate}}</button>
+    <mat-divider *ngSwitchCase="annotationDis"></mat-divider>
+  </ng-container>
+
+  <button class="contextmenu border-margin" mat-menu-item [ngStyle]="isFillOptionEnabled"
+    (click)="fillTheFixture($event)" (mouseenter)="closeResourceMenu();">{{'FILL' |
+    translate}}</button>
+  <mat-divider [ngStyle]="isFillOptionEnabled"></mat-divider>
+
+  <button class="contextmenu border-margin" [ngClass]="{'disable-menu-button':!duplicatePositions.length}" [disabled]="!duplicatePositions.length" mat-menu-item (click)="removeDuplicates()" [ngStyle]="isRemoveDuplicateOptionEnabled"
+    (mouseenter)="closeResourceMenu();">{{'REMOVE_DUPLICATES' | translate}}</button>
+  <mat-divider [ngStyle]="isRemoveDuplicateOptionEnabled"></mat-divider>
+
+  <ng-container [ngSwitch]="true">
+    <button class="contextmenu border-margin" *ngSwitchCase="enableUnitCapping" mat-menu-item
+      [matMenuTriggerFor]="getMenu()" #matMenuTrigger="matMenuTrigger"
+      (mouseenter)="openResourceMenu();">{{'POSITION_CONTEXT_MENU_UNIT_CAPPING' |
+      translate}}</button>
+    <mat-divider *ngSwitchCase="enableUnitCapping"></mat-divider>
+  </ng-container>
+  <button class="contextmenu border-margin" mat-menu-item (click)="openPropertyGrid(data, $event)"
+    (mouseenter)="closeResourceMenu();">
+    {{'POSITION_PROPERTIES' | translate}}</button>
+  <mat-divider></mat-divider>
+  <button class="contextmenu border-margin" mat-menu-item (click)="openFixtureInfo($event)"
+    (mouseenter)="closeResourceMenu();">{{'FIXTURE_PROPERTIES' | translate}}</button>
+  <mat-divider></mat-divider>
+  <button class="contextmenu" mat-menu-item (click)="openSectionInfo($event)"
+    (mouseenter)="closeResourceMenu();">{{'SECTION_PROPERTIES' | translate}}</button>
+  <mat-menu #menu2="matMenu">
+    <ng-container [ngSwitch]="true">
+      <button mat-menu-item *ngSwitchCase="canUnitCapping"
+        (click)="OnCappingClick('unit-capping-fronts')">{{'POSITION_CONTEXT_MENU_FRONT_CAPPING' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="canUnitCapping"
+        (click)="OnCappingClick('unit-capping-layovers')">{{'POSITION_CONTEXT_MENU_LAYOVER_CAPPING' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="canRemoveUnitCapping"
+        (click)="OnCappingClick('unit-capping-remove')">{{'POSITION_CONTEXT_MENU_REMOVE_CAPPING' |
+        translate}}</button>
+    </ng-container>
+  </mat-menu>
+  <mat-menu #menu3="matMenu">
+    <ng-container [ngSwitch]="true">
+      <button mat-menu-item *ngSwitchCase="advancedTrayCapping && !undoFrontCapping"
+        (click)="OnCappingClick('advanced-unit-capping-fronts')">{{'UNIT_CAPPING_FRONT' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="removeAdvancedTrayCapping && undoFrontCapping"
+        (click)="OnCappingClick('remove-advanced-capping')">{{'UNIT_CAPPING_FRONT_UNDO' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="advancedTrayCapping && !undoDepthCapping"
+        (click)="OnCappingClick('advanced-unit-capping-depths')">{{'UNIT_CAPPING_DEPTH' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="removeAdvancedTrayCapping && undoDepthCapping"
+        (click)="OnCappingClick('remove-advanced-capping')">{{'UNIT_CAPPING_DEPTH_UNDO' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="advancedTrayCapping && !undoFront_DepthCapping"
+        (click)="OnCappingClick('advanced-unit-capping-both')">{{'UNIT_CAPPING_BOTH' |
+        translate}}</button>
+      <button mat-menu-item *ngSwitchCase="removeAdvancedTrayCapping && undoFront_DepthCapping"
+        (click)="OnCappingClick('remove-advanced-capping')">{{'UNIT_CAPPING_BOTH_UNDO' |
+        translate}}</button>
+    </ng-container>
+  </mat-menu>
+</div>
+<div *ngIf="showPABlocksMenu">
+  <div class="button-container">
+    <button mat-menu-item (click)="createManualBlock()">Create</button>
+    <button mat-menu-item (click)="changeBlock(null)">Delete</button>
+  </div>
+  <div class="blocks-container">
+    <button mat-menu-item *ngFor="let item of blocks" (click)="changeBlock(item.idBlock)">
+      <span class="block-color" [style.backgroundColor]="item.blockColor"></span>
+      {{item.BlockName}}
+    </button>
+  </div>
+</div>

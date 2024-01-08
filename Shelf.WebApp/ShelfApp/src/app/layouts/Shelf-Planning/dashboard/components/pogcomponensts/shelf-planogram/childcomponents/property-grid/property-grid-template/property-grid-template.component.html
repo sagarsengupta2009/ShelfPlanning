@@ -1,0 +1,226 @@
+<div class="property-grid-template-wrapper" [id]="fObj.IDDictionary" [ngClass]="{'disable-active': fObj.ReadOnly === true || disableFields === true}">
+  <div [ngClass]="{'color-picker': fObj.type === 'color','input-component-body': fObj?.style?.action !== 'custom'}"
+    [ngStyle]="{ 'text-align': fObj?.style?.action == 'custom' ? 'center !important' : 'left', 'height': isListView === true ? '15px !important' : (fObj.IDDictionary === 3700 ? '35px' : ''), 'display': 'block' }"
+    style="font-size: 10px !important;">
+    <ng-container *ngIf="fObj.IsDialog;else IsDialogNot">
+      <ng-container *ngIf="isMultiPosSelected">
+        <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.field === 'Position.IDPackage'"
+          [(ngModel)]="multiPosSelectedPkgStyle" (selectionChange)="fieldChange($event,'list',fObj)"
+          [placeholder]="fObj.placeholder">
+          <mat-option *ngFor="let option of iDPackageList; trackBy: trackByValue; let i = index" [value]="option.value">
+            <span>{{option.text}}</span>
+        </mat-option>
+        </mat-select>
+      </ng-container>
+      <ng-container *ngIf="!isMultiPosSelected">
+        <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.field === 'Position.IDPackage'" [(ngModel)]="fObj[fObj.field]"
+          (selectionChange)="fieldChange($event,'list',fObj)" [placeholder]="fObj.placeholder">
+          <mat-option *ngFor="let option of iDPackageList; trackBy: trackByValue; let i = index" [value]="option.value">
+            <span>{{option.text}}</span>
+          </mat-option>
+        </mat-select>
+      </ng-container>
+      <div class="fixureImageCntnr" fxLayout="row" fxLayoutAlign="start center"
+        *ngIf="fObj.field != 'Position.IDPackage'">
+
+        <ng-container [ngTemplateOutlet]="itemSomeElement" [ngTemplateOutletContext]="{ $implicit: fObj }">
+        </ng-container>
+
+        <!-- Imagery fields -->
+        <container-element *ngIf="checkIfImageryFields(fObj.IDDictionary)">
+          <some-element>
+            <span *ngIf="isListView && checkIfImage(fObj)" class="fixtureImage"
+              [ngStyle]="propertyFieldService.getImageUrl(fObj,itemData,isListView)"></span>
+            <span *ngIf="!isListView && checkIfImage(fObj)" class="tabfixtureImage"
+              [ngStyle]="propertyFieldService.getImageUrl(fObj,itemData,isListView)"></span>
+
+            <span *ngIf="checkIfImage(fObj)"
+              (click)="propertyFieldService.clearImage(fObj, itemData);">
+              <mat-icon [ngStyle]="{'margin-bottom' : '0px','margin-left' : isListView ? '' : '108px'}"
+                class="material-icons mat-icon-fontsize">
+                close
+              </mat-icon>
+            </span>
+          </some-element>
+        </container-element>
+      </div>
+    </ng-container>
+
+    <ng-template #IsDialogNot>
+      <ng-container *ngIf="fObj.options != '' || findIndex(fObj);else inputfield">
+        <ng-container *ngIf="checkSelectInput(fObj);else selectOptionAvailable">
+          <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.field == 'Fixture.LKCrunchMode'"
+            [(ngModel)]="fObj[fObj.field]" (selectionChange)="fieldChange($event,'list',fObj)">
+            <mat-option *ngFor="let option of lkCrunchModeList; trackBy: trackByValue; let i = index" [value]="option.value">
+              <span>{{option.text}}</span>
+            </mat-option>
+          </mat-select>
+
+          <ng-container *ngIf="isMultiPosSelected">
+            <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.field == 'Position.IDPackage'" [placeholder]="fObj.placeholder"
+              [(ngModel)]="selectedPkgStyle" (selectionChange)="fieldChange($event,'list',fObj)">
+              <mat-option *ngFor="let option of iDPackageList; trackBy: trackByValue; let i = index" [value]="option.value">
+                <span>{{option.text}}</span>
+              </mat-option>
+            </mat-select>
+          </ng-container>
+
+          <ng-container *ngIf="!isMultiPosSelected">
+            <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.field == 'Position.IDPackage'" [placeholder]="fObj.placeholder"
+              [(ngModel)]="fObj[fObj.field]" (selectionChange)="fieldChange($event,'list',fObj)">
+              <mat-option *ngFor="let option of iDPackageList; trackBy: trackByValue; let i = index" [value]="option.value">
+                <span>{{option.text}}</span>
+              </mat-option>
+            </mat-select>
+          </ng-container>
+
+          <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.keyGroup == absKeyGroup && fObj.IDDictionary == '5202'"
+            [(ngModel)]="fObj[fObj.field]" (selectionChange)="fieldChange($event,'list',fObj)">
+            <mat-option *ngFor="let option of ABSStoreNumber; trackBy: trackByValue; let i = index" [value]="option.Value">
+              <span>{{option.Display}}</span>
+            </mat-option>
+          </mat-select>
+
+          <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.keyGroup == absKeyGroup && fObj.IDDictionary == '5051';"
+            [(ngModel)]="fObj[fObj.field]" (selectionChange)="fieldChange($event,'list',fObj)">
+            <mat-option *ngFor="let option of POGClassifierList; trackBy: trackByValue; let i = index" [value]="option.Value">
+              <span>{{option.Display}}</span>
+            </mat-option>
+          </mat-select>
+          <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.IDDictionary === 414" [(ngModel)]="fObj[fObj.field]"
+          (selectionChange)="fieldChange($event,'list',fObj)">
+         <mat-option *ngFor="let option of availablePegTypes; trackBy: trackByValue; let i = index" [value]="option.value">
+            <span>{{option.text}}</span>
+          </mat-option>
+        </mat-select>
+        <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.field === 'Position.BackHooks'" [(ngModel)]="fObj[fObj.field]"
+          (selectionChange)="fieldChange($event,'list',fObj)">
+          <mat-option *ngFor="let option of numberDropdown; trackBy: trackByValue; let i = index" [value]="option.value">
+            <span>{{option.text}}</span>
+          </mat-option>
+        </mat-select>
+        <mat-select *ngIf="fObj.field === 'Position.FrontBars'" [(ngModel)]="fObj[fObj.field]"
+          (selectionChange)="fieldChange($event,'list',fObj)">
+          <mat-option *ngFor="let option of frontBarDropdown; trackBy: trackByValue; let i = index" [value]="option.value">
+            <span>{{option.text}}</span>
+          </mat-option>
+        </mat-select>
+        </ng-container>
+        <ng-template #selectOptionAvailable>
+          <ng-container [ngTemplateOutlet]="itemAbsKeyGroupElement" [ngTemplateOutletContext]="{ $implicit: fObj }">
+          </ng-container>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #inputfield>
+        <ng-container *ngIf="fObj.style?.action != 'custom'" [ngSwitch]="fObj.type">
+          <div *ngSwitchCase="'text'">
+            <input [disabled]="fObj.ReadOnly" *ngIf="fObj.type == 'text' && fObj.IDDictionary != '3700'" type="text"
+              class="form-control" [id]="fObj.IDDictionary" [name]="fObj.field" [maxlength]="fObj.MaxValue"
+              [(ngModel)]="fObj[fObj.field]" (ngModelChange)="fieldChange($event,fObj.type,fObj)"
+              [attr.data-sectionvalue]="fObj[fObj.field]" [placeholder]="fObj.placeholder" #textField>
+            <textarea [disabled]="fObj.ReadOnly" *ngIf="fObj.type == 'text' && fObj.IDDictionary == '3700'"
+              class="form-control text-area-cntnr" [ngStyle]="{height: isListView === true ? '20px': '35px'}"
+              id="fObj.IDDictionary" [maxlength]="fObj.MaxValue ? fObj.MaxValue : 300" [name]="fObj.field"
+              [(ngModel)]="fObj[fObj.field]" (ngModelChange)="fieldChange($event,fObj.type,fObj)" [placeholder]="fObj.placeholder"></textarea>
+          </div>
+          <kendo-numerictextbox [disabled]="fObj.ReadOnly" *ngSwitchCase="'int'" class="property-grid-input" type="number"  [decimals]="0" [format]="'0.'"
+            [spinners]="false" [id]="fObj.IDDictionary" [name]="fObj.field" [(ngModel)]="fObj[fObj.field]"
+            (keydown)="imposeMinMax($event)" NumberOnly [changeValueOnScroll]="false"
+            (valueChange)="fieldChange($event,fObj.type,fObj)" [placeholder]="fObj.placeholder">
+          </kendo-numerictextbox>
+          <kendo-numerictextbox [disabled]="fObj.ReadOnly" *ngSwitchCase="'float'" class="property-grid-input" [spinners]="false"
+            [id]="fObj.IDDictionary" [name]="fObj.field" [(ngModel)]="fObj[fObj.field]" [changeValueOnScroll]="false"
+            (valueChange)="fieldChange($event,fObj.type,fObj)" [format]="fObj.UiFormat" [decimals]="pegTypeList(fObj.IDDictionary)? pegDecimals : 4"  [step]="0" [placeholder]="fObj.placeholder">
+          </kendo-numerictextbox>
+          <input [disabled]="fObj.ReadOnly" *ngSwitchCase="'date'" type="datetime" class="form-control"
+            [id]="fObj.IDDictionary" [name]="fObj.field" [(ngModel)]="fObj[fObj.field]"
+            (change)="fieldChange($event,fObj.type,fObj)" [placeholder]="fObj.placeholder">
+          <mat-checkbox [disabled]="fObj.ReadOnly" *ngSwitchCase="'bool'" [(ngModel)]="fObj[fObj.field]"
+            [id]="fObj.IDDictionary" [name]="fObj.field" (change)="fieldChange($event,fObj.type,fObj)" [class]="fObj.customClass">
+          </mat-checkbox>
+          <kendo-colorpicker [disabled]="fObj.ReadOnly" *ngSwitchCase="'color'" [format]="'hex'"
+            [gradientSettings]="gradientSettings" [paletteSettings]="paletteSettings" [value]="fObj[fObj.field]"
+            style="height: 15px; border-radius: 0%;"
+            (valueChange)="fieldChange($event,fObj.type,fObj)" [clearButton]="false">
+          </kendo-colorpicker>
+        </ng-container>
+        <ng-container *ngIf="fObj.style?.action == 'custom'">
+          <mat-icon *ngFor="let icon of fObj.style?.icons" (click)="fieldChange($event, fObj.type, fObj, icon.value);"
+          [ngStyle]="{color: icon.value == fObj[fObj.field] ? '#2A7879' : '#D1D0D0', title: fObj.value}"
+          style="cursor: pointer;" [value]="icon.value">{{icon.name}}</mat-icon>
+        </ng-container>
+      </ng-template>
+    </ng-template>
+  </div>
+  <div class='input-component-line' *ngIf="fObj.type !== 'color' && fObj?.style?.action !== 'custom'"></div>
+</div>
+
+<ng-template #itemSomeElement let-fObj>
+  <span (click)="fieldChange($event,'editors',fObj);" fxLayout="row" fxLayoutAlign="start center"
+    [ngClass]="fObj.field == 'upright' ? 'upright' : ''">
+
+    <a [name]="fObj.field" class="waves-effect mdi-navigation-more-vert" style="height:50%">
+      <mat-icon class="mat-icon-fontsize">more_vert</mat-icon>
+    </a>
+    <span *ngIf="fObj.field == 'Fixture.HasDividers'">
+      {{propertyFieldService.getDividerName(itemData)}}
+    </span>
+    <span *ngIf="fObj.field == 'Fixture.HasGrills'">
+      {{propertyFieldService.getGrillName(itemData)}}
+    </span>
+    <span *ngIf="fObj.field == 'Position.IDPackage'">
+      <span *ngIf="!propertyFieldService.preparingPackage(itemData);">
+        {{propertyFieldService.getPackageName(itemData)}}
+      </span>
+      <span *ngIf="preparingPackage();">
+        Preparing
+        Package...
+      </span>
+    </span>
+    <span
+      *ngIf="fObj.field == 'POGQualifier' || fObj.field == 'Upright' || fObj.field == 'Position._X05_NPI.FlagData'">
+      {{fObj[fObj.field]}}
+      <mat-checkbox *ngIf="fObj.field == 'Position._X05_NPI.FlagData'" disabled="disabled" [name]="fObj.field"
+        [(ngModel)]="fObj[fObj.field] "></mat-checkbox>
+    </span>
+
+  </span>
+</ng-template>
+
+<ng-template #itemAbsKeyGroupElement let-fObj>
+  <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.keyGroup == absKeyGroup" [(ngModel)]="fObj[fObj.field]"
+    (selectionChange)="fieldChange($event,'list',fObj)">
+    <span *ngIf="fObj.IDDictionary == '1002049'">
+      <mat-option *ngFor="let option of AppSettingsSvc.FIXTURE_TYPE_LOOKUP; trackBy: trackByValue; let i = index" [value]="option.Value">
+        <span>{{option.Display}}</span>
+      </mat-option>
+    </span>
+    <span *ngIf="fObj.IDDictionary == '1002050'">
+      <mat-option *ngFor="let option of AppSettingsSvc.FIXTURE_TYPE_SUPPLEMENTS_LOOKUP; trackBy: trackByValue; let i = index" [value]="option.Value">
+        <span>{{option.Display}}</span>
+      </mat-option>
+    </span>
+    <span *ngIf="fObj.IDDictionary == '1002103'">
+      <mat-option *ngFor="let option of AppSettingsSvc.SECTION_CONFIGURATION_LOOKUP; trackBy: trackByValue; let i = index" [value]="option.Value">
+        <span>{{option.Display}}</span>
+      </mat-option>
+    </span>
+  </mat-select>
+  <mat-select [disabled]="fObj.ReadOnly" *ngIf="fObj.style?.action != 'custom' && fObj?.keyGroup != absKeyGroup" [(ngModel)]="fObj[fObj.field]"
+    (selectionChange)="fieldChange($event,'list',fObj)">
+    <mat-option *ngFor="let option of fObj.options; trackBy: trackByValue; let i = index" [value]="option.value">
+      <span>{{option.text}}</span>
+    </mat-option>
+  </mat-select>
+  <ng-container *ngIf="fObj.style?.action == 'custom'">
+    <mat-icon *ngFor="let icon of fObj.style?.icons" (click)="fieldChange($event, fObj.type, fObj, icon.value);"
+    [ngStyle]="{display: fObj?.style?.action == 'custom' && fObj?.style?.rendering_order == 'vertical' ? 'block': '' ,
+    margin: fObj?.style?.action == 'custom' && fObj?.style?.rendering_order == 'vertical' ? 'auto' : '5px',
+    'margin-top': fObj?.style?.action == 'custom' && fObj?.style?.rendering_order == 'vertical' ? '4px' : '10px',
+    'margin-bottom': fObj?.style?.action == 'custom' && fObj?.style?.rendering_order == 'vertical' ? '4px' : '10px',
+    color: icon.value == fObj[fObj.field] ? '#2A7879' : '#D1D0D0', 'height': icon.height || '20px', 'width': icon.width || '20px', 'font-size': icon.size || '20px'}"
+    title="{{getTitleOfIcon(fObj, icon.value)}}"
+    style="cursor: pointer;" [value]="icon.value">{{icon.name}}</mat-icon>
+  </ng-container>
+</ng-template>

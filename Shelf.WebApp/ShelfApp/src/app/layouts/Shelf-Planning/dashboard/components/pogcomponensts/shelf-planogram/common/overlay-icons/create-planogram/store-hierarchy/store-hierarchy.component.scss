@@ -1,0 +1,69 @@
+.planogramStoreHierarchyTree {
+  box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+  display: inline-table;
+  vertical-align: top;
+  text-align: left;
+  background-color: #fff;
+  width: 100%;
+  border: 1px solid rgba(20,53,80,0.14);
+  margin: 0;
+  cursor: pointer;
+  .poGStoreHierarchyHearder {
+    height: 30px;
+    background-color: #ececec;
+    .col{
+      margin-left: 5px;
+    }
+  }
+
+
+  .search {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 80px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+    float: right;
+    height: 28px;
+    font-size: 0.7em;
+  }
+
+  .search:focus {
+    width: 110px;
+  }
+
+  /* style icon */
+  .inner-addon .glyphicon {
+    position: absolute;
+    padding: 4px 0 0 8px;
+    right: 10px;
+  }
+
+
+  .content-tree {
+    height: 59.5vh;
+    overflow: scroll;
+    ::ng-deep .k-display-none, ::ng-deep .k-hidden {
+      display: block !important;
+    }
+  }
+}
+
+
+.content-table {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+    overflow: scroll;
+//  height: calc(100vh - 182px);
+
+  .gridHeader {
+    background-color: #ececec !important;
+    height: 36px;
+
+    .stores {
+      margin-left: 6px;
+    }
+  }
+}

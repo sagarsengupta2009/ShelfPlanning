@@ -1,0 +1,117 @@
+.resizable {
+    position: relative;
+}
+.resizer {
+    /* All resizers are positioned absolutely inside the element */
+    position: absolute;
+}
+
+
+/* Placed at the right side */
+.resizer-r {
+    cursor: col-resize !important;
+    height: 100%;
+    right: 0;
+    top: 0;
+    width: 10px;
+}
+
+/* Placed at the bottom side */
+.resizer-b {
+    bottom: 0;
+    cursor: row-resize !important;
+    height: 10px;
+    left: 0;
+    width: 100%;
+}
+
+.annotation-resizer {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    z-index: 99999;
+}
+
+.enablePointerEvents {
+  pointer-events: all;
+}
+
+.freeFlowDeSelected {
+  pointer-events: none;
+  border-width: 5px;
+}
+
+.moveCursor {
+  margin: auto;
+  cursor: move;
+  overflow: hidden;
+}
+
+.freeFlowBoxSelected {
+  outline-style: dashed;
+  outline-color: white;
+  outline-offset: -4px;
+  border-width: 5px;
+}
+
+.textAreaBox {
+  height: inherit;
+  width: inherit;
+  border-color: transparent;
+  overflow: hidden;
+  background-color: inherit;
+  text-wrap: wrap;
+  resize: none;
+}
+
+textarea:focus{
+  border: none;
+}
+
+textarea:focus-visible{
+  border: none;
+  outline: none;
+}
+
+.freeFlowConnectorSelected {
+  border-color: transparent !important;
+  outline-style: dashed;
+  outline-color: black;
+  outline-offset: -4px;
+}
+
+
+.freeFlowConnectorDeSelected {
+  border-color: transparent !important;
+  pointer-events: none;
+}
+
+.fitConnector{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bottomRight {
+  bottom: 0px;
+  right: 0px;
+  cursor: nw-resize;
+}
+
+.topLeft {
+  top: 0px;
+  left: 0px;
+  cursor: nw-resize;
+}
+
+.topRight {
+  top: 0px;
+  right: 0px;
+  cursor: sw-resize;
+}
+
+.bottomLeft {
+  bottom: 0px;
+  left: 0px;
+  cursor: sw-resize;
+}

@@ -1,0 +1,30 @@
+ul {
+  list-style-type: none;
+  max-height: 200px;
+  overflow-y: scroll;
+  padding-left: 0;
+  font-size: 12px;
+  /*padding-right: 12px;*/
+}
+
+ul > li {
+  padding: 4px 5px;
+  border-bottom: 1px solid #dddddd61;
+  display: inline-flex;
+  min-width: 100%;
+  align-items: safe center;
+}
+
+.k-multiselect-checkbox {
+  pointer-events: none;
+}
+
+.blockColorClass {
+  width: 50%;
+  margin-left: 2%;
+}
+.wraping-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

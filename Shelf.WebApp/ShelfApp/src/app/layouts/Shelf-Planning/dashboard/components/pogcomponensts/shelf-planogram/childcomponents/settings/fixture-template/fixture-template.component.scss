@@ -1,0 +1,41 @@
+.fixtureCntnr {
+
+  label {
+    color: grey;
+    display: flex;
+    max-width: 100%;
+    font-weight: 400;
+    font-size: 0.7em;
+  }
+
+  .matBodyCntnr {
+    margin-top: 10px;
+
+    .fieldCntnr {
+      width: 33%;
+      float: left;
+      padding: 5px;
+
+      mat-form-field {
+        width: 100%;
+      }
+
+      kendo-colorpicker {
+        width: 100%;
+      }
+
+      label {
+        color: grey;
+        display: flex;
+        max-width: 100%;
+        font-weight: 400;
+        font-size: 0.7em;
+      }
+    }
+  }
+}
+
+
+.searchCntnr {   
+  margin: 5px 15px;
+}

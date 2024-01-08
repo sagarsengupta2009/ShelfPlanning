@@ -1,0 +1,7 @@
+<div mat-dialog-content translate>
+    {{message}}
+</div>
+<div mat-dialog-actions id="confirmation-actions">
+    <button mat-button class="dialog-box-buttons" (click)="onNoClick()" translate="UNSAVED_NO"></button>
+    <button mat-button class="dialog-box-buttons" color="primary" [mat-dialog-close]="true" cdkFocusInitial translate="YES"></button>
+</div>

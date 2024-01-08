@@ -1,0 +1,16 @@
+<h4 class="custom-modal-header" mat-dialog-title  cdkDrag cdkDragRootElement=".cdk-overlay-pane"  cdkDragHandle  *ngIf="openLabelTemplateSave" >Enter Label Template Name</h4>
+<div *ngIf="openLabelTemplateSave" class="dialogCloseIcon">
+  <mat-icon (click)="closeDialog()">close</mat-icon>
+</div>
+<div *ngIf="openLabelTemplateSave" mat-dialog-content class="appendNameDialog mat-container">
+  <div style="padding:10px;" fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field style="width:80%;">
+      <input matInput placeholder="Enter Label Template Name" [(ngModel)]="labelTemplateName">
+    </mat-form-field>
+  </div>
+</div>
+<div *ngIf="openLabelTemplateSave" mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'REPORT_BATCH_DIALOG_CANCEL' |  translate}}</button>
+  <button mat-raised-button (click)="closeLabelTemplate()">{{'SYNC_BACK' |  translate}}</button>
+  <button mat-raised-button [disabled]="!labelTemplateName" (click)="saveLabelTemplate(labelTemplateName)">{{'APPEND_OK' |  translate}}</button>
+</div>

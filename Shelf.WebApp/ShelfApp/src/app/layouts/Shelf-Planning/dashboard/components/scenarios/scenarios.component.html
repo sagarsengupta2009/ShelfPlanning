@@ -1,0 +1,34 @@
+<div id="panelResize" *ngIf="canShowScenarios">
+    <div class="pane-content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-2" style="padding-top:5px;">
+                        <h4 class="header" translate>SCENARIOS</h4>
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-4 iconpadding">
+                        <div class="icon-container">
+                            <srp-custom-menus [screenName]="'Home'" [controlName]="'scenariogridHeaderMenu'"
+                                [type]="'gridMenu'" (menuButtonClick)=menu($event)
+                                [matTooltipDisabled]="showDetailedTooltip">
+                            </srp-custom-menus>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div *ngIf="gridConfig && gridConfig.id !== ''">
+                    <ng-container *ngIf="gridConfig?.id !== '' && gridConfig?.columnDefs?.length">
+                        <shelf-ag-grid #agGrid [gridConfig]="gridConfig" (actionEventEmit)="selectedItem($event)" (selectedRow)="invokeSelectedRow($event)" (onContextSelect)="onContextMenuSelect($event)">
+                        </shelf-ag-grid>
+                      </ng-container>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<button mat-fab color="warn" class="fab-btn" (click)="openDialog()">
+    <mat-icon matTooltip="{{'POG_IMPORT_SCENARIO_SELECT_CREATE_NEW' | translate }}">add</mat-icon>
+</button>

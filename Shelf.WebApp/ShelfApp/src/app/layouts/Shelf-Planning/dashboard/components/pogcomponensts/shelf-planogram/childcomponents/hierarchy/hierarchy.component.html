@@ -1,0 +1,50 @@
+<div class="hierarchyMainCntnr ">
+  <kendo-splitter style="height:calc(100vh - 141px);">
+
+    <kendo-splitter-pane [collapsible]="true" style="width:25%;">
+      <mat-card style="overflow-y:hidden;height:100%;">
+        <div class="treeviewcntnr">
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="headerCntnr">
+            <mat-form-field style="width:100%">
+              <mat-label> {{'SEARCH' | translate}}</mat-label>
+              <input matInput autocomplete="off" type="text" [(ngModel)]="text" (keyup)="onkeyup(text)"
+                (keyup.enter)="getSearhitem(text)">
+            </mat-form-field>
+
+            <button mat-icon-button (click)="getSearhitem(text)">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+          <div class="treeCntnr">
+            <kendo-treeview [nodes]="parsedData" textField="name" kendoTreeViewExpandable kendoTreeViewSelectable
+              [expandBy]="'id'" kendoTreeViewHierarchyBinding [hasChildren]="hasChildren" [children]="fetchChildren"
+              (selectionChange)="onNodeSelect($event)" (expand)="handleExpand($event)"
+              (collapse)="handleCollapse($event)" [(expandedKeys)]="expandedKeys">
+            </kendo-treeview>
+
+          </div>
+
+        </div>
+      </mat-card>
+    </kendo-splitter-pane>
+
+    <kendo-splitter-pane [collapsible]="true" style="width:75%">
+      <mat-card class="listCntnr">
+        <div class="alert-center" *ngIf="!showGrid">
+          <div class="alert">
+            <span class="msg">{{'SELECT_HIERARCHY_TO_GET_DATA'| translate}}</span>
+          </div>
+        </div>
+        <div *ngIf="showGrid" style="height: 100%; padding:10px;">
+        
+          <ng-container *ngIf="pogGridConfig?.id !== '' && pogGridConfig?.columnDefs?.length">
+            <shelf-ag-grid #agPogGrid (serverSideGridEmit)="serverSideGridEmit($event)" (selectedRow)="selectionChangeHandler($event)" (actionEventEmit)="Add($event)" [gridConfig]="pogGridConfig">
+            </shelf-ag-grid>
+          </ng-container>
+
+        </div>
+      </mat-card>
+    </kendo-splitter-pane>
+
+  </kendo-splitter>
+</div>

@@ -1,0 +1,25 @@
+<ng-container>
+  <ng-container *ngIf="showLibraryGrid && gridData">
+    <shelf-planogram-library [gridData]="gridData" [exportoptions]="exportOptions"
+      [planogramStatusList]="planogramStatusList" (pogChanges)="updatePogChanges()"
+      (selectedPogChange)="selectedPogChange($event)" (updateState)="updateState($event)" (mouseover)="mouseout()">
+    </shelf-planogram-library>
+  </ng-container>
+  <ng-container *ngIf="!showLibraryGrid && gridData && selectedPogObject">
+    <shelf-pog-splitter-view [selectedPogObject]="selectedPogObject" [exportoptions]="exportOptions"
+      [pogInputData]="gridData"></shelf-pog-splitter-view>
+  </ng-container>
+  <ng-container>
+    <shelf-overlay-icons (updateState)="updateState($event)" (addPlanogram)="updateStateOnCreate($event)">
+    </shelf-overlay-icons>
+  </ng-container>
+  <div id="multipleDragItems" style="opacity: 1;position: absolute;left:-100vh;top:-100vh;">
+  </div>
+  <div id="multiplePegDragItems"
+    style="height: 0px !important; width: 100% !important;pointer-events: none;left:-100vh;top:-100vh;"></div>
+  <div id="multipleCoffinCaseDragItems"
+    style="height: 0px !important; width: 100% !important; pointer-events: none;left:-100vh;top:-100vh;">
+  </div>
+  <div id="coffinCaseFixtureImg"
+    style="height: 0px !important; width: 100% !important; pointer-events: none;left:-100vh;top:-100vh;"></div>
+</ng-container>

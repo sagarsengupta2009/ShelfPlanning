@@ -1,0 +1,9 @@
+{
+  "ApiUrl": "",
+  "ApiCode": "",
+  "ApplicationUrl": "",
+  "StorageBlobUrl": "",
+  "AgLicense": "",
+  "ShelfApi": "https://gaqa-metric-cp-shelfapi.insights2execution.com",
+  "FallbackImageURL": "https://neuarm.blob.core.windows.net/client-app-images/brokenImage.png"
+}

@@ -1,0 +1,81 @@
+<span class="whole-cell" [ngSwitch]="fieldType">
+  <div *ngSwitchCase="'string'">
+    <input matInput [(ngModel)]="data" class="numericTextbox" (change)="valueChanged(data)" (keydown)="editorInputKeyDown(data)" />
+  </div>
+  <div *ngSwitchCase="'dropdown'">
+    <mat-select [(ngModel)]="data" (selectionChange)="valueChanged(data)">
+      <mat-option *ngFor="let item of ddlValues" [value]="item.key" id="dropdown" [ngClass]="{'dropdownClass': item.id < 0}">
+        {{ item.value }}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div *ngSwitchCase="'boolean'">
+    <mat-checkbox [(ngModel)]="data"
+                  name="data"
+                  (change)="OnChange($event)"></mat-checkbox>
+  </div>
+  <div *ngSwitchCase="'number'">
+    <input matInput
+           type="text"
+           class="numericTextbox"
+           [(ngModel)]="data"
+           (keydown)="editorInputKeyDown(data)"
+           (change)="valueChanged(data)" />
+  </div>
+  <div *ngSwitchCase="'floatneg'">
+    <input matInput
+           type="text"
+           class="numericTextbox"
+           [(ngModel)]="data"
+           (keydown)="editorInputKeyDown(data)"
+           (change)="valueChanged(data)" />
+  </div>
+  <div *ngSwitchCase="'float'">
+    <input matInput
+           type="text"
+           class="numericTextbox"
+           [(ngModel)]="data"
+           (keydown)="editorInputKeyDown(data)"
+           (change)="valueChanged(data)" />
+  </div>
+  <div *ngSwitchCase="'numeric'">
+    <input matInput
+           type="text"
+           class="numericTextbox"
+           [(ngModel)]="data"
+           (keydown)="editorInputKeyDown(data)"
+           (change)="valueChanged(data)" />
+  </div>
+  <div *ngSwitchCase="'integer'">
+    <input matInput
+           type="text"
+           class="numericTextbox"
+           [(ngModel)]="data"
+           (keydown)="editorInputKeyDown(data)"
+           (change)="valueChanged(data)" />
+  </div>
+  <div *ngSwitchCase="'date'">
+    <kendo-datepicker style="width: fit-content;"
+                      matTooltip="{{'TOGGLE_CALENDAR'| translate}}"
+                      [(ngModel)]="data"
+                      [readOnlyInput]="true"
+                      format="MM/dd/yyyy"
+                      [disabledDates]="disabledDates"
+                      [formatPlaceholder]="{ year: 'yyyy', month: 'MM', day: 'dd' }"
+                      (valueChange)="valueChanged(data)">
+      <kendo-timepicker-messages toggle=""></kendo-timepicker-messages>
+    </kendo-datepicker>
+  </div>
+  <div *ngSwitchCase="'color'">
+    <div >
+      <kendo-colorpicker
+          [format]="'hex'"
+          [gradientSettings]="gradientSettings"
+          [paletteSettings]="paletteSettings"
+          [(ngModel)]="data"
+          (valueChange)="valueChanged($event)">
+      </kendo-colorpicker>
+  </div>
+  </div>
+
+</span>

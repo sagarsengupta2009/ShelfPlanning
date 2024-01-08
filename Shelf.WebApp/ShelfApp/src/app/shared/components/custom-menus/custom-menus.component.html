@@ -1,0 +1,245 @@
+<ng-container *ngIf="canRender">
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'sideMenus'">
+      <ul class="sidebar-list" *ngIf="menuList && menuList.length">
+        <li *ngFor="let menu of menuList" routerLinkActive="active" [hidden]="onSelectionChange(menu)">
+          <ng-container [ngSwitch]="true">
+            <ng-container *ngSwitchCase="menu.icon === 'sync'">
+              <a class="menuclass" [ngClass]="{'active': menu | isActiveMenu}"
+                [routerLinkActiveOptions]="{ exact: true }" style="cursor:pointer;" (click)="closeNav(menu)"
+                [ngStyle]="disabledCss(menu)">
+                <mat-icon aria-label="menu.icon" [matTooltip]="menu.text|translate" [matTooltipPosition]="'right'" [ngStyle]="disabledCss(menu)">
+                  {{menu.icon}}</mat-icon>
+                <span translate>{{menu.text}}</span>
+              </a>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <a srpMenuToolTip class="menuclass"
+                [ngClass]="{'active': menu | isActiveMenu, 'activePlangogram': menu.key && menu.key==='PLANOGRAMS' && sharedService.isShelfLoaded}"
+                [routerLinkActiveOptions]="{ exact: true }" [matTooltipDisabled]="!isOnCompatMode || isDefaultMenu"
+                style="cursor:pointer;" (click)="closeNav(menu)" [ngStyle]="disabledCss(menu)">
+                <mat-icon aria-label="menu.icon" #menuTrigger="matMenuTrigger" [matTooltip]="menu.text|translate" [matTooltipPosition]="'right'"
+                  [matMenuTriggerFor]="childmenu" [ngStyle]="disabledCss(menu)">{{menu.icon}}</mat-icon>
+                <span translate>{{menu.text}}</span>
+              </a>
+            </ng-container>
+          </ng-container>
+          <div [hidden]="!menu.childMenus && menu.childMenus.length < 1">
+            <div [hidden]="!isOnCompatMode">
+              <ul style="list-style:none;" [style.display]="displayChild ? 'block' : 'none'">
+                <li *ngFor="let item of menu.childMenus">
+                  <a srpMenuToolTip class="menuclass" style="cursor:pointer;" (click)="closeNav(item)">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span translate>{{item.text}}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div [hidden]="isOnCompatMode" style="min-width: 0px !important;
+                          margin-left: 40px;">
+              <mat-menu #childmenu="matMenu" xPosition="before" [hasBackdrop]="true">
+                <ng-container *ngFor="let item of menu.childMenus">
+                  <button srpMenuToolTip [matTooltip]="item.text|translate" mat-menu-item
+                    style="background-color: #7b8281;" (click)="closeNav(item)">
+                    <mat-icon style="color: white" class="material-icons-menu">{{item.icon}}</mat-icon>
+                    <span style="color: white" translate>{{item.text}}</span>
+                  </button>
+                </ng-container>
+              </mat-menu>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+
+    <div *ngSwitchCase="'gridMenu'" [id]="controlName">
+      <ng-container *ngIf="menuList && menuList.length">
+        <ng-container *ngFor="let menu of menuList">
+          <ng-container [ngSwitch]="true">
+            <ng-container *ngSwitchCase="menu.icon === '' ">
+              <div [ngStyle]="{'display': onSelectionChange(menu) ? 'none' : 'inline-block'}">
+                <button mat-button class="topicons"
+                  [ngClass]="{'icon-opacity-1': (menu.template === 'Review_RightSidePanel_All_Favorite_POGs' || menu.template === 'Review_RightSidePanel_All_Pinned_POGs'),
+                            'icon-less-opacity': (menu.template === 'Review_RightSidePanel_All_Favorite_POGs' || menu.template === 'Review_RightSidePanel_All_Pinned_POGs'),
+                            'icon-selected': controlName === 'selectedMenuBlack',
+                            'icon-green': controlName === 'pogLibHeaderMenu_3' && menu.key !== 'pogLibHeaderMenu_3_CLOSE', 'top_row_icons': (isDownloadedPog(controlName)),
+                            'icon-filterSelected': (myselectionlist && myselectionlist.ischecked && menu.key==='pogLibHeaderMenu_2_FILTERLIST')}"
+                  (click)="menuButtonLCick(menu,$event);childMenulist = filterMenuList(menu.childMenus)"
+                  [detailContent]="{ title: menu.text|translate, info: menu.description|translate }">
+                  <mat-icon class="menuicon material-icons " [ngClass]="{'icon-selected':  menu.template === 'selectedMenuBlack',
+                           'icon-PinnedRight':menu.template==='rightSidePinned'}" aria-hidden="false"
+                    style="cursor: pointer;" aria-label="menu.icon">
+                    {{menu.icon}}
+                  </mat-icon>
+                </button>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>
+              <div [ngStyle]="{'display': onSelectionChange(menu) ? 'none' : 'inline-block'}">
+                <button mat-button class="topicons" srpMenuToolTip [ngClass]="{'icon-opacity-1': (menu.template === 'Review_RightSidePanel_All_Favorite_POGs' || menu.template === 'Review_RightSidePanel_All_Pinned_POGs'),
+                            'icon-less-opacity': (menu.template === 'Review_RightSidePanel_All_Favorite_POGs' || menu.template === 'Review_RightSidePanel_All_Pinned_POGs'),
+                            'icon-selected': controlName === 'selectedMenuBlack',
+                            'icon-green': controlName === 'pogLibHeaderMenu_3' && menu.key !== 'pogLibHeaderMenu_3_CLOSE','top_row_icons': (isDownloadedPog(controlName)),
+                            'icon-filterSelected': (myselectionlist && myselectionlist.ischecked && menu.key==='pogLibHeaderMenu_2_FILTERLIST'),
+                            'icon-disable':onDisabled(menu)===true}"
+                  (click)="menuButtonLCick(menu,$event);childMenulist = filterMenuList(menu.childMenus)"
+                  [detailContent]="{ title: menu.text|translate, info: menu.description|translate }">
+                  <mat-icon class="menuicon material-icons " [ngClass]="{'icon-selected':  menu.template === 'selectedMenuBlack',
+                           'icon-PinnedRight':menu.template==='rightSidePinned', 'save-all-icon': menu.key === 'POGLIB_HEADERMENU_1_SAVE_ALL'}" [matTooltip]="menu.text|translate"
+                    [matTooltipDisabled]="isDefaultMenu" aria-hidden="false" style="cursor: pointer;"
+                    aria-label="menu.icon" [matMenuTriggerFor]="childmenu">
+                    {{menu.icon}}
+                  </mat-icon>
+                  <span class="save-changes"
+                    *ngIf="(screenName !== 'Review') && (menu.text.trim() === 'Save' && sharedService.badgeVisible)">*</span>
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+
+        </ng-container>
+        <button *ngIf="subMenulist && subMenulist.length" class="mat-button" mat-button [matMenuTriggerFor]="menu"
+          [ngClass]="{'icon-green': controlName === 'ReviewSelectedHeader'}">
+          <mat-icon class="material-icons" matTooltip="{{'LPD_MOREOPTION' | translate}}" aria-hidden="false"
+            aria-label="more">
+            more_vert
+          </mat-icon>
+        </button>
+      </ng-container>
+      <div [hidden]="subMenulist && !subMenulist.length">
+        <mat-menu #menu="matMenu">
+          <div *ngFor="let submenu of subMenulist">
+            <div [hidden]="onSelectionChange(submenu)"
+                 [ngClass]="{highlightBackgroung: selectedManuKey === submenu.key }">
+              <button *ngIf="!(submenu?.childMenus?.length > 0)" srpMenuToolTip
+                      [detailContent]="{ title: submenu.text|translate, info: submenu.description|translate }" mat-menu-item
+                      (click)="menuButtonLCick(submenu,$event);" [disabled]="onDisabled(submenu)">
+                <mat-icon class="material-icons-menu icon-green" [ngClass]="{'save-all-icon': submenu.key === 'POGLIB_HEADERMENU_1_SAVE_ALL'}"
+                          *ngIf="(submenu.template !== 'Review_SelectedHeader_More_PIN' && submenu.template !== 'Review_SelectedHeader_More_UNPIN')">
+                  {{submenu.icon}}
+                </mat-icon>
+                <span translate>{{submenu.text}}</span>
+                <span *ngIf="submenu.template === 'Highlight_Menu'" class="ctrlLabel">(Ctrl+H)</span>
+              </button>
+              <button *ngIf="submenu?.childMenus?.length > 0" srpMenuToolTip
+                      [detailContent]="{ title: submenu.text|translate, info: submenu.description|translate }" mat-menu-item
+                      (click)="menuButtonLCick(submenu,$event);childMenulist = filterMenuList(submenu.childMenus)" [disabled]="onDisabled(submenu)"
+                      (mouseenter)="childMenulist = filterMenuList(submenu.childMenus)"
+                      [matMenuTriggerFor]="childmenu">
+                <mat-icon class="material-icons-menu icon-green"
+                          *ngIf="(submenu.template !== 'Review_SelectedHeader_More_PIN' && submenu.template !== 'Review_SelectedHeader_More_UNPIN')">
+                  {{submenu.icon}}
+                </mat-icon>
+                <span translate>{{submenu.text}}</span>
+                <span *ngIf="submenu.template === 'Highlight_Menu'" class="ctrlLabel">(Ctrl+H)</span>
+              </button>
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+        </mat-menu>
+      </div>
+      <div [hidden]="childMenulist && !childMenulist.length">
+        <mat-menu #childmenu="matMenu" xPosition="before">
+          <ng-container *ngFor="let childmenu of childMenulist">
+            <ng-container *ngIf="childmenu.childMenus && childmenu.childMenus.length">
+              <div [hidden]="onSelectionChange(childmenu)"
+                [ngClass]="{highlightBackgroung: selectedManuKey === childmenu.key }">
+                <button srpMenuToolTip
+                  [detailContent]="{ title: childmenu.text|translate, info: childmenu.description|translate }"
+                  (mouseenter)="previousMenu && previousMenu['text'] !== childmenu.text ? secondchildMenulist =[] : null"
+                  mat-menu-item
+                  (click)="menuButtonLCick(childmenu,$event);secondchildMenulist = previousMenu = filterMenuList(childmenu.childMenus); "
+                  [matMenuTriggerFor]="secondchildmenu">
+                  <mat-icon class="material-icons-menu icon-green">{{childmenu.icon}}</mat-icon>
+                  <span>{{childmenu.text}}</span>
+                </button>
+                <mat-divider></mat-divider>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="childmenu.childMenus && !childmenu.childMenus.length">
+              <div [hidden]="onSelectionChange(childmenu)"
+                [ngClass]="{highlightBackgroung: selectedManuKey === childmenu.key }">
+                <button srpMenuToolTip
+                  [detailContent]="{ title: childmenu.text|translate, info: childmenu.description|translate }"
+                  (mouseenter)="previousMenu && previousMenu['text'] !== childmenu.text ? secondchildMenulist =[] : null"
+                  mat-menu-item
+                  (click)="menuButtonLCick(childmenu,$event);secondchildMenulist = previousMenu = filterMenuList(childmenu.childMenus);">
+                  <mat-icon
+                    *ngIf="(childmenu.template != 'Export_Pog_XMZ' && childmenu.template != 'Export_Pog_XMl' && childmenu.template != 'Export_Pog_PLN' && childmenu.template != 'Export_Pog_PSA' && childmenu.template != 'Export_Pog_PSA_FLOATINGSHELVES')"
+                    class="material-icons-menu icon-green">{{childmenu.icon}}</mat-icon>
+                  <img *ngIf="childmenu.template == 'Export_Pog_XMZ'"
+                    [src]="deploymentPath+'/assets/images/icons-xmz.svg'" id="export_xmz" alt="XMZ"
+                    style="width:24px;height:24px;margin-right: 16px;">
+                  <img *ngIf="childmenu.template == 'Export_Pog_XMl'"
+                    [src]="deploymentPath+'/assets/images/icons-xml.svg'" id="export_xml" alt="XMl"
+                    style="width:24px;height:24px;margin-right: 16px;">
+                  <img *ngIf="childmenu.template == 'Export_Pog_PLN'"
+                    [src]="deploymentPath+'/assets/images/icons-pln.svg'" id="export_pln" alt="PLN"
+                    style="width:24px;height:24px;margin-right: 16px;">
+                  <img *ngIf="childmenu.template == 'Export_Pog_PSA'"
+                    [src]="deploymentPath+'/assets/images/icons-psa.svg'" id="export_pls" alt="PSA"
+                    style="width:24px;height:24px;margin-right: 16px;">
+                    <img *ngIf="childmenu.template == 'Export_Pog_PSA_FLOATINGSHELVES'"
+                    [src]="deploymentPath+'/assets/images/icons-psa-floating-shelves.svg'" id="export_pls_floating" alt="PSA Floating Shelves"
+                    style="width:24px;height:24px;margin-right: 16px;">
+                  <span>{{childmenu.text}}</span>
+                </button>
+                <mat-divider></mat-divider>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-menu>
+      </div>
+      <div [hidden]="secondchildMenulist && !secondchildMenulist.length">
+        <mat-menu #secondchildmenu="matMenu" xPosition="before">
+          <ng-container *ngFor="let secondchildmenu of secondchildMenulist">
+            <ng-container *ngIf="secondchildmenu.childMenus && secondchildmenu.childMenus.length">
+              <div [hidden]="onSelectionChange(secondchildmenu)">
+                <button srpMenuToolTip
+                  [detailContent]="{ title: secondchildmenu.text|translate, info: secondchildmenu.description|translate }"
+                  (mouseenter)="previousMenu && previousMenu['text'] !== secondchildmenu.text ? nextchildMenulist =[] : null"
+                  mat-menu-item
+                  (click)="menuButtonLCick(secondchildmenu);nextchildMenulist = previousMenu = filterMenuList(secondchildmenu.childMenus)"
+                  [matMenuTriggerFor]="nextchildMenu">
+                  <mat-icon class="material-icons-menu icon-blue">{{secondchildmenu.icon}}</mat-icon>
+                  <span translate>{{secondchildmenu.text}}</span>
+                </button>
+                <mat-divider></mat-divider>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="secondchildmenu.childMenus && !secondchildmenu.childMenus.length">
+              <div [hidden]="onSelectionChange(secondchildmenu)">
+                <button srpMenuToolTip
+                  [detailContent]="{ title: secondchildmenu.text|translate, info: secondchildmenu.description|translate }"
+                  (mouseenter)="previousMenu && previousMenu['text'] !== secondchildmenu.text ? nextchildMenulist =[] : null"
+                  mat-menu-item
+                  (click)="menuButtonLCick(secondchildmenu);nextchildMenulist = previousMenu = filterMenuList(secondchildmenu.childMenus)">
+                  <mat-icon class="material-icons-menu icon-blue">{{secondchildmenu.icon}}</mat-icon>
+                  <span translate>{{secondchildmenu.text}}</span>
+                </button>
+                <mat-divider></mat-divider>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-menu>
+      </div>
+      <div [hidden]="nextchildMenulist && !nextchildMenulist.length">
+        <mat-menu #nextchildMenu="matMenu" xPosition="before">
+          <div *ngFor="let nextchildMenu of nextchildMenulist">
+            <button srpMenuToolTip [ngClass]="{highlightBackgroung: selectedManuKey === nextchildMenu.key }"
+              [detailContent]="{ title: nextchildMenu.text|translate, info: nextchildMenu.description|translate }"
+              mat-menu-item (click)="menuButtonLCick(nextchildMenu,$event);">
+              <mat-icon class="material-icons-menu icon-green">
+                {{nextchildMenu.icon}}
+              </mat-icon>
+              <span translate>{{nextchildMenu.text}}</span>
+            </button>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,197 @@
+<!-- Right Top corner, setings icon -->
+<div *ngIf="gridConfig.columnConfig">
+  <mat-icon *ngIf="!groupable" class="menuicon icon"
+    style="background-color:transparent;color:var(--foreground-primary)" [@settingsSecondaryIcon]="settingsState"
+    aria-hidden="false" (click)="openColumnConfig()" aria-label="perm_data_setting" [matTooltip]="'GRID_SETTINGS' | translate">
+    settings
+  </mat-icon>
+  <mat-icon *ngIf="!groupable" class="menuicon icon" [@settingsPrimaryIcon]="settingsState" aria-hidden="false"
+    (click)="openColumnConfig()" aria-label="perm_data_setting" [matTooltip]="'GRID_SETTINGS' | translate">perm_data_setting</mat-icon>
+</div>
+
+<!-- Left Top corner, grouping icon -->
+<!-- TODO : change to if else-->
+<div *ngIf="showGroupHeader" class="icondiv">
+  <mat-icon class="menuicon icon" *ngIf="!groupable" aria-hidden="false" (click)="groupable = true"
+    aria-label="Show grouped columns" [matTooltip]="'SHOW' | translate">keyboard_arrow_down</mat-icon>
+  <mat-icon class="menuicon icon" *ngIf="groupable" aria-hidden="false" (click)="groupable = false" aria-label="Hide"
+    [matTooltip]="'HIDE' | translate">keyboard_arrow_up</mat-icon>
+</div>
+
+<div kendoTooltip disableRightClick showOn="none" style="z-index: 1200;height: 100%;" [tooltipTemplate]="customTooltipTemplate"
+  filter=".k-grid td" (mouseover)="showTooltip($event)">
+
+  <kendo-grid [id]="gridId" [@paGrid] class="grid" [ngStyle]="gridHeight" #grid *ngIf="gridConfig && gridConfig.data"
+    [kendoGridGroupBinding]="data" [group]="groups" [sort]="sort" [loading]="loading" [skip]="skip" [filter]="filter"
+    [selectable]="RowSelectionColumn ? { enabled: true, checkboxOnly: true } : true" [filterable]="'menu'"
+    [sortable]=" { mode: 'multiple' }" [groupable]="groupable" [navigable]="detailExpand ? false : true"
+    [resizable]="true" [reorderable]="true" [columnMenu]="gridConfig.columnMenuDisplay" [trackBy]="trackBy"
+    [scrollable]="'virtual'" [rowHeight]="46" [detailRowHeight]="46" [pageSize]="pageSize"
+    [kendoGridSelectBy]="mySelectionColumn" [selectedKeys]="mySelection"
+    (dataStateChange)="onStateChangeHandler($event)" (cellClick)="cellClickHandler($event)"
+    (cellClose)="cellCloseHandler($event)" (cancel)="cancelHandler($event)" (keyup)="KeyupEvent($event)"
+    (columnLockedChange)="columnLockedChangeHandler($event)" (columnReorder)="columnReorderHandler($event)"
+    (columnResize)="columnResizeHandler($event)" (columnVisibilityChange)="columnVisibilityChangeHandler($event)"
+    (detailCollapse)="detailCollapseHandler($event)" (detailExpand)="detailExpandHandler($event)"
+    (excelExport)="excelExportHandler($event)" (groupChange)="groupChangeHandler($event)"
+    (sortChange)="sortChangeHandler($event)" (selectionChange)="selectionChangeHandler($event)"
+    (dblclick)="onDblClick()" (filterChange)="filterChange($event)" (pageChange)="pageChange($event)"
+    [rowClass]="rowCallback" [kendoGridExpandDetailsBy]="expandId" [(expandedDetailKeys)]="expandedDetailKeys"
+    (selectedKeysChange)="onSelectedKeysChange($event)" [class]="customCss">
+
+    <ng-template kendoGridColumnMenuTemplate let-service="service">
+      <kendo-grid-columnmenu-sort [service]="service"> </kendo-grid-columnmenu-sort>
+      <kendo-grid-columnmenu-lock *ngIf="!detailExpand" [service]="service"> </kendo-grid-columnmenu-lock>
+      <kendo-grid-columnmenu-filter (expand)="filterOpened(service)" [service]="service">
+      </kendo-grid-columnmenu-filter>
+      <kendo-grid-columnmenu-chooser [service]="service"> </kendo-grid-columnmenu-chooser>
+    </ng-template>
+
+    <ng-template ngFor [ngForOf]="columns" let-column>
+      <!-- Column -->
+      <kendo-grid-column [field]="column.field" [title]="column.title" [format]="column.format" class="grid-column"
+        [width]="column.width" [filter]="column.filter" [editable]="column.editable" [filterable]="column.filterable"
+        [groupable]="true" [hidden]="column.hidden" [reorderable]="column.title.length == 0 ? false : true"
+        [resizable]="column.title.length == 0 ? false : true"
+        [sortable]="column.sortable ? column.sortable: column.title.length == 0? false: true" [locked]="column.locked"
+        [headerClass]="column.headerClass" [headerStyle]="{
+                        'background-color': '#4E9698',
+                        color: 'var(--background-primary)'
+                        }" [style]="applyStyle(column)" [columnMenu]="column.columnMenu">
+
+        <!-- Column Header  -->
+        <ng-template kendoGridHeaderTemplate>
+          <sp-custom-header-template [column]="column" [showDetailedTooltip]="showDetailedTooltip" [type]="headerType"
+            [selectAllState]="selectAllState" (selectAllCheckbox)="onSelectAllCheckBoxChange($event)"
+            (mouseEnter)="onMouseEnter($event, column)" (mouseLeave)="onMouseLeave()">
+          </sp-custom-header-template>
+        </ng-template>
+
+        <!-- Filter Menu -->
+        <ng-template kendoGridFilterMenuTemplate let-filter let-column="column" let-filterService="filterService">
+
+          <kendo-grid-numeric-filter-cell *ngIf="isNumericType(column)" [column]="column" [filter]="filter"
+            [showOperators]="true" format="0">
+          </kendo-grid-numeric-filter-cell>
+          <srp-date-range-filter-template *ngIf="isDateType(column)" [grid]="grid" class="date-range-filter"
+            [filter]="filter" [field]="column.field">
+          </srp-date-range-filter-template>
+          <srp-custom-filter-template *ngIf="column.field != 'isMarked_template'; else notMarkedTemplate"
+            [isPrimitive]="true" [field]="column.field" [filterService]="filterService" [currentFilter]="filter"
+            [columnType]="getColumnType(column)" [data]="distinctPrimitive(column.field)">
+          </srp-custom-filter-template>
+          <ng-template #notMarkedTemplate>
+            <srp-custom-checkbox-template *ngIf="column.field == 'isMarked_template'"
+              [data]="distinctPrimitive(column.field)" [field]="column.field" [currentFilter]="filter"
+              [filterService]="filterService">
+            </srp-custom-checkbox-template>
+          </ng-template>
+        </ng-template>
+
+        <!-- Group header -->
+        <!-- TODO: @malu GetGridHeaderTooltip() has to be done once-->
+        <ng-template kendoGridGroupHeaderTemplate let-dataItem>
+          <strong [matTooltip]="GetGridHeaderTooltip(column.title, dataItem.value, dataItem)">
+            {{ column.title }}:&nbsp;
+          </strong>
+          <div [innerHTML]="dataItem.value | formatColumn: column:'plain'"
+            [matTooltip]="GetGridHeaderTooltip(column.title, dataItem.value, dataItem)"></div>
+        </ng-template>
+        <ng-template *ngIf="column.editable" kendoGridEditTemplate let-dataItem="dataItem">
+          <div #edittemplate>
+            <srp-custom-edit-template [column]="column" [dataItem]="dataItem" [field]="column.field"
+              [data]="dataItem[column.field]" (currentValue)="editTemplateValueChangeEvent($event,dataItem)">
+            </srp-custom-edit-template>
+          </div>
+        </ng-template>
+
+        <!-- Cell -->
+        <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" let-columnIndex="columnIndex">
+          <div *ngIf="columnIndex === 0 && !detailExpand; else next1"
+            [style.backgroundColor]="setBackgroundColor(dataItem,rowIndex)"
+            [ngClass]="{'whole-cell':dataItem.backgroundColor}">
+            {{ rowIndex + 1 }}
+            <input type="hidden" value="{{dataItem['srno']}}">
+          </div>
+          <ng-template #next1>
+            <div [style.backgroundColor]="setBackgroundColor(dataItem,rowIndex)"
+              [ngClass]="getStyleClassName(dataItem,column)"
+              [id]="( uniqueColumn !== '' && dataItem[uniqueColumn])  ? dataItem[uniqueColumn] : rowIndex "
+              class="wraping-text" [innerHTML]="dataItem[column.field] | formatColumn: column | safe">
+            </div>
+          </ng-template>
+        </ng-template>
+
+      </kendo-grid-column>
+
+      <kendo-grid-checkbox-column *ngIf="gridConfig.firstCheckBoxColumn && column.field =='sr'" width="55"
+        [resizable]="false" [reorderable]="false" [headerStyle]="{'text-align': 'center'}" [columnMenu]="false"
+        [locked]="column.locked">
+        <ng-template *ngIf="showSelectall" kendoGridHeaderTemplate>
+          <input class="k-checkbox" id="selectAllCheckboxId" kendoGridSelectAllCheckbox [state]="selectAllState"
+            (selectAllChange)="onSelectAllCheckBoxChange($event)">
+          <label class="k-checkbox-label" for="selectAllCheckboxId"></label>
+        </ng-template>
+      </kendo-grid-checkbox-column>
+
+      <ng-template kendoGridDetailTemplate let-dataItem *ngIf="detailExpand">
+        <srp-kendo-detail-expand *ngIf="dataItem" (onActionEmit)="childGridActionEmit($event)"
+          [config]="{ dataItem: dataItem, gridId: gridId }">
+        </srp-kendo-detail-expand>
+      </ng-template>
+    </ng-template>
+
+    <!-- Column Group-->
+    <kendo-grid-column-group *ngFor="let item of gridConfig.columnGroups; let i=index;" [locked]="false"
+      [columnMenu]="false" [hidden]="!gridConfig.showGroupHeader" title="{{item.title}}">
+      <ng-template kendoGridHeaderTemplate let-columnIndex="columnIndex" let-column>
+        {{item.title}}
+      </ng-template>
+      <kendo-grid-column *ngFor="let groupColumn of item.groupColumns" [field]="groupColumn.field"
+        [title]="groupColumn.title" [columnMenu]="true" [filter]="true" [width]="groupColumn.width">
+        <ng-template kendoGridFilterMenuTemplate let-column="column" let-filter="filter"
+          let-filterService="filterService">
+          <kendo-grid-numeric-filter-cell [column]="column" [filter]="filter" [showOperators]="true" format="0">
+          </kendo-grid-numeric-filter-cell>
+          <srp-custom-filter-template [isPrimitive]="true" [field]="column.field" [filterService]="filterService"
+            [currentFilter]="filter" [data]="distinctGroupItems(column.field)"></srp-custom-filter-template>
+        </ng-template>
+      </kendo-grid-column>
+    </kendo-grid-column-group>
+
+    <!-- Exports -->
+    <kendo-grid-excel [fileName]="fileName" [fetchData]="allData"></kendo-grid-excel>
+    <kendo-grid-pdf fileName="KendoPivotGrid.pdf" [allPages]="true" [paperSize]="pdfPaperSize" [repeatHeaders]="true"
+      [landscape]="true">
+    </kendo-grid-pdf>
+
+  </kendo-grid>
+
+  <div *ngIf="menuItems && menuItems.length">
+    <srp-kendo-grid-context-menu [for]="grid" [menuItems]="menuItems" (select)="onContextMenuSelect($event)">
+    </srp-kendo-grid-context-menu>
+  </div>
+
+  <ng-template #customTooltipTemplate let-anchor>
+    <span>{{ anchor.nativeElement.innerText }}</span>
+  </ng-template>
+  <kendo-popup [anchor]="anchor" [popupClass]="'tooltipContent'" *ngIf="showDetailedTooltip && content !== null"
+    [animate]="animate">
+    <span class="head"> {{ content.title }}</span>
+    <hr />
+    <span class="content">{{ content.info }}</span>
+  </kendo-popup>
+
+  <kendo-dialog title="Please confirm" *ngIf="itemToRemove" (close)="confirmRemove(false)">
+    <p style="margin: 30px; text-align: center;" translate>
+      ARE_YOU_SURE_YOU_WANT_TO_DELETE_PRODUCT
+    </p>
+    <p>
+      {{ itemToRemove.ProductName }}?
+    </p>
+    <kendo-dialog-actions>
+      <button class="k-button" (click)="confirmRemove(false)" translate="NO"></button>
+      <button class="k-button k-primary" (click)="confirmRemove(true)" primary="true" translate="YES">
+      </button>
+    </kendo-dialog-actions>
+  </kendo-dialog>

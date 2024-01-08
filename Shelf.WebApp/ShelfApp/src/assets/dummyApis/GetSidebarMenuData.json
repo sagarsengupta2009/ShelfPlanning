@@ -1,0 +1,124 @@
+{
+  "SidebarMenu": [
+    {
+      "idSequence": 3,
+      "icon": "view_quilt",
+      "text": "HEADER_PLANOGRAMS",
+      "path": "",
+      "type": "",
+      "status": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ],
+      "assignmentType": [
+        0,
+        2
+      ],
+      "childMenus": []
+    },
+    {
+      "idSequence": 4,
+      "icon": "settings",
+      "text": "MENU_UTILITIES",
+      "path": "",
+      "type": "both",
+      "status": [
+        2,
+        3
+      ],
+      "assignmentType": [
+        0,
+        2
+      ],
+      "childMenus": []
+    },
+    {
+      "idSequence": 6,
+      "icon": "assessment",
+      "text": "ANALYSIS",
+      "path": "",
+      "type": "both",
+      "status": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ],
+      "assignmentType": [
+        0,
+        1,
+        2
+      ],
+      "childMenus": []
+    },
+    {
+      "idSequence": 7,
+      "icon": "equalizer",
+      "text": "ANALYSIS_REPORTS",
+      "path": "",
+      "type": "both",
+      "status": [],
+      "assignmentType": [
+        0,
+        2
+      ],
+      "childMenus": []
+    },
+    {
+      "idSequence": 8,
+      "icon": "assignment",
+      "text": "HEADER_REPORT_TEMPLATE",
+      "path": "",
+      "type": "both",
+      "status": [],
+      "assignmentType": [
+        0,
+        2
+      ],
+      "childMenus": []
+    },
+    {
+      "idSequence": 9,
+      "icon": "device_hub",
+      "text": "ALC_POG_HIERARCHY",
+      "path": "/automation/pog-hierarchy",
+      "type": "both",
+      "status": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ],
+      "assignmentType": [
+        0,
+        1,
+        2
+      ],
+      "childMenus": []
+    },
+    {
+      "idSequence": 10,
+      "icon": "library_add",
+      "text": "Planogram_Template",
+      "path": "",
+      "type": "both",
+      "status": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ],
+      "assignmentType": [
+        0,
+        2
+      ],
+      "childMenus": []
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<h4 class="custom-modal-header" mat-dialog-title>{{'REPORT_BATCH_DIALOG_TITLE' |  translate}}</h4>
+<div class="dialogCloseIcon">
+  <mat-icon (click)="refreshGrid()" matTooltip="{{'REFRESH'| translate}}">refresh</mat-icon>
+  <mat-icon matTooltip="{{'EXPORT_EXCEL'| translate}}" (click)="excelAsExport()">get_app</mat-icon>
+  <mat-icon (click)="closeDialog()" matTooltip="{{'CLOSE'|translate}}">close</mat-icon>
+</div>
+<div mat-dialog-content style="overflow:hidden;height:82%;">
+  <ng-container *ngIf="reportGridConfig?.id !== '' && reportGridConfig?.columnDefs?.length">
+    <shelf-ag-grid #agReportGrid [gridConfig]="reportGridConfig" (actionEventEmit)="SelectedItem($event)" (selectedRow)="InvokeSelectedRow($event)">
+    </shelf-ag-grid>
+  </ng-container>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="closeDialog()">{{'REPORT_BATCH_DIALOG_CANCEL' |  translate}}</button>
+  <button mat-raised-button [disabled]="selectedRows.length == 0" (click)="printPogs()">{{'REPORT_BATCH_DIALOG_PRINT' |  translate}}</button>
+</div>

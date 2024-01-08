@@ -1,0 +1,195 @@
+<div *ngIf="objectType === 'Position'">
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openFacingsDialog()">{{'FACINGS_CONTEXT' | translate}}</button>
+        <button mat-menu-item (click)="openOrientationDialog()">{{'TOOLTIP_ORIENTATION' | translate }}
+            <ul class="demo right grey-text font-14">
+                <li class="up">Shift + ↑</li>
+                <li class="down">Shift + ↓</li>
+            </ul>
+        </button>
+        <mat-divider></mat-divider>
+        <button *ngIf="enableUnitCapping()" mat-menu-item [matMenuTriggerFor]="menu2"
+            #matMenuTrigger="matMenuTrigger">{{'POSITION_CONTEXT_MENU_UNIT_CAPPING' | translate }}</button>
+        <mat-divider></mat-divider>
+        <button *ngIf="enableAlignPegsOrCoffins()" mat-menu-item [matMenuTriggerFor]="menu3"
+            #matMenuTrigger="matMenuTrigger">{{'PANAL_CONTEXT_MENU_ALIGN' | translate }}</button>
+        <mat-divider *ngIf="enableUnitCapping"></mat-divider>
+        <button *ngIf="enableAdvancedCapping()" mat-menu-item [matMenuTriggerFor]="menu5"
+            #matMenuTrigger="matMenuTrigger">{{'POSITION_CONTEXT_MENU_UNIT_CAPPING' | translate }}</button>
+        <mat-divider *ngIf="enableAdvancedCapping"></mat-divider>
+
+        <button mat-menu-item (click)="multiPosSelectFlip()">{{'MIRROR' | translate }}<span
+                class="right grey-text font-14">Ctrl+I</span></button>
+
+        <button mat-menu-item (click)="toolsClickHandler()">{{'PANEL_HEADER_TOOLS' | translate }}</button>
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item *ngIf="isUndoVisible()" (click)="triggerUndo()">{{'PANEL_HEADER_UNDO' | translate }}<span
+                class="right grey-text font-14">Ctrl+Z</span></button>
+
+        <button mat-menu-item *ngIf="isRedoVisible()" (click)="triggerRedo()">{{'PANEL_HEADER_REDO' | translate}}<span
+                class="right grey-text font-14">Ctrl+Y</span></button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="multiPosSelectCut($event)">{{'POSITION_CONTEXT_MENU_CUT' | translate}}<span
+                class="right grey-text font-14">Ctrl+X</span></button>
+
+        <button mat-menu-item (click)="multiPosSelectCopy($event)">{{'FIXTURE_CONTEXT_MENU_COPY' | translate}}<span
+                class="right grey-text font-14">Ctrl+C</span></button>
+    </mat-menu>
+
+    <mat-menu #menu2="matMenu">
+        <button mat-menu-item *ngIf="canUnitCapping()" (click)="cappingFronts()">{{'POSITION_CONTEXT_MENU_FRONT_CAPPING'
+            | translate}}</button>
+        <button mat-menu-item *ngIf="canUnitCapping()"
+            (click)="cappingLayovers()">{{'POSITION_CONTEXT_MENU_LAYOVER_CAPPING' | translate}}</button>
+        <button mat-menu-item *ngIf="canRemoveUnitCapping()"
+            (click)="cappingRemove()">{{'POSITION_CONTEXT_MENU_REMOVE_CAPPING' | translate }}</button>
+    </mat-menu>
+
+    <mat-menu #menu3="matMenu">
+        <button mat-menu-item (click)="alignPegsOrCoffins('left')">{{'LEFT' | translate }}</button>
+        <button mat-menu-item (click)="alignPegsOrCoffins('right')">{{'RIGHT' | translate}}</button>
+        <button mat-menu-item (click)="alignPegsOrCoffins('top')">{{'TOP' | translate}}</button>
+        <button mat-menu-item (click)="alignPegsOrCoffins('bottom')">{{'BOTTOM' | translate }}</button>
+        <button mat-menu-item (click)="alignPegsOrCoffins('xpeghole')" *ngIf="fixtureType === 'Pegboard' || fixtureType === 'Slotwall'">{{'X_PEGHOLE' | translate }}</button>
+        <button mat-menu-item (click)="alignPegsOrCoffins('ypeghole')" *ngIf="fixtureType === 'Pegboard' || fixtureType === 'Slotwall'">{{'Y_PEGHOLE' | translate }}</button>
+    </mat-menu>
+
+    <mat-menu #menu5="matMenu">
+        <ng-container [ngSwitch]="true">
+          <button mat-menu-item *ngSwitchCase="canAdvancedCapping() && !undoFrontCapping"
+            (click)="applyAdvancedCapping('advanced-unit-capping-fronts')">{{'UNIT_CAPPING_FRONT' |
+            translate}}</button>
+          <button mat-menu-item *ngSwitchCase="canRemoveAdvancedCapping() && undoFrontCapping"
+            (click)="removeAdvancedCapping()">{{'UNIT_CAPPING_FRONT_UNDO' |
+            translate}}</button>
+          <button mat-menu-item *ngSwitchCase="canAdvancedCapping() && !undoDepthCapping"
+            (click)="applyAdvancedCapping('advanced-unit-capping-depths')">{{'UNIT_CAPPING_DEPTH' |
+            translate}}</button>
+          <button mat-menu-item *ngSwitchCase="canRemoveAdvancedCapping() && undoDepthCapping"
+            (click)="removeAdvancedCapping()">{{'UNIT_CAPPING_DEPTH_UNDO' |
+            translate}}</button>
+          <button mat-menu-item *ngSwitchCase="canAdvancedCapping() && !undoFront_DepthCapping"
+            (click)="applyAdvancedCapping('advanced-unit-capping-both')">{{'UNIT_CAPPING_BOTH' |
+            translate}}</button>
+          <button mat-menu-item *ngSwitchCase="canRemoveAdvancedCapping()  && undoFront_DepthCapping"
+            (click)="removeAdvancedCapping()">{{'UNIT_CAPPING_BOTH_UNDO' |
+            translate}}</button>
+        </ng-container>
+      </mat-menu>
+
+    <button *ngIf="displayView != 'positionWS' && componentInPanel === 1" mat-icon-button
+       [ngClass]="'material-icons iconSpace multiSelectButton'" [matMenuTriggerFor]="menu1" #matMenuTrigger="matMenuTrigger" style="margin-right:-20px;cursor: pointer;font-size: 1.5rem;float: right;border: none;
+        background-color: #d0e9e9;" matTooltip="{{'MORE'|translate}}" (click)="updatePanel();$event.stopPropagation();">
+        more_vert
+    </button>
+    <button *ngIf="componentInPanel === 1 || componentInPanel === 2" mat-icon-button [ngClass]="'material-icons iconSpace multiSelectButton'"
+        matTooltip="{{'DELETE'|translate}}" (click)="updatePanel();multiPosSelectDelete()">
+        delete
+    </button>
+</div>
+
+
+<div *ngIf="objectType === 'Fixture'">
+    <button *ngIf="componentInPanel === 1" mat-icon-button [matMenuTriggerFor]="menu1"
+        #matMenuTrigger="matMenuTrigger" [ngClass]="'material-icons iconSpace multiSelectButton'" matTooltip="{{'MORE'|translate}}">
+        more_vert
+    </button>
+    <button *ngIf="componentInPanel === 1 || componentInPanel === 3" mat-icon-button
+    [ngClass]="'material-icons iconSpace multiSelectButton'" matTooltip="{{'DELETE'|translate}}" (click)="multiPosSelectDelete()">
+        delete
+    </button>
+    <mat-menu #menu1="matMenu">
+        <button mat-menu-item (click)="openCrunchMode()">{{'FIXTURE_CONTEXT_CRUNCH_MODE' | translate}}</button>
+        <button mat-menu-item (click)="multiFixSelectFlip();">{{'MIRROR' | translate}}</button>
+        <button mat-menu-item *ngIf="isVisibleFixtureAlignIcon('align')"
+            (click)="multiFixtureAllignToLeft()">{{'PANAL_CONTEXT_MENU_ALIGN' | translate}}</button>
+        <button mat-menu-item (click)="toolsClickHandler()">{{'PANEL_HEADER_TOOLS' | translate}}</button>
+        <button mat-menu-item (click)="multiFixSelectPosClear()">{{'FIXTURE_CONTEXT_MENU_CLEAR_ALL_POSITION' |
+            translate}}</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item *ngIf="isUndoVisible()"  (click)="triggerUndo()">{{'PANEL_HEADER_UNDO' | translate}}</button>
+        <button mat-menu-item *ngIf="isRedoVisible()"  (click)="triggerRedo()">{{'PANEL_HEADER_REDO' | translate}}</button>
+    </mat-menu>
+</div>
+
+<ng-template #FacingDialog>
+    <div mat-dialog-content>
+        <h5>{{'FACINGS_CONTEXT' | translate}}</h5>
+        <mat-radio-group class="example-radio-group" aria-labelledby="group-radio"
+            [(ngModel)]="changesToAllObject.facings">
+            <mat-radio-button *ngFor="let k of facingOptions trackBy: trackFacings" [value]="k">
+                {{ k }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div  mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close> {{'PANEL_HEADER_CANCEL' | translate}}</button>
+        <button mat-raised-button mat-dialog-close (click)="saveFacingCxt()">{{'PANEL_HEADER_APPLY'|
+            translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #OrientationDialog>
+    <div mat-dialog-content cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+        <h5 class="mb-4">{{'MULTI_ORIENTATION' | translate}}</h5>
+        <div class="row">
+        <div class="col-6 orientationList">
+            <div class="box">
+                <div class="inner-box" (click)="setDefaultOrientation()">
+                    <span>
+                        {{ "SET_DEFAULT" | translate }}
+                    </span>
+                </div>
+            </div>
+            <div class="box" *ngFor="let orientationOpts of allOrientations">
+                <div class="inner-box" id="{{k.value}}"
+                  [ngClass]="{'selected' : this.changesToAllObject.orientation === k.value, 'orientation-disabled': !this.allowedOrientations.includes(k.value)}"
+                    *ngFor="let k of orientationOpts" (click)="changeOrientationCxt(k)">
+                    <span>
+                        {{ k.text }}
+                    </span>
+                    <span style="font-style: italic;text-transform: lowercase;" *ngIf="sameProduct && sameProductDefaultOrientation===k.value">
+                      {{ '(' + ('DEFAULT' | translate) +')' }}
+                  </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div style="margin-top: 10%;width: 100%; object-fit: cover;text-align: center;">
+                <img *ngIf="!showIcon" [src]="orientationImageFilePath?orientationImageFilePath:imageNotAvailablePath" height="175px"
+                  style="max-width: 100%;" [ngStyle]="{'rotate':rotateImg}" (error)="handleImageError()">
+                <div *ngIf="showIcon" style="height: 175px;max-width: 100%;" [innerHTML]="orientationIconFile | safe"></div>
+            </div>
+
+            <div class="d-flex justify-content-between pagination-div">
+                <span class="left-arrow" (click)="switchToNextPreviousOrientation('prev',$event)"><</span>
+                <span class="right-arrow" (click)="switchToNextPreviousOrientation('next',$event)">></span>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close> {{'PANEL_HEADER_CANCEL' |
+            translate}}</button>
+        <button mat-raised-button mat-dialog-close  (click)="saveOrientationCxt()">{{'PANEL_HEADER_APPLY'|
+            translate}}</button>
+    </div>
+</ng-template>
+
+<ng-template #CrunchsDialog>
+    <div mat-dialog-content>
+        <h5>{{'FIXTURE_CONTEXT_CRUNCH_MODE' | translate}}</h5>
+        <mat-radio-group class="example-radio-group" aria-labelledby="group-radio"
+            [(ngModel)]="changesToAllObject.crunchMode">
+            <mat-radio-button *ngFor="let k of crunchMode.crunchModeOptions trackBy: trackByFn" [value]="k.value">
+                {{ k.text }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close (click)="saveCrunchCxt($event)">{{'PANEL_HEADER_APPLY'| translate}}</button>
+        <button mat-raised-button mat-dialog-close> {{'PANEL_HEADER_CANCEL' |
+            translate}}</button>
+    </div>
+</ng-template>
