@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{26F99489-4F28-4958-A647-F1984A3018FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shelf.WebApp", "Shelf.WebApp\Shelf.WebApp.csproj", "{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaData", "MetaData", "{AA94E335-90CF-4103-905D-DB6734B7439A}"
+	ProjectSection(SolutionItems) = preProject
+		MetaData\SP_Settings.xlsx = MetaData\SP_Settings.xlsx
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		UT|Any CPU = UT|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}.UT|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC}.UT|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ACF378DC-837B-4EC4-9E3D-D5EE28C326EC} = {26F99489-4F28-4958-A647-F1984A3018FF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB2A77E2-EBC6-4102-8984-07C5A1B36D61}
+	EndGlobalSection
+EndGlobal
